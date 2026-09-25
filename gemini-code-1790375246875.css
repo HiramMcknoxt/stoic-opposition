@@ -1,0 +1,49 @@
+/* style.css */
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #cbd5e1;
+  --accent: #b91c1c;
+  --accent-hover: #991b1b;
+  --code-bg: #1e293b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  padding: 0 1rem 4rem 1rem;
+}
+
+.container { max-width: 760px; margin: 0 auto; }
+header { padding: 3rem 0 2rem 0; border-bottom: 2px solid var(--border); margin-bottom: 2.5rem; }
+h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 0.75rem; color: var(--text); font-weight: 800; }
+h2 { font-size: 1.4rem; margin: 2rem 0 0.75rem 0; font-weight: 700; }
+h3 { font-size: 1.15rem; margin: 1.5rem 0 0.5rem 0; font-weight: 700; }
+p { margin-bottom: 1.25rem; font-size: 1.05rem; }
+ul, ol { margin: 0 0 1.5rem 1.5rem; }
+li { margin-bottom: 0.5rem; font-size: 1.05rem; }
+blockquote { border-left: 4px solid var(--accent); padding-left: 1rem; margin: 1.5rem 0; color: var(--muted); font-style: italic; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--accent-hover); }
+
+.nav-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-size: 0.95rem; }
+.nav-bar a { text-decoration: none; font-weight: 600; }
+.badge { display: inline-block; background: #e2e8f0; color: #334155; font-size: 0.8rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px; text-transform: uppercase; margin-bottom: 0.5rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.card h3 { margin-top: 0; }
+.card p:last-child { margin-bottom: 0; }
+
+.btn { display: inline-block; background: var(--accent); color: #ffffff !important; padding: 0.65rem 1.25rem; border-radius: 4px; font-weight: 600; text-decoration: none; margin-top: 0.5rem; }
+.btn:hover { background: var(--accent-hover); }
+
+table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
+th { background: #f1f5f9; font-weight: 700; }
+
+footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 0.95rem; }

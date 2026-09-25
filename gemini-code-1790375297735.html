@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Committee Intake | The Stoic Opposition</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .form-group { margin-bottom: 1.25rem; }
+    label { display: block; font-weight: 700; margin-bottom: 0.35rem; font-size: 0.95rem; }
+    input[type="text"], input[type="email"], input[type="tel"], select {
+      width: 100%; padding: 0.65rem; border: 1px solid var(--border); border-radius: 4px; font-size: 1rem;
+    }
+    .checkbox-group label { font-weight: normal; margin-bottom: 0.4rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+    .checkbox-group input { margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav-bar">
+      <a href="index.html">&larr; Back to Stoic Opposition Hub</a>
+    </div>
+
+    <header>
+      <span class="badge">Action Network</span>
+      <h1>Local Committee Intake</h1>
+      <p style="color: var(--muted); margin-bottom: 0;">Step inside the room. Take back the committee[cite: 2].</p>
+    </header>
+
+    <main>
+      <p>We are building an active, bottom-up network of people ready to take back their local party committees and ban corporate PAC money[cite: 2]. No spam, no five-dollar fundraising calls. Just practical organizing.</p>
+
+      <form action="#" method="POST" class="card">
+        <div class="form-group">
+          <label for="name">What is your name?</label>
+          <input type="text" id="name" name="name" required placeholder="Full Name">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="you@domain.com">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number (Optional)</label>
+          <input type="tel" id="phone" name="phone" placeholder="(501) 555-0123">
+        </div>
+
+        <div class="form-group">
+          <label for="location">What state and county do you live in?</label>
+          <input type="text" id="location" name="location" required placeholder="e.g. Arkansas, Lonoke County">
+        </div>
+
+        <div class="form-group">
+          <label for="zip">Zip Code</label>
+          <input type="text" id="zip" name="zip" required placeholder="72023">
+        </div>
+
+        <div class="form-group">
+          <label for="precinct">What is your voting precinct or ward?</label>
+          <input type="text" id="precinct" name="precinct" placeholder="If you don't know, leave blank. We'll look it up.">
+        </div>
+
+        <div class="form-group">
+          <label for="party">Which party do you honestly feel called to work inside of?</label>
+          <select id="party" name="party" required>
+            <option value="">Select your alignment...</option>
+            <option value="Democrat">Democratic Party</option>
+            <option value="Republican">Republican Party</option>
+            <option value="Non-partisan">Non-partisan / Municipal Office Only</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="status">What does your local county committee look like right now?</label>
+          <select id="status" name="status" required>
+            <option value="">Select committee status...</option>
+            <option value="Active">It's an active, established group.</option>
+            <option value="Blank Slate">It's a blank slate (hardly anyone shows up).</option>
+            <option value="Defunct">It seems completely dead.</option>
+            <option value="Unknown">I have no clue, I need help finding out.</option>
+          </select>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label style="font-weight: 700; margin-bottom: 0.5rem;">What are you willing to do?</label>
+          <label><input type="checkbox" name="action_seat"> File paperwork to fill an empty precinct committeeperson seat.</label>
+          <label><input type="checkbox" name="action_attend"> Show up to the next county meeting and see who's in the room.</label>
+          <label><input type="checkbox" name="action_bylaw"> Help introduce the Anti-Corporate PAC Bylaw[cite: 2].</label>
+          <label><input type="checkbox" name="action_finance"> Look up campaign finance reports for local candidates.</label>
+        </div>
+
+        <div class="form-group checkbox-group" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+          <label style="font-weight: 600;">
+            <input type="checkbox" name="agreement" required>
+            I agree that our local political committees should represent regular people, not corporate PAC money, and I'm ready to help clean up my own community[cite: 2].
+          </label>
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%; padding: 0.85rem; font-size: 1.1rem; cursor: pointer;">Submit Intake Registration</button>
+      </form>
+
+      <h2>What Happens Next?</h2>
+      <p>When you submit this form, here is the exact email you'll receive from me:</p>
+      
+      <div class="card" style="background: #f8fafc; font-size: 0.95rem;">
+        <p><strong>Subject:</strong> Welcome to the work: The Stoic Opposition</p>
+        <p>Hey,</p>
+        <p>Thanks for reaching out through the site.</p>
+        <p>I want to be straight with you: this isn't a normal political newsletter. I am not going to email you asking for five bucks to hit a fake midnight deadline, and I am not going to tell you how to vote lol[cite: 1, 2].</p>
+        <p>We're trying to do something practical here[cite: 2]. Whether you signed up to work inside the Democratic Party or the Republican Party, your first job is simple: we need to find out what's happening in your county.</p>
+        <p><strong>Here's what you can do right now:</strong></p>
+        <ol>
+          <li>Find your voting precinct on your voter registration card.</li>
+          <li>Look up your county party's meeting schedule online.</li>
+          <li>Don't worry if it looks dead. That's a blank slate. That means the front door is unlocked.</li>
+        </ol>
+        <p>I'll be reviewing submissions personally and following up directly so we can look at your county roster together[cite: 1]. Glad you're in this with us[cite: 2].</p>
+        <p>&mdash; Corey Spangler[cite: 1]<br>Cabot, Arkansas[cite: 1]</p>
+      </div>
+    </main>
+
+    <footer>
+      <p><a href="index.html">&larr; Return to Hub</a> &bull; <a href="../index.html">City Council</a></p>
+    </footer>
+  </div>
+</body>
+</html>
