@@ -1,0 +1,406 @@
+/* The Stoic Opposition — prototype stylesheet
+   Library-basement print shop meets public record. Texture is CSS only. */
+
+:root {
+  --paper: #F4F0E6;
+  --paper-2: #EDE7D7;
+  --ink: #16150F;
+  --ink-soft: #3A382C;
+  --red: #B3271E;
+  --green: #1F6F43;
+  --amber: #A86E0C;
+  --rule: #C9C1AB;
+  --card: #FBF9F2;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(22, 21, 15, 0.055) 1px, transparent 1.1px);
+  background-size: 22px 22px;
+  color: var(--ink);
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+::selection { background: var(--ink); color: var(--paper); }
+
+a { color: var(--red); text-underline-offset: 0.14em; }
+a:hover { color: var(--ink); }
+
+:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6rem 1rem;
+  font-family: "IBM Plex Mono", monospace;
+  z-index: 50;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; color: var(--paper); }
+
+/* ---------- header ---------- */
+
+.site-header { border-bottom: 3px double var(--ink); }
+
+.top-strip {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-align: center;
+  padding: 0.45rem 1rem;
+}
+
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.2rem;
+  padding: 1.1rem 1.25rem 0.4rem;
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.wordmark {
+  margin: 0;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.wordmark a { color: var(--ink); text-decoration: none; }
+.wordmark a:hover { color: var(--red); }
+
+.tagline {
+  margin: 0;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.1rem;
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 0.4rem 1.25rem 0.9rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.92rem;
+}
+.site-nav a { color: var(--ink); text-decoration: none; padding: 0.15rem 0.1rem; }
+.site-nav a:hover { color: var(--red); text-decoration: underline; }
+.site-nav a.on { color: var(--red); border-bottom: 2px solid var(--red); font-weight: 600; }
+
+/* ---------- layout & type ---------- */
+
+main {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+h1, h2, h3 {
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  line-height: 1.12;
+  letter-spacing: 0.015em;
+}
+h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); margin: 0.4rem 0 0.8rem; }
+h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); margin: 2.4rem 0 0.7rem; }
+h3 { font-size: 1.2rem; margin: 1.4rem 0 0.4rem; }
+
+.lede { font-size: 1.35rem; line-height: 1.45; max-width: 44rem; }
+.small { font-size: 0.95rem; }
+.mono { font-family: "IBM Plex Mono", monospace; }
+
+.kicker {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin: 0;
+}
+
+section { margin-bottom: 2.2rem; }
+
+/* agenda-rule lines */
+.rule-heading {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 0.35rem;
+  background-image: repeating-linear-gradient(
+    to right, var(--ink) 0 10px, transparent 10px 16px
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: bottom;
+}
+
+/* ---------- stamps, tags, receipts ---------- */
+
+.stamp {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 2.5px solid var(--red);
+  color: var(--red);
+  padding: 0.28rem 0.6rem;
+  transform: rotate(-2deg);
+  border-radius: 3px;
+  background: rgba(244, 240, 230, 0.7);
+}
+.stamp.green { border-color: var(--green); color: var(--green); transform: rotate(1.5deg); }
+.stamp.amber { border-color: var(--amber); color: var(--amber); transform: rotate(-1deg); }
+.stamp.ink { border-color: var(--ink); color: var(--ink); }
+
+.exhibit {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 0.6rem;
+}
+.exhibit.red { background: var(--red); }
+.exhibit.green { background: var(--green); }
+.exhibit.amber { background: var(--amber); }
+
+.receipt {
+  background: var(--card);
+  border: 2px dashed var(--ink-soft);
+  padding: 1.1rem 1.2rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  background-image: repeating-linear-gradient(
+    to bottom, transparent 0 1.52em, rgba(22, 21, 15, 0.06) 1.52em calc(1.52em + 1px)
+  );
+}
+.receipt .r-head {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+.receipt .r-result {
+  border-top: 1px solid var(--rule);
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  font-weight: 600;
+}
+
+/* ---------- cards, grids, buttons ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+  gap: 1.1rem;
+  margin: 1rem 0;
+}
+
+.card {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  padding: 1rem 1.1rem 1.1rem;
+  box-shadow: 4px 4px 0 rgba(22, 21, 15, 0.16);
+}
+.card h3 { margin-top: 0.3rem; }
+.card p { margin: 0.4rem 0; }
+
+.btn {
+  display: inline-block;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 1.05rem;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  padding: 0.7rem 1.2rem;
+  border: 2px solid var(--ink);
+  margin: 0.3rem 0.5rem 0.3rem 0;
+  cursor: pointer;
+}
+.btn:hover { background: var(--red); border-color: var(--red); color: var(--paper); }
+.btn.alt { background: transparent; color: var(--ink); }
+.btn.alt:hover { background: var(--ink); color: var(--paper); }
+
+.hero { padding-top: 0.6rem; }
+.hero .lede { margin-top: 0.2rem; }
+
+.doors .card { border-top: 6px solid var(--ink); }
+.doors .card:nth-child(2) { border-top-color: var(--red); }
+.doors .card:nth-child(3) { border-top-color: var(--green); }
+
+.method-stamps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 1rem 0;
+}
+.method-stamps .arrow { font-family: "IBM Plex Mono", monospace; color: var(--ink-soft); }
+.method-stamps .stamp { font-size: 1rem; padding: 0.5rem 0.9rem; }
+
+.note-box {
+  border-left: 5px solid var(--amber);
+  background: var(--paper-2);
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+}
+.disclosure-box {
+  border: 1.5px solid var(--ink);
+  background: var(--card);
+  padding: 1rem 1.2rem;
+  margin: 1.2rem 0;
+}
+
+blockquote.script {
+  margin: 1rem 0;
+  padding: 0.9rem 1.2rem;
+  border-left: 5px solid var(--red);
+  background: var(--card);
+  font-size: 1.15rem;
+}
+
+ul.tight li, ol.tight li { margin-bottom: 0.35rem; }
+
+table.obs {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.95rem;
+  background: var(--card);
+}
+table.obs th, table.obs td {
+  border: 1px solid var(--ink-soft);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  vertical-align: top;
+}
+table.obs th { background: var(--paper-2); width: 34%; }
+
+/* ---------- forms & tools ---------- */
+
+.tool {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  padding: 1.1rem 1.2rem;
+  box-shadow: 4px 4px 0 rgba(22, 21, 15, 0.16);
+  margin: 1rem 0 1.6rem;
+}
+.tool .field { margin-bottom: 0.9rem; }
+.tool label {
+  display: block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+.tool input, .tool select {
+  width: 100%;
+  max-width: 26rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1rem;
+  padding: 0.5rem 0.6rem;
+  border: 1.5px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+}
+.tool .hint { font-size: 0.9rem; color: var(--ink-soft); margin: 0.2rem 0 0; }
+.form-error { color: var(--red); font-weight: 600; }
+.tool .receipt { margin-top: 1rem; }
+button.btn { font-family: "Oswald", sans-serif; }
+
+/* ---------- print blocks (print.html) ---------- */
+
+.print-block {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  padding: 1.4rem 1.5rem;
+  margin: 1.4rem 0;
+}
+.print-block .hb-head {
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1.1;
+  margin: 0.3rem 0;
+}
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  border-top: 3px double var(--ink);
+  padding: 1.4rem 1.25rem 2rem;
+  max-width: 68rem;
+  margin: 0 auto;
+}
+.footer-line {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  margin: 0 0 0.6rem;
+}
+.footer-nav { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; font-family: "IBM Plex Mono", monospace; font-size: 0.92rem; }
+.footer-nav a { color: var(--ink); }
+.footer-nav a:hover { color: var(--red); }
+.footer-note { font-size: 0.95rem; color: var(--ink-soft); }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 40rem) {
+  body { font-size: 1.05rem; }
+  .masthead { padding-top: 0.8rem; }
+  .wordmark { font-size: 1.5rem; }
+  .site-nav { gap: 0.2rem 0.8rem; font-size: 0.86rem; }
+  main { padding: 1.1rem 1rem 2.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+
+/* ---------- print ---------- */
+
+@media print {
+  body { background: #fff; font-size: 11.5pt; }
+  .site-header, .site-footer, .no-print { display: none !important; }
+  main { max-width: none; padding: 0; }
+  a { color: #000; text-decoration: none; }
+  .card, .tool, .receipt { box-shadow: none; }
+
+  .print-block { border: none; padding: 0; margin: 0 0 2rem; page-break-after: always; }
+  .print-block:last-child { page-break-after: auto; }
+
+  /* Packet-only printing from start.html (body.printing-packet) */
+  body.printing-packet main > *:not(#packet-builder) { display: none !important; }
+  body.printing-packet #packet-form,
+  body.printing-packet #packet-print { display: none !important; }
+  body.printing-packet .tool { border: none; box-shadow: none; padding: 0; }
+}

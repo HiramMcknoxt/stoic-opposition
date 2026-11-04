@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hirammcknoxt.github.io/stoic-opposition/sitemap.xml

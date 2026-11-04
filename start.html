@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Take a Seat — Run Your County Audit | The Stoic Opposition</title>
+<meta name="description" content="Five steps to audit your county party committee, a quorum calculator that runs your real numbers, and a printable first-meeting packet builder.">
+<link rel="canonical" href="https://hirammcknoxt.github.io/stoic-opposition/start.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Stoic Opposition">
+<meta property="og:title" content="Take a Seat — Run Your County Audit | The Stoic Opposition">
+<meta property="og:description" content="Five steps to audit your county party committee, a quorum calculator that runs your real numbers, and a printable first-meeting packet builder.">
+<meta property="og:url" content="https://hirammcknoxt.github.io/stoic-opposition/start.html">
+<meta property="og:image" content="https://thestoicopposition.com/wp-content/uploads/2026/11/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Take a Seat — Run Your County Audit | The Stoic Opposition">
+<meta name="twitter:description" content="Five steps to audit your county party committee, a quorum calculator that runs your real numbers, and a printable first-meeting packet builder.">
+<meta name="twitter:image" content="https://thestoicopposition.com/wp-content/uploads/2026/11/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <p class="top-strip">NO CONSULTANTS • NO TRIBAL TEAM SPORTS • APPLIED CIVIC RECLAMATION</p>
+  <div class="masthead">
+    <p class="wordmark"><a href="index.html">The Stoic Opposition</a></p>
+    <p class="tagline">Doing the opposite of politics</p>
+  </div>
+  <nav class="site-nav" aria-label="Main"><a href="index.html">Home</a><a href="start.html" class="on" aria-current="page">Take a Seat</a><a href="playbook.html">Playbook</a><a href="ledger.html">Ledger</a><a href="vault.html">Steal This Rule</a><a href="field-notes.html">Field Notes</a><a href="argument-lab.html">Argument Lab</a><a href="print.html">Print</a><a href="about.html">About</a></nav>
+</header>
+<main id="main">
+
+<section>
+  <p class="kicker">Take a Seat</p>
+  <h1>Run your own county audit.</h1>
+  <p class="lede">You do not need permission, a title, or a following. You need
+  five pieces of homework and one Tuesday night.</p>
+</section>
+
+<section aria-label="The five steps">
+  <h2 class="rule-heading">The audit, in five steps</h2>
+  <ol>
+    <li><strong>Find your committee.</strong> Every county has (or is supposed to
+    have) a county party committee for each party. Find when and where yours
+    meets, and who the chair and secretary are. If nobody can tell you, that is
+    your first finding: the room is emptier than you thought.</li>
+    <li><strong>Get the roster and the bylaws.</strong> The roster tells you how
+    many seats exist and how many are filled. The bylaws tell you how seats are
+    claimed, what quorum is, and how rules get changed. Ask politely. Ask in
+    writing if you have to.</li>
+    <li><strong>Count the chairs.</strong> Total seats, filled seats, vacant
+    seats. Then do the quorum math with the calculator below. Most people
+    discover the room is controlled by fewer people than attend a decent
+    cookout.</li>
+    <li><strong>Attend once as an observer.</strong> Show up, sit down, take
+    notes. Learn the procedure before you try to use it. The
+    <a href="print.html">meeting-observation sheet</a> on the Print page is
+    built for exactly this visit.</li>
+    <li><strong>Claim a seat &mdash; and bring a quorum.</strong> File whatever
+    the bylaws and state law require to fill a vacant seat for your precinct.
+    Then recruit to the number the math gave you, and put the clean-money rule
+    on the agenda under New Business.</li>
+  </ol>
+</section>
+
+<section id="quorum-tool" aria-label="Quorum calculator">
+  <h2 class="rule-heading">The quorum calculator</h2>
+  <p>Quorum is the minimum number of members who must be present for a committee
+  to legally do business. It is set by the bylaws, and it is usually much
+  smaller than people assume. Run your county&rsquo;s real numbers:</p>
+  <form id="quorum-form" class="tool" novalidate>
+    <div class="field">
+      <label for="qc-size">Committee size (total seats)</label>
+      <input id="qc-size" name="size" type="number" min="1" step="1" required>
+    </div>
+    <div class="field">
+      <label for="qc-vacant">Seats currently vacant (optional)</label>
+      <input id="qc-vacant" name="vacant" type="number" min="0" step="1" value="0">
+      <p class="hint">Only used by the &ldquo;majority of members&rdquo; rule, where
+      &ldquo;members&rdquo; means filled seats.</p>
+    </div>
+    <div class="field">
+      <label for="qc-rule">Quorum rule in the bylaws</label>
+      <select id="qc-rule" name="rule">
+        <option value="seats">Majority of seats</option>
+        <option value="members">Majority of members (filled seats)</option>
+        <option value="third">One-third of seats</option>
+      </select>
+      <p class="hint">Check your bylaws &mdash; some committees set their own
+      number or percentage instead. Use the closest rule and verify by hand.</p>
+    </div>
+    <div class="field">
+      <label for="qc-held">Seats your group holds</label>
+      <input id="qc-held" name="held" type="number" min="0" step="1" required>
+    </div>
+    <button class="btn" type="submit">Do the math</button>
+    <p id="qc-error" class="form-error" role="alert" hidden></p>
+    <div id="qc-output" class="receipt" aria-live="polite">
+      <p class="r-head">QUORUM WORKSHEET</p>
+      <p>Your numbers will appear here. No movement required &mdash; just arithmetic.</p>
+    </div>
+  </form>
+</section>
+
+<section id="packet-builder" aria-label="First-meeting packet builder">
+  <h2 class="rule-heading">Build your first-meeting packet</h2>
+  <p>Fill in four fields and this page generates a personalized checklist for
+  your first meeting &mdash; the same homework, with your county&rsquo;s name
+  on it. Print it and take it with you.</p>
+  <form id="packet-form" class="tool">
+    <div class="field">
+      <label for="pk-name">Your name</label>
+      <input id="pk-name" name="name" type="text" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="pk-state">State</label>
+      <input id="pk-state" name="state" type="text" autocomplete="address-level1">
+    </div>
+    <div class="field">
+      <label for="pk-county">County</label>
+      <input id="pk-county" name="county" type="text">
+    </div>
+    <div class="field">
+      <label for="pk-party">The party you honestly intend to work inside</label>
+      <select id="pk-party" name="party">
+        <option>Democratic</option>
+        <option>Republican</option>
+      </select>
+      <p class="hint">The method works in either party. Pick the room where you
+      can operate in good faith &mdash; authenticity is the whole point.</p>
+    </div>
+    <button class="btn" type="submit">Build my packet</button>
+    <div id="packet-output" class="receipt" aria-live="polite">
+      <p class="r-head">FIRST-MEETING PACKET</p>
+      <p>Your personalized checklist will appear here.</p>
+    </div>
+    <p><button id="packet-print" class="btn alt no-print" type="button" hidden>Print the packet</button></p>
+  </form>
+  <div class="note-box">
+    <p><strong>About your information:</strong> this prototype stores nothing.
+    The packet is generated in your browser, on your machine, and disappears
+    when you close the tab. A future roster/intake will collect contact
+    information only under the terms on the <a href="privacy.html">privacy
+    page</a> &mdash; read them before any version of this project asks for your
+    name for real.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p class="footer-line">THE STOIC OPPOSITION • AN OPEN-SOURCE CIVIC INITIATIVE — COPY, FORK, PRINT, RECLAIM</p>
+  <nav class="footer-nav" aria-label="Footer">
+    <a href="https://thestoicopposition.com">Current live site</a>
+    <a href="https://open.substack.com/pub/thestoicopposition">Substack</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="about.html">About</a>
+  </nav>
+  <p class="footer-note">Prototype build. This site collects and stores nothing; see the <a href="privacy.html">privacy page</a>.</p>
+</footer>
+
+</body>
+</html>
