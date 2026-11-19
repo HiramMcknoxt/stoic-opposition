@@ -83,6 +83,10 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 <button id="tab-plate" onclick="showPanel('plate')">🗺️ Just a Plate?</button>
 <button id="tab-audit" onclick="showPanel('audit')">🔎 The Auditor</button>
 <button id="tab-nine" onclick="showPanel('nine')">📷 Nine Cameras</button>
+<button id="tab-stale" onclick="showPanel('stale')">🧹 Stale Hit</button>
+<button id="tab-optout" onclick="showPanel('optout')">🕵️ Opt-Out Run</button>
+<button id="tab-foia" onclick="showPanel('foia')">🗂️ FOIA Frenzy</button>
+<button id="tab-towns" onclick="showPanel('towns')">🏘️ Two Towns</button>
 </div>
 
 <section id="panel-arcade" class="panel on">
@@ -207,6 +211,50 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 </div>
 <div class="result" id="ncResult" style="display:none"></div>
 <p class="small">A simulation with toy numbers — 30 trips on a toy map. Scale it honestly in your head: a real town sees thousands of trips a day, 365 days a year, and at industry-typical rates well under 1 in 1,000 reads is a hotlist hit. The ratio is the point, and the ratio doesn't care about the size of the map.</p>
+</section>
+
+
+<section id="panel-stale" class="panel">
+<h2>🧹 Stale Hit — the list is a living thing</h2>
+<p>A car gets reported stolen and goes on the hotlist. Then it gets <b>recovered</b> — and somebody has to take it <i>off</i> the list. That somebody is you, and the paperwork never stops. Clear the <b>RECOVERED</b> cars before a patrol unit finds them first and makes a "stolen car" stop on the owner. Leave the <b>STILL STOLEN</b> cars alone — pulling a live one off the list is its own disaster. Sixty seconds. The queue is not sorry.</p>
+<div class="hud"><span>⏱️ <b id="stTime">60</b></span><span>Score <b id="stScore">0</b></span><span>✅ Cleared <b id="stCleared">0</b></span><span>🚨 Wrongful stops <b id="stWrong">0</b></span><span>❌ Live cars pulled <b id="stErr">0</b></span></div>
+<div class="center"><button class="btn primary" id="stStart" onclick="stStartRound()">▶ START SHIFT</button></div>
+<div class="verdict" id="stFlash"></div>
+<div class="grid" id="stGrid"></div>
+<div class="result" id="stResult" style="display:none"></div>
+<p class="small">Stale data is a documented cause of wrongful plate-reader stops — recovered vehicles that were never cleared have put innocent owners on the pavement in the Institute for Justice's case files. The software didn't fail in those stories. The list did. And lists are maintained by people, on purpose, or not at all.</p>
+</section>
+
+<section id="panel-optout" class="panel">
+<h2>🕵️ Opt-Out Run — find the route that isn't watched</h2>
+<p>Simple errand: drive from <b>HOME</b> (bottom left) to <b>GRANDMA'S</b> (top right). One condition — you never consented to be tracked, so find the route where no camera reads your plate. Click a highlighted intersection to move. Every 📷 zone you enter logs your plate, permanently, in somebody's database. Fewest reads wins. Zero would be a miracle.</p>
+<div class="center"><canvas id="ooCanvas" width="900" height="420" style="max-width:100%;height:auto;cursor:pointer"></canvas></div>
+<div class="hud"><span>📸 Reads this trip <b id="ooReads">0</b></span><span>🏆 Your best trip <b id="ooBest">—</b></span><span>Attempts <b id="ooTries">0</b></span></div>
+<div class="center"><button class="btn" onclick="ooReset()">↺ Start over from home</button></div>
+<div class="result" id="ooResult" style="display:none"></div>
+<p class="small">The cameras on this map are placed the way real networks grow: not everywhere at once, just at the chokepoints — the bridges, the highway ramps, the one road across town. You do not need a camera on every corner to log every trip. You need them where trips cannot avoid.</p>
+</section>
+
+<section id="panel-foia" class="panel">
+<h2>🗂️ FOIA Frenzy — who searched YOUR plate?</h2>
+<p>Last year, your plate was read and searched like everyone else's. You'd like to know by whom. Reasonable. You have a right to ask. This is the asking. Every door costs days; some cost money; all of them are real doors that real people have stood in front of.</p>
+<div class="hud"><span>📅 Days elapsed <b id="foDays">0</b></span><span>💸 Spent <b id="foCost">$0</b></span><span>🔎 Learned: <b id="foLearned">nothing yet</b></span></div>
+<div class="result" id="foBox">Press START to file your first request.</div>
+<div class="center"><button class="btn primary" id="foStart" onclick="foStart()">▶ START ASKING</button></div>
+<div class="result" id="foResult" style="display:none"></div>
+</section>
+
+<section id="panel-towns" class="panel">
+<h2>🏘️ Two Towns — five years, two choices</h2>
+<p>Same town, same nine cameras, same stolen-car problem. <b>Leaseville</b> rents the whole system from a vendor, the way most cities do it. <b>Ownburg</b> buys its cameras, keeps its data, and stands up a Citizens Commission. You make Ownburg's calls, one a year. Leaseville's are made for it — that's rather the point. Safety comes out about the same in both towns, because the cameras are the same cameras. Everything else is governance.</p>
+<div class="vs">
+<div class="sidebox"><h4>☁️ LEASEVILLE (vendor lease)</h4><div id="twLStats"></div><div id="twLLog" class="small"></div></div>
+<div class="sidebox"><h4>🏛️ OWNBURG (city-owned)</h4><div id="twOStats"></div><div id="twOLog" class="small"></div></div>
+</div>
+<div class="result" id="twEvent">Press START THE FIVE YEARS.</div>
+<div class="center" id="twBtns"><button class="btn primary" onclick="twStart()">▶ START THE FIVE YEARS</button></div>
+<div class="result" id="twResult" style="display:none"></div>
+<p class="small">Money figures ride on the same record as Budget Boss: Cabot's $27,500/yr invoiced lease vs the QA'd city-owned estimate ($26,361 standard Year 1, ~$7,992/yr run rate, $53,829–$69,579 over five years, unpriced lines disclosed there). Trust and safety scores are illustrative — the shape is the argument, not the decimals.</p>
 </section>
 
 <div class="point"><b>The stack this is based on:</b> OpenALPR (open-source ALPR library) · FastALPR / Fast-Plate-OCR (MIT, YOLO detection + plate OCR, runs locally) · CodeProject.AI (free, self-hosted) · Tesseract (open-source OCR) — and this game's own built-in template-matching OCR, which needs no library at all. All synthetic plates. No camera access. No data collected, stored, or sent anywhere.</div>
@@ -755,4 +803,198 @@ function ncFinish(){
 }
 function ncReset(){ if(ncRunning) return; ncCams={}; ncReads=0; ncInnocent=0; ncCaught=false; document.getElementById('ncReads').textContent='0'; document.getElementById('ncInnocent').textContent='0'; document.getElementById('ncStolen').textContent='at large'; document.getElementById('ncResult').style.display='none'; ncDraw(); ncUpdHud(); }
 document.addEventListener('DOMContentLoaded',()=>{ jpDrawMap(); ncDraw(); const ncc=document.getElementById('ncCanvas'); if(ncc) ncc.addEventListener('click',ncClick); });
+
+// ---------- STALE HIT ----------
+let stActive=false,stTime=60,stScore=0,stCleared=0,stWrong=0,stErr=0,stEntries=[],stSpawnIv=null,stTickIv=null,stNextId=1,stSpawnMs=1600;
+const ST_MODELS=['Silver sedan','Blue SUV','Red pickup','White hatchback','Black coupe','Green wagon','Gray minivan','Tan sedan'];
+function stSerial(){const L='ABCDEFGHIJKLMNPRSTUVWXYZ';const ch=()=>L[Math.floor(Math.random()*L.length)];return ch()+ch()+ch()+' '+(10+Math.floor(Math.random()*90))+ch();}
+function stSpawn(){
+ if(stEntries.length>=6) return;
+ const recovered=Math.random()<0.7;
+ const e={id:stNextId++,plate:stSerial(),model:ST_MODELS[Math.floor(Math.random()*ST_MODELS.length)],recovered,ttl:6000+Math.random()*6000,born:Date.now()};
+ e.exp=e.born+e.ttl; stEntries.push(e); stRender();
+}
+function stRender(){
+ const g=document.getElementById('stGrid'); g.innerHTML='';
+ stEntries.forEach(e=>{
+   const left=Math.max(0,e.exp-Date.now()); const pct=left/e.ttl*100;
+   const div=document.createElement('div'); div.className='opt'; div.style.cursor='default';
+   div.innerHTML='<b style="font-size:19px">'+e.plate+'</b> · '+e.model+'<br>'+(e.recovered?'<span class="tag t-ok">RECOVERED — owner has it back</span>':'<span class="tag t-bad">STILL STOLEN</span>')+'<div class="tbar"><div style="width:'+pct+'%;background:'+(left<3000?'#ff5252':'#ffd75e')+'"></div></div>';
+   const b=document.createElement('button'); b.className='btn '+(e.recovered?'good':'danger'); b.textContent='🗑️ REMOVE FROM HOTLIST';
+   b.onclick=()=>stRemove(e.id);
+   div.appendChild(b); g.appendChild(div);
+ });
+}
+function stRemove(id){
+ if(!stActive) return;
+ const i=stEntries.findIndex(e=>e.id===id); if(i<0) return;
+ const e=stEntries[i]; stEntries.splice(i,1);
+ const f=document.getElementById('stFlash');
+ if(e.recovered){ stCleared++; stScore+=50; f.style.color='#a7f3c9'; f.textContent='✅ '+e.plate+' cleared. The owner drives home unbothered.'; }
+ else { stErr++; stScore-=75; f.style.color='#ff8a8a'; f.textContent='❌ '+e.plate+' was STILL STOLEN. You just un-flagged a live stolen car.'; }
+ stUpd(); stRender();
+}
+function stUpd(){ document.getElementById('stScore').textContent=stScore; document.getElementById('stCleared').textContent=stCleared; document.getElementById('stWrong').textContent=stWrong; document.getElementById('stErr').textContent=stErr; }
+function stStartRound(){
+ stActive=true; stTime=60; stScore=0; stCleared=0; stWrong=0; stErr=0; stEntries=[]; stSpawnMs=1600;
+ document.getElementById('stResult').style.display='none';
+ document.getElementById('stStart').textContent='↺ RESTART SHIFT';
+ document.getElementById('stFlash').textContent='';
+ stUpd(); stRender();
+ stSpawn(); stSpawn();
+ clearInterval(stSpawnIv); clearInterval(stTickIv);
+ stSpawnIv=setInterval(()=>{ stSpawn(); if(stSpawnMs>800){stSpawnMs-=25; clearInterval(stSpawnIv); stSpawnIv=setInterval(stSpawn,stSpawnMs);} },stSpawnMs);
+ const t0=Date.now();
+ stTickIv=setInterval(()=>{
+   stTime=Math.max(0,60-(Date.now()-t0)/1000);
+   document.getElementById('stTime').textContent=Math.ceil(stTime);
+   const now=Date.now();
+   const expired=stEntries.filter(e=>e.exp<=now);
+   expired.forEach(e=>{
+     stEntries=stEntries.filter(x=>x.id!==e.id);
+     if(e.recovered){ stWrong++; stScore-=100; document.getElementById('stFlash').style.color='#ff8a8a'; document.getElementById('stFlash').textContent='🚨 A unit just stopped the "stolen" '+e.model.toLowerCase()+' ('+e.plate+') on the highway. It was the owner. The car was recovered days ago — nobody cleared the list.'; }
+   });
+   if(expired.length) stUpd();
+   stRender();
+   if(stTime<=0){ clearInterval(stTickIv); clearInterval(stSpawnIv); stActive=false; stFinish(); }
+ },200);
+}
+function stFinish(){
+ const r=document.getElementById('stResult'); r.style.display='block';
+ r.textContent='SHIFT REPORT\nCleared in time: '+stCleared+' · Wrongful stops caused by stale data: '+stWrong+' · Live stolen cars pulled by mistake: '+stErr+'\n\n'+(stWrong===0?'No innocent driver met a patrol car over your paperwork. That is not a small thing — that is the whole thing.':'Every wrongful stop above was a person who had already gotten their car back, learning that the database hadn\u2019t. The stop takes minutes. The story they tell about it lasts years.')+'\n\nThe hotlist is not a fact of nature. It is a spreadsheet with guns behind it, and keeping it true is unglamorous, endless, human work — in every model, under every vendor. The only question is whether the people doing it answer to the city, and whether anyone checks.';
+}
+// ---------- OPT-OUT RUN ----------
+const OO_CAMS=[10,16,18,24];
+let ooPos=28,ooReads=0,ooTries=0,ooBest=null,ooDone=false,ooReadSet=new Set();
+function ooNodes(){ const ns=[]; for(let j=0;j<5;j++) for(let i=0;i<7;i++) ns.push([80+i*120,60+j*80]); return ns; }
+function ooCovered(){ const ns=ooNodes(); const cov=new Set(); ns.forEach((pt,idx)=>{ for(const ci of OO_CAMS){ const cp=ns[ci]; const dx=pt[0]-cp[0],dy=pt[1]-cp[1]; if(Math.sqrt(dx*dx+dy*dy)<=175){ cov.add(idx); break; } } }); return cov; }
+function ooNeighbors(idx){ const i=idx%7,j=Math.floor(idx/7); const out=[]; if(i>0)out.push(idx-1); if(i<6)out.push(idx+1); if(j>0)out.push(idx-7); if(j<4)out.push(idx+7); return out; }
+function ooDraw(){
+ const c=document.getElementById('ooCanvas'); if(!c) return; const x=c.getContext('2d');
+ const ns=ooNodes(); const cov=ooCovered();
+ x.fillStyle='#101736'; x.fillRect(0,0,900,420);
+ x.strokeStyle='#22306b'; x.lineWidth=8;
+ for(let j=0;j<5;j++){ x.beginPath(); x.moveTo(ns[j*7][0],ns[j*7][1]); x.lineTo(ns[j*7+6][0],ns[j*7+6][1]); x.stroke(); }
+ for(let i=0;i<7;i++){ x.beginPath(); x.moveTo(ns[i][0],ns[i][1]); x.lineTo(ns[28+i][0],ns[28+i][1]); x.stroke(); }
+ x.lineWidth=1;
+ ns.forEach((pt,idx)=>{ if(cov.has(idx)){ x.fillStyle='rgba(255,82,82,.18)'; x.beginPath(); x.arc(pt[0],pt[1],32,0,7); x.fill(); } });
+ OO_CAMS.forEach(ci=>{ const pt=ns[ci]; x.font='26px Arial'; x.textAlign='center'; x.fillText('📷',pt[0],pt[1]+9); });
+ if(!ooDone) ooNeighbors(ooPos).forEach(n=>{ const pt=ns[n]; x.strokeStyle='#ffd75e'; x.lineWidth=3; x.beginPath(); x.arc(pt[0],pt[1],16,0,7); x.stroke(); x.lineWidth=1; });
+ ns.forEach((pt,idx)=>{ x.fillStyle='#3a4fa8'; x.beginPath(); x.arc(pt[0],pt[1],5,0,7); x.fill(); });
+ let hp=ns[28]; x.fillStyle='#a7f3c9'; x.font='700 13px Arial'; x.textAlign='center'; x.fillText('🏠 HOME',hp[0],hp[1]+34);
+ let gp=ns[6]; x.fillStyle='#ffd75e'; x.fillText('👵 GRANDMA\u2019S',gp[0],gp[1]-20);
+ const me=ns[ooPos]; x.font='30px Arial'; x.fillText('🚗',me[0],me[1]+10);
+}
+function ooMove(idx){
+ if(ooDone) return;
+ if(!ooNeighbors(ooPos).includes(idx)) return;
+ ooPos=idx;
+ const cov=ooCovered();
+ if(cov.has(idx)&&!ooReadSet.has(idx)){ ooReadSet.add(idx); ooReads++; document.getElementById('ooReads').textContent=ooReads; }
+ if(idx===6){ ooFinish(); return; }
+ ooDraw();
+}
+function ooFinish(){
+ ooDone=true; ooTries++;
+ if(ooBest===null||ooReads<ooBest) ooBest=ooReads;
+ document.getElementById('ooBest').textContent=ooBest+' reads';
+ document.getElementById('ooTries').textContent=ooTries;
+ ooDraw();
+ const r=document.getElementById('ooResult'); r.style.display='block';
+ r.textContent='YOU MADE IT TO GRANDMA\u2019S.\nYour plate was read '+ooReads+' times on the way.\n\n'+(ooReads<=3?'That was close to perfect driving — the theoretical best on this map. Three reads is the floor: the chokepoints see to that. Notice that the floor is not zero, and it never can be, because the cameras sit where roads cannot avoid.':'Every route crosses the chokepoints — that is what a chokepoint is. Try again if you like; the map is not hiding a clean route. There isn\u2019t one. That is the finding.')+'\n\nThose '+ooReads+' reads are now records: time, place, direction. Kept for as long as the policy keeps them, reachable by whoever holds the database. You consented to none of it — there was no form, no checkbox, no door marked "no thanks." The only true opt-out is not driving, in a town built so that everyone has to.\n\nBest possible on this map: 3 reads. Attempts so far: '+ooTries+'.';
+}
+function ooReset(){ ooPos=28; ooReads=0; ooReadSet=new Set(); ooDone=false; document.getElementById('ooReads').textContent='0'; document.getElementById('ooResult').style.display='none'; ooDraw(); }
+function ooClick(e){
+ const c=document.getElementById('ooCanvas'); const r=c.getBoundingClientRect();
+ const sx=r.width?c.width/r.width:1, sy=r.height?c.height/r.height:1;
+ const mx=(e.clientX-r.left)*sx, my=(e.clientY-r.top)*sy;
+ const ns=ooNodes(); let best=-1,bd=1e9;
+ ns.forEach((pt,idx)=>{ const dx=pt[0]-mx,dy=pt[1]-my; const dd=dx*dx+dy*dy; if(dd<bd){bd=dd;best=idx;} });
+ if(best>=0&&bd<=48*48) ooMove(best);
+}
+// ---------- FOIA FRENZY ----------
+let foDays=0,foCost=0,foNode='start';
+const FO_NODES={
+ start:{t:'You file a public-records request with the City of Cabot: "All searches of my plate in the last 12 months." The clock starts.',opts:[['Ask the city clerk where it stands',2,0,'clerk'],['Go straight to the police chief',3,0,'chief'],['Hire a lawyer to ask for you',14,500,'clerk']]},
+ clerk:{t:'The clerk is kind, and quick, and completely unable to help: "We don\u2019t hold those records. The searches live in the vendor\u2019s system. You\u2019ll have to ask them." The city\u2019s copy of who searched your plate does not exist, because the city never had it.',opts:[['Go to the vendor portal',3,0,'vendor'],['Try the chief anyway',2,0,'chief'],['Give up',0,0,'gaveup']]},
+ chief:{t:'The chief\u2019s office checks what it can: "We can see searches run by OUR officers on OUR cameras. Searches of your plate by other agencies, or anyone else on the network? That\u2019s in the vendor\u2019s system. We\u2019d have to ask them too." Even the police chief has a vendor between him and his own city\u2019s data.',opts:[['Go to the vendor portal',3,0,'vendor'],['Give up',0,0,'gaveup']]},
+ vendor:{t:'The vendor portal has a "Privacy & Data Requests" page. There is a form. There is also a Terms of Service.',opts:[['Submit the request',1,0,'denied'],['Read the Terms of Service first',1,0,'tos']]},
+ tos:{t:'Section 7.2: search data, audit logs, and network records are the "proprietary property" of the vendor, protected as trade secrets. The city\u2019s contract — the one your taxes pay — agreed to this. You close the tab and submit the request anyway.',opts:[['Submit the request',1,0,'denied']]},
+ denied:{t:'DENIED — 21 days later, by email: "The requested records constitute confidential trade secret information and are not public records of the City." Your plate was searched. The record of it is a trade secret. Those two sentences live in the same letter.',opts:[['Appeal the denial',30,0,'appeal'],['Pay the vendor\u2019s $450 "research fee"',45,450,'redacted'],['Sue (lawyer, filing fees)',180,1500,'redacted'],['Give up',0,0,'gaveup']]},
+ appeal:{t:'APPEAL DENIED — by the vendor\u2019s legal department, which is also the appeals department. The letter suggests your remedy is litigation.',opts:[['Pay the $450 research fee after all',45,450,'redacted'],['Sue',180,1500,'redacted'],['Give up',0,0,'gaveup']]},
+ redacted:{t:'A PDF arrives. It is 214 pages of search events with every field blacked out except the dates and one number: your plate was searched 214 times last year. By whom is redacted — agency names are "proprietary." Vendor employees\u2019 access is "not tracked in a disclosable format."',opts:[['Ask one last time: just the names',10,0,'names'],['Accept this and stop',0,0,'end']]},
+ names:{t:'The answer comes back as a list: Agency 001, Agency 002 … Agency 047. Forty-seven agencies searched your plate. The names behind the numbers are a trade secret. You know everything about the searches except anything about them.',opts:[['Finish',0,0,'end']]},
+ gaveup:{t:'You stop asking. Most people do — that\u2019s not a character flaw, it\u2019s the design working. The friction is the policy.',opts:[['See what you learned',0,0,'end']]},
+ end:{t:'',opts:[]}};
+function foRender(){
+ const n=FO_NODES[foNode]; const box=document.getElementById('foBox');
+ document.getElementById('foDays').textContent=foDays;
+ document.getElementById('foCost').textContent='$'+foCost.toLocaleString();
+ if(foNode==='end'){ foFinish(); return; }
+ box.innerHTML=n.t+'<br><br>';
+ n.opts.forEach(o=>{ const b=document.createElement('button'); b.className='btn qopt'; b.textContent=o[0]+(o[1]?'  (+'+o[1]+' days':'')+(o[2]?', +$'+o[2]+')':(o[1]?')':'')); b.onclick=()=>{ foDays+=o[1]; foCost+=o[2]; foNode=o[3]; if(foNode==='redacted'||foNode==='names') document.getElementById('foLearned').textContent='searched 214 times — by whom, unknown'; foRender(); }; box.appendChild(b); });
+}
+function foStart(){ foDays=0; foCost=0; foNode='start'; document.getElementById('foLearned').textContent='nothing yet'; document.getElementById('foResult').style.display='none'; document.getElementById('foStart').textContent='↺ START OVER'; foRender(); }
+function foFinish(){
+ document.getElementById('foBox').innerHTML='The asking is over.';
+ const r=document.getElementById('foResult'); r.style.display='block';
+ r.textContent='YOUR REQUEST, BY THE NUMBERS\nDays spent: '+foDays+' · Money spent: $'+foCost.toLocaleString()+'\nLearned: your plate was searched 214 times by 47 agencies. Names: proprietary. Reasons: proprietary. Vendor access: untracked.\n\nNow the same request in a city-owned system with a Citizens Commission: the search log is a city record, held by the city, under the city\u2019s retention policy — and the Commission publishes aggregate search statistics quarterly whether anyone asks or not. One request. One clerk who actually holds the records. An answer with names in it.\n\nTransparency is not a promise a vendor makes in a brochure. It is a property of who holds the data. Hold it yourself, and the answer to "who searched my plate?" is a public record. Rent it, and the answer is a trade secret.';
+}
+// ---------- TWO TOWNS ----------
+let twYear=0,twL={spend:0,trust:60,safety:0,inc:0},twO={spend:0,trust:60,safety:0,inc:0},twFlags={};
+const TW_YEARS=[
+ {ev:'YEAR 1 — Both towns install nine cameras. Leaseville signs the standard lease: $27,500 a year, vendor holds everything. Ownburg buys its cameras outright and stands up a Citizens Commission. First call for Ownburg: how long do non-hit reads live?',
+  l:'Lease: $27,500/yr. Retention: whatever the vendor\u2019s default is. Nobody in Leaseville voted on it, because nobody was asked.',
+  choices:[['30-day auto-delete',()=>{ twO.trust+=6; return 'Reads erase themselves in 30 days. The Commission\u2019s first vote is unanimous.'; }],
+           ['Keep the state max — 150 days',()=>{ twO.safety+=2; twO.trust-=4; return 'More history to search — and more history to lose, leak, or misuse. The Commission notes the trade in the minutes, in public.'; }]]},
+ {ev:'YEAR 2 — The vendor suffers a major breach. Customer data — including plate reads — is exposed. Leaseville learns about it from a news story, eleven weeks later. Ownburg\u2019s data is not in the pile, because it was never sent. Ownburg\u2019s call: fund the unglamorous work?',
+  l:'INCIDENT: vendor breach. Leaseville\u2019s residents\u2019 reads were in it. The vendor is "sorry for the concern." Trust −12.',
+  lapply:()=>{ twL.trust-=12; twL.inc++; },
+  choices:[['Fund patching + a real audit program ($4,000/yr)',()=>{ twO.spend+=4000; twFlags.audited=true; return 'Patch cadence, log reviews, the works. Nothing exciting happens, which is the sound of it working.'; }],
+           ['Defer it — the system seems fine',()=>{ twFlags.audited=false; return 'The money goes to a parade. The servers go unpatched. Fine is a tempo, not a state.'; }]]},
+ {ev:'YEAR 3 — A state agency asks both towns for ongoing access to their plate data for a multi-state initiative. In Leaseville, the request is a formality — the network already shares by default, and residents learn the scope from an audit published by a civil-liberties group. Ownburg has to actually decide.',
+  l:'Leaseville\u2019s data flows through the network as designed. A report counts the outside searches in the thousands. Trust −8.',
+  lapply:()=>{ twL.trust-=8; twL.inc++; },
+  choices:[['Refuse blanket access',()=>{ twO.trust+=8; return 'Ownburg\u2019s answer: bring a warrant or a court order for a specific case, and the city will move fast. Blanket access: no.'; }],
+           ['Share only under a warrant/case policy',()=>{ twO.trust+=3; twO.safety+=1; return 'Documented, case-by-case, logged. Slower for the state, legible for the town.'; }],
+           ['Open sharing — join the network',()=>{ twO.trust-=6; twO.safety+=3; twO.inc++; return 'Ownburg joins the network. The catches tick up. So does the reach — and the town now owns a share of every future network incident.'; }]]},
+ {ev:'YEAR 4 — A misuse story breaks in both regions: an officer searching plates for personal reasons. In Leaseville, the vendor\u2019s log is incomplete and the scandal runs for weeks — nobody can say how often it happened. In Ownburg, it depends what Year 2 bought.',
+  l:'The incomplete log becomes the story. "How many times?" "The vendor could not provide complete records." Trust −10.',
+  lapply:()=>{ twL.trust-=10; twL.inc++; },
+  choices:[['Let the record speak (enabled by your Year 2 audit)',()=>{ if(twFlags.audited){ twO.trust+=6; return 'The Commission\u2019s audit catches the pattern in its first quarterly review: three searches, one officer, named and disciplined, in public. The story lasts a day — because the answer was ready.'; } twO.trust-=8; twO.inc++; return 'Without an audit program, Ownburg\u2019s log is nearly as murky as Leaseville\u2019s. The officer is "under review" for a month. Custody without auditing is a locked diary nobody reads.'; }],
+           ['Handle it quietly',()=>{ twO.trust-=6; twO.inc++; return 'It leaks anyway — it always leaks — and now the cover-up is the story.'; }]]},
+ {ev:'YEAR 5 — Renewal season. The vendor raises Leaseville\u2019s price 20% — take it or lose the network. Ownburg\u2019s cameras are paid for; its call is whether to publish the full five-year report.',
+  l:'Leaseville pays $33,000 for Year 5. The alternative was a gap in coverage, and everyone at the table knew it. Trust −5.',
+  lapply:()=>{ twL.trust-=5; twL.spend+=5500; },
+  choices:[['Publish everything: costs, incidents, the lot',()=>{ twO.trust+=5; return 'The report is 40 pages and mildly boring, which is what honest government documents look like. Every number in it can be checked.'; }],
+           ['Coast — it works, don\u2019t touch it',()=>{ return 'Nothing breaks. Nothing is proven, either. The next council inherits a system it cannot fully describe.'; }]]}];
+function twStats(){
+ const f=o=>'$'+o.spend.toLocaleString();
+ document.getElementById('twLStats').innerHTML='💸 Spent: <b>'+f(twL)+'</b> · 🤝 Trust: <b>'+twL.trust+'</b> · 🚔 Recoveries assisted: <b>'+twL.safety+'</b> · 💥 Custody incidents: <b>'+twL.inc+'</b>';
+ document.getElementById('twOStats').innerHTML='💸 Spent: <b>'+f(twO)+'</b> · 🤝 Trust: <b>'+twO.trust+'</b> · 🚔 Recoveries assisted: <b>'+twO.safety+'</b> · 💥 Custody incidents: <b>'+twO.inc+'</b>';
+}
+function twStart(){
+ twYear=0; twL={spend:0,trust:60,safety:0,inc:0}; twO={spend:0,trust:60,safety:0,inc:0}; twFlags={};
+ document.getElementById('twLLog').innerHTML=''; document.getElementById('twOLog').innerHTML='';
+ document.getElementById('twResult').style.display='none';
+ twO.spend+=26361;
+ twShowYear();
+}
+function twShowYear(){
+ const y=TW_YEARS[twYear];
+ twL.spend+=27500; twL.safety+=14; twO.safety+=14; if(twYear>0) twO.spend+=7992;
+ if(y.lapply) y.lapply();
+ document.getElementById('twLLog').innerHTML+='<div>• '+y.l+'</div>';
+ document.getElementById('twEvent').innerHTML=y.ev;
+ twStats();
+ const btns=document.getElementById('twBtns'); btns.innerHTML='';
+ y.choices.forEach(ch=>{ const b=document.createElement('button'); b.className='btn primary qopt'; b.textContent=ch[0]; b.onclick=()=>{ const out=ch[1](); document.getElementById('twOLog').innerHTML+='<div>• '+out+'</div>'; twYear++; twStats(); if(twYear>=TW_YEARS.length){ twFinish(); } else { twShowYear(); } }; btns.appendChild(b); });
+}
+function twFinish(){
+ document.getElementById('twBtns').innerHTML='<button class="btn" onclick="twStart()">↺ RUN IT AGAIN</button>';
+ document.getElementById('twEvent').innerHTML='FIVE YEARS, IN THE BOOKS.';
+ const r=document.getElementById('twResult'); r.style.display='block';
+ r.textContent='THE FIVE-YEAR LEDGER\n\n☁️ LEASEVILLE — Spent: $'+twL.spend.toLocaleString()+' · Trust: '+twL.trust+' · Recoveries assisted: '+twL.safety+' · Custody incidents: '+twL.inc+'\n🏛️ OWNBURG — Spent: $'+twO.spend.toLocaleString()+' · Trust: '+twO.trust+' · Recoveries assisted: '+twO.safety+' · Custody incidents: '+twO.inc+'\n\nLook at the safety column first: it is a tie, or close to one. It was always going to be — the cameras are the same cameras, and the software was solved years ago. Nobody in this game ever argued the technology doesn\u2019t work.\n\nNow look at everything else. The towns did not buy different cameras. They bought different answers to three questions: Who holds the data? Who can reach it? And when something goes wrong, who finds out from whom?\n\nLeaseville is not a villain in this story, and neither is its council — it made the default choice, the one most cities make, the one that requires no meetings. Ownburg just shows the meetings were available.';
+}
+document.addEventListener('DOMContentLoaded',()=>{ const oc=document.getElementById('ooCanvas'); if(oc){ oc.addEventListener('click',ooClick); ooDraw(); } });
 </script></body></html>
