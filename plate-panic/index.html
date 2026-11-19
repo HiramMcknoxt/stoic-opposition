@@ -47,6 +47,18 @@ table{width:100%;border-collapse:collapse;margin:10px 0}td,th{border-bottom:1px 
 footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-height:1.6}
 #ocrCanvas{background:#fff;border-radius:8px;max-width:100%;height:auto;width:560px}
 .result{background:#0e1738;border:1px solid #2a3a7a;border-radius:12px;padding:14px;margin-top:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+
+.pathrow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.node{background:#0e1738;border:2px solid #2a3a7a;border-radius:10px;padding:8px 10px;font-size:14px;transition:all .3s}
+.node.lit{border-color:#ffd75e;background:#26377f;transform:scale(1.05)}
+.node.gone{opacity:.35;border-style:dashed}
+.arrow{color:#8b96cc}
+.sidebox{background:#0e1738;border:1px solid #2a3a7a;border-radius:12px;padding:12px;text-align:left}
+.sidebox h4{margin:2px 0 8px}
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin:12px 0}
+.logline{border-bottom:1px solid #22306b;padding:8px 2px;font-size:14px;line-height:1.5}
+.tag{display:inline-block;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;margin-right:6px}
+.t-bad{background:#5c1620;color:#ffb3ba}.t-ok{background:#14532d;color:#a7f3c9}.t-mid{background:#5c4716;color:#ffe1a1}.t-vendor{background:#3b2a5c;color:#d6bcfa}
 </style></head><body><div class="wrap">
 <header><div class="logo">THE STOIC OPPOSITION PRESENTS</div><h1>PLATE PANIC!</h1>
 <div class="tag">The ALPR game that runs itself.</div></header>
@@ -55,6 +67,7 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 <button id="tab-arcade" class="on" onclick="showPanel('arcade')">🕹️ Arcade Scan</button>
 <button id="tab-budget" onclick="showPanel('budget')">💰 Budget Boss</button>
 <button id="tab-prove" onclick="showPanel('prove')">🔬 Prove It — Real OCR</button>
+<button id="tab-breach" onclick="showPanel('breach')">🛡️ Breach Boss</button>
 </div>
 
 <section id="panel-arcade" class="panel on">
@@ -88,6 +101,34 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 <button class="btn good" onclick="runOCR()">▶ Run Real OCR On This Plate</button></div>
 <div class="result" id="ocrResult">Press Run Real OCR. The engine is already in this file — nothing downloads, nothing loads from a CDN, and it works with the Wi-Fi off.</div>
 <p class="small">Honest caveat: this plate is flat, clean, and straight-on — the easy case, even with the diamond behind the serial and the real Arkansas layout. Real roads add angle, night, dirt, and speed — which is an argument about cameras, placement, and confidence thresholds, not about paying rent forever on plate-reading software. Production open-source stacks (OpenALPR, FastALPR, CodeProject.AI) use plate-trained models and run locally for $0 in license fees.</p>
+</section>
+
+
+<section id="panel-breach" class="panel">
+<h2>🛡️ Breach Boss — the security round</h2>
+<p>The objection: <i>"Fine, it's cheap. But can a city keep this data safer than a vendor can?"</i> Fair question — and the answer is not "trust us." The answer is <b>custody</b>: who holds the data, who can reach it, how long it exists, and who finds out when something goes wrong. Play it both ways.</p>
+
+<h3>1 · Follow the data — one plate read, two journeys</h3>
+<div class="pathrow" id="pathV"><b style="color:#d6bcfa">VENDOR:</b> <span class="node" id="fv0">📷 Camera</span><span class="arrow">→</span><span class="node" id="fv1">☁️ Vendor cloud</span><span class="arrow">→</span><span class="node" id="fv2">🌐 National network</span><span class="arrow">→</span><span class="node" id="fv3">👥 Reach: <b id="reachV">1</b></span><span class="arrow">→</span><span class="node" id="fv4">🗄️ Still there tomorrow</span></div>
+<div class="pathrow" id="pathC"><b style="color:#a7f3c9">CITY:</b> <span class="node" id="fc0">📷 Camera</span><span class="arrow">→</span><span class="node" id="fc1">🏛️ City server</span><span class="arrow">→</span><span class="node" id="fc2">⏳ Delete clock runs</span><span class="arrow">→</span><span class="node" id="fc3">💨 Gone</span></div>
+<div class="center"><button class="btn primary" onclick="followData()">▶ Follow one plate read</button></div>
+<p class="small" id="followMsg">Same camera. Same read. Very different blast radius if anything goes wrong — because one copy lives in a network thousands of organizations can reach, and the other stops existing.</p>
+
+<h3>2 · Pick the city's controls — 7 points, no more</h3>
+<p class="small">Security is choices, and choices have prices. You cannot afford everything. Neither can a real city — that argument is the honest part of this round.</p>
+<div class="grid" id="ctlGrid"></div>
+<div class="hud"><span>Points spent <b id="ctlPts">0</b> / 7</span><span id="ctlWarn">Pick your controls, then run the incidents.</span></div>
+
+<h3>3 · The Attack Deck — five incidents, both systems</h3>
+<p class="small">Each incident fires at the vendor system and the city system at the same time. The vendor side has no buttons. That is not a game mechanic — that is the contract.</p>
+<div class="center"><button class="btn primary" id="atkBtn" onclick="nextIncident()">▶ Fire incident 1 of 5</button></div>
+<div class="vs">
+<div class="sidebox"><h4>☁️ Vendor system</h4><div id="logV"><p class="small">Waiting…</p></div></div>
+<div class="sidebox"><h4>🏛️ City system — your build</h4><div id="logC"><p class="small">Waiting…</p></div></div>
+</div>
+<div class="result" id="breachResult" style="display:none"></div>
+<div class="center"><button class="btn" onclick="resetBreach()">↺ Reset Breach Boss</button></div>
+<p class="small">The figures: 5,000+ law-enforcement agencies on the vendor's network (the company's own reported number); 7,000+ agencies and organizations able to reach shared data (ACLU of Massachusetts, Oct 2025, from network audits); 12M+ searches by 3,900+ agencies in logs obtained by the EFF (Dec 2024–Oct 2025). Cabot's own sharing settings live in the vendor's portal — the city has to ask the vendor who can see the city's data. The exposure math below is illustrative: <i>reach × days a record exists</i>. And the standing caveat: custody makes security possible, auditable, and enforceable. It does not make it automatic — as incident 1 will happily demonstrate if you skip the patching.</p>
 </section>
 
 <div class="point"><b>The stack this is based on:</b> OpenALPR (open-source ALPR library) · FastALPR / Fast-Plate-OCR (MIT, YOLO detection + plate OCR, runs locally) · CodeProject.AI (free, self-hosted) · Tesseract (open-source OCR) — and this game's own built-in template-matching OCR, which needs no library at all. All synthetic plates. No camera access. No data collected, stored, or sent anywhere.</div>
@@ -232,4 +273,97 @@ function runOCR(){const out=document.getElementById('ocrResult');out.textContent
   const avg=confs.length?Math.round(confs.reduce((a,b)=>a+b,0)/confs.length*100):0;
   out.textContent=`OCR READ: "${raw}"\nEXPECTED:  "${curPlate}"\n${chars===curPlate.replace(/ /g,'')?'✅ EXACT MATCH':'⚠️ Not exact — this is a tiny template matcher reading through a diamond graphic, not a trained production model. Imperfect ≠ unsolved, and it definitely ≠ $27,500/yr in rent.'}\nCharacters found: ${glyphs.length} (expect 6) · Average match confidence: ${avg}%\nPipeline used: detect plate → crop serial band → segment characters → template-match each one. The actual ALPR pipeline, in ~100 lines of JavaScript, inside this file.\nTime: ${ms.toLocaleString()} ms\nServer used: none · CDN used: none · Data uploaded: none · Software cost: $0`;
  }catch(e){out.textContent='Built-in OCR hit an error: '+((e&&e.message)?e.message:e);}},40);}
+
+// ---------- BREACH BOSS ----------
+const CTLS=[
+ {id:'patch',name:'Patching + CJIS-compliant hosting',cost:2,desc:'Kept current, encrypted, hosted to criminal-justice security standards. The unglamorous one that stops breaches.'},
+ {id:'mfa',name:'Named accounts + MFA',cost:2,desc:'No shared logins. Every user is a real person with a second factor.'},
+ {id:'autodel',name:'30-day auto-delete',cost:2,desc:'Non-hit reads erase themselves. Deleted data cannot be breached, subpoenaed, or misused.'},
+ {id:'approval',name:'Case number + supervisor approval to search',cost:2,desc:'No fishing expeditions. Every search ties to a case and a second signature.'},
+ {id:'audit',name:'Audit log the Citizens Commission reads',cost:1,desc:'Every search recorded in a log that cannot be quietly edited — and actually reviewed.'},
+ {id:'localonly',name:'Local-only: no external sharing',cost:2,desc:'The data never joins a national network. Outside requests get a door, not a login.'}];
+let ctlSel={}, ctlPts=0, atkIdx=0, cityFails=0, cityPartials=0, followTimer=null;
+function ctlRender(){
+ const g=document.getElementById('ctlGrid'); g.innerHTML='';
+ CTLS.forEach(c=>{
+   const b=document.createElement('button'); b.className='opt'+(ctlSel[c.id]?' sel':'');
+   b.innerHTML='<b>'+c.name+'</b> <span class="p">'+c.cost+' pts</span><br><span class="small">'+c.desc+'</span>';
+   b.onclick=()=>{ if(ctlSel[c.id]){delete ctlSel[c.id]; ctlPts-=c.cost;} else { if(ctlPts+c.cost>7){document.getElementById('ctlWarn').textContent='Over budget — drop something. Security is trade-offs.'; return;} ctlSel[c.id]=1; ctlPts+=c.cost; } document.getElementById('ctlPts').textContent=ctlPts; document.getElementById('ctlWarn').textContent = ctlPts===7 ? 'Budget spent. Run the incidents.' : 'Pick your controls, then run the incidents.'; ctlRender(); };
+   g.appendChild(b);
+ });
+}
+function followData(){
+ if(followTimer) return;
+ document.querySelectorAll('#pathV .node,#pathC .node').forEach(n=>n.classList.remove('lit','gone'));
+ const rv=document.getElementById('reachV'); rv.textContent='1';
+ const steps=[
+  ()=>{lit('fv0');lit('fc0');},
+  ()=>{lit('fv1');lit('fc1');},
+  ()=>{lit('fv2');lit('fc2'); let n=1; const iv=setInterval(()=>{ n=Math.min(7000, n+Math.ceil(n*0.6)+37); rv.textContent=n.toLocaleString()+'+'; if(n>=7000)clearInterval(iv); },90);},
+  ()=>{lit('fv3');},
+  ()=>{lit('fv4'); const g=document.getElementById('fc3'); g.classList.add('lit','gone'); document.getElementById('followMsg').textContent='The vendor copy is still sitting in the network, reachable by thousands of organizations. The city copy no longer exists. You cannot breach, leak, subpoena, or misuse a record that is gone — and you cannot reach a record that was never shared.'; followTimer=null;}
+ ];
+ let i=0; const step=()=>{ if(i<steps.length){ steps[i](); i++; followTimer=setTimeout(step, 950); } };
+ step();
+}
+function lit(id){document.getElementById(id).classList.add('lit');}
+const INCIDENTS=[
+ {t:'🌐 Hackers breach the vendor\u2019s cloud',
+  v:'Cabot\u2019s reads are in the pile. The vendor will disclose on the vendor\u2019s timeline. The city could not have patched anything — the city was never allowed to touch anything.',
+  c:()=> ctlSel.patch ? ['ok','HELD','Your CJIS-hosted system took the same exploit last month — as a patch. The attack fails at the door. Maintenance is not a feature; it is the whole game.']
+                       : ['bad','BREACHED','Unpatched, the exploit walks into your server too. Custody without maintenance is a smaller target with the same hole. This is real work with a real cost — and it is yours to do, not a vendor\u2019s to promise.']},
+ {t:'🕵️ A vendor employee snoops through the data',
+  v:'Vendor staff and contractors stand between Cabot and its own data. A curious employee\u2019s access is the vendor\u2019s internal HR matter. The city is not consulted and may never know.',
+  c:()=> ctlSel.mfa ? ['ok','HELD','There are no vendor employees. Access means a named local person plus a second factor — and the look lands in the audit log with a name on it.']
+                    : ['bad','BREACHED','One shared password means anyone holding it is \u201Cthe department.\u201D No names, no second factor, no way to know who looked. Snooping leaves no fingerprints.']},
+ {t:'🚔 An outside agency searches Cabot\u2019s cameras for its own purposes',
+  v:'It happens through the network, for reasons Cabot never approved. Network logs that have surfaced elsewhere show home cities learning about outside searches months later — if ever.',
+  c:()=> ctlSel.localonly ? ['ok','HELD','There is no network to search. An outside request arrives as a letter, and it goes through Cabot\u2019s own process — a warrant, a court order, a policy — or the answer is no.']
+                           : ['bad','BREACHED','You kept the sharing door open, so the searches look just like the vendor\u2019s — except now the policy with your city\u2019s name on it allowed them.']},
+ {t:'📜 Legal process is served demanding the records',
+  v:'It is served on the vendor, in another state. The vendor decides whether to comply, fight, or settle — the vendor\u2019s lawyers, the vendor\u2019s call. Cabot is not in the room.',
+  c:()=> ['ok','HELD — BY CUSTODY','It is served on the City of Cabot. The city attorney reviews it, the Citizens Commission hears about it, and the city makes its own decision about its own residents\u2019 data. No control card buys this. Owning the system is this.']},
+ {t:'💔 A local officer searches an ex\u2019s plate',
+  v:'On the network, that search is one of 12M+ — indistinguishable from legitimate work, and repeatable by anyone with reach, anywhere.',
+  c:()=>{ if(ctlSel.approval&&ctlSel.audit) return ['ok','HELD','Blocked twice: no case number, no search — and the attempt itself sits in a log the Commission reads. The system treats curiosity as an incident, not a perk.'];
+          if(ctlSel.approval) return ['mid','PARTIAL','The case-number rule stops the casual search cold. A determined one needs a fabricated case — which is exactly the hole the audit log exists to close.'];
+          if(ctlSel.audit) return ['mid','PARTIAL','The search happens — and then it is caught, because the log cannot be edited and the Commission actually reads it. Detection after the fact is still a control; prevention would be better.'];
+          return ['bad','BREACHED','It happens silently. No case number, no second signature, no log anyone reads. This — not hackers — is how these systems are actually abused in the real world.']; }}
+];
+function nextIncident(){
+ if(atkIdx>=INCIDENTS.length) return;
+ if(atkIdx===0){document.getElementById('logV').innerHTML='';document.getElementById('logC').innerHTML='';}
+ const inc=INCIDENTS[atkIdx];
+ const lv=document.getElementById('logV'), lc=document.getElementById('logC');
+ lv.innerHTML += '<div class="logline"><b>'+inc.t+'</b><br><span class="tag t-vendor">OUT OF THE CITY\u2019S HANDS</span>'+inc.v+'</div>';
+ const r=inc.c();
+ if(r[0]==='bad')cityFails++; if(r[0]==='mid')cityPartials++;
+ lc.innerHTML += '<div class="logline"><b>'+inc.t+'</b><br><span class="tag '+(r[0]==='ok'?'t-ok':r[0]==='mid'?'t-mid':'t-bad')+'">'+r[1]+'</span>'+r[2]+'</div>';
+ atkIdx++;
+ const btn=document.getElementById('atkBtn');
+ if(atkIdx<INCIDENTS.length){ btn.textContent='▶ Fire incident '+(atkIdx+1)+' of 5'; }
+ else { btn.textContent='All incidents resolved'; btn.disabled=true; breachVerdict(); }
+ lv.scrollTop=lv.scrollHeight; lc.scrollTop=lc.scrollHeight;
+}
+function breachVerdict(){
+ const days = ctlSel.autodel?30:150;
+ const vExp = 7000*30, cExp = 12*days;
+ const ratio = Math.round(vExp/cExp);
+ let verdict;
+ if(cityFails===0&&cityPartials===0) verdict='Your build held everything that was yours to hold. The one incident no card could buy — the subpoena — was won by custody alone.';
+ else if(cityFails===0) verdict='Your build held, with gaps the partials name honestly. Every gap left is a policy choice Cabot can argue about in public and fix — which is precisely the option the vendor contract never offers.';
+ else verdict='Your build leaked '+cityFails+' time'+(cityFails>1?'s':'')+'. Good. That is the honest version of this argument: a city CAN run this badly. The difference is that when the city runs it badly, the city can be made to fix it — the controls are a council vote away. Nobody in Cabot gets a vote on the vendor\u2019s roadmap.';
+ const r=document.getElementById('breachResult'); r.style.display='block';
+ r.textContent='EXPOSURE SCORE — reach × days a record exists (illustrative)\n\n☁️ Vendor: 7,000+ organizations can reach the record × at least 30 days ≈ '+vExp.toLocaleString()+' reach-days\n🏛️ City (your build): ~12 named local users × '+days+' days ≈ '+cExp.toLocaleString()+' reach-days\n\nThat is roughly '+ratio+'× less exposure surface — before counting a single incident above.\n\nIncidents: vendor system — 5 of 5 resolved outside the city\u2019s control. City system — '+cityFails+' breached, '+cityPartials+' partial, '+(5-cityFails-cityPartials)+' held.\n\n'+verdict+'\n\nSame cameras. Same reads. The difference is custody.';
+}
+function resetBreach(){
+ ctlSel={}; ctlPts=0; atkIdx=0; cityFails=0; cityPartials=0;
+ document.getElementById('ctlPts').textContent='0';
+ document.getElementById('logV').innerHTML='<p class="small">Waiting…</p>';
+ document.getElementById('logC').innerHTML='<p class="small">Waiting…</p>';
+ const b=document.getElementById('atkBtn'); b.disabled=false; b.textContent='▶ Fire incident 1 of 5';
+ document.getElementById('breachResult').style.display='none';
+ ctlRender();
+}
+ctlRender();
 </script></body></html>
