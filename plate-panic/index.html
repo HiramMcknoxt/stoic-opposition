@@ -59,6 +59,13 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 .logline{border-bottom:1px solid #22306b;padding:8px 2px;font-size:14px;line-height:1.5}
 .tag{display:inline-block;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;margin-right:6px}
 .t-bad{background:#5c1620;color:#ffb3ba}.t-ok{background:#14532d;color:#a7f3c9}.t-mid{background:#5c4716;color:#ffe1a1}.t-vendor{background:#3b2a5c;color:#d6bcfa}
+
+.alertbox{background:#2a0e18;border:2px solid #a83a4f;border-radius:12px;padding:14px;text-align:left;line-height:1.65}
+.alertbox h3{margin:2px 0 8px;color:#ff8a8a}
+.carbox{background:#0e1738;border:1px solid #2a3a7a;border-radius:12px;padding:14px}
+.tbar{height:12px;background:#22306b;border-radius:999px;overflow:hidden;margin:10px 0}
+.tbar>div{height:100%;background:#ffd75e;transition:width .2s linear}
+.verdict{font-size:19px;font-weight:700;text-align:center;min-height:28px;margin:10px 0}
 </style></head><body><div class="wrap">
 <header><div class="logo">THE STOIC OPPOSITION PRESENTS</div><h1>PLATE PANIC!</h1>
 <div class="tag">The ALPR game that runs itself.</div></header>
@@ -68,6 +75,7 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 <button id="tab-budget" onclick="showPanel('budget')">💰 Budget Boss</button>
 <button id="tab-prove" onclick="showPanel('prove')">🔬 Prove It — Real OCR</button>
 <button id="tab-breach" onclick="showPanel('breach')">🛡️ Breach Boss</button>
+<button id="tab-verify" onclick="showPanel('verify')">🚔 Verify It</button>
 </div>
 
 <section id="panel-arcade" class="panel on">
@@ -129,6 +137,25 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 <div class="result" id="breachResult" style="display:none"></div>
 <div class="center"><button class="btn" onclick="resetBreach()">↺ Reset Breach Boss</button></div>
 <p class="small">The figures: 5,000+ law-enforcement agencies on the vendor's network (the company's own reported number); 7,000+ agencies and organizations able to reach shared data (ACLU of Massachusetts, Oct 2025, from network audits); 12M+ searches by 3,900+ agencies in logs obtained by the EFF (Dec 2024–Oct 2025). Cabot's own sharing settings live in the vendor's portal — the city has to ask the vendor who can see the city's data. The exposure math below is illustrative: <i>reach × days a record exists</i>. And the standing caveat: custody makes security possible, auditable, and enforceable. It does not make it automatic — as incident 1 will happily demonstrate if you skip the patching.</p>
+</section>
+
+
+<section id="panel-verify" class="panel">
+<h2>🚔 Verify It — the stop decision</h2>
+<p>The camera says <b>HIT</b>. Papers, please. Plate readers match <i>numbers</i> — they misread characters, and they are notoriously sloppy about <b>which state</b> issued the plate. The alert in front of you is a lead, not a fact. Your whole job is the five-second check: <b>state, every character, vehicle.</b> About a quarter of these alerts carry the right number on the wrong state's plate.</p>
+<div class="hud"><span>🚗 Car <b id="vCar">0</b>/15</span><span>Score <b id="vScore">0</b></span><span>Trust <b id="vTrust">100%</b></span><span>Wrongful stops <b id="vWrong">0</b></span><span>Hits missed <b id="vMissed">0</b></span></div>
+<div class="vs">
+<div class="alertbox"><h3>🚨 HOTLIST HIT — SYSTEM ALERT</h3><div id="vAlert">Press START SHIFT to take your first car.</div></div>
+<div class="carbox"><div class="center"><b>THE CAR IN FRONT OF YOU</b></div><div class="center" style="margin:8px 0"><canvas id="verifyCanvas" width="520" height="260" style="max-width:100%;height:auto;background:#fff;border-radius:8px"></canvas></div><div class="center" id="vCarDesc">—</div><div class="tbar"><div id="vTimer" style="width:100%"></div></div></div>
+</div>
+<div class="verdict" id="vVerdict"></div>
+<div class="center">
+<button class="btn primary" id="vStart" onclick="startShift()">▶ START SHIFT — 15 CARS</button>
+<button class="btn danger" id="vStop" onclick="decide(true)" disabled>✋ STOP IT</button>
+<button class="btn good" id="vGo" onclick="decide(false)" disabled>➡️ WAVE IT THROUGH</button>
+</div>
+<div class="result" id="verifyResult" style="display:none"></div>
+<p class="small">The receipts: Aurora, Colorado, August 2020 — Brittney Gilliam and four children were held at gunpoint, face-down on the pavement, because a plate reader matched her Colorado SUV's number to a <b>stolen Montana motorcycle</b>. Wrong state, wrong vehicle, right number. Aurora settled for <b>$1.9 million</b>. The Institute for Justice has documented at least 27 erroneous plate-reader encounters since 2018 — and attributes most of them to human error, not camera error. Independent testing (IPVM) has found readers misidentify a plate's <b>state</b> roughly one time in ten. Every one of those failures was preventable by the check you just did: state, characters, vehicle — before the stop, not after.</p>
 </section>
 
 <div class="point"><b>The stack this is based on:</b> OpenALPR (open-source ALPR library) · FastALPR / Fast-Plate-OCR (MIT, YOLO detection + plate OCR, runs locally) · CodeProject.AI (free, self-hosted) · Tesseract (open-source OCR) — and this game's own built-in template-matching OCR, which needs no library at all. All synthetic plates. No camera access. No data collected, stored, or sent anywhere.</div>
@@ -366,4 +393,103 @@ function resetBreach(){
  ctlRender();
 }
 ctlRender();
+
+// ---------- VERIFY IT ----------
+const VSTATES=[
+ {n:'ARKANSAS',bg:['#bcd8f5','#ffffff'],fg:'#111',accent:'#7a1f2b',slogan:'The Natural State'},
+ {n:'TEXAS',bg:['#ffffff','#eef1f4'],fg:'#111',accent:'#1a2a6b',slogan:'The Lone Star State'},
+ {n:'OKLAHOMA',bg:['#7fd4e8','#e8fbff'],fg:'#0b3556',accent:'#0b3556',slogan:'Native America'},
+ {n:'MISSOURI',bg:['#ffffff','#dbe7ff'],fg:'#14264f',accent:'#a31f34',slogan:'Show Me State'},
+ {n:'TENNESSEE',bg:['#e9f6e9','#ffffff'],fg:'#14532d',accent:'#14532d',slogan:'Volunteer State'},
+ {n:'MISSISSIPPI',bg:['#ffffff','#f3e9ff'],fg:'#3b1470',accent:'#3b1470',slogan:'Birthplace of America\u2019s Music'},
+ {n:'LOUISIANA',bg:['#fff7e0','#ffffff'],fg:'#3a2a6b',accent:'#b8860b',slogan:'Sportsman\u2019s Paradise'},
+ {n:'MONTANA',bg:['#dfeaf2','#ffffff'],fg:'#173a5e',accent:'#173a5e',slogan:'Big Sky Country'}];
+const VCARS=['Blue SUV','Red pickup','White sedan','Black SUV','Silver hatchback','Green sedan','Gray pickup','White SUV'];
+const VREASONS=['STOLEN VEHICLE','FELONY WARRANT','STOLEN VEHICLE','AMBER ALERT'];
+const CONFUSE={A:'H',B:'D',C:'G',E:'F',I:'T',M:'N',S:'C',U:'V',H:'A',D:'B',G:'C',F:'E',T:'I',N:'M',V:'U',J:'L',K:'R',L:'J',P:'R',R:'K',W:'M',X:'K',Y:'V',Z:'S'};
+const CONFUSE_D={'1':'7','7':'1','3':'8','8':'3','5':'6','6':'5','9':'0','0':'9','2':'3','4':'9'};
+let vIdx=0,vScore=0,vTrust=100,vWrong=0,vMissed=0,vCur=null,vTimerIv=null,vTimeLeft=0,vActive=false,vLock=false;
+function vSerial(){const L='ABCDEFGHIJKLMNPRSTUVWXYZ';const ch=()=>L[Math.floor(Math.random()*L.length)];return ch()+ch()+ch()+' '+(10+Math.floor(Math.random()*90))+ch();}
+function drawVPlate(state,serial){
+ const c=document.getElementById('verifyCanvas'),x=c.getContext('2d'),W=520,H=260;
+ const g=x.createLinearGradient(0,0,0,H); g.addColorStop(0,state.bg[0]); g.addColorStop(1,state.bg[1]);
+ x.fillStyle=g; x.fillRect(0,0,W,H);
+ x.strokeStyle=state.accent; x.lineWidth=8; x.strokeRect(6,6,W-12,H-12);
+ x.fillStyle='rgba(0,0,0,.25)';
+ [[46,40],[W-46,40],[46,H-40],[W-46,H-40]].forEach(pt=>{x.beginPath();x.arc(pt[0],pt[1],11,0,7);x.fill();});
+ x.textAlign='center'; x.fillStyle=state.accent;
+ x.font='700 44px Georgia,serif'; x.fillText(state.n,W/2,66);
+ x.font='italic 22px Georgia,serif'; x.fillText(state.slogan,W/2,H-26);
+ x.fillStyle=state.fg; x.font='900 92px "Arial Narrow",Arial,sans-serif';
+ x.fillText(serial,W/2+2,182);
+}
+function newCar(){
+ vLock=false;
+ const roll=Math.random();
+ const kind = roll<0.45?'true': roll<0.70?'state': roll<0.90?'char':'vehicle';
+ const alertState = Math.random()<0.6? VSTATES[0] : VSTATES[Math.floor(Math.random()*VSTATES.length)];
+ const serial=vSerial();
+ const veh=VCARS[Math.floor(Math.random()*VCARS.length)];
+ const reason=VREASONS[Math.floor(Math.random()*VREASONS.length)];
+ let aState=alertState, aSerial=serial, aVeh=veh;
+ if(kind==='state'){ do{ aState=VSTATES[Math.floor(Math.random()*VSTATES.length)]; }while(aState.n===alertState.n); }
+ if(kind==='char'){
+   const chars=serial.split(''); const positions=[0,1,2,4,5,6];
+   const pos=positions[Math.floor(Math.random()*positions.length)];
+   const orig=chars[pos];
+   chars[pos]= (pos<3? CONFUSE[orig] : CONFUSE_D[orig]) || orig;
+   aSerial=chars.join('');
+ }
+ if(kind==='vehicle'){ do{ aVeh=VCARS[Math.floor(Math.random()*VCARS.length)]; }while(aVeh===veh); }
+ vCur={kind,alertState,serial,veh,reason,aState,aSerial,aVeh};
+ document.getElementById('vAlert').innerHTML=
+  '<b>PLATE:</b> <span style="font-size:20px">'+serial+'</span><br><b>STATE:</b> '+alertState.n+'<br><b>VEHICLE:</b> '+veh+'<br><b>REASON:</b> '+reason+'<br><span class="small" style="color:#e8a0a8">System confidence: HIGH. The system is always confident.</span>';
+ drawVPlate(aState,aSerial);
+ document.getElementById('vCarDesc').innerHTML='You see: <b>'+aVeh+'</b>';
+ document.getElementById('vVerdict').textContent='';
+ document.getElementById('vCar').textContent=vIdx+1;
+ vTimeLeft=9; updVBar();
+ clearInterval(vTimerIv);
+ vTimerIv=setInterval(()=>{ vTimeLeft-=0.2; updVBar(); if(vTimeLeft<=0){ clearInterval(vTimerIv); decide(false,true); } },200);
+}
+function updVBar(){ document.getElementById('vTimer').style.width=Math.max(0,vTimeLeft/9*100)+'%'; }
+function updV(){ document.getElementById('vScore').textContent=vScore; document.getElementById('vTrust').textContent=vTrust+'%'; document.getElementById('vWrong').textContent=vWrong; document.getElementById('vMissed').textContent=vMissed; }
+function decide(stop,timeout){
+ if(!vActive||vLock||!vCur) return; vLock=true; clearInterval(vTimerIv);
+ const isHit = vCur.kind==='true';
+ const vd=document.getElementById('vVerdict');
+ let msg='';
+ if(stop&&isHit){ vScore+=100; msg='✅ CORRECT STOP. State, characters, vehicle — all verified. This is the one the system is for.'; vd.style.color='#a7f3c9'; }
+ else if(stop&&!isHit){
+   vWrong++; vTrust-=15;
+   if(vCur.kind==='state') msg='🚨 WRONGFUL STOP. Same number — wrong state. That plate is '+vCur.aState.n+'; the alert is '+vCur.alertState.n+'. An innocent family is on the pavement because the check takes five seconds and nobody took them.';
+   else if(vCur.kind==='char') msg='🚨 WRONGFUL STOP. Read it again: the car wears '+vCur.aSerial+'; the alert says '+vCur.serial+'. One character is the whole ballgame.';
+   else msg='🚨 WRONGFUL STOP. The plate matches — the vehicle doesn\u2019t. The alert describes a '+vCur.veh+'; you stopped a '+vCur.aVeh+'. Numbers aren\u2019t cars.';
+   vd.style.color='#ff8a8a';
+ }
+ else if(!stop&&isHit){ vMissed++; vTrust-=10; msg=(timeout?'⏱️ TOO SLOW — the car is gone. ':'')+'❌ MISSED HIT. That one was real — state, characters, and vehicle all matched. Verification cuts both ways: it exists to catch the real ones too.'; vd.style.color='#ffe1a1'; }
+ else { vScore+=50; msg=(timeout?'⏱️ It rolled on. ':'')+'✅ CORRECT RELEASE. '+(vCur.kind==='state'?'Wrong state — number matched, car didn\u2019t.':vCur.kind==='char'?'One character off — a misread, not a match.':'Plate matched; the vehicle didn\u2019t. Not the car in the alert.'); vd.style.color='#a7f3c9'; }
+ vd.textContent=msg; updV();
+ vIdx++;
+ setTimeout(()=>{ if(vIdx>=15){ endShift(); } else if(vActive){ newCar(); } },1900);
+}
+function startShift(){
+ vIdx=0; vScore=0; vTrust=100; vWrong=0; vMissed=0; vActive=true;
+ updV();
+ document.getElementById('verifyResult').style.display='none';
+ document.getElementById('vStart').textContent='↺ RESTART SHIFT';
+ document.getElementById('vStop').disabled=false; document.getElementById('vGo').disabled=false;
+ newCar();
+}
+function endShift(){
+ vActive=false; clearInterval(vTimerIv);
+ document.getElementById('vStop').disabled=true; document.getElementById('vGo').disabled=true;
+ document.getElementById('vVerdict').textContent='SHIFT OVER';
+ const r=document.getElementById('verifyResult'); r.style.display='block';
+ let grade;
+ if(vWrong===0&&vMissed===0) grade='PERFECT SHIFT. Fifteen cars, fifteen right calls. This is the entire job: the machine proposes, the human verifies, and nobody innocent meets the pavement over a database row.';
+ else if(vWrong===0) grade='NO WRONGFUL STOPS. You missed '+vMissed+' real hit'+(vMissed>1?'s':'')+' — worth reviewing, and the right side to err on while you learn. A missed hit is a report. A wrongful stop is a family at gunpoint and a settlement with six zeros.';
+ else grade=vWrong+' WRONGFUL STOP'+(vWrong>1?'S':'')+'. Each one was preventable with the same five-second check: state, every character, vehicle. In Aurora that check didn\u2019t happen, and the city paid $1.9 million — after the children were already on the pavement.';
+ r.textContent='SHIFT REPORT\nScore: '+vScore+' · Trust: '+vTrust+'% · Wrongful stops: '+vWrong+' · Hits missed: '+vMissed+'\n\n'+grade+'\n\nThe alert is a lead, not a fact. Verify the state. Verify every character. Verify the vehicle. Then decide.';
+}
 </script></body></html>
