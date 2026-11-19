@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FULL-TIME, STILL BROKE — The Stoic Opposition Presents</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:#f6f4ee;color:#122a42;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:#8a5a00}
+.wrap{max-width:920px;margin:0 auto;padding:16px}
+header{text-align:center;padding:24px 10px 6px}
+.seal{display:inline-block;border:3px double #122a42;border-radius:50%;width:104px;height:104px;line-height:1.25;padding-top:20px;font-size:10px;letter-spacing:.18em;font-weight:700}
+.logo{font-size:13px;letter-spacing:.35em;color:#8a5a00;margin-top:12px}
+h1{font-size:clamp(34px,7.5vw,64px);margin:4px 0 2px;letter-spacing:.03em}
+.tag{color:#44546a;font-size:clamp(15px,2.6vw,19px);font-style:italic}
+.point{background:#fff;border:1px solid #c9c2ae;border-left:6px solid #122a42;border-radius:10px;padding:13px 16px;margin:14px 0;line-height:1.55}
+.btn{background:#122a42;color:#f6f4ee;border:1px solid #122a42;border-radius:999px;padding:11px 20px;font-size:16px;cursor:pointer;margin:4px}
+.btn.primary{background:#c99700;border-color:#c99700;color:#122a42;font-weight:800}
+.btn.ghost{background:transparent;color:#122a42}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.small{padding:7px 14px;font-size:14px}
+.screen{display:none}.screen.on{display:block}
+.hud{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;background:#122a42;color:#f6f4ee;border-radius:12px;padding:11px 14px;margin:10px 0;font-variant-numeric:tabular-nums}
+.hud b{color:#ffd75e}
+.bar{height:9px;background:#ddd6c2;border-radius:99px;overflow:hidden;margin:3px 0 10px}.bar i{display:block;height:100%;background:#c99700}
+.bar.red i{background:#b03040}
+.result{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:16px;margin-top:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.small{font-size:13px;color:#5a6a7e;line-height:1.55}
+.disc{font-size:12.5px;color:#8a5a00;background:#fdf6da;border:1px dashed #c99700;border-radius:8px;padding:8px 11px;line-height:1.5}
+.center{text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.card{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:14px;line-height:1.5}
+.optgroup{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:12px;margin:10px 0}
+.optgroup h3{margin:2px 0 8px}
+.opt{display:block;width:100%;text-align:left;margin:7px 0;background:#f6f4ee;border:1px solid #122a42;border-radius:10px;padding:11px 13px;font-size:15px;cursor:pointer;color:#122a42;line-height:1.45}
+.opt:hover{border-color:#c99700}
+.opt.sel{border:2px solid #c99700;background:#fdf6da;font-weight:600}
+.opt .sub{display:block;font-size:13px;color:#5a6a7e;font-weight:400}
+.choice{display:block;width:100%;text-align:left;margin:8px 0;background:#fff;border:1px solid #122a42;border-radius:10px;padding:12px 14px;font-size:15px;cursor:pointer;color:#122a42;line-height:1.45}
+.choice:hover{border-color:#c99700;background:#fdf6da}
+.choice:disabled{opacity:.4;cursor:not-allowed}
+.modal{position:fixed;inset:0;background:rgba(18,42,66,.78);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
+.modal.on{display:flex}
+.modal .box{background:#f6f4ee;border:2px solid #c99700;border-radius:16px;max-width:560px;width:100%;padding:22px;line-height:1.55;max-height:88vh;overflow:auto}
+.modal .box h2{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:8px 0}
+td,th{border-bottom:1px solid #ddd6c2;padding:7px 8px;text-align:left;font-variant-numeric:tabular-nums}
+td.n,th.n{text-align:right}
+tr.tot td{font-weight:800;border-top:2px solid #122a42}
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:12px 0}
+.ledger{background:#122a42;color:#f6f4ee;border-radius:12px;padding:16px;line-height:1.6}
+.ledger b{color:#ffd75e}
+.ledger.quiet{background:#efe9d8;color:#4a3c14;border:2px dashed #8a5a00}
+.ledger.quiet b{color:#8a3b00}
+.cliff{background:#5c1620;color:#ffd9dd;border-radius:12px;padding:14px 16px;line-height:1.6;margin:12px 0}
+.cliff b{color:#ffb3ba}
+.good{background:#14532d;color:#d9f5e3;border-radius:12px;padding:14px 16px;line-height:1.6;margin:12px 0}
+footer{text-align:center;color:#7a8698;padding:26px 10px;font-size:13px;line-height:1.6}
+#feedbackA,#feedbackB{min-height:24px;color:#8a3b00;font-weight:600}
+</style></head><body><div class="wrap">
+<header>
+<div class="seal">THE STOIC<br>OPPOSITION<br>🦉<br><span style="letter-spacing:.05em">TIMIDI MATER<br>NON FLET</span></div>
+<div class="logo">THE STOIC OPPOSITION PRESENTS</div>
+<h1>FULL-TIME,<br>STILL BROKE</h1>
+<div class="tag">The subsidy is not a side effect of the business model. It is the business model.</div>
+</header>
+
+<div class="point">Two games in one, about the same store. In <b>Mode A — The Manager</b>, you run a big-box store for 8 weeks against a weekly profit target set by people above you. In <b>Mode B — The Cliff</b>, you are one of that store's workers for 12 months, trying to work your way off public benefits. Play A first. Then play B, and watch where Mode A's savings came from. <b>Nobody in this game is a villain. Everybody is doing arithmetic someone else set up.</b></div>
+
+<section id="screen-title" class="screen on">
+<div class="center">
+<button class="btn primary" onclick="startModeA()">▶ MODE A — THE MANAGER (8 weeks)</button><br>
+<button class="btn" onclick="startModeB()">MODE B — THE CLIFF (12 months)</button><br>
+<button class="btn ghost small" onclick="showScreen('credits')">Scenario, sources &amp; assumptions</button>
+</div>
+<div class="grid">
+<div class="card"><h3>🏬 Mode A — The Manager</h3>Set the hours cap, the wage, and the schedule for 60 workers. Hit the weekly profit target and earn your bonus. A second ledger — quieter than the first — keeps a different total.</div>
+<div class="card"><h3>🧾 Mode B — The Cliff</h3>One worker, two kids, one store job. Take the extra shifts. Take the raise. Take the second job. Watch what happens to your total resources when the benefits phase out faster than the pay phases in.</div>
+<div class="card"><h3>🎯 The goal you'll chase</h3>Self-sufficiency: a month where your earnings alone cover the household budget and you receive no benefits at all. It is possible in Mode B. Count what it costs to get there.</div>
+</div>
+<p class="disc">⚠ <b>Illustrative scenario figures.</b> Benefit amounts and eligibility thresholds vary by state and by year. Every dollar figure in this game comes from one fictional-but-typical scenario, with its assumptions printed in full on the Scenario panel — these are <b>not</b> your state's current amounts, and no real company appears in this game.</p>
+</section>
+
+<section id="screen-A" class="screen">
+<div class="hud"><span>🗓️ Week <b id="aWeek">1</b> / 8</span><span>🎯 Target <b>$12,000</b>/wk</span><span>🏆 Bonus weeks <b id="aBonusWk">0</b></span><span>💰 Your bonus <b id="aBonus">$0</b></span><span>🏬 Store profit total <b id="aProfitTot">$0</b></span></div>
+<h2>Mode A — The Manager</h2>
+<p class="small">Regional has set your store a weekly profit target of <b>$12,000</b>. You did not set it, and you cannot appeal it — miss it too often and someone else gets your job. Hit it and you earn a <b>$750 bonus</b> that week. Your 60 workers need the store staffed; how you staff it is the whole game. Gross margin before labour is $58,000/week; other operating costs are $18,000/week. <span id="aEventNote"></span></p>
+<div id="aPolicy"></div>
+<div class="grid">
+<div class="card"><h3>📊 This week's projection</h3><div id="aPreview"></div></div>
+<div class="card" style="background:#efe9d8;border:2px dashed #8a5a00"><h3>🤫 The Subsidy Ledger <span class="small">(quiet)</span></h3><div id="aSubPreview"></div><div class="small">Running total so far: <b id="aSubTotal">$0</b> of estimated public support your own workers rely on — food assistance, health coverage, housing help — because of the policy above. Nobody at Regional asks about this ledger. It is kept anyway.</div></div>
+</div>
+<div id="feedbackA"></div>
+<div class="center"><button class="btn primary" id="aRunBtn" onclick="aRunWeek()">RUN WEEK →</button>
+<button class="btn ghost" onclick="quitToTitle()">Quit to title</button></div>
+<div id="aSettle"></div>
+<p class="disc">⚠ Illustrative scenario figures — the subsidy estimate is this game's stated scenario model (see Scenario panel), not a measurement of any real store, and not your state's current benefit amounts.</p>
+</section>
+
+<section id="screen-B" class="screen">
+<div class="hud"><span>🗓️ Month <b id="bMonth">1</b> / 12</span><span>⏱️ <b id="bHrs">29</b> hrs/wk</span><span>💵 Wage <b id="bWage">$12.25</b></span><span>📈 Earnings <b id="bEarn">$0</b>/mo</span><span>🧮 Total resources <b id="bRes">$0</b>/mo</span><span>🎯 Budget <b id="bBudget">$2,650</b></span></div>
+<h2>Mode B — The Cliff</h2>
+<p class="small">You work at the store from Mode A. Single parent, two kids. Your stated monthly budget is <b id="bBudgetTxt">$2,650</b> (rent $1,050 · food $640 · childcare $520 · transport $210 · everything else $230). You start at <b>29 hrs/week at $12.25/hr</b> — under the benefits cap, like almost everyone on your aisle. Each month, make one move. <b>Total resources</b> = earnings + benefits − the costs of working (childcare you pay, transport, health premiums).</p>
+<div id="bMain"></div>
+<p class="disc">⚠ Illustrative scenario figures — benefit amounts and thresholds vary by state and year; these are not your state's current amounts. The full scenario is printed on the Scenario panel.</p>
+<div class="center"><button class="btn ghost" onclick="quitToTitle()">Quit to title</button></div>
+</section>
+
+<section id="screen-endA" class="screen"><div id="endAContent"></div></section>
+<section id="screen-endB" class="screen"><div id="endBContent"></div></section>
+
+<section id="screen-credits" class="screen">
+<div class="result" style="white-space:normal">
+<h2 style="margin-top:0">Scenario, sources &amp; assumptions</h2>
+<p><b>Numbers discipline (series design principle 4):</b> this game presents <b>no invented statistic as real</b>. It contains no real company, no real store, and no claim about any actual employer's workforce. What it contains is one <b>fully disclosed fictional-but-typical scenario</b> — a model, printed in full below, built on the standard structure of U.S. food assistance, childcare subsidy, Medicaid-style coverage, and housing help — programs whose amounts and thresholds genuinely vary by state and year, which is why the game refuses to quote yours.</p>
+<h3>The scenario (all figures are this game's assumptions)</h3>
+<p><b>Mode A store:</b> 60 workers · gross margin before labour $58,000/wk · other operating costs $18,000/wk · profit target $12,000/wk · manager bonus $750 per target week · benefits loading $0/wk per worker under a 35-hr cap, $55 at 35 hrs, $110 at 40 hrs · erratic scheduling saves the store $900/wk in lean-staffing flexibility; stable scheduling costs $100/wk in slack coverage. <i>Subsidy Ledger model, per worker per month:</i> food assistance = 22% of the gap between monthly earnings and $1,500 (max $280); health support = $310 if the job provides no benefits and earnings are under $1,900 ($120 if earnings are higher, $140 at a 35-hr benefits tier, $40 at a full 40-hr benefits tier); housing help = $180 under $1,300/mo earnings, $70 under $1,700; erratic schedules add $60 (extra paid care and compliance churn). The ledger converts at 60 workers, 4.33 weeks/month. "Labour savings" are measured against the game's own baseline: 40 hrs at the living-wage tier with full benefits.</p>
+<p><b>Mode B worker:</b> single parent, two children · budget $2,650/mo as itemised in Mode B (rent can rise mid-year — watch Month 7) · childcare costs $520/mo · food assistance: $520/mo at earnings ≤ $900, phasing out 30¢ per $1 above $900 · childcare subsidy: $380/mo while earnings ≤ $1,650, then <b>zero</b> — a hard cliff, as many real subsidy schedules have been · housing help: $200/mo at earnings ≤ $1,400, phasing out to $0 at $1,800 · health coverage: full coverage valued at $280/mo while earnings ≤ $1,900; above that, coverage is lost and a $185/mo premium becomes a work cost · transport $140/mo, +$30 above 35 hrs/wk, +$70 with a second job, which also adds $60/mo of extra care costs and pays $260/mo. One-off life events (car repair, a sick kid, a store hours cut) are the game's, dated inside the fiction.</p>
+<p><b>What is real:</b> the <i>structure</i> — hours caps held just under benefits thresholds, phase-outs that can outrun a raise, subsidy cliffs, and public programs quietly completing a low-wage payroll — is the documented shape of these systems, and the reason every figure here is labelled a scenario instead of a statistic. For your own state's current amounts, your state benefit agency's published tables are the source; this game is the argument, not the table.</p>
+<p>Directed by Corey Spangler · Built by AI · <b>The Stoic Opposition Presents</b> · No data collected. No external calls. The store is fictional; the arithmetic is the point.</p>
+</div>
+<div class="center" style="margin-top:12px"><button class="btn primary" onclick="quitToTitle()">Title screen</button></div>
+</section>
+
+<footer>FULL-TIME, STILL BROKE — a playable argument about who actually pays for low prices.<br>Directed by Corey Spangler · Built by AI · The Stoic Opposition Presents<br>No data collected. No external calls.</footer>
+</div>
+
+<div class="modal" id="eventModal"><div class="box">
+<h2 id="evTitle"></h2><p id="evText"></p><div id="evChoices"></div>
+</div></div>
+<script>
+"use strict";
+function $(id){return document.getElementById(id)}
+function money(n){var s=n<0?"-$":"$";n=Math.abs(Math.round(n));return s+n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")}
+function showScreen(name){["title","A","B","endA","endB","credits"].forEach(function(x){$("screen-"+x).classList.toggle("on",x===name)});window.scrollTo(0,0)}
+function quitToTitle(){showScreen("title")}
+// ---------------- MODE A — THE MANAGER ----------------
+var STAFF=60, GROSS=58000, OPS=18000, TARGET=12000, BONUS=750, BASELINE_LABOR=46200;
+var A=null;
+var CAPS=[
+ {v:29,label:"Cap hours at 29 / week",sub:"Part-time by design. No benefits eligibility triggered — the cap is the point."},
+ {v:35,label:"Cap hours at 35 / week",sub:"Near-full-time. Partial benefits tier kicks in ($55/worker/wk)."},
+ {v:40,label:"Full-time: 40 / week",sub:"Full benefits tier ($110/worker/wk). People can plan a life around this schedule."}];
+var WAGES=[
+ {v:11,label:"Low wage — $11.00/hr",sub:"The regional standard. Nobody at Regional has ever asked what it rents."},
+ {v:13.5,label:"Mid wage — $13.50/hr",sub:"Costs real money every single week. Noticeably fewer resignations."},
+ {v:16.5,label:"Living wage — $16.50/hr",sub:"The game's top tier. Watch what it does to the target — and to the quiet ledger."}];
+var SCHEDS=[
+ {v:"erratic",label:"Erratic scheduling",sub:"Shifts posted 3 days out, hours swing week to week. Saves the store $900/wk in lean-staffing flexibility. Costs your workers $60/mo each in extra care and churn."},
+ {v:"stable",label:"Stable scheduling",sub:"Shifts posted 3 weeks out, consistent hours. Costs $100/wk in slack coverage. Workers can hold a second commitment — like a family."}];
+function benefitsLoading(cap){return cap>=40?110:(cap>=35?55:0)}
+function laborCost(cap,wage){return STAFF*cap*wage+STAFF*benefitsLoading(cap)}
+function profitWeekA(cap,wage,sched){
+ var p=GROSS-OPS-laborCost(cap,wage)+(sched==="erratic"?900:-100);
+ return p;
+}
+function subsidyPerWorkerMonth(cap,wage,sched){
+ var E=cap*wage*4.33;
+ var food=Math.min(280,Math.max(0,(1500-E)*0.22));
+ var health=cap>=40?40:(cap>=35?140:(E<1900?310:120));
+ var housing=E<1300?180:(E<1700?70:0);
+ var child=sched==="erratic"?60:0;
+ return food+health+housing+child;
+}
+function subsidyWeekA(cap,wage,sched){return subsidyPerWorkerMonth(cap,wage,sched)*STAFF/4.33}
+function startModeA(){
+ A={week:1,pol:{cap:29,wage:11,sched:"erratic"},bonusWk:0,bonus:0,profitTot:0,subsidyTot:0,savingsTot:0,erraticWeeks:0,mods:null,settled:false,history:[]};
+ renderPolicyA();updatePreviewA();updateHUD_A();
+ $("aSettle").innerHTML="";$("feedbackA").textContent="";
+ showScreen("A");
+}
+function updateHUD_A(){
+ $("aWeek").textContent=Math.min(A.week,8);$("aBonusWk").textContent=A.bonusWk;
+ $("aBonus").textContent=money(A.bonus);$("aProfitTot").textContent=money(A.profitTot);
+ $("aSubTotal").textContent=money(A.subsidyTot);
+}
+function renderPolicyA(){
+ var h="";
+ function group(title,items,key,fmt){
+  h+="<div class='optgroup'><h3>"+title+"</h3>";
+  items.forEach(function(it,i){
+   h+="<button class='opt"+(A.pol[key]===it.v?" sel":"")+"' onclick='aSetPolicy(\""+key+"\",\""+it.v+"\")'>"+it.label+"<span class='sub'>"+it.sub+"</span></button>";
+  });
+  h+="</div>";
+ }
+ group("⏱️ Hours cap per worker",CAPS,"cap");
+ group("💵 Wage level",WAGES,"wage");
+ group("🗓️ Schedule",SCHEDS,"sched");
+ $("aPolicy").innerHTML=h;
+}
+function aSetPolicy(key,val){
+ if(A.settled)return;
+ if(key==="cap"||key==="wage")val=parseFloat(val);
+ A.pol[key]=val;renderPolicyA();updatePreviewA();
+}
+function updatePreviewA(){
+ var p=A.pol, prof=profitWeekA(p.cap,p.wage,p.sched), sub=subsidyWeekA(p.cap,p.wage,p.sched);
+ var save=BASELINE_LABOR-laborCost(p.cap,p.wage);
+ $("aPreview").innerHTML="Labour cost: <b>"+money(laborCost(p.cap,p.wage))+"</b>/wk (wages "+money(STAFF*p.cap*p.wage)+" + benefits "+money(STAFF*benefitsLoading(p.cap))+")<br>Projected profit: <b>"+money(prof)+"</b> — "+(prof>=TARGET?"<span style='color:#14532d'><b>TARGET HIT ✓ (+$750 bonus)</b></span>":"<span style='color:#8a1622'><b>target missed by "+money(TARGET-prof)+"</b></span>")+"<br>Labour savings vs. the full-time living-wage baseline: <b>"+money(save)+"</b>/wk";
+ $("aSubPreview").innerHTML="If you run this policy, an estimated <b>"+money(sub)+"</b> of public support flows to your own workers this week — about <b>"+money(subsidyPerWorkerMonth(p.cap,p.wage,p.sched))+"</b> per worker per month, paid by taxpayers instead of payroll.";
+}
+function aRunWeek(){
+ if(A.settled)return;
+ var p=A.pol;
+ var prof=profitWeekA(p.cap,p.wage,p.sched), sub=subsidyWeekA(p.cap,p.wage,p.sched), save=BASELINE_LABOR-laborCost(p.cap,p.wage);
+ var modNote="";
+ if(A.mods){prof+=A.mods.profit;sub+=A.mods.subsidy;modNote="<br><i>"+A.mods.note+"</i>";A.mods=null;$("aEventNote").textContent="";}
+ var hit=prof>=TARGET;
+ if(hit){A.bonusWk++;A.bonus+=BONUS}
+ A.profitTot+=prof;A.subsidyTot+=sub;A.savingsTot+=save;
+ if(p.sched==="erratic")A.erraticWeeks++;
+ A.history.push({week:A.week,cap:p.cap,wage:p.wage,sched:p.sched,profit:prof,sub:sub,hit:hit});
+ A.settled=true;$("aRunBtn").disabled=true;
+ updateHUD_A();
+ $("aSettle").innerHTML="<div class='result'><b>Week "+A.week+" settled.</b> Store profit: <b>"+money(prof)+"</b> — "+(hit?"target hit. Bonus banked: +$750. Regional sends a one-line email: \"Good week.\"":"target missed by "+money(TARGET-prof)+". Regional sends a one-line email: \"Labour is a controllable cost. Control it.\"")+"<br>The quiet ledger adds <b>"+money(sub)+"</b> this week. Your workers' groceries, clinics, and rent gaps, covered — just not by the store."+modNote+"<br><br><button class='btn primary' id='aNextBtn' onclick='aNextWeek()'>"+(A.week>=8?"SEE THE TWO LEDGERS →":"NEXT WEEK →")+"</button></div>";
+}
+function aNextWeek(){
+ var wk=A.week;
+ if(wk>=8)return endModeA();
+ A.week++;A.settled=false;$("aRunBtn").disabled=false;$("aSettle").innerHTML="";
+ updateHUD_A();renderPolicyA();updatePreviewA();
+ if(wk===2)showEventA("📧 From Regional","\"Reminder to all store managers: labour percentage is the number we review. Benefits enrolment is not a store metric. That is all.\"<br><br>You read it twice. It does not mention the other ledger. It never does.",[{l:"File it and get back to the schedule",f:null}]);
+ else if(wk===4)showEventA("🙋 The Request","One of your best workers — six years on the aisle — asks, quietly, at the end of a shift: could she get steady hours? Thirty-five, every week, so she can stop re-applying for the childcare help that her swinging schedule keeps interrupting. Five others would take the same deal.<br><br>It is entirely within your power. It is also entirely your cost.",[
+  {l:"Approve it for the six of them (next week: labour +$800, subsidy ledger −$600)",f:function(){A.mods={profit:-800,subsidy:-600,note:"The six steady schedules ran this week: labour cost +$800, and the quiet ledger fell $600 — six households needed that much less help."};$("aEventNote").textContent="(The six steady schedules take effect this week.)";}},
+  {l:"Keep the cap uniform — \"fairness\" (nothing changes; the cap stays fair the way a wall is fair)",f:null}]);
+ else if(wk===6){
+   if(A.erraticWeeks>=4)showEventA("🚪 Turnover","Two more workers quit this week — the third and fourth this month. Both cited the schedule. Hiring and training their replacements costs the store $600 next week, which Regional will count as <i>your</i> overrun, not the schedule's.",[{l:"Post the vacancies — at 29 hours, erratic (next week: profit −$600)",f:function(){A.mods={profit:-600,subsidy:0,note:"Turnover cost from the erratic schedule landed this week: −$600."};$("aEventNote").textContent="(Turnover cost lands this week.)";}}]);
+   else showEventA("📋 Turnover — a non-event","Nobody quit this week. Your stable-schedule workers mostly stay; one of them told you it's the first job she's been able to hold alongside her kids' school run. Regional does not have a metric for this either.",[{l:"Noted. Back to the schedule",f:null}]);
+ }
+}
+function showEventA(title,text,choices){
+ $("evTitle").textContent=title;$("evText").innerHTML=text;
+ var box=$("evChoices");box.innerHTML="";
+ choices.forEach(function(ch){
+  var b=document.createElement("button");b.className="choice";b.textContent=ch.l;
+  b.onclick=function(){if(ch.f)ch.f();$("eventModal").classList.remove("on")};
+  box.appendChild(b);
+ });
+ $("eventModal").classList.add("on");
+}
+function endModeA(){
+ var perWorker=A.subsidyTot*4.33/(STAFF*8);
+ var html="<h2>Mode A — The Two Ledgers</h2>";
+ html+="<div class='vs'><div class='ledger'><h3 style='margin-top:0'>🏬 THE STORE'S LEDGER</h3>Weeks you hit Regional's target: <b>"+A.bonusWk+" of 8</b><br>Your bonus: <b>"+money(A.bonus)+"</b><br>Store profit over 8 weeks: <b>"+money(A.profitTot)+"</b><br>Labour savings vs. full-time living-wage staffing: <b>"+money(A.savingsTot)+"</b></div>";
+ html+="<div class='ledger quiet'><h3 style='margin-top:0'>🤫 THE SUBSIDY LEDGER</h3>Public support your own workers relied on: <b>"+money(A.subsidyTot)+"</b> over 8 weeks<br>That's about <b>"+money(perWorker)+"</b> per worker, per month — food assistance, health coverage, and housing help that the payroll didn't cover, so the taxpayer did.</div></div>";
+ html+="<div class='result'><b>Read the two ledgers together.</b> The first one is why the second one exists. A store can hold hours at 29, keep wages at the floor, and swing schedules for flexibility — and every dollar it doesn't spend on the people who staff it doesn't vanish. It moves. It moves to a food-assistance card, a Medicaid plan, a housing voucher — to the public, which pays it without ever getting a vote on the store's schedule.\n\n<b>The subsidy is not a side effect of this business model. It is the business model.</b> The low prices are real. So is the second invoice, and it is addressed to everyone.\n\nAnd notice: <i>you</i> were never the villain of this mode. The target was set above you; missing it cost you your job; the bonus was the leash. The manager is a person doing arithmetic someone else set up — which is exactly how a system like this defends itself. Nobody has to be cruel. The spreadsheet is cruel on everyone's behalf.</div>";
+ html+="<div class='center' style='margin-top:14px'><button class='btn primary' onclick='startModeB()'>▶ NOW PLAY MODE B — LIVE ON THE OTHER SIDE OF THAT LEDGER</button><br><button class='btn' onclick='startModeA()'>Replay Mode A — try to hit the target honestly</button> <button class='btn ghost' onclick='quitToTitle()'>Title screen</button></div>";
+ $("endAContent").innerHTML=html;showScreen("endA");
+}
+</script>
+<script>
+"use strict";
+// ---------------- MODE B — THE CLIFF ----------------
+var B=null;
+function calcMonthB(s){
+ var E=Math.round(s.hrs*s.wage*4.33)+(s.second?260:0);
+ var food=E<=900?520:Math.max(0,Math.round(520-(E-900)*0.30));
+ var childSub=E<=1650?380:0;
+ var housing=E<=1400?200:(E<1800?Math.round(200*(1800-E)/400):0);
+ var healthVal=E<=1900?280:0;
+ var premium=E<=1900?0:185;
+ var childPaid=s.childCost-childSub;
+ var transport=140+(s.hrs>35?30:0)+(s.second?70:0);
+ var extraCare=s.second?60:0;
+ var benefits=food+childSub+housing+healthVal;
+ var costs=childPaid+transport+premium+extraCare;
+ return {E:E,food:food,childSub:childSub,housing:housing,healthVal:healthVal,premium:premium,childPaid:childPaid,transport:transport,extraCare:extraCare,benefits:benefits,costs:costs,R:E+benefits-costs};
+}
+var B_EVENTS={
+ 1:{t:"A new month. The schedule board says 29 hours, like always.",one:0},
+ 2:{t:"A coworker quit. Extra shifts are going around — the store would rather spread hours thin than cross anyone's benefits line, but the shifts are real.",one:0},
+ 3:{t:"The car needs a repair: −$180 this month, whatever else happens.",one:-180},
+ 4:{t:"The diner across the highway is hiring nights. A second job is on the table from now on.",one:0},
+ 5:{t:"Your hours were cut one week on a day's notice: −$90 this month.",one:-90},
+ 6:{t:"Your youngest is sick. If your coverage is active this month, it's a copay and a worry. If it isn't, it's a bill: −$150.",one:null},
+ 7:{t:"Rent renewal came in: +$40 a month. Your budget target is now $2,690.",one:0,perm:"rent"},
+ 8:{t:"The manager mentions a 'lead' title. Raises exist. They are small, and they are real.",one:0},
+ 9:{t:"Store-wide: a 'labour cost initiative' cuts everyone's hours by 3 a week. Permanently. Mode A sends its regards.",one:0,perm:"cut"},
+ 10:{t:"Your childcare provider raises her rate: care now costs $560 a month. The subsidy, if you still have it, does not rise.",one:0,perm:"care"},
+ 11:{t:"Holiday overtime is posted: +$130 this month if you're at 32+ hours, +$70 otherwise.",one:null},
+ 12:{t:"December. One more month of arithmetic.",one:0}
+};
+function startModeB(){
+ B={month:1,hrs:29,wage:12.25,raises:0,second:false,childCost:520,budget:2650,prevE:null,prevR:null,history:[],cliffs:0,selfMonth:null,bestE:0,permDone:{}};
+ showScreen("B");renderBChoose();
+}
+function bState(){return {hrs:B.hrs,wage:B.wage,second:B.second,childCost:B.childCost}}
+function updateHUD_B(c){
+ $("bMonth").textContent=Math.min(B.month,12);$("bHrs").textContent=B.hrs;
+ $("bWage").textContent="$"+B.wage.toFixed(2);
+ $("bEarn").textContent=money(c.E);$("bRes").textContent=money(c.R);
+ $("bBudget").textContent=money(B.budget);$("bBudgetTxt").textContent=money(B.budget);
+}
+function breakdownTable(c,oneOff){
+ var h="<table><tr><th>Line</th><th class='n'>$/month</th></tr>";
+ h+="<tr><td>Earnings (store"+(B.second?" + diner":"")+")</td><td class='n'>"+money(c.E)+"</td></tr>";
+ h+="<tr><td>Food assistance</td><td class='n'>+"+money(c.food)+"</td></tr>";
+ h+="<tr><td>Childcare subsidy</td><td class='n'>+"+money(c.childSub)+(c.childSub===0&&c.E>1650?" <i>(lost — earnings crossed $1,650)</i>":"")+"</td></tr>";
+ h+="<tr><td>Housing help</td><td class='n'>+"+money(c.housing)+"</td></tr>";
+ h+="<tr><td>Health coverage value</td><td class='n'>+"+money(c.healthVal)+(c.healthVal===0?" <i>(coverage lost — earnings crossed $1,900)</i>":"")+"</td></tr>";
+ h+="<tr><td>Childcare you pay</td><td class='n'>−"+money(c.childPaid)+"</td></tr>";
+ h+="<tr><td>Transport</td><td class='n'>−"+money(c.transport)+"</td></tr>";
+ if(c.premium>0)h+="<tr><td>Health premium (now a work cost)</td><td class='n'>−"+money(c.premium)+"</td></tr>";
+ if(c.extraCare>0)h+="<tr><td>Extra care for second-job hours</td><td class='n'>−"+money(c.extraCare)+"</td></tr>";
+ if(oneOff)h+="<tr><td>Life, this month</td><td class='n'>"+(oneOff>0?"+":"−")+money(Math.abs(oneOff)).slice(0)+"</td></tr>";
+ h+="<tr class='tot'><td>Total resources</td><td class='n'>"+money(c.R+(oneOff||0))+"</td></tr></table>";
+ h+="<p class='small'>Budget to cover: <b>"+money(B.budget)+"</b> · Earnings alone: <b>"+money(c.E)+"</b> · Benefits received: <b>"+money(c.benefits)+"</b>"+(c.E>=B.budget&&c.benefits===0?" · <b style='color:#14532d'>SELF-SUFFICIENT ✓</b>":"")+"</p>";
+ return h;
+}
+function renderBChoose(){
+ var ev=B_EVENTS[B.month];
+ if(ev.perm&&!B.permDone[B.month]){
+  B.permDone[B.month]=true;
+  if(ev.perm==="rent")B.budget=2690;
+  if(ev.perm==="cut")B.hrs=Math.max(24,B.hrs-3);
+  if(ev.perm==="care")B.childCost=560;
+ }
+ var c=calcMonthB(bState());updateHUD_B(c);
+ var acts=[
+  {l:"⏱️ Take extra shifts (+4 hrs/week)",d:B.hrs>=40,note:"More pay. Watch the thresholds at $1,650 and $1,900 of monthly earnings."},
+  {l:"💵 Accept the raise (+$0.75/hr)",d:B.raises>=4,note:B.raises>=4?"No more raises on offer.":"Raise "+(B.raises+1)+" of 4. More pay. Same thresholds."},
+  {l:"🌙 Take the second job at the diner (+$260/mo)",d:B.second,note:"+$260 earnings, +$70 transport, +$60 extra childcare. Sleep is not a line item."},
+  {l:"↩️ Turn hours down (−4 hrs/week)",d:B.hrs<=20,note:"Less pay. Sometimes — do the arithmetic — more resources. That sentence is the game."},
+  {l:"⏸️ Hold steady",d:false,note:"Change nothing. The month happens anyway."}];
+ var h="<div class='card'><b>Month "+B.month+".</b> "+ev.t+"</div>";
+ h+="<h3>Where you'd land if nothing changed:</h3>"+breakdownTable(c,0);
+ h+="<h3>Make one move:</h3>";
+ acts.forEach(function(a,i){h+="<button class='choice' "+(a.d?"disabled":"")+" onclick='bChoose("+i+")'>"+a.l+"<span class='sub' style='display:block;font-size:13px;color:#5a6a7e'>"+a.note+"</span></button>"});
+ $("bMain").innerHTML=h;
+}
+function bChoose(i){
+ var label=["Extra shifts","The raise","Second job","Turned hours down","Held steady"][i];
+ if(i===0)B.hrs=Math.min(40,B.hrs+4);
+ if(i===1){B.wage=+(B.wage+0.75).toFixed(2);B.raises++}
+ if(i===2)B.second=true;
+ if(i===3)B.hrs=Math.max(20,B.hrs-4);
+ var ev=B_EVENTS[B.month];
+ var c=calcMonthB(bState());
+ var one=ev.one;
+ if(B.month===6)one=c.healthVal>0?0:-150;
+ if(B.month===11)one=B.hrs>=32?130:70;
+ var R=c.R+(one||0);
+ var cliff=B.prevE!==null&&c.E>B.prevE&&R<B.prevR;
+ if(cliff)B.cliffs++;
+ if(c.E>=B.budget&&c.benefits===0&&B.selfMonth===null)B.selfMonth=B.month;
+ if(c.E>B.bestE)B.bestE=c.E;
+ B.history.push({month:B.month,action:label,E:c.E,R:R,cliff:cliff});
+ var h="<h3>Month "+B.month+" settled — you chose: "+label+"</h3>"+breakdownTable(c,one||0);
+ if(cliff)h+="<div class='cliff'>⚠ <b>THE CLIFF.</b> You earned <b>"+money(c.E-B.prevE)+" more</b> than last month — and your total resources <b>fell by "+money(B.prevR-R)+"</b>. You did not misread the table. The phase-outs took more than the raise gave. This is the month working harder made you poorer, and it is not a bug in your effort. It is the schedule working exactly as scheduled.</div>";
+ if(B.selfMonth===B.month)h+="<div class='good'>🎯 <b>SELF-SUFFICIENT — on paper.</b> This month your earnings alone cover the budget and you received no benefits at all. Look at what it took to stand here, and at your total resources next to Month 1's. Then decide what this victory is worth.</div>";
+ h+="<div class='center'><button class='btn primary' onclick='bNext()'>"+(B.month>=12?"SEE THE YEAR →":"NEXT MONTH →")+"</button></div>";
+ B.prevE=c.E;B.prevR=R;
+ $("bMain").innerHTML=h;updateHUD_B(c);window.scrollTo(0,0);
+}
+function bNext(){
+ if(B.month>=12)return endModeB();
+ B.month++;renderBChoose();window.scrollTo(0,0);
+}
+function endModeB(){
+ var first=B.history[0],last=B.history[B.history.length-1];
+ var bestR=B.history.reduce(function(m,x){return x.R>m.R?x:m},first);
+ var html="<h2>Mode B — The Year</h2><div class='result'>";
+ html+="Month 1 total resources: <b>"+money(first.R)+"</b> on earnings of "+money(first.E)+".\nYour best month: <b>"+money(bestR.R)+"</b> (Month "+bestR.month+", after: "+bestR.action+").\nFinal month: <b>"+money(last.R)+"</b> on earnings of "+money(last.E)+".\nMonths where earning more left you with less: <b>"+B.cliffs+"</b>.\nHighest earnings month: <b>"+money(B.bestE)+"</b> against a budget of "+money(B.budget)+".\n";
+ html+=B.selfMonth?("Self-sufficiency: <b>reached, Month "+B.selfMonth+"</b> — at the cost of every hour and second job the game had to sell you."):"Self-sufficiency: <b>not reached</b> — not for lack of moves. Every move was on the table, all year.";
+ html+="</div>";
+ html+="<div class='result'><b>Working harder didn't fail you. The arithmetic did.</b> Every threshold you crossed was a line someone drew: a subsidy that ends all at once instead of tapering, coverage that vanishes at a dollar figure, a raise measured in cents against phase-outs measured in hundreds. A person standing at the cliff edge who turns hours down is not lazy — they can read a table. You just read it.\n\nAnd remember Mode A's quiet ledger. The store's model needs labour priced below what a household costs to run. That gap does not close itself — public benefits close it, which means the employer's payroll is being completed by the taxpayer, on schedule, every month. The worker isn't dependent on the benefits instead of the job. <b>The job is dependent on the benefits.</b></div>";
+ html+="<div class='center' style='margin-top:14px'><button class='btn primary' onclick='startModeB()'>↻ Replay Mode B — try to beat the arithmetic</button><br><button class='btn' onclick='startModeA()'>Play Mode A — The Manager</button> <button class='btn ghost' onclick='showScreen(\"credits\")'>Scenario &amp; assumptions</button> <button class='btn ghost' onclick='quitToTitle()'>Title screen</button></div>";
+ $("endBContent").innerHTML=html;showScreen("endB");
+}
+</script>
+</body></html>

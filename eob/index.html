@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EOB — What Would You Do Differently? — The Stoic Opposition Presents</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:#f6f4ee;color:#122a42;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:#8a5a00}
+.wrap{max-width:920px;margin:0 auto;padding:16px}
+header{text-align:center;padding:24px 10px 6px}
+.seal{display:inline-block;border:3px double #122a42;border-radius:50%;width:104px;height:104px;line-height:1.25;padding-top:20px;font-size:10px;letter-spacing:.18em;font-weight:700}
+.logo{font-size:13px;letter-spacing:.35em;color:#8a5a00;margin-top:12px}
+h1{font-size:clamp(40px,8vw,72px);margin:4px 0 2px;letter-spacing:.03em}
+.tag{color:#44546a;font-size:clamp(15px,2.6vw,19px);font-style:italic}
+.point{background:#fff;border:1px solid #c9c2ae;border-left:6px solid #122a42;border-radius:10px;padding:13px 16px;margin:14px 0;line-height:1.55}
+.btn{background:#122a42;color:#f6f4ee;border:1px solid #122a42;border-radius:999px;padding:11px 20px;font-size:16px;cursor:pointer;margin:4px}
+.btn.primary{background:#c99700;border-color:#c99700;color:#122a42;font-weight:800}
+.btn.ghost{background:transparent;color:#122a42}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.small{padding:7px 14px;font-size:14px}
+.screen{display:none}.screen.on{display:block}
+.hud{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;background:#122a42;color:#f6f4ee;border-radius:12px;padding:11px 14px;margin:10px 0;font-variant-numeric:tabular-nums}
+.hud b{color:#ffd75e}
+.bar{height:14px;background:#ddd6c2;border-radius:99px;overflow:hidden;margin:3px 0 6px;display:flex}
+.bar i{display:block;height:100%}
+.legend{font-size:12px;color:#44546a;line-height:1.6}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px}
+.result{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:16px;margin-top:12px;line-height:1.6}
+.small{font-size:13px;color:#5a6a7e;line-height:1.55}
+.center{text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:10px 0}
+.card{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:14px;line-height:1.5}
+.bill{background:#fff;border:1px solid #c9c2ae;border-top:6px solid #122a42;border-radius:10px;padding:14px 16px;margin:12px 0;line-height:1.5}
+.bill h3{margin:2px 0 2px}.bill .from{color:#8a5a00;font-size:12px;letter-spacing:.14em;font-weight:700}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-variant-numeric:tabular-nums}
+td,th{border-bottom:1px solid #e3ddca;padding:6px 4px;text-align:right}
+td:first-child,th:first-child{text-align:left}
+tr.tot td{font-weight:800;border-top:2px solid #122a42}
+.check{font-size:13px;color:#2a7d4f;font-weight:600}
+.choice{display:block;width:100%;text-align:left;margin:8px 0;background:#fff;border:1px solid #122a42;border-radius:10px;padding:12px 14px;font-size:15px;cursor:pointer;color:#122a42;line-height:1.5}
+.choice:hover{border-color:#c99700;background:#fdf6da}
+.choice:disabled{opacity:.45;cursor:not-allowed}
+.trade{background:#fdf6da;border:1px solid #c99700;border-radius:10px;padding:12px 14px;margin:8px 0;line-height:1.55}
+.flow{display:flex;height:30px;border-radius:8px;overflow:hidden;margin:8px 0;border:1px solid #c9c2ae}
+.flow i{display:block;height:100%}
+footer{text-align:center;color:#7a8698;padding:26px 10px;font-size:13px;line-height:1.6}
+.tagchip{display:inline-block;border-radius:6px;padding:1px 8px;font-size:12px;font-weight:700;background:#122a42;color:#ffd75e;margin-right:6px}
+</style></head><body><div class="wrap">
+<header>
+<div class="seal">THE STOIC<br>OPPOSITION<br>🦉<br><span style="letter-spacing:.05em">TIMIDI MATER<br>NON FLET</span></div>
+<div class="logo">THE STOIC OPPOSITION PRESENTS</div>
+<h1>EOB</h1>
+<div class="tag">Explanation of Benefits — what would you do differently?</div>
+</header>
+
+<div class="point">This is not a bill. It says so right on it — and then the bills arrive anyway, one envelope at a time, from people who were all in the same room. You are the patient. You did everything right: you have insurance, you went in-network, you needed care three times this year. <b>Open the mail. Read every line. Then answer the only question this game asks: what would you do differently?</b><br><span class="small">Nobody in this game is a villain. There is no villain. There is only arithmetic — every figure on every bill reconciles, and you can check it. The plan below is fictional; the margin and waste figures in the sources panel are real and cited.</span></div>
+
+<section id="screen-title" class="screen on">
+<div class="card"><h3 style="margin-top:0">📋 Your plan (fictional, fixed for the whole game)</h3>
+<table>
+<tr><td>Annual deductible</td><td><b>$1,500</b></td></tr>
+<tr><td>Coinsurance after deductible</td><td><b>20%</b> you / 80% plan</td></tr>
+<tr><td>Office visit copay</td><td><b>$40</b> (no deductible)</td></tr>
+<tr><td>Out-of-pocket maximum</td><td><b>$4,000</b> — after this, the plan pays 100%</td></tr>
+</table>
+<p class="small">Disclosed assumptions: every patient payment (copays included) counts toward the out-of-pocket maximum, and the deductible carries across all three episodes, in order — the way a real plan year works. Each bill also shows what the care <i>cost to deliver</i>, the margin built into its allowed amount, and the administration in between. On each bill, margin rates marked ◆ come from the sourced panel; rates marked ◇ are disclosed scenario assumptions.</p></div>
+<div class="center" style="margin-top:12px">
+<button class="btn primary" onclick="startGame()">▶ OPEN THE MAILBOX — EPISODE 1</button><br>
+<button class="btn ghost small" onclick="showScreen('sources')">Read the sources first</button>
+</div>
+<div class="grid">
+<div class="card"><h3>✉️ The Mailbox</h3>Three episodes of care. The bills for each arrive separately — an inpatient stay arrives as five separate claims, because it does.</div>
+<div class="card"><h3>📊 The Ledger</h3>A running bar splits every billed dollar into the cost of care, administration, margin — and the part that was never real money at all.</div>
+<div class="card"><h3>🔧 Your Turn</h3>After each episode: cut a margin, consolidate the bills, strip duplicate admin. Every cut works — and every cut costs something somewhere else. No free wins.</div>
+</div>
+</section>
+
+<section id="screen-game" class="screen">
+<div class="hud"><span>✉️ Episode <b id="hEp">1</b> / 3</span><span>🎯 Deductible met <b id="hDed">$0</b> / $1,500</span><span>🛡️ Out-of-pocket <b id="hOop">$0</b> / $4,000</span><span>💸 You have paid <b id="hPaid">$0</b></span><span>🧾 Bills opened <b id="hBills">0</b></span></div>
+<h3 style="margin-bottom:2px">Where the billed money is going — running ledger</h3>
+<div class="bar" id="ledgerBar"><i style="background:#2a7d4f;width:0%"></i><i style="background:#c99700;width:0%"></i><i style="background:#8a3b00;width:0%"></i><i style="background:#b9b2a0;width:0%"></i></div>
+<div class="legend"><b style="background:#2a7d4f"></b>Cost of delivering care <span id="lgCare">$0</span> · <b style="background:#c99700"></b>Administration &amp; billing <span id="lgAdmin">$0</span> · <b style="background:#8a3b00"></b>Margin / profit <span id="lgProfit">$0</span> · <b style="background:#b9b2a0"></b>Written off — never existed <span id="lgWrite">$0</span></div>
+<div id="epIntro"></div>
+<div id="mailbox"></div>
+<div id="epPanel"></div>
+</section>
+
+<section id="screen-end" class="screen">
+<div id="endContent"></div>
+<div class="center" style="margin-top:14px">
+<button class="btn" onclick="showScreen('sources')">📚 SOURCES &amp; REAL NUMBERS</button>
+<button class="btn ghost" onclick="location.reload()">Play again</button>
+</div>
+</section>
+
+<section id="screen-sources" class="screen">
+<div class="result" style="white-space:normal">
+<h2 style="margin-top:0">📚 Sources &amp; real numbers</h2>
+<p><b>◆ Typical hospital operating margin ≈ 2%.</b> Kaufman Hall National Hospital Flash Report: about 2.1% for calendar 2024, roughly 1.7–2.5% through 2025. Hospital and facility bills in this game use 2%.</p>
+<p><b>◆ Health insurer profit margins are typically no more than a few percent of premiums</b> — about 2–4% net (KFF, 2026). Thin margins on enormous volume is still enormous money; the game shows margins per bill, and the plan's own admin-and-margin slice is governed by the next figure.</p>
+<p><b>◆ The ACA medical loss ratio:</b> plans must spend 80–85% of premiums on care and quality improvement, leaving 15–20% for administration and profit combined. That is a legal cap on the insurer's slice — note that provider-side administration (hospital billing departments, coding, claims on both ends) sits <i>outside</i> that cap, inside the allowed amounts you just read.</p>
+<p><b>◆ Waste:</b> Shrank et al., <i>JAMA</i> 2019, estimated total waste in US health care at $760–935 billion a year — roughly 25% of spending — with <b>administrative complexity the largest single domain, about $266 billion a year</b>. Broader estimates put administration at 15–25% of all health spending. In this game, administration took the share shown on your end screen — computed from the bills, not asserted.</p>
+<p><b>◇ Disclosed scenario assumptions</b> (labelled ◇ on the bills): non-hospital margin rates (physician, surgery, anesthesia, radiology, laboratory), the provider delivery costs, the billed charges, and the plan terms are fictional-but-typical scenario parameters, chosen so the arithmetic is clean enough to check by hand. The billed-to-allowed gaps are large because real chargemaster gaps are large; any specific bill here is an illustration, not a claim about a real provider.</p>
+<p><b>The formula on every bill</b> (so you can audit us): Allowed = delivery cost + administration + margin. Billed = Allowed + contractual write-off. You owe + plan paid = Allowed. You owe = copay, or deductible-remaining first, then 20% coinsurance on the rest — never more than what is left of your $4,000 out-of-pocket maximum.</p>
+</div>
+<div class="center" style="margin-top:12px"><button class="btn primary" onclick="showScreen(S&&S.started?'game':'title')">Back</button></div>
+</section>
+
+<footer>EOB — a playable argument about where the healthcare money goes.<br>Directed by Corey Spangler · Built by AI · The Stoic Opposition Presents<br>No data collected. No external calls. The patient is fictional; the arithmetic is the argument.</footer>
+</div>
+<script>
+"use strict";
+function $(id){return document.getElementById(id)}
+function fmt(n){return "$"+Math.round(n).toLocaleString("en-US")}
+function showScreen(name){["title","game","end","sources"].forEach(function(x){$("screen-"+x).classList.toggle("on",x===name)});window.scrollTo(0,0)}
+var PLAN={deductible:1500,coins:0.20,copayOffice:40,oopMax:4000};
+// Bill templates: billed, allowed, cost (to deliver), marginRate, marginSrc: "sourced" | "assumption"
+// Engine derives: margin = round(allowed*rate); admin = allowed - cost - margin (>=0 by construction).
+var EPISODES=[
+ {title:"Episode 1 — The One That Works (Mostly)",intro:"A Tuesday. Something's off — fatigue, a number on a routine screening your doctor wants a second look at. An office visit and a lab panel. This is the episode where the system works roughly as advertised: in-network, medically necessary, no surprises. Read the bills anyway. Even the good episode has a shape worth seeing.",bills:[
+  {from:"MAPLE STREET FAMILY MEDICINE",service:"Office visit, established patient, 25 min",billed:180,allowed:120,cost:80,rate:0.10,src:"assumption",copay:true,note:"The copay does its quiet job: you pay $40, the plan pays the rest, no deductible. This is the design working."},
+  {from:"REGIONAL DIAGNOSTICS LABORATORY",service:"Comprehensive metabolic panel + follow-up assays",billed:240,allowed:95,cost:38,rate:0.15,src:"assumption",note:"First bill against your deductible — so the allowed amount is yours to pay, all $95 of it. Note the gap between the $240 'charge' and the $95 anyone actually pays."}]},
+ {title:"Episode 2 — The ER Night",intro:"October, 2 a.m. Chest pain. You do the right thing: you go. It turns out to be muscular — good news, delivered at emergency-department prices, by three separate billing departments who have never met each other.",bills:[
+  {from:"ST. VERITAS MEDICAL CENTER — EMERGENCY DEPT",service:"Emergency department facility fee, high severity",billed:4200,allowed:2100,cost:1450,rate:0.02,src:"sourced",note:"The facility fee is the price of the room being ready at 2 a.m. — the cost line includes the staff standing by. Your deductible finishes here, partway through this one bill."},
+  {from:"EMERGENCY PHYSICIANS GROUP LLC",service:"Emergency physician evaluation (separate practice, separate bill)",billed:850,allowed:420,cost:260,rate:0.10,src:"assumption",note:"The doctor who treated you does not work for the hospital. Different company, different bill, different billing department — same visit."},
+  {from:"ST. VERITAS RADIOLOGY SERVICES",service:"CT chest with contrast + radiologist interpretation",billed:1900,allowed:780,cost:390,rate:0.12,src:"assumption",note:"The scan and the reading of the scan, billed by a third organization."}]},
+ {title:"Episode 3 — The Inpatient Stay",intro:"December. Appendicitis — the unambiguous kind. Surgery, two nights. Everyone who helps you is competent and kind. Then, over the next six weeks, the stay arrives in your mailbox the way it was billed: in pieces.",bills:[
+  {from:"ST. VERITAS MEDICAL CENTER — INPATIENT",service:"Facility: operating room, recovery, 2 nights inpatient",billed:18500,allowed:9200,cost:6900,rate:0.02,src:"sourced",note:"The largest bill, and the hospital's margin on it is the thinnest in the stack — about 2%, the sourced typical figure. Watch where the money actually pools as the rest arrive."},
+  {from:"SURGICAL ASSOCIATES OF THE VALLEY",service:"Surgeon: laparoscopic appendectomy (separate practice)",billed:3200,allowed:1650,cost:1020,rate:0.10,src:"assumption",note:"Your coinsurance on this bill would be $330 — but you only have $241 left before your out-of-pocket maximum. You pay $241. The maximum works. It just takes $4,000 of your money to reach it."},
+  {from:"VALLEY ANESTHESIA PARTNERS",service:"Anesthesiology, surgical case (separate practice)",billed:2100,allowed:980,cost:560,rate:0.15,src:"assumption",note:"You met this doctor for ninety seconds while counting backwards. You never chose them; they are simply who the schedule held. Your out-of-pocket maximum is met now, so this one costs you $0 — the plan pays, and the cost lands in premiums, everyone's and yours."},
+  {from:"ST. VERITAS RADIOLOGY SERVICES",service:"Post-operative imaging + interpretation",billed:1200,allowed:540,cost:270,rate:0.12,src:"assumption",note:"Bill four of one stay."},
+  {from:"REGIONAL DIAGNOSTICS LABORATORY",service:"Inpatient laboratory work across two days",billed:760,allowed:310,cost:124,rate:0.15,src:"assumption",note:"Bill five of one stay. Five bills, five billing departments, five rounds of coding, eligibility, and claims processing — each one inside the 'administration' slice of its own bill."}]}
+];
+var S=null;
+function buildBills(){
+ var dedMet=0,oop=0,out=[];
+ EPISODES.forEach(function(ep,ei){
+  ep.bills.forEach(function(t,bi){
+   var b={ep:ei,from:t.from,service:t.service,billed:t.billed,allowed:t.allowed,cost:t.cost,rate:t.rate,src:t.src,note:t.note,copay:!!t.copay};
+   b.margin=Math.round(b.allowed*b.rate);
+   b.admin=b.allowed-b.cost-b.margin;
+   b.writeoff=b.billed-b.allowed;
+   b.dedBefore=dedMet;
+   if(b.copay){b.dedApplied=0;b.coins=0;b.owes=Math.min(PLAN.copayOffice,PLAN.oopMax-oop);}
+   else{
+     b.dedApplied=Math.min(b.allowed,PLAN.deductible-dedMet);
+     var rest=b.allowed-b.dedApplied;
+     b.coins=Math.round(rest*PLAN.coins);
+     b.owes=b.dedApplied+b.coins;
+     if(b.owes>PLAN.oopMax-oop)b.owes=PLAN.oopMax-oop;
+   }
+   dedMet+=b.dedApplied; oop+=b.owes;
+   b.dedAfter=dedMet; b.oopAfter=oop;
+   b.planPaid=b.allowed-b.owes;
+   out.push(b);
+  });
+ });
+ return out;
+}
+var BILLS=buildBills();
+function epBills(ei){return BILLS.filter(function(b){return b.ep===ei})}
+function epAgg(ei,src){
+ var a={billed:0,allowed:0,cost:0,admin:0,profit:0,writeoff:0,patient:0,plan:0};
+ (src||epBills(ei)).forEach(function(b){a.billed+=b.billed;a.allowed+=b.allowed;a.cost+=b.cost;a.admin+=b.admin;a.profit+=b.margin;a.writeoff+=b.writeoff;a.patient+=b.owes;a.plan+=b.planPaid});
+ return a;
+}
+function startGame(){
+ S={started:true,ep:0,opened:0,paid:0,billsOpened:0,alt:{},cuts:[]};
+ EPISODES.forEach(function(_,ei){S.alt[ei]=epAgg(ei)});
+ showScreen("game");renderEp();
+}
+function totals(src){
+ var a={billed:0,allowed:0,cost:0,admin:0,profit:0,writeoff:0,patient:0,plan:0};
+ if(src){EPISODES.forEach(function(_,ei){var e=S.alt[ei];a.billed+=e.billed;a.allowed+=e.allowed;a.cost+=e.cost;a.admin+=e.admin;a.profit+=e.profit;a.writeoff+=e.writeoff;a.patient+=e.patient;a.plan+=e.plan})}
+ else BILLS.forEach(function(b){a.billed+=b.billed;a.allowed+=b.allowed;a.cost+=b.cost;a.admin+=b.admin;a.profit+=b.margin;a.writeoff+=b.writeoff;a.patient+=b.owes;a.plan+=b.planPaid});
+ return a;
+}
+function renderHUD(){
+ var opened=BILLS.slice(0,flatIndex());
+ var ded=opened.length?opened[opened.length-1].dedAfter:0;
+ var oop=opened.length?opened[opened.length-1].oopAfter:0;
+ $("hEp").textContent=S.ep+1;$("hDed").textContent=fmt(ded);$("hOop").textContent=fmt(oop);
+ $("hPaid").textContent=fmt(oop);$("hBills").textContent=S.billsOpened;
+ var a={cost:0,admin:0,profit:0,writeoff:0,billed:0};
+ opened.forEach(function(b){a.cost+=b.cost;a.admin+=b.admin;a.profit+=b.margin;a.writeoff+=b.writeoff;a.billed+=b.billed});
+ var seg=[$("ledgerBar").children[0],$("ledgerBar").children[1],$("ledgerBar").children[2],$("ledgerBar").children[3]];
+ var vals=[a.cost,a.admin,a.profit,a.writeoff];
+ vals.forEach(function(v,i){seg[i].style.width=(a.billed?100*v/a.billed:0)+"%"});
+ $("lgCare").textContent=fmt(a.cost);$("lgAdmin").textContent=fmt(a.admin);$("lgProfit").textContent=fmt(a.profit);$("lgWrite").textContent=fmt(a.writeoff);
+}
+function flatIndex(){var n=0;for(var e=0;e<S.ep;e++)n+=EPISODES[e].bills.length;return n+S.opened}
+function renderEp(){
+ var ep=EPISODES[S.ep];
+ $("epIntro").innerHTML="<div class='point'><b>"+ep.title+"</b><br>"+ep.intro+"</div>";
+ $("mailbox").innerHTML="";$("epPanel").innerHTML="";
+ S.opened=0;renderHUD();renderMail();
+}
+function renderMail(){
+ var mb=$("mailbox");mb.innerHTML="";
+ var bills=epBills(S.ep);
+ bills.forEach(function(b,i){
+  if(i<S.opened){mb.appendChild(billCard(b,i))}
+  else if(i===S.opened){
+   var btn=document.createElement("button");btn.className="btn primary";btn.id="openBtn";
+   btn.textContent="✉️ OPEN ENVELOPE "+(i+1)+" OF "+bills.length+" — "+b.from;
+   btn.onclick=openNext;mb.appendChild(btn);
+  }
+ });
+ if(S.opened>=bills.length)renderPanel();
+}
+function openNext(){S.opened++;S.billsOpened++;renderHUD();renderMail();window.scrollTo(0,document.body.scrollHeight)}
+function billCard(b,i){
+ var d=document.createElement("div");d.className="bill";
+ var dedLine=b.copay?"Copay bill — deductible does not apply":"Deductible before this bill: "+fmt(b.dedBefore)+" of "+fmt(PLAN.deductible)+" met";
+ var oweLine=b.copay?("Copay: <b>"+fmt(b.owes)+"</b>"):("Applied to deductible: <b>"+fmt(b.dedApplied)+"</b> · Coinsurance (20% of the rest): <b>"+fmt(b.coins)+"</b>"+(b.owes<b.dedApplied+b.coins?" · <b>Out-of-pocket maximum reached — you actually pay "+fmt(b.owes-b.dedApplied)+" of that coinsurance</b>":""));
+ d.innerHTML="<div class='from'>ENVELOPE "+(i+1)+" · THIS IS NOT A BILL (IT IS, THOUGH)</div><h3>"+b.from+"</h3><div class='small'>"+b.service+"</div>"+
+ "<table>"+
+ "<tr><td>Billed charge (the opening bid)</td><td>"+fmt(b.billed)+"</td></tr>"+
+ "<tr><td>Contractual write-off (never paid by anyone)</td><td>−"+fmt(b.writeoff)+"</td></tr>"+
+ "<tr><td><b>Allowed amount</b> (what the care was actually priced at)</td><td><b>"+fmt(b.allowed)+"</b></td></tr>"+
+ "<tr><td>— Cost to deliver this care</td><td>"+fmt(b.cost)+"</td></tr>"+
+ "<tr><td>— Administration &amp; billing inside the allowed amount</td><td>"+fmt(b.admin)+"</td></tr>"+
+ "<tr><td>— Margin built in ("+(b.rate*100)+"% of allowed) "+(b.src==="sourced"?"◆ sourced typical":"◇ scenario assumption")+"</td><td>"+fmt(b.margin)+"</td></tr>"+
+ "<tr><td>"+dedLine+"</td><td></td></tr>"+
+ "<tr><td>"+oweLine+"</td><td></td></tr>"+
+ "<tr class='tot'><td>YOU OWE</td><td>"+fmt(b.owes)+"</td></tr>"+
+ "<tr><td>Plan paid</td><td>"+fmt(b.planPaid)+"</td></tr></table>"+
+ "<div class='check'>✓ Check it: "+fmt(b.owes)+" (you) + "+fmt(b.planPaid)+" (plan) + "+fmt(b.writeoff)+" (written off) = "+fmt(b.billed)+" billed · "+fmt(b.cost)+" cost + "+fmt(b.admin)+" admin + "+fmt(b.margin)+" margin = "+fmt(b.allowed)+" allowed</div>"+
+ "<p class='small'>"+b.note+"</p>";
+ return d;
+}
+</script>
+<script>
+"use strict";
+var CUTS=[
+ {k:"margin",name:"✂️ Halve the margins in this episode",desc:function(a){return "Saves "+fmt(Math.round(a.profit*0.5))+" of margin across these bills."},
+  apply:function(a){var red=Math.round(a.profit*0.5);a.profit-=red;return red},
+  trade:["Margins are also reserves. Halve them and the hospital's cushion against a bad year — a flu surge, a broken scanner, a payer paying late — gets thin. Thin reserves are how rural service lines end up on a closure list: not out of greed, out of arithmetic.","A margin is also next year's equipment budget. Halve it and the imaging suite ages another year before replacement — longer waits, older machines, same need.","Nobody at any of these organizations experiences a halved margin as an abstraction. It is a hiring freeze, a department not staffed, a contract not renewed. The money was going somewhere specific. It always is."]},
+ {k:"admin",name:"🧹 Strip the duplicate administration",desc:function(a){return "One shared eligibility, coding, and claims pass instead of one per organization. Saves "+fmt(Math.floor(a.admin*0.2))+" — 20% of this episode's administration."},
+  apply:function(a){var red=Math.floor(a.admin*0.2);a.admin-=red;return red},
+  trade:["Administration is waste from the patient's chair and a paycheck from the other side of the desk. This episode's admin slice is salaries — coders, billers, claims processors in ordinary jobs. Cutting it is cutting them, and the errors the second pass used to catch start reaching patients as wrong bills.","Fewer passes means slower, coarser passes. Some claims that should be questioned won't be; some that shouldn't will take longer to fix. The waste figure is real — and so is the work some of it was doing."]},
+ {k:"consolidate",name:"🧾 Consolidate this episode into one bill",desc:function(a){return "One claim, one statement, one phone number that answers. Saves "+fmt(Math.floor(a.admin*0.3))+" — 30% of this episode's administration."},multi:true,
+  apply:function(a){var red=Math.floor(a.admin*0.3);a.admin-=red;return red},
+  trade:["The anesthesiologist does not work for the hospital. The lab is a different company in a different state. One bill means one contract underneath it — someone has to employ, or formally bundle, everyone who touched you, and small practices pay real money to join billing systems big enough to do that. Consolidation has a cost; it is simply paid once, upstream, instead of five times, by you.","One bill also means one throat to choke — which is the point — and one system whose errors now arrive all at once instead of in five correctable pieces. Most patients would still take the trade. It is a trade."]},
+ {k:"costplus",name:"🏷️ Set the allowed amount to cost + 5%",desc:function(a){var t=Math.ceil(a.cost*1.05);return "Price every bill at delivery cost plus a 5% margin: allowed falls from "+fmt(a.allowed)+" to "+fmt(t)+"."},
+  apply:function(a){var target=Math.ceil(a.cost*1.05);var red=a.allowed-target;if(red<=0)return 0;var pr=Math.min(a.profit,red);a.profit-=pr;a.admin-=(red-pr);return red},
+  trade:["Cost-plus sounds like honesty until you ask who audits 'cost.' Every organization in the stack now has an incentive to define its costs generously — the incentive didn't die, it moved. And a hard 5% ceiling leaves nothing for the year the roof, the scanner, and the payroll all come due at once: capital has to come from somewhere, and under cost-plus it comes from borrowing, at interest, which is also a line in somebody's bill."]}
+];
+function renderPanel(){
+ var ei=S.ep,a=epAgg(ei),p=$("epPanel");
+ var h="<div class='result'><h3 style='margin-top:0'>Episode "+(ei+1)+" — the stack, totaled</h3><table>"+
+ "<tr><td>Total billed</td><td>"+fmt(a.billed)+"</td></tr>"+
+ "<tr><td>Total allowed</td><td>"+fmt(a.allowed)+"</td></tr>"+
+ "<tr><td>— went to delivering care</td><td>"+fmt(a.cost)+"</td></tr>"+
+ "<tr><td>— went to administration &amp; billing</td><td>"+fmt(a.admin)+"</td></tr>"+
+ "<tr><td>— was margin</td><td>"+fmt(a.profit)+"</td></tr>"+
+ "<tr class='tot'><td>You paid</td><td>"+fmt(a.patient)+"</td></tr>"+
+ "<tr><td>Plan paid</td><td>"+fmt(a.plan)+"</td></tr></table>"+
+ "<h3>🔧 What would you do differently?</h3><p class='small'>Apply any of these to <i>your version</i> of this episode — every one works exactly as advertised, and every one sends its cost somewhere real. Or keep it exactly as it is, which is also a decision somebody makes every year. Your version is totaled against the real one on the end screen.</p><div id='cutBtns'></div><div id='altSummary'></div><div id='tradeBox'></div>"+
+ "<div class='center'><button class='btn primary' id='nextEpBtn' onclick='nextEp()'>"+(ei<2?"FILE IT → EPISODE "+(ei+2):"FILE IT → THE FULL LEDGER")+"</button></div></div>";
+ p.innerHTML=h;renderCuts();renderAltSummary();
+}
+function renderCuts(){
+ var ei=S.ep,a=S.alt[ei],box=$("cutBtns");box.innerHTML="";
+ CUTS.forEach(function(c){
+  if(c.multi&&epBills(ei).length<2)return;
+  if(c.k==="costplus"&&Math.ceil(a.cost*1.05)>=a.allowed&&S.cuts.indexOf(ei+"costplus")<0){}
+  var used=S.cuts.indexOf(ei+c.k)>=0;
+  var b=document.createElement("button");b.className="choice";b.disabled=used;
+  b.innerHTML="<b>"+c.name+"</b><br><span class='small'>"+(used?"Applied to your version.":c.desc(a))+"</span>";
+  b.onclick=function(){applyCut(c)};
+  box.appendChild(b);
+ });
+}
+function applyCut(c){
+ var ei=S.ep,a=S.alt[ei];
+ var before=a.allowed,patBefore=a.patient;
+ var red=c.apply(a); if(red<=0){$("tradeBox").innerHTML="<div class='trade'>That cut saves nothing here — the allowed amount is already at or below cost + 5% on these bills.</div>";return}
+ a.allowed-=red;a.writeoff+=red;
+ var patSave=Math.round(red*(patBefore/before));a.patient-=patSave;a.plan=a.allowed-a.patient;
+ S.cuts.push(ei+c.k);
+ var trade=c.trade[Math.min(ei,c.trade.length-1)];
+ $("tradeBox").innerHTML="<div class='trade'><b>The trade-off, honestly:</b> "+trade+"<br><br>Your version of this episode: allowed falls "+fmt(red)+" to "+fmt(a.allowed)+"; your share of the saving is "+fmt(patSave)+" — the plan keeps the rest, because the plan was paying most of the bill. That split is also part of the system.</div>";
+ renderCuts();renderAltSummary();
+}
+function renderAltSummary(){
+ var ei=S.ep,a=S.alt[ei],real=epAgg(ei);
+ $("altSummary").innerHTML="<p class='small'>📘 <b>Your version so far:</b> allowed "+fmt(a.allowed)+" (actual "+fmt(real.allowed)+") · you pay "+fmt(a.patient)+" (actual "+fmt(real.patient)+") · administration "+fmt(a.admin)+" · margin "+fmt(a.profit)+"</p>";
+}
+function nextEp(){if(S.ep<2){S.ep++;renderEp();window.scrollTo(0,0)}else endScreen()}
+function endScreen(){
+ var a=totals(),y=totals(true);
+ function flow(t){var seg=[["#2a7d4f",t.cost],["#c99700",t.admin],["#8a3b00",t.profit],["#b9b2a0",t.writeoff]];
+  return "<div class='flow'>"+seg.map(function(s){return "<i style='background:"+s[0]+";width:"+(100*s[1]/t.billed)+"%'></i>"}).join("")+"</div>"}
+ var carePct=Math.round(100*a.cost/a.billed),saved=a.allowed-y.allowed,patSaved=a.patient-y.patient;
+ var h="<h2>🧾 The Full Ledger — one plan year, three episodes of care</h2>"+
+ "<div class='result'><h3 style='margin-top:0'>As it actually happened</h3>"+flow(a)+
+ "<div class='legend'><b style='background:#2a7d4f'></b>Cost of care "+fmt(a.cost)+" · <b style='background:#c99700'></b>Administration "+fmt(a.admin)+" · <b style='background:#8a3b00'></b>Margin "+fmt(a.profit)+" · <b style='background:#b9b2a0'></b>Written off, never existed "+fmt(a.writeoff)+"</div>"+
+ "<table>"+
+ "<tr><td>Total billed (every envelope)</td><td>"+fmt(a.billed)+"</td></tr>"+
+ "<tr><td>Written off — chargemaster money no one ever paid</td><td>"+fmt(a.writeoff)+"</td></tr>"+
+ "<tr><td>Total allowed — money that actually moved</td><td>"+fmt(a.allowed)+"</td></tr>"+
+ "<tr><td>— the cost of actually delivering the care</td><td>"+fmt(a.cost)+"</td></tr>"+
+ "<tr><td>— administration &amp; billing, all hands</td><td>"+fmt(a.admin)+"</td></tr>"+
+ "<tr><td>— margin / profit, all layers</td><td>"+fmt(a.profit)+"</td></tr>"+
+ "<tr class='tot'><td>YOU PAID (your out-of-pocket maximum, exactly)</td><td>"+fmt(a.patient)+"</td></tr>"+
+ "<tr><td>The plan paid (which is premiums — everyone's, including yours)</td><td>"+fmt(a.plan)+"</td></tr></table>"+
+ "<p>Of every dollar that was <i>billed</i> this year, <b>"+carePct+" cents</b> was the cost of delivering care. The rest was a charge that never existed, the administration of moving money between organizations, and margin. Of the money that actually <i>moved</i>, administration alone took "+fmt(a.admin)+" — more than five times all the margin in the stack combined. Nobody stole it. It was spent, on purpose, on the machinery of pricing, coding, billing, checking, and paying — machinery that exists because the money changes hands this many times.</p></div>"+
+ "<div class='result'><h3 style='margin-top:0'>📘 Your version</h3>"+flow(y)+
+ "<p>You applied "+S.cuts.length+" cut"+(S.cuts.length===1?"":"s")+". Your allowed total: <b>"+fmt(y.allowed)+"</b> — "+fmt(saved)+" less than actual, of which <b>"+fmt(patSaved)+"</b> would have come back to you and the rest to the plan (and so, eventually, to premiums). Your administration: "+fmt(y.admin)+". Your margin left standing: "+fmt(y.profit)+".<br><br>The game honored every cut instantly. In the real system, each one has to survive a negotiation with everyone whose income it is — the billing office, the hospital's reserves, the anesthesia group's contract, the plan's shareholders and its regulators, all of whom can point to a real thing the money does. That is not a reason the cuts are wrong. It is the reason they don't happen by themselves.</p></div>"+
+ "<div class='result'><h3 style='margin-top:0'>What happened here, in real life</h3>"+
+ "<p>Nobody in this year did anything unusual. The hospital's margin was the typical one — about 2%. The plan's slice sits inside a legal cap. The patient had insurance, stayed in network, and needed care three times. And the system still routed the pressure to the one participant who cannot spread it across a million customers or a thousand beds: <b>the patient, who paid the maximum the contract allowed — "+fmt(a.patient)+" — in a year they did everything right.</b></p>"+
+ "<p>That is the shape of it: when every other line in the ledger is defended by an organization — its reserves, its payroll, its contract, its cap — the line that gives is the one defended only by a person. <b>To hold typical margins in a system built like this, the patient is who gets squeezed.</b> Not out of cruelty. Out of arithmetic.</p>"+
+ "<p><b>What would you do differently — and who has to agree before it can happen?</b></p>"+
+ "<p class='small'>The waste figures behind this game's shape — administrative complexity as the largest single waste domain, roughly a quarter of US health spending wasted — are in the sources panel, with the margin figures, so you can check the game the way the game taught you to check a bill.</p></div>";
+ $("endContent").innerHTML=h;showScreen("end");
+}
+window.__EOB={bills:BILLS,episodes:EPISODES,plan:PLAN,epAgg:epAgg,getState:function(){return S},totals:totals};
+</script>
+</body></html>

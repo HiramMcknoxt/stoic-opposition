@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UNBOUGHT — The Stoic Opposition Presents</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:#f6f4ee;color:#122a42;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:#8a5a00}
+.wrap{max-width:920px;margin:0 auto;padding:16px}
+header{text-align:center;padding:24px 10px 6px}
+.seal{display:inline-block;border:3px double #122a42;border-radius:50%;width:104px;height:104px;line-height:1.25;padding-top:20px;font-size:10px;letter-spacing:.18em;font-weight:700}
+.logo{font-size:13px;letter-spacing:.35em;color:#8a5a00;margin-top:12px}
+h1{font-size:clamp(44px,9vw,80px);margin:4px 0 2px;letter-spacing:.04em}
+.tag{color:#44546a;font-size:clamp(15px,2.6vw,19px);font-style:italic}
+.point{background:#fff;border:1px solid #c9c2ae;border-left:6px solid #122a42;border-radius:10px;padding:13px 16px;margin:14px 0;line-height:1.55}
+.btn{background:#122a42;color:#f6f4ee;border:1px solid #122a42;border-radius:999px;padding:11px 20px;font-size:16px;cursor:pointer;margin:4px}
+.btn.primary{background:#c99700;border-color:#c99700;color:#122a42;font-weight:800}
+.btn.ghost{background:transparent;color:#122a42}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.small{padding:7px 14px;font-size:14px}
+.screen{display:none}.screen.on{display:block}
+.hud{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;background:#122a42;color:#f6f4ee;border-radius:12px;padding:11px 14px;margin:10px 0;font-variant-numeric:tabular-nums}
+.hud b{color:#ffd75e}
+.bar{height:9px;background:#ddd6c2;border-radius:99px;overflow:hidden;margin:3px 0 10px}.bar i{display:block;height:100%;background:#c99700}
+.alloc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.acard{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:12px}
+.acard h3{margin:2px 0 6px;font-size:17px}.acard p{font-size:13px;color:#44546a;line-height:1.45;margin:0 0 8px}
+.stepper{display:flex;align-items:center;gap:10px}
+.stepper button{width:38px;height:38px;border-radius:50%;border:1px solid #122a42;background:#122a42;color:#fff;font-size:20px;cursor:pointer}
+.stepper .n{font-size:22px;font-weight:800;min-width:28px;text-align:center}
+.shop{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.modal{position:fixed;inset:0;background:rgba(18,42,66,.78);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
+.modal.on{display:flex}
+.modal .box{background:#f6f4ee;border:2px solid #c99700;border-radius:16px;max-width:560px;width:100%;padding:22px;line-height:1.55;max-height:88vh;overflow:auto}
+.modal .box h2{margin-top:0}
+.choice{display:block;width:100%;text-align:left;margin:8px 0;background:#fff;border:1px solid #122a42;border-radius:10px;padding:12px 14px;font-size:15px;cursor:pointer;color:#122a42}
+.choice:hover{border-color:#c99700;background:#fdf6da}
+.choice:disabled{opacity:.4;cursor:not-allowed}
+.result{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:16px;margin-top:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.small{font-size:13px;color:#5a6a7e;line-height:1.55}
+.center{text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.card{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:14px;line-height:1.5}
+.card.done{border-color:#2a7d4f;background:#eef7f0}
+.tagchip{display:inline-block;border-radius:6px;padding:1px 8px;font-size:12px;font-weight:700;background:#122a42;color:#ffd75e;margin-right:6px}
+.iou{background:#2a0e12;color:#ffd9dd;border-radius:12px;padding:16px;line-height:1.65}
+.iou b{color:#ffb3ba}
+footer{text-align:center;color:#7a8698;padding:26px 10px;font-size:13px;line-height:1.6}
+#feedback{min-height:24px;color:#8a3b00;font-weight:600}
+</style></head><body><div class="wrap">
+<header>
+<div class="seal">THE STOIC<br>OPPOSITION<br>🦉<br><span style="letter-spacing:.05em">TIMIDI MATER<br>NON FLET</span></div>
+<div class="logo">THE STOIC OPPOSITION PRESENTS</div>
+<h1>UNBOUGHT</h1>
+<div class="tag">You can win bought, or lose clean. Or you can change the rules.</div>
+</header>
+
+<div class="point">You are a first-time candidate in a fictional county, and you have made one public pledge: <b>no corporate PAC money, no lobbyist money.</b> This game is what that pledge costs. Your only un-buyable currency is <b>time</b> — 10 tokens a week, and a job and a household that need some of them. <b>Act 1: Run Clean. Act 2: Run It Back, Bought. Act 3: Change The Rules.</b></div>
+
+<section id="screen-title" class="screen on">
+<div class="center">
+<button class="btn primary" id="btnAct1" onclick="startCampaign('clean')">▶ ACT 1 — RUN CLEAN</button><br>
+<button class="btn" id="btnAct2" onclick="startCampaign('bought')" disabled>ACT 2 — RUN IT BACK, BOUGHT</button>
+<button class="btn" id="btnAct3" onclick="startAct3()" disabled>ACT 3 — CHANGE THE RULES</button><br>
+<button class="btn ghost small" id="btnDebrief" onclick="showScreen('debrief')" disabled>Read the debrief: what happened in real life</button>
+</div>
+<p class="small center" id="lockNote">Act 2 unlocks after your first Act 1 campaign. Act 3 unlocks when you find the empty room — or finish a campaign.</p>
+<div class="grid">
+<div class="card"><h3>🚪 Doors</h3>Real conversations. Slow, small, permanent. Raises votes and trust.</div>
+<div class="card"><h3>🎨 DIY</h3>Spray-paint the signs. Make the shirts. Cheap reach, high trust — heavy on time. You don't need money to get your message out. You need something to say.</div>
+<div class="card"><h3>💼 The Job</h3>You have one. Skip it too many weeks and the household meter — rent, family patience — ends the campaign from outside politics.</div>
+<div class="card"><h3>💵 Fundraising</h3>Clean: small dollars from real people, slowly. Bought (Act 2): one click, a flood — and a list of favors owed that comes due after you win.</div>
+</div>
+<p class="small">No real people, parties, donors, or companies appear in this game, and it uses no real-world dollar statistics — its economy is time, trust, and favors, on purpose. It collects no data and makes no external calls. Fictional county; the debrief at the end is real.</p>
+</section>
+
+<section id="screen-game" class="screen">
+<div class="hud"><span>🗓️ Week <b id="hWeek">1</b></span><span>🗳️ You <b id="hYou">42.0%</b></span><span>Opponent <b id="hOpp">48.0%</b></span><span>🤝 Trust <b id="hTrust">55</b></span><span>🏠 Household <b id="hHouse">75</b></span><span>💰 Cash <b id="hCash">$20</b></span><span id="hFavWrap" style="display:none">📜 Favors owed <b id="hFav">0</b></span></div>
+<h2 id="gTitle">Week 1 — spend your time</h2>
+<p class="small" id="gIntro">Allocate all 10 time tokens, buy reach if you can afford it, then end the week.</p>
+<div class="alloc" id="allocGrid"></div>
+<div>Time left to allocate: <b id="timeLeft">10</b></div><div class="bar"><i id="timeBar" style="width:0%"></i></div>
+<h3>Spend cash (optional, once each per week)</h3>
+<div class="shop">
+<button class="btn small" id="buyMailer" onclick="buy('mailer')">📬 Mailer — $35 · +1.8 votes</button>
+<button class="btn small" id="buyAds" onclick="buy('ads')">📺 Ads — $60 · +3.0 votes, −2 trust</button>
+</div>
+<div id="feedback"></div>
+<div class="center"><button class="btn primary" id="endWeekBtn" onclick="endWeek()" disabled>END WEEK →</button>
+<button class="btn ghost" onclick="quitToTitle()">Quit to title</button></div>
+</section>
+
+<section id="screen-end" class="screen">
+<div id="endContent"></div>
+<div class="center" style="margin-top:14px">
+<button class="btn primary" id="endAct2" onclick="startCampaign('bought')" style="display:none">▶ ACT 2 — RUN IT BACK, BOUGHT</button>
+<button class="btn primary" id="endAct3" onclick="startAct3()" style="display:none">▶ ACT 3 — CHANGE THE RULES</button>
+<button class="btn" id="endDebrief" onclick="showScreen('debrief')" style="display:none">READ THE DEBRIEF</button>
+<button class="btn ghost" onclick="quitToTitle()">Title screen</button>
+</div>
+</section>
+
+<section id="screen-act3" class="screen">
+<div class="hud"><span>🏛️ ACT 3 — CHANGE THE RULES</span><span>Step <b id="a3Step">1</b> / 5</span><span>👥 People who will show up <b id="a3People">0</b></span></div>
+<div id="a3Content"></div>
+<div id="a3Feedback" style="min-height:26px;font-weight:600;color:#8a3b00;margin-top:8px"></div>
+</section>
+
+<section id="screen-debrief" class="screen">
+<div class="result" style="white-space:normal">
+<h2 style="margin-top:0">What you just did, in real life</h2>
+<p>In Lonoke County, Arkansas, a few people made quorum in a library basement and passed a binding bylaw — §601.4 of the Democratic Party of Lonoke County bylaws — banning corporate PAC money from the committee and barring endorsement of candidates who take it.</p>
+<p>Nobody donated their way to that result. They showed up to a room that was mostly empty, because most committee rooms are.</p>
+<p><b>The committee room is empty. Show up and take the chairs.</b></p>
+<p>That is the whole method of The Stoic Opposition: geographic audits, quorum and seat acquisition in near-empty local committees, then a clean-money floor vote — until, race by race, <b>both candidates are unbought.</b></p>
+<p><a href="https://thestoicopposition.com" target="_blank" rel="noopener">The Stoic Opposition</a></p>
+</div>
+<div class="center" style="margin-top:12px"><button class="btn primary" onclick="quitToTitle()">Title screen</button></div>
+</section>
+
+<footer>UNBOUGHT — a playable argument about money in politics.<br>Directed by Corey Spangler · Built by AI · The Stoic Opposition Presents<br>No data collected. No external calls. The campaign is fictional; the empty room is not.</footer>
+</div>
+
+<div class="modal" id="eventModal"><div class="box">
+<h2 id="evTitle"></h2><p id="evText"></p><div id="evChoices"></div>
+</div></div>
+<script>
+"use strict";
+var progress={act1Runs:0,act1Done:false,boughtDone:false,act3Done:false,emptyRoom:false,lastCleanWin:false};
+var S=null;
+function $(id){return document.getElementById(id)}
+function showScreen(name){["title","game","end","act3","debrief"].forEach(function(x){$("screen-"+x).classList.toggle("on",x===name)});window.scrollTo(0,0)}
+function quitToTitle(){refreshTitle();showScreen("title")}
+function refreshTitle(){
+ $("btnAct2").disabled=!progress.act1Done;
+ $("btnAct3").disabled=!(progress.act1Done||progress.emptyRoom);
+ $("btnDebrief").disabled=!progress.act3Done;
+ if(progress.act1Done)$("lockNote").textContent="Act 2 is unlocked. Act 3 is unlocked. The debrief unlocks when you change the rules.";
+}
+var ACTIONS=[
+ {k:"doors",icon:"🚪",name:"Doors",desc:"Knock and talk. +votes, +trust."},
+ {k:"diy",icon:"🎨",name:"DIY",desc:"Spray-paint signs, print handbills. +trust, +some votes."},
+ {k:"job",icon:"💼",name:"The Job",desc:"Keep the household alive. Household falls 14 every week; each token here gives +5."},
+ {k:"fund",icon:"💵",name:"Fundraise",desc:"Clean: +$7 a token, slowly. Bought: +$22 a token — and favors owed."}
+];
+function startCampaign(mode){
+ S={mode:mode,week:1,weeksTotal:mode==="clean"?12:8,you:42,opp:48,trust:55,house:75,cash:20,
+    favors:0,favorsF:0,cleanPower:0,boughtPower:0,pledgeBroken:false,donorCallIn:false,blitzShield:false,volunteers:false,
+    boughtThisWeek:{},alloc:{doors:0,diy:0,job:0,fund:0},iou:[],firstRun:progress.act1Runs===0};
+ if(mode==="bought"){S.trust=50;S.cash=60;}
+ renderAlloc();showScreen("game");updateHUD();
+ $("gTitle").textContent=(mode==="clean"?"Act 1 — Run Clean":"Act 2 — Run It Back, Bought");
+}
+function renderAlloc(){
+ var g=$("allocGrid");g.innerHTML="";
+ ACTIONS.forEach(function(a){
+  var d=document.createElement("div");d.className="acard";
+  var label=a.name; if(a.k==="fund")label=S.mode==="clean"?"Fundraise (clean)":"Dial for Dollars (PAC)";
+  d.innerHTML="<h3>"+a.icon+" "+label+"</h3><p>"+a.desc+"</p>";
+  var st=document.createElement("div");st.className="stepper";
+  st.innerHTML="<button aria-label='minus'>−</button><span class='n' id='n-"+a.k+"'>0</span><button aria-label='plus'>+</button>";
+  var btns=st.querySelectorAll("button");
+  btns[0].onclick=function(){step(a.k,-1)};btns[1].onclick=function(){step(a.k,1)};
+  d.appendChild(st);g.appendChild(d);
+ });
+ updateAllocUI();
+}
+function allocTotal(){return S.alloc.doors+S.alloc.diy+S.alloc.job+S.alloc.fund}
+function step(k,d){
+ var nt=allocTotal()+d; if(nt>10||S.alloc[k]+d<0)return;
+ S.alloc[k]+=d; updateAllocUI();
+}
+function updateAllocUI(){
+ ACTIONS.forEach(function(a){$("n-"+a.k).textContent=S.alloc[a.k]});
+ var left=10-allocTotal();$("timeLeft").textContent=left;
+ $("timeBar").style.width=(allocTotal()*10)+"%";
+ $("endWeekBtn").disabled=left!==0;
+ $("buyMailer").disabled=S.cash<35||!!S.boughtThisWeek.mailer;
+ $("buyAds").disabled=S.cash<60||!!S.boughtThisWeek.ads;
+}
+function buy(kind){
+ if(kind==="mailer"&&S.cash>=35&&!S.boughtThisWeek.mailer){S.cash-=35;S.you+=1.8;S.boughtThisWeek.mailer=true;S.boughtPower+=10;$("feedback").textContent="Mailer sent. Reach you didn't have time to earn.";}
+ if(kind==="ads"&&S.cash>=60&&!S.boughtThisWeek.ads){S.cash-=60;S.you+=3.0;S.trust-=2;S.boughtThisWeek.ads=true;S.boughtPower+=10;$("feedback").textContent="Ads running. Trust dips a little — nobody asked for these.";}
+ updateHUD();updateAllocUI();
+}
+function updateHUD(){
+ $("hWeek").textContent=Math.min(S.week,S.weeksTotal);
+ $("hYou").textContent=S.you.toFixed(1)+"%";$("hOpp").textContent=S.opp.toFixed(1)+"%";
+ $("hTrust").textContent=Math.round(S.trust);$("hHouse").textContent=Math.round(S.house);
+ $("hCash").textContent="$"+Math.round(S.cash);
+ $("hFavWrap").style.display=(S.mode==="bought"||S.favors>0)?"":"none";
+ $("hFav").textContent=S.favors;
+ $("gTitle").textContent=(S.mode==="clean"?"Act 1 — Run Clean · Week ":"Act 2 — Bought · Week ")+Math.min(S.week,S.weeksTotal)+" of "+S.weeksTotal;
+}
+function endWeek(){
+ var a=S.alloc;
+ // apply time
+ S.you+=a.doors*0.18+a.diy*0.10+a.fund*0.03+(S.volunteers?a.doors*0.04:0);
+ S.trust+=a.doors*0.5+a.diy*0.8+(S.mode==="clean"?a.fund*0.3:-a.fund*0.4);
+ S.house+=a.job*5-14;
+ S.cash+=a.fund*(S.mode==="clean"?7:22);
+ if(S.mode==="bought"&&a.fund>0){var f=Math.round(a.fund*0.5);if(f>0){S.favors+=f;S.iou.push("Week "+S.week+": PAC dialing session — "+f+" favor"+(f>1?"s":"")+" owed to the donor network.");}}
+ S.cleanPower+=a.doors+a.diy+(S.mode==="clean"?a.fund:0);
+ S.boughtPower+=(S.mode==="bought"?a.fund*2:0);
+ // opponent machine
+ S.opp+=S.mode==="clean"?0.55:0.45;
+ S.trust=Math.max(0,Math.min(100,S.trust));S.house=Math.max(0,Math.min(100,S.house));
+ S.alloc={doors:0,diy:0,job:0,fund:0};S.boughtThisWeek={};
+ updateHUD();renderAlloc();
+ if(S.house<=0){return campaignEnd("collapse")}
+ if(S.week>=S.weeksTotal){return election()}
+ var wk=S.week;S.week++;
+ updateHUD();
+ showEvent(wk);
+}
+function fx(o){ // apply event effects
+ if(o.you)S.you+=o.you; if(o.opp)S.opp+=o.opp; if(o.trust)S.trust+=o.trust;
+ if(o.house)S.house+=o.house; if(o.cash)S.cash+=o.cash;
+ if(o.favors){S.favors+=o.favors;S.iou.push(o.iouText||"A favor was recorded.");}
+ if(o.pledge){S.pledgeBroken=true;S.boughtPower+=15;}
+ if(o.callIn)S.donorCallIn=true; if(o.shield)S.blitzShield=true;
+ if(o.vol)S.volunteers=true; if(o.emptyRoom){progress.emptyRoom=true;}
+ S.trust=Math.max(0,Math.min(100,S.trust));S.house=Math.max(0,Math.min(100,S.house));
+ updateHUD();
+}
+var EVENTS_CLEAN=[
+ {t:"🧑‍🎨 The Yard Sign War",x:"Your opponent's printed signs are suddenly everywhere — glossy, professional, identical. Yours are spray-painted and a little crooked.",c:[
+   {l:"Spend the weekend painting more (trust +3, votes +0.8)",f:{trust:3,you:0.8}},
+   {l:"Ignore it. Signs don't vote. (nothing happens — probably)",f:{}}]},
+ {t:"🤝 The Endorsement Meeting",x:"A group with a PAC will endorse you and fund the race. One condition: soften a position you have stated in public. They don't say which one. They'll pick later.",c:[
+   {l:"Take it (cash +$40, favors +1, trust −5, pledge broken)",f:{cash:40,favors:1,trust:-5,pledge:true,iouText:"The endorsement group expects a softer position — their choice of issue, called in during your first term."}},
+   {l:"Decline, politely, in writing (trust +3)",f:{trust:3}}]},
+ {t:"🧑‍💼 The Consultant",x:"\"Nice campaign. You know you're going to lose on money, right?\" For $40 he'll make you look like a real candidate. He will also, quietly, start scheduling your weeks around donors.",c:[
+   {l:"Hire him (cash −$40, votes +2)",needCash:40,f:{cash:-40,you:2,bp:1}},
+   {l:"Thank him and go knock doors (trust +1)",f:{trust:1}}]},
+ {t:"🏛️ The Empty Room",x:"A notice on the library bulletin board: your party's county committee meets Tuesday. You go and look in. Rows of chairs. Most of the seats on this committee are vacant — and the people who do hold seats often don't come. Somebody whispers: \"Quorum's smaller than you'd think.\" Remember this room.",c:[
+   {l:"Stay for the whole meeting and take notes (trust +2 — you learn how the room works)",f:{trust:2,emptyRoom:true}},
+   {l:"Leave early — there's a race to run (nothing)",f:{emptyRoom:true}}]},
+ {t:"🎤 The Debate Nobody Watches",x:"The local debate is the same night as your best fundraising window. Eleven people will watch the debate. All eleven already agree with you.",c:[
+   {l:"Prep and win the room (votes +0.7, trust +3)",f:{you:0.7,trust:3}},
+   {l:"Skip it and fundraise (cash +$20, trust −1)",f:{cash:20,trust:-1}}]},
+ {t:"🏠 The Family Saturday",x:"It's Saturday. There is a parade you should work, and a household that has barely seen you in six weeks. Both facts are true at the same time.",c:[
+   {l:"Be home (household +12)",f:{house:12}},
+   {l:"Work the parade (votes +1.2, household −6)",f:{you:1.2,house:-6}}]},
+ {t:"💼 The Donor With No Ask",x:"A lobbyist offers a large check. \"No strings,\" he says, smiling. \"We just like good government.\"",c:[
+   {l:"Take it (cash +$45, favors +1, pledge broken — the string arrives later)",f:{cash:45,favors:1,pledge:true,callIn:true,iouText:"The 'no strings' donor has a bill he cares about. You will hear about it in Week 10."}},
+   {l:"Refuse it, on the record (trust +2)",f:{trust:2}}]},
+ {t:"📬 The Attack Mailer",x:"A glossy mailer lands: your face, a scary font, a claim that is technically made of real words. Your opponent's name is in 6-point type at the bottom. A PAC you have never heard of paid for it.",c:[
+   {l:"Answer it at the doors, face to face (votes +1, trust +2)",f:{you:1,trust:2}},
+   {l:"Buy a response mailer (cash −$30, votes +1.5)",needCash:30,f:{cash:-30,you:1.5}},
+   {l:"Ignore it (votes −2)",f:{you:-2}}]},
+ {t:"🙋 Volunteers",x:"Three people from the doors offer to help. Untrained, they're enthusiasm. Trained, they're a ground game.",c:[
+   {l:"Train them properly (your doors get stronger for the rest of the race)",f:{vol:true,trust:2}},
+   {l:"Just make more signs instead (votes +0.8)",f:{you:0.8}}]},
+ {t:"📞 Week 10",x:"",dynamic:"week10",c:[]},
+ {t:"⚠️ The Blitz Is Coming",x:"Your one volunteer at the courthouse hears it first: two funded mailer drops are scheduled against you for the final week. Inoculation is possible — voters who have heard the attack from you first shrug at it — but it costs money and time you may not have.",c:[
+   {l:"Inoculate: warn your voters what's coming (cash −$25, softens the blitz)",needCash:25,f:{cash:-25,shield:true,trust:2}},
+   {l:"Save the money and hope (nothing)",f:{}}]}
+];
+var EVENTS_BOUGHT=[
+ {t:"🍽️ The Donor Dinner",x:"Rubber chicken, warm introductions, and a check before dessert. Nobody says what it's for. Everybody knows.",c:[
+   {l:"Work the room (cash +$50, favors +1)",f:{cash:50,favors:1,iouText:"Donor dinner: a friendly vote on a contract, when the time comes."}},
+   {l:"Leave early to knock doors (votes +0.8, trust +1)",f:{you:0.8,trust:1}}]},
+ {t:"📊 The Pollster",x:"For $40, a pollster will tell you which of your positions is unpopular, so you can stop saying it.",c:[
+   {l:"Buy the poll and trim the position (cash −$40, votes +2, trust −3)",needCash:40,f:{cash:-40,you:2,trust:-3}},
+   {l:"Keep saying it (trust +2)",f:{trust:2}}]},
+ {t:"📺 Ad Buy",x:"Your consultant — the donors sent him — wants a bigger ad buy. \"You're not spending enough to win.\"",c:[
+   {l:"Double down (cash −$50, votes +2.5)",needCash:50,f:{cash:-50,you:2.5}},
+   {l:"Hold the budget (nothing)",f:{}}]},
+ {t:"🤝 The Endorsement, Arranged",x:"An endorsement is available. The meeting is short. The understanding is shorter.",c:[
+   {l:"Accept the understanding (votes +2, favors +1)",f:{you:2,favors:1,iouText:"The endorsing group's top legislative priority gets your first co-sponsorship."}},
+   {l:"Insist on no conditions — the endorsement evaporates (trust +2)",f:{trust:2}}]},
+ {t:"🧾 The Quiet Ask",x:"A donor's aide mentions a zoning matter, a contract, a small regulatory thing. It would be a shame if your attention wandered.",c:[
+   {l:"Signal flexibility (favors +1, cash +$40)",f:{favors:1,cash:40,iouText:"Flexibility was signaled on a contract matter. It will be remembered precisely."}},
+   {l:"Change the subject (trust +1)",f:{trust:1}}]},
+ {t:"🎤 The Debate",x:"You can afford to skip it. You can afford almost anything now, except being seen to skip it.",c:[
+   {l:"Show up, well-briefed by other people's research (votes +1)",f:{you:1}},
+   {l:"Skip it for a fundraiser (cash +$40, trust −2)",f:{cash:40,trust:-2}}]},
+ {t:"📬 Your Mailer",x:"Your own attack mailer is ready. It's glossy. The claim is technically made of real words.",c:[
+   {l:"Send it (votes +2, trust −2)",f:{you:2,trust:-2}},
+   {l:"Kill it (trust +3)",f:{trust:3}}]},
+ {t:"🗓️ The Final Week",x:"Everything is scheduled, staffed, and paid for. All that's left is to watch it work.",c:[
+   {l:"Watch it work (votes +1)",f:{you:1}}]}
+];
+function showEvent(wk){
+ var deck=S.mode==="clean"?EVENTS_CLEAN:EVENTS_BOUGHT;
+ var ev=deck[wk-1]; if(!ev)return closeEvent();
+ if(ev.dynamic==="week10"){
+   if(S.donorCallIn){ev={t:"📞 The String",x:"The 'no strings' donor calls. There's a bill. He doesn't threaten anything. He just says he knows you'll 'be reasonable.' Being reasonable costs you either your word to him or your word to the voters.",c:[
+     {l:"Be reasonable (trust −6, the money stays friendly)",f:{trust:-6}},
+     {l:"Break your word to him instead (he funds a challenger next cycle: votes −2.5)",f:{you:-2.5}}]};}
+   else{ev={t:"📰 The Local Paper",x:"The paper endorses — on the basis of your refusal to take the money, which it calls 'either principled or naive, possibly both.'",c:[
+     {l:"Accept the compliment and the coverage (trust +3)",f:{trust:3}}]};}
+ }
+ $("evTitle").textContent=ev.t;$("evText").textContent=ev.x;
+ var box=$("evChoices");box.innerHTML="";
+ ev.c.forEach(function(ch){
+   var b=document.createElement("button");b.className="choice";b.textContent=ch.l;
+   if(ch.needCash&&S.cash<ch.needCash){b.disabled=true;b.textContent+=" — can't afford it";}
+   b.onclick=function(){fx(ch.f);$("eventModal").classList.remove("on");afterEvent();};
+   box.appendChild(b);
+ });
+ $("eventModal").classList.add("on");
+}
+function closeEvent(){$("eventModal").classList.remove("on")}
+function afterEvent(){
+ if(S.house<=0)return campaignEnd("collapse");
+ updateHUD();renderAlloc();
+}
+</script>
+<script>
+"use strict";
+function unboughtPct(){var t=S.cleanPower+S.boughtPower;if(t<=0)return 100;return Math.round(100*S.cleanPower/t)}
+function election(){
+ var lines=[];
+ var finalYou=S.you+(S.trust-50)/20, finalOpp=S.opp;
+ if(S.mode==="clean"){
+   var blitz=S.firstRun?(S.blitzShield?5.5:8):(S.blitzShield?0.8:2.5);
+   finalOpp+=blitz;
+   lines.push("The final week arrives, and with it the funded mailer blitz — two glossy drops you cannot match, in mailboxes you walked to. It moves the race "+blitz.toFixed(1)+" points."+(S.blitzShield?" Your inoculation blunted it. It was not enough to stop it — this time.":""));
+   if(S.firstRun)lines.push("Nobody beats that blitz the first time they see it. That is not a verdict on you. It is the price of the pledge, priced exactly.");
+ } else {
+   finalYou+=2; lines.push("Your final week is a marvel of scheduling: every event staffed, every mailer paid, every favor logged.");
+ }
+ var win=finalYou>finalOpp;
+ campaignEnd(win?"win":"lose",{finalYou:finalYou,finalOpp:finalOpp,lines:lines});
+}
+function campaignEnd(kind,extra){
+ extra=extra||{};
+ if(S.mode==="clean"){progress.act1Runs++;progress.act1Done=true;if(S.week>4)progress.emptyRoom=true;if(kind==="win")progress.lastCleanWin=true;}
+ if(S.mode==="bought"&&(kind==="win"||kind==="lose"))progress.boughtDone=true;
+ var pct=unboughtPct();
+ var title="",body="";
+ if(kind==="collapse"){title="🏚️ The Household Folded";body="The campaign didn't lose an argument. It lost the rent, the patience, and the person. This is the ending nobody puts in a brochure — and the reason 'just volunteer more' is not a real answer for candidates who work for a living.";}
+ else if(S.mode==="clean"&&kind==="win"){title="🏆 You Won — Clean";body="Against the money, with a folding table and spray paint. It can be done. Count what it cost you to do it — the weeks, the household, the luck — and ask whether a system that demands this much virtue to produce one honest winner is working.";}
+ else if(S.mode==="clean"&&kind==="lose"){title="🗳️ You Lost — Clean";body="You kept the pledge. Your trust is high, your signs were honest, and the other side's money was in every mailbox in the county, twice. You did not lose because you had nothing to say.";}
+ else if(S.mode==="bought"&&kind==="win"){title="🏆 You Won. You Work For Them Now.";body="It wasn't close. It was never going to be close. Below is the actual result of the election — the list of what your first term already owes, compiled as you played.";}
+ else if(S.mode==="bought"){title="🗳️ You Even Lost Bought";body="A genuine achievement: all that money, and the voters still smelled it. The favors, unfortunately, are owed anyway. Losing does not cancel them.";}
+ else{title="Election Night";body="";}
+ var stats="FINAL — You "+(extra.finalYou!==undefined?extra.finalYou.toFixed(1)+"%":"—")+" · Opponent "+(extra.finalOpp!==undefined?extra.finalOpp.toFixed(1)+"%":"—")+"\nTrust at finish: "+Math.round(S.trust)+" · Household: "+Math.round(S.house)+" · Unbought score: "+pct+"%"+(S.pledgeBroken?"\n⚠️ The pledge was broken during this run.":"");
+ var html="<h2>"+title+"</h2><div class='result'>"+body+"</div>";
+ (extra.lines||[]).forEach(function(l){html+="<div class='result'>"+l+"</div>"});
+ html+="<div class='result'>"+stats.replace(/\n/g,"<br>")+"</div>";
+ if(S.favors>0){html+="<div class='iou'><h3 style='margin-top:0'>📜 THE IOU LIST — "+S.favors+" favor"+(S.favors>1?"s":"")+" owed</h3>"+(S.iou.length?S.iou.map(function(x){return "• "+x}).join("<br>"):"• Assorted understandings, unwritten and unforgettable.")+"<br><br>These come due during your first term, one vote at a time. <b>That's not corruption as a scandal. That's corruption as a schedule.</b></div>";}
+ if(kind==="collapse")html+="<div class='result'>Tip for the re-run: the Job is not a distraction from the campaign. For a candidate who works, it IS the campaign's foundation — about 3 tokens a week keeps the household standing.</div>";
+ $("endContent").innerHTML=html;
+ $("endAct2").style.display=progress.act1Done?"":"none";
+ $("endAct3").style.display=(progress.act1Done||progress.emptyRoom)?"":"none";
+ $("endDebrief").style.display=progress.act3Done?"":"none";
+ showScreen("end");refreshTitle();
+}
+// ---------- ACT 3 ----------
+var A3=null;
+function startAct3(){A3={step:1,people:0,rec:{},chk:{},race:0,raceRound:0};showScreen("act3");a3Render()}
+function a3Head(){$("a3Step").textContent=Math.min(A3.step,5);$("a3People").textContent=A3.people}
+function a3Say(t){$("a3Feedback").textContent=t}
+function a3Render(){
+ a3Head();a3Say("");
+ var c=$("a3Content");
+ if(A3.step===1){
+  c.innerHTML="<h2>Step 1 — Audit the room</h2><div class='card'>The committee has <b>30 seats</b>. Your audit finds: <b>13 seats vacant</b>, 17 filled — but 6 of the filled seats belong to people who almost never attend. Meetings need a quorum of <b>10 members present</b> to do binding business. On a typical night, 9 people are in the room.<br><br><b>What does that arithmetic mean?</b></div>"+
+  choiceBtn("The room is hopeless — you'd need an army to change anything.",0)+
+  choiceBtn("Four reliable people, seated and present every time, can make — and block — quorum. The room is winnable by showing up.",1)+
+  choiceBtn("Nothing. Vacant seats are just paperwork.",0);
+ } else if(A3.step===2){
+  var people=[["Marta","retired teacher, furious about the mailers"],["Devon","young dad, has never been to a meeting in his life"],["Ruth","church organist, knows everyone in the county"],["Sam","small-business owner, allergic to both parties"]];
+  var h="<h2>Step 2 — Recruit four people</h2><p class='small'>Not donors. Not staff. Four people willing to hold a seat and show up. For each person, pick the ask that actually works.</p><div class='grid'>";
+  people.forEach(function(p,i){
+   h+="<div class='card"+(A3.rec[i]?" done":"")+"'><h3>"+p[0]+"</h3><p class='small'>"+p[1]+"</p>"+
+   (A3.rec[i]?"<b>✓ Will show up.</b>":"<button class='btn small' onclick='a3Recruit("+i+",true)'>\"Will you take a seat and come Tuesday, 6 p.m., library basement?\"</button><br><button class='btn small ghost' onclick='a3Recruit("+i+",false)'>\"Can you donate $50 to the cause?\"</button>")+"</div>";
+  });
+  h+="</div>"; if(A3.people>=4)h+="<div class='center'><button class='btn primary' onclick='a3Next()'>Everyone's in → Step 3</button></div>";
+  c.innerHTML=h;
+ } else if(A3.step===3){
+  var tasks=[["arrive","Arrive — early, and stay for the whole meeting"],["sign","Get seated — fill a vacant seat through the committee's own rules"],["quorum","Stay for the quorum call and be counted present"]];
+  var h="<h2>Step 3 — Show up</h2><p class='small'>Procedural, unglamorous, decisive. Do the three things that make your four people count.</p>";
+  tasks.forEach(function(t){h+="<button class='choice' onclick='a3Check(\""+t[0]+"\")'>"+(A3.chk[t[0]]?"✓ ":"")+t[1]+"</button>"});
+  h+="<button class='choice' onclick='a3Leave()'>Make a speech during public comment, then leave before the votes</button>";
+  if(A3.chk.arrive&&A3.chk.sign&&A3.chk.quorum)h+="<div class='result'>Attendance tonight: 13 present. Quorum is 10. <b>Business can be done — and your four are a third of the room.</b></div><div class='center'><button class='btn primary' onclick='a3Next()'>→ Step 4: The Floor Vote</button></div>";
+  c.innerHTML=h;
+ } else if(A3.step===4){
+  c.innerHTML="<h2>Step 4 — The floor vote</h2><p class='small'>You have the floor. Three motions are possible. Only one of them is a mechanism instead of a performance.</p>"+
+  choiceBtn("A resolution 'urging' candidates to consider refusing corporate PAC money.",0,"a3Vote")+
+  choiceBtn("A bylaw banning all contributions from anyone, including a neighbor's $5.",0,"a3Vote")+
+  choiceBtn("A binding bylaw: this committee may not receive corporate PAC or lobbyist contributions, and may not endorse or support a candidate who takes them.",1,"a3Vote")+
+  "<p class='small'>Binding mechanisms over toothless resolutions. That distinction is the whole project.</p>";
+ } else if(A3.step===5){
+  a3RaceRender();
+ }
+}
+function choiceBtn(label,correct,fn){fn=fn||"a3Answer";return "<button class='choice' onclick='"+fn+"("+correct+")'>"+label+"</button>"}
+function a3Answer(ok){
+ if(ok){a3Say("");A3.step=2;a3Render();}
+ else a3Say("Run the numbers again. 9 regulars + 4 reliable newcomers, quorum of 10 — attendance is the whole game in a room this empty.");
+}
+function a3Recruit(i,good){
+ if(good){if(!A3.rec[i]){A3.rec[i]=true;A3.people++;}a3Render();a3Say("That's the ask. A seat and a Tuesday — people say yes to a job, not a donation.");}
+ else a3Say("They came to a meeting, not a fundraiser. Money was never the ask. Try the seat.");
+}
+function a3Check(k){A3.chk[k]=true;a3Render();a3Say("Counted. Procedure is not the boring part — procedure is the part that counts.")}
+function a3Leave(){A3.chk={};a3Render();a3Say("A good speech, applauded — and then the room voted without you. Presence is the mechanism. Do the three things.")}
+function a3Vote(ok){
+ if(ok){A3.step=5;A3.raceRound=0;A3.race=0;a3Render();a3Say("The bylaw passes. It is binding. It applies to your side first — that is what makes it mean anything.");}
+ else a3Say("That motion feels like the thing and does none of the thing. Pick the one that binds.");
+}
+function a3Next(){A3.step++;a3Render()}
+var RACE=[
+ {q:"Week 1 of the new race. Both candidates are unbought. Your opponent has a real record and real supporters. Your move?",a:[["Knock doors in the precincts you carried last time",1],["Spray-paint a new batch of signs and work the parade",1],["Rest — surely the rules change was the hard part",0]]},
+ {q:"Week 2. A reporter asks both candidates the same question: 'Who do you work for?'",a:[["Answer it the slow way, at a town hall, and take every question",1],["Send a glossy statement",0],["Answer with the bylaw itself — 'read the IOU list my opponent doesn't have'",1]]},
+ {q:"Final week. No blitz is coming — there's no money to fund one, on either side. How do you close?",a:[["One more round of doors. The race is about what you have to say",1],["Wait by the phone for a donor who isn't coming",0]]}
+];
+function a3RaceRender(){
+ a3Head();
+ var c=$("a3Content");
+ if(A3.raceRound>=RACE.length){a3RaceEnd();return}
+ var r=RACE[A3.raceRound];
+ var h="<h2>Step 5 — The New Race (round "+(A3.raceRound+1)+" of 3)</h2><div class='card'>"+r.q+"</div>";
+ r.a.forEach(function(o,i){h+="<button class='choice' onclick='a3RacePick("+o[1]+")'>"+o[0]+"</button>"});
+ c.innerHTML=h;
+}
+function a3RacePick(pts){A3.race+=pts;A3.raceRound++;a3RaceRender()}
+function a3RaceEnd(){
+ progress.act3Done=true;refreshTitle();
+ var win=A3.race>=2;
+ $("a3Content").innerHTML="<h2>"+(win?"🏆 You Won The New Race":"🗳️ You Lost The New Race — And It Still Worked")+"</h2><div class='result'>Final score of the race itself almost doesn't matter, and that is the point: <b>both candidates were unbought.</b> Nobody's first term is spoken for. There is no IOU list — on either side.\n\nThe race was decided by time, trust, and what the candidates had to say, because those were the only currencies left in it.\n\n<b>Both candidates unbought. That's the whole idea.</b></div><div class='center'><button class='btn primary' onclick='showScreen(\"debrief\")'>READ THE DEBRIEF — WHAT HAPPENED IN REAL LIFE →</button> <button class='btn ghost' onclick='quitToTitle()'>Title screen</button></div>";
+ $("a3Feedback").textContent="";
+}
+refreshTitle();
+</script>
+</body></html>

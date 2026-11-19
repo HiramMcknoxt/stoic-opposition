@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DRAW THE LINE — The Stoic Opposition Presents</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:#f6f4ee;color:#122a42;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:#8a5a00}
+.wrap{max-width:920px;margin:0 auto;padding:16px}
+header{text-align:center;padding:24px 10px 6px}
+.seal{display:inline-block;border:3px double #122a42;border-radius:50%;width:104px;height:104px;line-height:1.25;padding-top:20px;font-size:10px;letter-spacing:.18em;font-weight:700}
+.logo{font-size:13px;letter-spacing:.35em;color:#8a5a00;margin-top:12px}
+h1{font-size:clamp(40px,8.5vw,72px);margin:4px 0 2px;letter-spacing:.04em}
+.tag{color:#44546a;font-size:clamp(15px,2.6vw,19px);font-style:italic}
+.point{background:#fff;border:1px solid #c9c2ae;border-left:6px solid #122a42;border-radius:10px;padding:13px 16px;margin:14px 0;line-height:1.55}
+.btn{background:#122a42;color:#f6f4ee;border:1px solid #122a42;border-radius:999px;padding:11px 20px;font-size:16px;cursor:pointer;margin:4px}
+.btn.primary{background:#c99700;border-color:#c99700;color:#122a42;font-weight:800}
+.btn.ghost{background:transparent;color:#122a42}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.small{padding:7px 14px;font-size:14px}
+.screen{display:none}.screen.on{display:block}
+.hud{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;background:#122a42;color:#f6f4ee;border-radius:12px;padding:11px 14px;margin:10px 0;font-variant-numeric:tabular-nums}
+.hud b{color:#ffd75e}
+.result{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:16px;margin-top:12px;line-height:1.6}
+.small{font-size:13px;color:#5a6a7e;line-height:1.55}
+.center{text-align:center}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:10px 0}
+.card{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:14px;line-height:1.5}
+table{width:100%;border-collapse:collapse;margin:10px 0}td,th{border-bottom:1px solid #c9c2ae;padding:7px 8px;text-align:left;font-variant-numeric:tabular-nums}
+footer{text-align:center;color:#7a8698;padding:26px 10px;font-size:13px;line-height:1.6}
+#feedback{min-height:24px;color:#8a3b00;font-weight:600;margin-top:8px}
+.mapwrap{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+#board{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;flex:1 1 320px;max-width:520px}
+.cell{border:2px solid #b9b09a;border-radius:10px;background:#fff;padding:6px 4px;cursor:pointer;text-align:center;min-height:64px;position:relative;user-select:none;-webkit-user-select:none}
+.cell .bv{font-size:19px;font-weight:800;color:#2456a6}
+.cell .rv{font-size:12px;font-weight:700;color:#b03a2e}
+.cell .split{height:6px;border-radius:99px;overflow:hidden;display:flex;margin-top:4px;background:#e8e2d2}
+.cell .split i{display:block;height:100%}
+.cell .dnum{position:absolute;top:3px;right:6px;font-size:11px;font-weight:800;color:#122a42;background:rgba(255,255,255,.75);border-radius:6px;padding:0 4px}
+.dsel{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.dbtn{border:2px solid #122a42;border-radius:999px;padding:9px 16px;font-size:15px;cursor:pointer;background:#fff;color:#122a42;font-weight:700}
+.dbtn.on{color:#fff}
+.side{flex:1 1 240px;min-width:230px}
+.winB{color:#2456a6;font-weight:800}.winR{color:#b03a2e;font-weight:800}
+.bigstat{font-size:clamp(26px,5vw,40px);font-weight:800;line-height:1.2}
+</style></head><body><div class="wrap">
+<header>
+<div class="seal">THE STOIC<br>OPPOSITION<br>🦉<br><span style="letter-spacing:.05em">TIMIDI MATER<br>NON FLET</span></div>
+<div class="logo">THE STOIC OPPOSITION PRESENTS</div>
+<h1>DRAW THE LINE</h1>
+<div class="tag">58% of the votes. 40% of the seats. Same voters — your pencil decides.</div>
+</header>
+
+<div class="point">This is <b>Meridian County</b> — fictional, 25 precincts, 100 voters each. Countywide, <b><span class="winB">BLUE has 1,460 voters (58.4%)</span></b> and <b><span class="winR">RED has 1,040 (41.6%)</span></b>. The county elects a 5-seat board, one seat per district, and every district must hold exactly 5 connected precincts. Nobody's vote changes in this game. Only the lines move. <b>Mode A: The Mission. Mode B: Draw It Fair.</b></div>
+
+<section id="screen-title" class="screen on">
+<div class="center">
+<button class="btn primary" onclick="startMode('A')">▶ MODE A — THE MISSION</button><br>
+<button class="btn" id="btnModeB" onclick="startMode('B')" disabled>MODE B — DRAW IT FAIR</button>
+<button class="btn ghost small" id="btnDebrief" onclick="showScreen('debrief')" disabled>Read the debrief</button>
+</div>
+<p class="small center" id="lockNote">Mode B unlocks after you complete the Mission. The debrief unlocks after both maps exist — because the debrief is the comparison.</p>
+<div class="grid2">
+<div class="card"><h3>🗺️ The board</h3>Each precinct shows its BLUE / RED voters. BLUE voters are the majority almost everywhere you look — except a few precincts where RED runs strong. Geography is the whole game.</div>
+<div class="card"><h3>✏️ Drawing</h3>Pick a district (1–5), then click precincts to paint them into it. Click a precinct in the selected district to unpaint it. A district needs exactly 5 precincts, all touching (up / down / left / right — diagonals don't count).</div>
+<div class="card"><h3>🏆 Winning a district</h3>A district's seat goes to whoever has more of its 500 voters. Win the precincts' voters, not their land — a district won 251–249 counts exactly the same as one won 490–10. That sentence is the entire scandal.</div>
+</div>
+<p class="small">Fictional county only. The parties are named BLUE and RED because the mechanism does not care what either of them believes — whichever side holds the pencil can do this, and in real map rooms, both have. No data collected, no external calls.</p>
+</section>
+
+<section id="screen-game" class="screen">
+<div class="hud"><span>✏️ Mode <b id="hMode">A</b></span><span>🗳️ Countywide: <b>BLUE 58.4%</b> · <b>RED 41.6%</b></span><span>🏛️ Seats so far: BLUE <b id="hSeatsB">0</b> · RED <b id="hSeatsR">0</b></span><span>Painted <b id="hPainted">0</b>/25</span></div>
+<h2 id="gTitle">Mode A — The Mission</h2>
+<p id="gIntro" style="line-height:1.55"></p>
+<div class="dsel" id="dsel"></div>
+<div class="mapwrap">
+<div id="board"></div>
+<div class="side">
+<div class="card"><h3 style="margin-top:0">District tally</h3><div id="tally"></div></div>
+<div style="margin-top:10px">
+<button class="btn small" onclick="clearDistrict()">Clear current district</button>
+<button class="btn small ghost" onclick="resetMap()">Reset whole map</button><br>
+<button class="btn small" id="btnColumns" onclick="loadColumns()" style="display:none">↕️ Draw the columns for me</button>
+<button class="btn primary" onclick="scoreMap()">SCORE THIS MAP →</button>
+</div>
+<div id="feedback"></div>
+</div>
+</div>
+</section>
+
+<section id="screen-score" class="screen">
+<div id="scoreContent"></div>
+<div class="center" style="margin-top:14px">
+<button class="btn primary" id="scoreNext"></button>
+<button class="btn" onclick="backToMap()">← Keep editing this map</button>
+<button class="btn ghost" onclick="quitToTitle()">Title screen</button>
+</div>
+</section>
+
+<section id="screen-compare" class="screen">
+<h2>Two maps. Same voters.</h2>
+<div id="compareContent"></div>
+<div class="center" style="margin-top:14px">
+<button class="btn primary" onclick="showScreen('debrief')">READ THE DEBRIEF →</button>
+<button class="btn ghost" onclick="quitToTitle()">Title screen</button>
+</div>
+</section>
+
+<section id="screen-debrief" class="screen">
+<div class="result">
+<h2 style="margin-top:0">The debrief: the mission was the difference</h2>
+<p>Look at what just happened, because you did all of it. The same hands — yours — drew both maps, from the same 2,500 voters, who never moved and never changed their minds. One map gave 41.6% of the voters 60% of the seats. The other gave the seats out roughly the way the votes were cast. The voters were not the variable. <b>The mission was.</b></p>
+<p>That is why "just draw fair lines" is not a talent question. There is no shortage of people who *can* draw a fair map — you drew one in Mode B, probably in a few minutes. The question is who is in the room, holding the pencil, with what instructions, when the lines get drawn. A map-drawer hired to protect an incumbent will protect the incumbent. A map-drawer bound by rules — compactness, proportionality, public criteria set before anyone sees the partisan math — draws a different map with the same hands.</p>
+<p>So the fight is never really about the lines. It is about the room where the lines get voted on: the redistricting commission, the legislature, the county board — and who showed up to those rooms in the years before the census, when nobody was paying attention. <b>Whoever shows up to the rooms where the lines are drawn wins before a single vote is cast.</b> The seats were decided by attendance first, and by voters second.</p>
+<p>The committee room is still empty, most places. The map room is too. Show up and take the chairs — before the next lines are drawn, not after.</p>
+<p><a href="https://thestoicopposition.com" target="_blank" rel="noopener">The Stoic Opposition</a></p>
+</div>
+<div class="center" style="margin-top:12px"><button class="btn primary" onclick="quitToTitle()">Title screen</button></div>
+</section>
+
+<footer>DRAW THE LINE — a playable argument about gerrymandering.<br>Directed by Corey Spangler · Built by AI · The Stoic Opposition Presents<br>Meridian County is fictional. Its arithmetic is not. No data collected. No external calls.</footer>
+</div>
+
+<script>
+"use strict";
+// Blue voters per precinct (100 voters each). Index = row*5 + col, rows top to bottom.
+// Countywide: BLUE 1460 (58.4%), RED 1040 (41.6%).
+var GRID=[90,40,40,85,35,
+          90,35,85,45,40,
+          85,70,40,40,85,
+          90,40,40,85,40,
+          85,40,55,45,35];
+var TOTAL_B=1460, TOTAL_V=2500;
+var DCOLORS=["#c99700","#2a7d8c","#7a4a9e","#b3541e","#4a7d3a"];
+var mode="A", cur=1, assign=new Array(25).fill(0);
+var savedA=null, savedB=null, progress={aDone:false,bDone:false};
+function $(id){return document.getElementById(id)}
+function showScreen(name){["title","game","score","compare","debrief"].forEach(function(x){$("screen-"+x).classList.toggle("on",x===name)});window.scrollTo(0,0)}
+function quitToTitle(){refreshTitle();showScreen("title")}
+function refreshTitle(){
+ $("btnModeB").disabled=!progress.aDone;
+ $("btnDebrief").disabled=!(progress.aDone&&progress.bDone);
+ if(progress.aDone)$("lockNote").textContent=progress.bDone?"Both maps are drawn. The debrief is open — it's the comparison.":"The Mission is complete. Mode B is unlocked: now draw it fair, with the same hands.";
+}
+function startMode(m){
+ mode=m; assign=new Array(25).fill(0); cur=1;
+ showScreen("game"); buildBoard(); buildDsel(); updateTally();
+ $("hMode").textContent=m;
+ $("btnColumns").style.display=m==="B"?"":"none";
+ if(m==="A"){$("gTitle").textContent="Mode A — The Mission";
+  $("gIntro").innerHTML="The <b><span class='winR'>RED</span></b> incumbent party has hired you to draw the new map. RED has <b>41.6%</b> of the voters and all of the pencil. Your one job: <b>draw 5 legal districts — 5 connected precincts each — so that RED wins at least 3 of the 5 seats.</b> The voters cannot help you. The lines have to do it all.";}
+ else{$("gTitle").textContent="Mode B — Draw It Fair";
+  $("gIntro").innerHTML="Same county, same voters, new instructions: draw a map a neutral referee would sign. Compact, sensible districts — the five columns are the obvious candidate, and the button below will draw them if you want the referee's answer first. Then score it and compare it with the map you drew under orders.";}
+ $("feedback").textContent="";
+}
+function buildDsel(){
+ var d=$("dsel"); d.innerHTML="";
+ for(var i=1;i<=5;i++){(function(n){
+   var b=document.createElement("button"); b.className="dbtn"+(n===cur?" on":""); b.id="dbtn"+n;
+   b.textContent="District "+n; if(n===cur)b.style.background=DCOLORS[n-1];
+   b.onclick=function(){setDistrict(n)}; d.appendChild(b);
+ })(i)}
+}
+function setDistrict(n){cur=n;buildDsel()}
+function buildBoard(){
+ var b=$("board"); b.innerHTML="";
+ for(var i=0;i<25;i++){(function(idx){
+   var cell=document.createElement("div"); cell.className="cell"; cell.id="cell"+idx;
+   var bl=GRID[idx], rd=100-bl;
+   cell.innerHTML="<span class='dnum' id='dn"+idx+"'></span><div class='bv'>"+bl+"</div><div class='rv'>RED "+rd+"</div><div class='split'><i style='width:"+bl+"%;background:#2456a6'></i><i style='width:"+rd+"%;background:#b03a2e'></i></div><div style='font-size:10px;color:#5a6a7e'>BLUE "+bl+"</div>";
+   cell.onclick=function(){paintCell(idx)};
+   b.appendChild(cell);
+ })(i)}
+ paintAll();
+}
+function districtSize(n){var c=0;for(var i=0;i<25;i++)if(assign[i]===n)c++;return c}
+function paintCell(i){
+ if(assign[i]===cur){assign[i]=0;}
+ else{
+   if(districtSize(cur)>=5){$("feedback").textContent="District "+cur+" already has 5 precincts. Unpaint one, or pick another district.";return}
+   assign[i]=cur;
+ }
+ $("feedback").textContent=""; paintAll(); updateTally();
+}
+function paintAll(){
+ for(var i=0;i<25;i++){
+   var cell=$("cell"+i), dn=$("dn"+i), d=assign[i];
+   if(d>0){cell.style.background=DCOLORS[d-1]+"33";cell.style.borderColor=DCOLORS[d-1];dn.textContent="D"+d;}
+   else{cell.style.background="#fff";cell.style.borderColor="#b9b09a";dn.textContent="";}
+ }
+}
+function clearDistrict(){for(var i=0;i<25;i++)if(assign[i]===cur)assign[i]=0;paintAll();updateTally();$("feedback").textContent=""}
+function resetMap(){assign=new Array(25).fill(0);paintAll();updateTally();$("feedback").textContent=""}
+function loadColumns(){for(var i=0;i<25;i++)assign[i]=(i%5)+1;paintAll();updateTally();$("feedback").textContent="The columns: five compact districts, exactly as they sit on the ground. Score it."}
+function districtCells(n){var out=[];for(var i=0;i<25;i++)if(assign[i]===n)out.push(i);return out}
+function districtBlue(n){return districtCells(n).reduce(function(s,i){return s+GRID[i]},0)}
+function isContiguous(cells){
+ if(cells.length===0)return false;
+ var set={}, seen={}, stack=[cells[0]];
+ cells.forEach(function(c){set[c]=true});
+ while(stack.length){var c=stack.pop(); if(seen[c])continue; seen[c]=true;
+   var x=c%5,y=Math.floor(c/5);
+   [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){var nx=x+d[0],ny=y+d[1]; if(nx>=0&&nx<5&&ny>=0&&ny<5){var ni=ny*5+nx; if(set[ni]&&!seen[ni])stack.push(ni)}});}
+ return Object.keys(seen).length===cells.length;
+}
+function validate(){
+ var un=assign.filter(function(a){return a===0}).length;
+ if(un>0)return{ok:false,msg:un+" precinct"+(un>1?"s are":" is")+" not in any district yet. Every precinct must belong to exactly one district."};
+ for(var n=1;n<=5;n++){
+   var cells=districtCells(n);
+   if(cells.length!==5)return{ok:false,msg:"District "+n+" has "+cells.length+" precincts. Every district must have exactly 5."};
+   if(!isContiguous(cells))return{ok:false,msg:"District "+n+" is not contiguous — its precincts don't all touch each other (diagonals don't count). A real map has to be one connected piece."};
+ }
+ return{ok:true};
+}
+function mapStats(a){
+ var ds=[], seatsB=0, seatsR=0, wastedB=0, wastedR=0;
+ for(var n=1;n<=5;n++){
+   var cells=[],b=0;
+   for(var i=0;i<25;i++)if(a[i]===n){cells.push(i);b+=GRID[i]}
+   var r=500-b, winner=b>r?"B":"R";
+   if(winner==="B"){seatsB++; wastedB+=b-251; wastedR+=r;} else {seatsR++; wastedR+=r-251; wastedB+=b;}
+   ds.push({n:n,cells:cells,blue:b,red:r,winner:winner});
+ }
+ return{districts:ds,seatsB:seatsB,seatsR:seatsR,wastedB:wastedB,wastedR:wastedR,
+   blueSeatPct:seatsB*20, redSeatPct:seatsR*20};
+}
+function updateTally(){
+ var painted=assign.filter(function(a){return a>0}).length;
+ $("hPainted").textContent=painted;
+ var html="<table><tr><th>District</th><th>Cells</th><th>BLUE</th><th>RED</th><th>Seat</th></tr>", sB=0,sR=0;
+ for(var n=1;n<=5;n++){
+   var sz=districtSize(n);
+   if(sz===0){html+="<tr><td><b style='color:"+DCOLORS[n-1]+"'>D"+n+"</b></td><td>0</td><td>—</td><td>—</td><td>—</td></tr>";continue}
+   var b=districtBlue(n), r=sz*100-b, proj=null;
+   if(sz===5){proj=b>r?"B":"R"; if(proj==="B")sB++; else sR++;}
+   html+="<tr><td><b style='color:"+DCOLORS[n-1]+"'>D"+n+"</b></td><td>"+sz+"</td><td>"+b+"</td><td>"+r+"</td><td>"+(proj?("<span class='win"+proj+"'>"+(proj==="B"?"BLUE":"RED")+"</span>"):"…")+"</td></tr>";
+ }
+ html+="</table>";
+ $("tally").innerHTML=html;
+ $("hSeatsB").textContent=sB; $("hSeatsR").textContent=sR;
+}
+function scoreMap(){
+ var v=validate();
+ if(!v.ok){$("feedback").textContent="⚠️ "+v.msg;return}
+ var st=mapStats(assign);
+ if(mode==="A"){
+   if(st.seatsR>=3){progress.aDone=true; savedA={assign:assign.slice(),stats:st}; showScoreA(st,true);}
+   else showScoreA(st,false);
+ } else {
+   progress.bDone=true; savedB={assign:assign.slice(),stats:st}; showCompare();
+ }
+ refreshTitle();
+}
+function districtRows(st){
+ var h="<table><tr><th>District</th><th>BLUE</th><th>RED</th><th>Result</th></tr>";
+ st.districts.forEach(function(d){h+="<tr><td><b style='color:"+DCOLORS[d.n-1]+"'>District "+d.n+"</b></td><td>"+d.blue+"</td><td>"+d.red+"</td><td><span class='win"+d.winner+"'>"+(d.winner==="B"?"BLUE":"RED")+" "+Math.max(d.blue,d.red)/5+"–"+Math.min(d.blue,d.red)/5+"</span></td></tr>"});
+ return h+"</table>";
+}
+function showScoreA(st,success){
+ var h="";
+ if(success){
+   var packed=null, cracks=[];
+   st.districts.forEach(function(d){
+     if(d.winner==="B"&&(!packed||d.blue>packed.blue))packed=d;
+     if(d.winner==="R"&&d.red-d.blue<=60)cracks.push(d);
+   });
+   h+="<h2>🏆 Mission accomplished.</h2><div class='result'><div class='bigstat'><span class='winR'>RED: 41.6% of the votes → 60% of the seats.</span><br><span class='winB'>BLUE: 58.4% of the votes → 40% of the seats.</span></div>"+
+   "<p>The board is now controlled by the party most voters voted <i>against</i>. Nobody committed fraud. Nobody stuffed a ballot box. You drew legal, contiguous, equal districts — and the election was over before it started.</p></div>";
+   if(packed)h+="<div class='result'><b>How you did it — packing:</b> District "+packed.n+" is where BLUE's voters went to be wasted: BLUE wins it "+packed.blue/5+"–"+packed.red/5+", piling up "+(packed.blue-251)+" surplus BLUE votes that change nothing. Every BLUE voter you crammed in there is a BLUE voter who can't threaten you anywhere else.</div>";
+   if(cracks.length)h+="<div class='result'><b>Cracking:</b> the rest of BLUE's voters you spread thin — just few enough to lose everywhere it mattered. RED takes "+cracks.map(function(d){return "District "+d.n+" ("+d.red/5+"–"+d.blue/5+")"}).join(", ")+". Districts won by a whisker waste almost nothing; districts lost by a whisker waste everything. You arranged for BLUE to do the wasting.</div>";
+   h+=districtRows(st);
+   h+="<div class='result'>Wasted votes on your map: <b>BLUE wasted "+st.wastedB+"</b> of its 1,460 votes. <b>RED wasted only "+st.wastedR+"</b> of its 1,040. That gap — not fraud, not turnout — is the whole trick.<br><br>Now go draw it fair. Same voters. Same hands. Different mission.</div>";
+   $("scoreNext").textContent="▶ MODE B — DRAW IT FAIR";
+   $("scoreNext").onclick=function(){startMode("B")};
+ } else {
+   h+="<h2>🗳️ A legal map — and the incumbent is furious.</h2><div class='result'>Your map is valid, but RED wins only "+st.seatsR+" of 5 seats with its 41.6% of the vote. That's roughly what RED <i>deserves</i> — which is not what you were hired for.<br><br>Think like the pencil: find the precincts where BLUE wins huge, and bury them together in one district (packing). Spread the rest of BLUE's voters so they finish a close second in as many districts as possible (cracking). RED's own strong precincts are your building blocks — string them together with just enough BLUE territory to lose narrowly… no, to make <i>BLUE</i> lose narrowly.</div>";
+   h+=districtRows(st);
+   $("scoreNext").textContent="← Back to the map";
+   $("scoreNext").onclick=function(){backToMap()};
+ }
+ $("scoreContent").innerHTML=h; showScreen("score");
+}
+function backToMap(){showScreen("game")}
+function gapLine(label,st){
+ var bGap=(st.blueSeatPct-(TOTAL_B/TOTAL_V*100)).toFixed(1), rGap=(st.redSeatPct-(100-TOTAL_B/TOTAL_V*100)).toFixed(1);
+ return "<tr><td>"+label+"</td><td>"+st.seatsB+" seats ("+st.blueSeatPct+"%)</td><td>"+st.seatsR+" seats ("+st.redSeatPct+"%)</td><td>"+st.wastedB+"</td><td>"+st.wastedR+"</td><td>BLUE "+(bGap>0?"+":"")+bGap+" pts · RED "+(rGap>0?"+":"")+rGap+" pts</td></tr>";
+}
+function showCompare(){
+ var a=savedA.stats, b=savedB.stats;
+ var h="<div class='result'><div class='bigstat'>Countywide vote, both maps: <span class='winB'>BLUE 58.4%</span> · <span class='winR'>RED 41.6%</span></div></div>";
+ h+="<table><tr><th>Map</th><th>BLUE seats</th><th>RED seats</th><th>BLUE votes wasted</th><th>RED votes wasted</th><th>Seat share − vote share</th></tr>";
+ h+=gapLine("Mode A — The Mission (your gerrymander)",a);
+ h+=gapLine("Mode B — Draw It Fair (your fair map)",b);
+ h+="</table>";
+ h+="<div class='result'><b>Your fair map:</b>"+districtRows(b)+"</div>";
+ if(b.seatsB>=3)h+="<div class='result'>On the fair map, the majority got the majority — seats tracked votes. Same county. Same 2,500 voters. The only thing that changed between the two maps was <b>the instructions given to the person holding the pencil.</b></div>";
+ else h+="<div class='result'>Interesting — even trying to be fair, you produced a map where the majority didn't get the majority. That happens more than you'd think, and it's the honest complication: geography alone can skew a map, which is exactly why the <i>rules and the referees</i> matter, and why 'trust the map-drawer' is not a system. Compare your two maps above — then read the debrief.</div>";
+ $("compareContent").innerHTML=h; showScreen("compare");
+}
+refreshTitle();
+</script>
+</body></html>
