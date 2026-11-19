@@ -43,7 +43,8 @@ footer{text-align:center;color:#7a8698;padding:26px 10px;font-size:13px;line-hei
 .side{flex:1 1 240px;min-width:230px}
 .winB{color:#2456a6;font-weight:800}.winR{color:#b03a2e;font-weight:800}
 .bigstat{font-size:clamp(26px,5vw,40px);font-weight:800;line-height:1.2}
-</style></head><body><div class="wrap">
+</style></head><body>
+<div style="background:#14213d;color:#f4f0e6;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:8px 14px;display:flex;gap:18px;flex-wrap:wrap"><a href="../games.html" style="color:#f4f0e6;text-decoration:none">&larr; Back to the Game Shelf</a><a href="../index.html" style="color:#f4f0e6;text-decoration:none">The Stoic Opposition</a></div><div class="wrap">
 <header>
 <div class="seal">THE STOIC<br>OPPOSITION<br>🦉<br><span style="letter-spacing:.05em">TIMIDI MATER<br>NON FLET</span></div>
 <div class="logo">THE STOIC OPPOSITION PRESENTS</div>
@@ -51,12 +52,12 @@ footer{text-align:center;color:#7a8698;padding:26px 10px;font-size:13px;line-hei
 <div class="tag">58% of the votes. 40% of the seats. Same voters — your pencil decides.</div>
 </header>
 
-<div class="point">This is <b>Meridian County</b> — fictional, 25 precincts, 100 voters each. Countywide, <b><span class="winB">BLUE has 1,460 voters (58.4%)</span></b> and <b><span class="winR">RED has 1,040 (41.6%)</span></b>. The county elects a 5-seat board, one seat per district, and every district must hold exactly 5 connected precincts. Nobody's vote changes in this game. Only the lines move. <b>Mode A: The Mission. Mode B: Draw It Fair.</b></div>
+<div class="point">This is <b>Meridian County</b> — fictional, 25 precincts, 100 voters each. Countywide, <b><span class="winB">BLUE has 1,460 voters (58.4%)</span></b> and <b><span class="winR">RED has 1,040 (41.6%)</span></b>. The county elects a 5-seat board, one seat per district, and every district must hold exactly 5 connected precincts. Nobody's vote changes in this game. Only the lines move. <b>Mode A: The Mission. Mode B: Draw It Proportional.</b></div>
 
 <section id="screen-title" class="screen on">
 <div class="center">
 <button class="btn primary" onclick="startMode('A')">▶ MODE A — THE MISSION</button><br>
-<button class="btn" id="btnModeB" onclick="startMode('B')" disabled>MODE B — DRAW IT FAIR</button>
+<button class="btn" id="btnModeB" onclick="startMode('B')" disabled>MODE B — DRAW IT PROPORTIONAL</button>
 <button class="btn ghost small" id="btnDebrief" onclick="showScreen('debrief')" disabled>Read the debrief</button>
 </div>
 <p class="small center" id="lockNote">Mode B unlocks after you complete the Mission. The debrief unlocks after both maps exist — because the debrief is the comparison.</p>
@@ -140,7 +141,7 @@ function quitToTitle(){refreshTitle();showScreen("title")}
 function refreshTitle(){
  $("btnModeB").disabled=!progress.aDone;
  $("btnDebrief").disabled=!(progress.aDone&&progress.bDone);
- if(progress.aDone)$("lockNote").textContent=progress.bDone?"Both maps are drawn. The debrief is open — it's the comparison.":"The Mission is complete. Mode B is unlocked: now draw it fair, with the same hands.";
+ if(progress.aDone)$("lockNote").textContent=progress.bDone?"Both maps are drawn. The debrief is open — it's the comparison.":"The Mission is complete. Mode B is unlocked: now draw it proportional, with the same hands.";
 }
 function startMode(m){
  mode=m; assign=new Array(25).fill(0); cur=1;
@@ -149,8 +150,8 @@ function startMode(m){
  $("btnColumns").style.display=m==="B"?"":"none";
  if(m==="A"){$("gTitle").textContent="Mode A — The Mission";
   $("gIntro").innerHTML="The <b><span class='winR'>RED</span></b> incumbent party has hired you to draw the new map. RED has <b>41.6%</b> of the voters and all of the pencil. Your one job: <b>draw 5 legal districts — 5 connected precincts each — so that RED wins at least 3 of the 5 seats.</b> The voters cannot help you. The lines have to do it all.";}
- else{$("gTitle").textContent="Mode B — Draw It Fair";
-  $("gIntro").innerHTML="Same county, same voters, new instructions: draw a map a neutral referee would sign. Compact, sensible districts — the five columns are the obvious candidate, and the button below will draw them if you want the referee's answer first. Then score it and compare it with the map you drew under orders.";}
+ else{$("gTitle").textContent="Mode B — Draw It Proportional";
+  $("gIntro").innerHTML="Same county, same voters, new instructions: draw for <b>proportionality</b> — seats tracking votes as closely as this geography allows. Compact, sensible districts — the five columns are the obvious candidate, and the button below will draw them if you want the referee's answer first. &lsquo;Fair&rsquo; has other definitions — compactness, communities of interest — and they can conflict with this one; this mode scores the one named here. Then compare it with the map you drew under orders.";}
  $("feedback").textContent="";
 }
 function buildDsel(){
@@ -270,8 +271,8 @@ function showScoreA(st,success){
    if(packed)h+="<div class='result'><b>How you did it — packing:</b> District "+packed.n+" is where BLUE's voters went to be wasted: BLUE wins it "+packed.blue/5+"–"+packed.red/5+", piling up "+(packed.blue-251)+" surplus BLUE votes that change nothing. Every BLUE voter you crammed in there is a BLUE voter who can't threaten you anywhere else.</div>";
    if(cracks.length)h+="<div class='result'><b>Cracking:</b> the rest of BLUE's voters you spread thin — just few enough to lose everywhere it mattered. RED takes "+cracks.map(function(d){return "District "+d.n+" ("+d.red/5+"–"+d.blue/5+")"}).join(", ")+". Districts won by a whisker waste almost nothing; districts lost by a whisker waste everything. You arranged for BLUE to do the wasting.</div>";
    h+=districtRows(st);
-   h+="<div class='result'>Wasted votes on your map: <b>BLUE wasted "+st.wastedB+"</b> of its 1,460 votes. <b>RED wasted only "+st.wastedR+"</b> of its 1,040. That gap — not fraud, not turnout — is the whole trick.<br><br>Now go draw it fair. Same voters. Same hands. Different mission.</div>";
-   $("scoreNext").textContent="▶ MODE B — DRAW IT FAIR";
+   h+="<div class='result'>Wasted votes on your map: <b>BLUE wasted "+st.wastedB+"</b> of its 1,460 votes. <b>RED wasted only "+st.wastedR+"</b> of its 1,040. That gap — not fraud, not turnout — is the whole trick.<br><br>Now go draw it proportional. Same voters. Same hands. Different mission.</div>";
+   $("scoreNext").textContent="▶ MODE B — DRAW IT PROPORTIONAL";
    $("scoreNext").onclick=function(){startMode("B")};
  } else {
    h+="<h2>🗳️ A legal map — and the incumbent is furious.</h2><div class='result'>Your map is valid, but RED wins only "+st.seatsR+" of 5 seats with its 41.6% of the vote. That's roughly what RED <i>deserves</i> — which is not what you were hired for.<br><br>Think like the pencil: find the precincts where BLUE wins huge, and bury them together in one district (packing). Spread the rest of BLUE's voters so they finish a close second in as many districts as possible (cracking). RED's own strong precincts are your building blocks — string them together with just enough BLUE territory to lose narrowly… no, to make <i>BLUE</i> lose narrowly.</div>";
@@ -291,11 +292,11 @@ function showCompare(){
  var h="<div class='result'><div class='bigstat'>Countywide vote, both maps: <span class='winB'>BLUE 58.4%</span> · <span class='winR'>RED 41.6%</span></div></div>";
  h+="<table><tr><th>Map</th><th>BLUE seats</th><th>RED seats</th><th>BLUE votes wasted</th><th>RED votes wasted</th><th>Seat share − vote share</th></tr>";
  h+=gapLine("Mode A — The Mission (your gerrymander)",a);
- h+=gapLine("Mode B — Draw It Fair (your fair map)",b);
+ h+=gapLine("Mode B — Draw It Proportional (your proportional map)",b);
  h+="</table>";
- h+="<div class='result'><b>Your fair map:</b>"+districtRows(b)+"</div>";
- if(b.seatsB>=3)h+="<div class='result'>On the fair map, the majority got the majority — seats tracked votes. Same county. Same 2,500 voters. The only thing that changed between the two maps was <b>the instructions given to the person holding the pencil.</b></div>";
- else h+="<div class='result'>Interesting — even trying to be fair, you produced a map where the majority didn't get the majority. That happens more than you'd think, and it's the honest complication: geography alone can skew a map, which is exactly why the <i>rules and the referees</i> matter, and why 'trust the map-drawer' is not a system. Compare your two maps above — then read the debrief.</div>";
+ h+="<div class='result'><b>Your proportional map:</b>"+districtRows(b)+"</div>";
+ if(b.seatsB>=3)h+="<div class='result'>On the proportional map, the majority got the majority — seats tracked votes. Same county. Same 2,500 voters. The only thing that changed between the two maps was <b>the instructions given to the person holding the pencil.</b></div>";
+ else h+="<div class='result'>Interesting — even trying for proportionality, you produced a map where the majority didn't get the majority. That happens more than you'd think, and it's the honest complication: geography alone can skew a map, which is exactly why the <i>rules and the referees</i> matter, and why 'trust the map-drawer' is not a system. Compare your two maps above — then read the debrief.</div>";
  $("compareContent").innerHTML=h; showScreen("compare");
 }
 refreshTitle();
