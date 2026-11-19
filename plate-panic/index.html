@@ -66,6 +66,10 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 .tbar{height:12px;background:#22306b;border-radius:999px;overflow:hidden;margin:10px 0}
 .tbar>div{height:100%;background:#ffd75e;transition:width .2s linear}
 .verdict{font-size:19px;font-weight:700;text-align:center;min-height:28px;margin:10px 0}
+
+.logbox{background:#0e1738;border:1px solid #2a3a7a;border-radius:12px;padding:12px;text-align:left;font-size:14px;line-height:1.7;max-height:260px;overflow-y:auto}
+.qopt{display:block;width:100%;text-align:left;margin:6px 0}
+.stamp{display:inline-block;border:2px solid #a7f3c9;color:#a7f3c9;border-radius:8px;padding:2px 10px;font-weight:700;transform:rotate(-3deg);margin-left:8px}
 </style></head><body><div class="wrap">
 <header><div class="logo">THE STOIC OPPOSITION PRESENTS</div><h1>PLATE PANIC!</h1>
 <div class="tag">The ALPR game that runs itself.</div></header>
@@ -76,6 +80,9 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 <button id="tab-prove" onclick="showPanel('prove')">🔬 Prove It — Real OCR</button>
 <button id="tab-breach" onclick="showPanel('breach')">🛡️ Breach Boss</button>
 <button id="tab-verify" onclick="showPanel('verify')">🚔 Verify It</button>
+<button id="tab-plate" onclick="showPanel('plate')">🗺️ Just a Plate?</button>
+<button id="tab-audit" onclick="showPanel('audit')">🔎 The Auditor</button>
+<button id="tab-nine" onclick="showPanel('nine')">📷 Nine Cameras</button>
 </div>
 
 <section id="panel-arcade" class="panel on">
@@ -156,6 +163,50 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 </div>
 <div class="result" id="verifyResult" style="display:none"></div>
 <p class="small">The receipts: Aurora, Colorado, August 2020 — Brittney Gilliam and four children were held at gunpoint, face-down on the pavement, because a plate reader matched her Colorado SUV's number to a <b>stolen Montana motorcycle</b>. Wrong state, wrong vehicle, right number. Aurora settled for <b>$1.9 million</b>. The Institute for Justice has documented at least 27 erroneous plate-reader encounters since 2018 — and attributes most of them to human error, not camera error. Independent testing (IPVM) has found readers misidentify a plate's <b>state</b> roughly one time in ten. Every one of those failures was preventable by the check you just did: state, characters, vehicle — before the stop, not after.</p>
+</section>
+
+
+<section id="panel-plate" class="panel">
+<h2>🗺️ Just a Plate? — the dossier demo</h2>
+<p>"It's just a license plate. It doesn't track anyone." Drive one stranger's ordinary week — no crimes, no warrants, nothing to hide — and watch what the cameras write down. Then we flip the screen around.</p>
+<div class="center"><canvas id="jpCanvas" width="900" height="300" style="max-width:100%;height:auto"></canvas></div>
+<div class="hud"><span>🚗 Trip <b id="jpTrip">0</b>/11</span><span>📸 Reads logged <b id="jpReads">0</b></span><span>Plate <b>KJM 42T</b></span></div>
+<div class="center"><button class="btn primary" id="jpDrive" onclick="jpDriveTrip()">▶ Drive the next trip</button></div>
+<div class="logbox" id="jpLog"><i>The log is empty. For now.</i></div>
+<div id="jpQuiz" style="display:none">
+<h3>🔓 Now be anyone with database access.</h3>
+<p>Here is the whole file on this stranger. No name, no photo — "just plate data." See how much of a life is in it.</p>
+<div class="result" id="jpQBox"></div>
+</div>
+<div class="result" id="jpResult" style="display:none"></div>
+</section>
+
+<section id="panel-audit" class="panel">
+<h2>🔎 The Auditor — the Citizens Commission's actual job</h2>
+<p>Every search of the plate database leaves a log line. Somebody is supposed to read them. Today, that's you. Thirteen searches from one small department. <b>Approve</b> the legitimate ones. <b>Flag</b> the abuse. This is not a hypothetical problem — misuse of plate databases by officers is one of the most documented failure modes of these systems, and the only thing standing against it is a person reading this log.</p>
+<div class="hud"><span>📄 Search <b id="auIdx">0</b>/13</span><span>Score <b id="auScore">0</b></span><span>🚩 Abuse caught <b id="auCaught">0</b></span><span>Slipped through <b id="auMissed">0</b></span><span>False flags <b id="auFalse">0</b></span></div>
+<div class="result" id="auCard">Press START REVIEW to open the log.</div>
+<div class="verdict" id="auVerdict"></div>
+<div class="center">
+<button class="btn primary" id="auStart" onclick="auStart()">▶ START REVIEW</button>
+<button class="btn good" id="auOk" onclick="auDecide(false)" disabled>✅ APPROVE — legitimate</button>
+<button class="btn danger" id="auFlag" onclick="auDecide(true)" disabled>🚩 FLAG — abuse</button>
+</div>
+<div class="result" id="auResult" style="display:none"></div>
+<p class="small">In the vendor model, this log lives on the vendor's servers, and the city sees what the vendor's portal shows it. In a city-owned system with a Citizens Commission, this log is the city's own record — and reading it is a public job with a name attached. Oversight is not a feature you buy. It is a person, reading, on the record.</p>
+</section>
+
+<section id="panel-nine" class="panel">
+<h2>📷 Nine Cameras — build the dragnet yourself</h2>
+<p>Cabot has <b>9</b> plate cameras. Here's a town. Click intersections to place your 9 — put them where you'd catch stolen cars: the highways in and out, the main streets. Then run one ordinary day and count what your network actually records. The stolen car is out there. So is everyone else.</p>
+<div class="center"><canvas id="ncCanvas" width="900" height="420" style="max-width:100%;height:auto;cursor:pointer"></canvas></div>
+<div class="hud"><span>📷 Placed <b id="ncPlaced">0</b>/9</span><span>Coverage <b id="ncCov">0%</b> of intersections</span><span>Reads today <b id="ncReads">0</b></span><span>Innocent reads <b id="ncInnocent">0</b></span><span>🚗 Stolen car <b id="ncStolen">at large</b></span></div>
+<div class="center">
+<button class="btn primary" id="ncRun" onclick="ncRunDay()">▶ RUN ONE DAY</button>
+<button class="btn" onclick="ncReset()">↺ Clear cameras</button>
+</div>
+<div class="result" id="ncResult" style="display:none"></div>
+<p class="small">A simulation with toy numbers — 30 trips on a toy map. Scale it honestly in your head: a real town sees thousands of trips a day, 365 days a year, and at industry-typical rates well under 1 in 1,000 reads is a hotlist hit. The ratio is the point, and the ratio doesn't care about the size of the map.</p>
 </section>
 
 <div class="point"><b>The stack this is based on:</b> OpenALPR (open-source ALPR library) · FastALPR / Fast-Plate-OCR (MIT, YOLO detection + plate OCR, runs locally) · CodeProject.AI (free, self-hosted) · Tesseract (open-source OCR) — and this game's own built-in template-matching OCR, which needs no library at all. All synthetic plates. No camera access. No data collected, stored, or sent anywhere.</div>
@@ -492,4 +543,216 @@ function endShift(){
  else grade=vWrong+' WRONGFUL STOP'+(vWrong>1?'S':'')+'. Each one was preventable with the same five-second check: state, every character, vehicle. In Aurora that check didn\u2019t happen, and the city paid $1.9 million — after the children were already on the pavement.';
  r.textContent='SHIFT REPORT\nScore: '+vScore+' · Trust: '+vTrust+'% · Wrongful stops: '+vWrong+' · Hits missed: '+vMissed+'\n\n'+grade+'\n\nThe alert is a lead, not a fact. Verify the state. Verify every character. Verify the vehicle. Then decide.';
 }
+
+// ---------- JUST A PLATE? ----------
+const JP_LOCS={Home:[110,225],School:[300,80],Work:[625,75],Pharmacy:[705,215],Clinic:[480,205],'Support Group':[245,245],'Friend\u2019s House':[800,85],Grocery:[385,255],Church:[115,55]};
+const JP_CAMS={A:['Main & Pine',205,180],B:['Hwy 5 & Center',300,140],C:['Elm & 2nd',560,115],D:['Hwy 89 S',645,235],E:['Oak St',205,255],F:['Medical Dr',520,180],G:['Lakeview',705,120],H:['Church St',140,105]};
+const JP_TRIPS=[
+ ['Mon','7:15 AM','Home','School',['A','B']],['Mon','7:50 AM','School','Work',['B','C']],
+ ['Mon','5:40 PM','Work','Pharmacy',['C','D']],['Tue','6:55 PM','Home','Support Group',['A','E']],
+ ['Wed','12:20 PM','Work','Medical Clinic',['C','F']],['Wed','1:05 PM','Medical Clinic','Work',['F','C']],
+ ['Fri','8:30 PM','Home','Friend\u2019s House',['A','G']],['Sat','8:02 AM','Friend\u2019s House','Home',['G','A']],
+ ['Sat','10:05 AM','Home','Grocery',['A','D']],['Sun','9:30 AM','Home','Church',['A','H']],
+ ['Sun','10:45 AM','Church','Home',['H','A']]];
+const JP_QS=[
+ {q:'Sundays, 9:30 AM, the car parks at the same church for over an hour. This driver most likely…',opts:['Attends church — faith is part of their week','Sells insurance in the parking lot','Just likes the architecture'],a:0,learn:'RELIGION — where they worship, and when.'},
+ {q:'Weekdays start with a 7:15 AM stop at an elementary school, every single day. Most likely…',opts:['Is a crossing guard','Has a school-age child','Collects attendance data'],a:1,learn:'FAMILY — they have a kid, and you know which school, and when the kid is there.'},
+ {q:'A Wednesday lunch hour at a medical clinic, a pharmacy stop the same week. Most likely…',opts:['Works in the medical field','Was in one accident, once','Manages an ongoing health condition'],a:2,learn:'HEALTH — ongoing care, and roughly for what, if you know the clinic\u2019s specialty.'},
+ {q:'Tuesdays, 7 PM, same hall, every week — the hall hosts a support group that night. Most likely…',opts:['In recovery, or supporting someone who is','The hall\u2019s janitor','Choir practice (that\u2019s Thursdays)'],a:0,learn:'RECOVERY — one of the most private facts a person owns.'},
+ {q:'Friday 8:30 PM across town; the car doesn\u2019t come home until Saturday morning. Most likely…',opts:['Night-shift worker','Car broke down','A relationship — or at least a couch that matters'],a:2,learn:'LOVE LIFE — whose house, which nights, how often.'}];
+let jpIdx=0,jpReads=0,jpQ=0,jpRight=0;
+function jpDrawMap(flash){
+ const c=document.getElementById('jpCanvas'); if(!c) return; const x=c.getContext('2d');
+ x.fillStyle='#101736'; x.fillRect(0,0,900,300);
+ x.strokeStyle='#22306b'; x.lineWidth=10;
+ for(let i=0;i<5;i++){x.beginPath();x.moveTo(60+i*200,20);x.lineTo(60+i*200,280);x.stroke();}
+ for(let j=0;j<3;j++){x.beginPath();x.moveTo(30,60+j*100);x.lineTo(870,60+j*100);x.stroke();}
+ x.lineWidth=1;
+ for(const k in JP_LOCS){const pt=JP_LOCS[k]; x.fillStyle='#ffd75e'; x.beginPath(); x.arc(pt[0],pt[1],7,0,7); x.fill(); x.fillStyle='#eef1ff'; x.font='700 13px Arial'; x.textAlign='center'; x.fillText(k==='Medical Clinic'?'Clinic':k,pt[0],pt[1]-13);}
+ for(const k in JP_CAMS){const cm=JP_CAMS[k]; const hot=flash&&flash.includes(k); x.fillStyle=hot?'#ff5252':'#7fd4e8'; x.beginPath(); x.arc(cm[1],cm[2],hot?9:6,0,7); x.fill(); x.fillStyle=hot?'#ff8a8a':'#aab4e8'; x.font='10px Arial'; x.textAlign='center'; x.fillText('CAM '+k,cm[1],cm[2]+22);}
+ x.fillStyle='#aab4e8'; x.font='12px Arial'; x.textAlign='left'; x.fillText('One small town. Eight cameras. One ordinary driver.',14,292);
+}
+function jpDriveTrip(){
+ if(jpIdx>=JP_TRIPS.length) return;
+ const t=JP_TRIPS[jpIdx];
+ jpDrawMap(t[4]);
+ const log=document.getElementById('jpLog');
+ if(jpIdx===0) log.innerHTML='';
+ t[4].forEach(cid=>{ jpReads++; log.innerHTML+='<div>📸 <b>'+t[0]+' '+t[1]+'</b> — KJM 42T read at '+JP_CAMS[cid][0]+' (Camera '+cid+') — trip: '+t[2]+' → '+t[3]+'</div>'; });
+ log.scrollTop=log.scrollHeight;
+ jpIdx++;
+ document.getElementById('jpTrip').textContent=jpIdx;
+ document.getElementById('jpReads').textContent=jpReads;
+ if(jpIdx>=JP_TRIPS.length){
+   document.getElementById('jpDrive').disabled=true;
+   document.getElementById('jpDrive').textContent='The week is logged.';
+   document.getElementById('jpQuiz').style.display='block';
+   jpShowQ();
+ }
+}
+function jpShowQ(){
+ const q=JP_QS[jpQ]; const box=document.getElementById('jpQBox');
+ box.innerHTML='<b>Deduction '+(jpQ+1)+' of 5:</b> '+q.q+'<br>';
+ q.opts.forEach((o,i)=>{ const b=document.createElement('button'); b.className='btn qopt'; b.textContent=o; b.onclick=()=>jpAnswer(i); box.appendChild(b); });
+}
+function jpAnswer(i){
+ const q=JP_QS[jpQ]; const box=document.getElementById('jpQBox');
+ if(i===q.a){ jpRight++; box.innerHTML='✅ <b>Deduced:</b> '+q.learn+'<span class="stamp">IN THE LOG</span>'; }
+ else { box.innerHTML='❌ That guess is possible — but the log points the other way: <b>'+q.learn+'</b><span class="stamp">IN THE LOG</span>'; }
+ jpQ++;
+ setTimeout(()=>{ if(jpQ<JP_QS.length){ jpShowQ(); } else { jpFinish(); } },1700);
+}
+function jpFinish(){
+ document.getElementById('jpQBox').innerHTML='Quiz complete.';
+ const r=document.getElementById('jpResult'); r.style.display='block';
+ r.textContent='THE FILE ON KJM 42T\n'+jpReads+' reads. Eleven trips. Zero crimes, zero warrants, zero suspicion.\n\nAnd from "just plate data" you reconstructed a stranger\u2019s faith, family, health, recovery, and love life — '+(jpRight)+' of 5 deductions dead-on, and the log would wait patiently while you got the rest.\n\nAnyone with access to the database can run this exact quiz on anyone in town: an officer, a vendor employee, an outside agency, a hacker, a litigant with a subpoena. The question was never whether the data is useful. It is who holds it, how long it lives, and who gets asked. A plate is never just a plate.';
+}
+// ---------- THE AUDITOR ----------
+const AU_CARDS=[
+ {o:'Ofc. Ramirez',plate:'STL 91K',when:'Tue 2:14 PM',reason:'Hotlist hit follow-up',case_:'Case #26-1187',ctx:'Plate was on the active stolen-vehicle list.',bad:false,why:'Textbook: a live hotlist hit with a case number. This is the system working as intended.'},
+ {o:'Det. Osei',plate:'BRN 07D',when:'Wed 9:02 AM',reason:'Amber Alert assist',case_:'Case #26-1190',ctx:'Regional BOLO for an abducted child.',bad:false,why:'A child was missing. Speed matters and the paper trail is clean.'},
+ {o:'Ofc. Tran',plate:'MKP 63S',when:'Thu 11:37 PM',reason:'Hit-and-run suspect vehicle',case_:'Case #26-1204',ctx:'Vehicle description from the victim matched.',bad:false,why:'A named case, a victim, a suspect vehicle. Legitimate in every column.'},
+ {o:'Sgt. Blake',plate:'DVR 28N',when:'Fri 4:45 PM',reason:'Burglary series — suspect vehicle',case_:'Case #26-0977',ctx:'Plate taken from a victim\u2019s statement.',bad:false,why:'Part of a documented series investigation. Exactly what the audit log is for.'},
+ {o:'Ofc. Novak',plate:'ELP 55A',when:'Sat 8:19 AM',reason:'Silver Alert — missing senior',case_:'Case #26-1208',ctx:'Family reported an 81-year-old missing.',bad:false,why:'Welfare check on a missing senior. Clean reason, clean case.'},
+ {o:'Ofc. Price',plate:'GRT 19W',when:'Sun 1:26 PM',reason:'Recovered-vehicle verification',case_:'Case #26-1210',ctx:'Confirming a recovered car can come off the hotlist.',bad:false,why:'Good hygiene — this search is how stale hits get cleared before they hurt someone.'},
+ {o:'Ofc. Miller',plate:'HND 84T',when:'Tue 11:48 PM',reason:'Suspicious vehicle',case_:'— none —',ctx:'The plate belongs to his ex-wife\u2019s new boyfriend.',bad:true,why:'No case, midnight, his ex\u2019s boyfriend. This is the most common real-world abuse of these databases: the personal search.'},
+ {o:'Ofc. Doyle',plate:'PRS 31C',when:'Wed 10:05 AM',reason:'',case_:'— none —',ctx:'The plate belongs to the local reporter who published an investigation of the department yesterday.',bad:true,why:'A blank reason field and a journalist\u2019s plate, the morning after her story. Searching critics is how databases become weapons.'},
+ {o:'Ofc. Grant',plate:'VTE 66R',when:'Sat 3:40 PM',reason:'Intel gathering',case_:'— none —',ctx:'The car was photographed parked near a lawful, permitted protest downtown.',bad:true,why:'"Intel" on lawful protest is surveillance of First Amendment activity with extra steps.'},
+ {o:'Ofc. Ruiz',plate:'TRK 40B',when:'Mon 2:13 AM',reason:'Noise complaint?',case_:'— none —',ctx:'The truck is his next-door neighbor\u2019s. They are in a fence dispute. There was no noise complaint.',bad:true,why:'2 AM, a neighbor, a fake reason. The database as a tool in a personal feud.'},
+ {o:'Det. Vance',plate:'LAW 12J',when:'Thu 5:58 PM',reason:'Court prep',case_:'— none —',ctx:'The plate belongs to the defense attorney currently suing the department.',bad:true,why:'Searching opposing counsel during litigation is not court prep. It is intimidation with a login.'},
+ {o:'Ofc. Miller',plate:'HND 84T',when:'Fri 11:52 PM',reason:'Suspicious vehicle',case_:'— none —',ctx:'Same plate as Tuesday. This is his fourth search of it this month.',bad:true,why:'A pattern is worse than an incident. Four searches of his ex\u2019s boyfriend is stalking by database — and only an auditor reading across time would ever see it.'},
+ {o:'Ofc. Chen',plate:'OWN 99Z',when:'Wed 1:15 PM',reason:'Testing the system',case_:'— none —',ctx:'He searched his own plate to see if the system worked.',bad:true,why:'The gray one — and it still counts. Test searches are policy violations in every serious ALPR policy, because "just testing" is also the perfect cover story. Flag it, note it, move on.'}];
+let auDeck=[],auIdx=0,auScore=0,auCaught=0,auMissed=0,auFalse=0,auLock=false;
+function auStart(){
+ auDeck=AU_CARDS.slice();
+ for(let i=auDeck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=auDeck[i];auDeck[i]=auDeck[j];auDeck[j]=t;}
+ auIdx=0; auScore=0; auCaught=0; auMissed=0; auFalse=0; auLock=false;
+ document.getElementById('auResult').style.display='none';
+ document.getElementById('auStart').textContent='↺ RESTART REVIEW';
+ document.getElementById('auOk').disabled=false; document.getElementById('auFlag').disabled=false;
+ auShow();
+}
+function auShow(){
+ const c=auDeck[auIdx];
+ document.getElementById('auIdx').textContent=auIdx+1;
+ document.getElementById('auVerdict').textContent='';
+ document.getElementById('auCard').innerHTML='<b>SEARCH #'+(auIdx+1)+'</b> · '+c.when+'<br><b>Officer:</b> '+c.o+'<br><b>Plate searched:</b> '+c.plate+'<br><b>Stated reason:</b> '+(c.reason?c.reason:'<i>(blank)</i>')+'<br><b>Case:</b> '+c.case_+'<br><b>Context:</b> '+c.ctx;
+ auUpd();
+}
+function auUpd(){ document.getElementById('auScore').textContent=auScore; document.getElementById('auCaught').textContent=auCaught; document.getElementById('auMissed').textContent=auMissed; document.getElementById('auFalse').textContent=auFalse; }
+function auDecide(flag){
+ if(auLock||auIdx>=auDeck.length) return; auLock=true;
+ const c=auDeck[auIdx]; const vd=document.getElementById('auVerdict');
+ if(flag&&c.bad){ auCaught++; auScore+=50; vd.style.color='#ff8a8a'; vd.textContent='🚩 FLAGGED — correctly. '+c.why; }
+ else if(flag&&!c.bad){ auFalse++; auScore-=25; vd.style.color='#ffe1a1'; vd.textContent='⚠️ FALSE FLAG. '+c.why+' Flagging real work has a cost too — the goal is an honest log, not a frightened department.'; }
+ else if(!flag&&c.bad){ auMissed++; vd.style.color='#ff8a8a'; vd.textContent='❌ IT SLIPPED THROUGH. '+c.why; }
+ else { auScore+=50; vd.style.color='#a7f3c9'; vd.textContent='✅ APPROVED — correctly. '+c.why; }
+ auUpd();
+ auIdx++;
+ setTimeout(()=>{ auLock=false; if(auIdx>=auDeck.length){ auFinish(); } else { auShow(); } },2100);
+}
+function auFinish(){
+ document.getElementById('auOk').disabled=true; document.getElementById('auFlag').disabled=true;
+ document.getElementById('auCard').innerHTML='<b>REVIEW COMPLETE.</b>';
+ const r=document.getElementById('auResult'); r.style.display='block';
+ let line;
+ if(auMissed===0&&auFalse===0) line='A clean review. Every abuser caught, every honest search untouched. This is what oversight looks like when it works — and notice what it required: the log, the context, and a human willing to read both.';
+ else if(auMissed===0) line='Every abuse caught — with '+auFalse+' false flag'+(auFalse>1?'s':'')+' on honest work. Oversight has two failure modes, and you found the gentler one.';
+ else line=auMissed+' abusive search'+(auMissed>1?'es':'')+' slipped through your review. That is not an insult — it is the finding. Auditing is a skill, it takes time, and a log nobody reads carefully is the same as no log at all. Which is why the question in every ALPR debate is never just "is there an audit log?" It is "whose job is reading it?"';
+ r.textContent='AUDIT REPORT\nScore: '+auScore+' · Abuse caught: '+auCaught+' of 7 · Slipped through: '+auMissed+' · False flags: '+auFalse+'\n\n'+line+'\n\nIn Cabot\u2019s proposed city-controlled system, this job has a name: the Citizens Commission, reading the city\u2019s own log, in public. In the vendor model, the log lives on someone else\u2019s server.';
+}
+// ---------- NINE CAMERAS ----------
+const NC_COLS=7,NC_ROWS=5;
+let ncCams={},ncRunning=false;
+function ncNodes(){ const ns=[]; for(let j=0;j<NC_ROWS;j++) for(let i=0;i<NC_COLS;i++) ns.push([80+i*120,60+j*80]); return ns; }
+function ncCoveredSet(){
+ const ns=ncNodes(); const cov=new Set();
+ ns.forEach((pt,idx)=>{ for(const k in ncCams){ const cp=ns[+k]; const dx=pt[0]-cp[0],dy=pt[1]-cp[1]; if(Math.sqrt(dx*dx+dy*dy)<=175){ cov.add(idx); break; } } });
+ return cov;
+}
+function ncDraw(cars){
+ const c=document.getElementById('ncCanvas'); if(!c) return; const x=c.getContext('2d');
+ x.fillStyle='#101736'; x.fillRect(0,0,900,420);
+ const ns=ncNodes(); const cov=ncCoveredSet();
+ x.strokeStyle='#22306b'; x.lineWidth=8;
+ for(let j=0;j<NC_ROWS;j++){ x.beginPath(); x.moveTo(ns[j*NC_COLS][0],ns[j*NC_COLS][1]); x.lineTo(ns[j*NC_COLS+NC_COLS-1][0],ns[j*NC_COLS+NC_COLS-1][1]); x.stroke(); }
+ for(let i=0;i<NC_COLS;i++){ x.beginPath(); x.moveTo(ns[i][0],ns[i][1]); x.lineTo(ns[(NC_ROWS-1)*NC_COLS+i][0],ns[(NC_ROWS-1)*NC_COLS+i][1]); x.stroke(); }
+ x.lineWidth=1;
+ ns.forEach((pt,idx)=>{ if(cov.has(idx)){ x.fillStyle='rgba(127,212,232,.16)'; x.beginPath(); x.arc(pt[0],pt[1],30,0,7); x.fill(); } x.fillStyle='#3a4fa8'; x.beginPath(); x.arc(pt[0],pt[1],5,0,7); x.fill(); });
+ for(const k in ncCams){ const pt=ns[+k]; x.font='26px Arial'; x.textAlign='center'; x.fillText('📷',pt[0],pt[1]+9); }
+ if(cars){ cars.forEach(car=>{ x.fillStyle=car.stolen?'#ff5252':'#ffd75e'; x.beginPath(); x.arc(car.x,car.y,8,0,7); x.fill(); if(car.stolen){ x.fillStyle='#ff8a8a'; x.font='700 11px Arial'; x.fillText('STOLEN',car.x,car.y-14); } }); }
+}
+function ncUpdHud(){
+ const cov=ncCoveredSet();
+ document.getElementById('ncPlaced').textContent=Object.keys(ncCams).length;
+ document.getElementById('ncCov').textContent=Math.round(cov.size/(NC_COLS*NC_ROWS)*100)+'%';
+}
+function ncClick(e){
+ if(ncRunning) return;
+ const c=document.getElementById('ncCanvas'); const r=c.getBoundingClientRect();
+ const sx=r.width?c.width/r.width:1, sy=r.height?c.height/r.height:1;
+ const mx=(e.clientX-r.left)*sx, my=(e.clientY-r.top)*sy;
+ const ns=ncNodes(); let best=-1,bd=1e9;
+ ns.forEach((pt,idx)=>{ const dx=pt[0]-mx,dy=pt[1]-my; const d=dx*dx+dy*dy; if(d<bd){bd=d;best=idx;} });
+ if(best<0||bd>45*45) return;
+ if(ncCams[best]){ delete ncCams[best]; }
+ else { if(Object.keys(ncCams).length>=9) return; ncCams[best]=1; }
+ ncDraw(); ncUpdHud();
+}
+function ncPath(){
+ const ns=ncNodes();
+ const edges=[]; for(let j=0;j<NC_ROWS;j++){ edges.push(j*NC_COLS); edges.push(j*NC_COLS+NC_COLS-1); } for(let i=0;i<NC_COLS;i++){ edges.push(i); edges.push((NC_ROWS-1)*NC_COLS+i); }
+ let a=edges[Math.floor(Math.random()*edges.length)], b=a;
+ while(b===a) b=edges[Math.floor(Math.random()*edges.length)];
+ const path=[a]; let ci=a%NC_COLS, cj=Math.floor(a/NC_COLS), ti=b%NC_COLS, tj=Math.floor(b/NC_COLS);
+ while(ci!==ti){ ci+= ci<ti?1:-1; path.push(cj*NC_COLS+ci); }
+ while(cj!==tj){ cj+= cj<tj?1:-1; path.push(cj*NC_COLS+ci); }
+ return path.map(idx=>ns[idx]);
+}
+let ncCars=[],ncIv=null,ncReads=0,ncInnocent=0,ncCaught=false;
+function ncRunDay(){
+ if(ncRunning) return;
+ if(Object.keys(ncCams).length===0){ document.getElementById('ncResult').style.display='block'; document.getElementById('ncResult').textContent='Place at least one camera first. Even a dragnet needs cameras.'; return; }
+ ncRunning=true; ncReads=0; ncInnocent=0; ncCaught=false; ncCars=[];
+ document.getElementById('ncResult').style.display='none';
+ document.getElementById('ncStolen').textContent='at large';
+ const cov=ncCoveredSet(); const ns=ncNodes();
+ const stolenIdx=Math.floor(Math.random()*30);
+ for(let i=0;i<30;i++){
+   const path=ncPath();
+   ncCars.push({path,seg:0,t:Math.random()*0.5,x:path[0][0],y:path[0][1],stolen:i===stolenIdx,seen:new Set(),delay:i*6,done:false});
+ }
+ ncIv=setInterval(()=>{
+   let allDone=true;
+   ncCars.forEach(car=>{
+     if(car.done) return;
+     if(car.delay>0){ car.delay--; allDone=false; return; }
+     allDone=false;
+     const target=car.path[car.seg+1];
+     if(!target){ car.done=true; return; }
+     const dx=target[0]-car.x, dy=target[1]-car.y; const dist=Math.sqrt(dx*dx+dy*dy);
+     const step=11;
+     if(dist<=step){ car.x=target[0]; car.y=target[1];
+       const nodeIdx=car.seg+1; const pt=car.path[nodeIdx];
+       const realIdx=ns.findIndex(n=>n[0]===pt[0]&&n[1]===pt[1]);
+       if(cov.has(realIdx)&&!car.seen.has(realIdx)){ car.seen.add(realIdx); ncReads++; if(car.stolen){ ncCaught=true; } else { ncInnocent++; } }
+       car.seg++;
+       if(car.seg>=car.path.length-1) car.done=true;
+     } else { car.x+=dx/dist*step; car.y+=dy/dist*step; }
+   });
+   document.getElementById('ncReads').textContent=ncReads;
+   document.getElementById('ncInnocent').textContent=ncInnocent;
+   document.getElementById('ncStolen').textContent=ncCaught?'CAUGHT 📸':'at large';
+   ncDraw(ncCars.filter(c=>!c.done));
+   if(ncCars.every(c=>c.done)){ clearInterval(ncIv); ncRunning=false; ncFinish(); }
+ },40);
+}
+function ncFinish(){
+ const r=document.getElementById('ncResult'); r.style.display='block';
+ const pct=Math.round(ncInnocent/Math.max(1,ncReads)*100);
+ let head = ncCaught? 'You caught the stolen car. ' : 'The stolen car slipped through your net today. ';
+ r.textContent='ONE DAY, YOUR NINE CAMERAS\nReads: '+ncReads+' · Innocent reads: '+ncInnocent+' ('+pct+'%) · Stolen car: '+(ncCaught?'caught':'missed')+'\n\n'+head+'And to do it, your network wrote down '+ncInnocent+' trips by people who did nothing wrong — in one toy day, on one toy map, with thirty toy cars.\n\nNow scale it like a grown-up: thousands of real trips a day, 365 days a year, retained in a database, searchable by whoever holds it. The innocent reads are not a side effect of the system. At these ratios, the innocent reads ARE the system. The stolen cars are the rounding error.\n\nThat is the trade a city is actually making — which is why who owns the cameras, who holds the data, and when it deletes are not technical questions. They are the whole question.';
+}
+function ncReset(){ if(ncRunning) return; ncCams={}; ncReads=0; ncInnocent=0; ncCaught=false; document.getElementById('ncReads').textContent='0'; document.getElementById('ncInnocent').textContent='0'; document.getElementById('ncStolen').textContent='at large'; document.getElementById('ncResult').style.display='none'; ncDraw(); ncUpdHud(); }
+document.addEventListener('DOMContentLoaded',()=>{ jpDrawMap(); ncDraw(); const ncc=document.getElementById('ncCanvas'); if(ncc) ncc.addEventListener('click',ncClick); });
 </script></body></html>
