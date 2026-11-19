@@ -58,10 +58,10 @@ footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-hei
 </div>
 
 <section id="panel-arcade" class="panel on">
-<div class="hud"><span>⏱️ Time <b id="hTime">90</b></span><span>Score <b id="hScore">0</b></span><span>Trust <b id="hTrust">100%</b></span><span>Reads <b id="hReads">0</b></span><span>Software cost <b>$0.000</b></span></div>
+<div class="hud"><span>⏱️ Time <b id="hTime">30</b></span><span>Score <b id="hScore">0</b></span><span>Trust <b id="hTrust">100%</b></span><span>Reads <b id="hReads">0</b></span><span>Software cost <b>$0.000</b></span></div>
 <canvas id="road" width="900" height="300"></canvas>
 <div class="pipe" id="pipe"><span>DETECT</span><span>CROP</span><span>OCR</span><span>HOTLIST MATCH</span><span>DELETE NON-HIT</span></div>
-<div class="center"><button class="btn primary" id="startBtn" onclick="startGame()">▶ START ROUND — 90 SECONDS</button>
+<div class="center"><button class="btn primary" id="startBtn" onclick="startGame()">▶ START ROUND — 30 SECONDS</button>
 <button class="btn" onclick="resetGame()">Reset</button></div>
 <p class="small center">How to play: cards appear below as the camera reads cars. <b style="color:#ff8a8a">HOTLIST</b> + high confidence = CONFIRM it. Low confidence lookalike (0/O, 8/B) = REJECT it. Ordinary driver = SHRED it fast — if the yellow retention bar empties, you kept an innocent person's data too long. Watch for Mission Creep cards.</p>
 <div class="feed" id="feed"></div>
@@ -104,7 +104,7 @@ All plates fictional — realistic Arkansas design, invented serials. No real pl
 function showPanel(p){document.querySelectorAll('.panel').forEach(e=>e.classList.remove('on'));document.querySelectorAll('.tabs button').forEach(e=>e.classList.remove('on'));document.getElementById('panel-'+p).classList.add('on');document.getElementById('tab-'+p).classList.add('on');if(p==='prove'&&!window._plate) newPlate();}
 // ---------- ARCADE ----------
 const cv=document.getElementById('road'),ctx=cv.getContext('2d');
-let cars=[],feed=[],running=false,timeLeft=90,score=0,trust=100,reads=0,hits=0,falseD=0,shredded=0,missed=0,creepAccepts=0,spawnT=null,tickT=null,lastCreep=0,startAt=0;
+let cars=[],feed=[],running=false,timeLeft=30,score=0,trust=100,reads=0,hits=0,falseD=0,shredded=0,missed=0,creepAccepts=0,spawnT=null,tickT=null,lastCreep=0,startAt=0;
 const HOT=['ARK 48S','TXP 17L','STL 91K'];
 // Real current Arkansas format (2021-present): ABC 12D — and Arkansas skips O and Q, so this alphabet does too.
 function rndPlate(){const L='ABCDEFGHIJKLMNPRSTUVWXYZ';const ch=()=>L[Math.floor(Math.random()*L.length)];return ch()+ch()+ch()+' '+(10+Math.floor(Math.random()*90))+ch();}
@@ -148,15 +148,15 @@ function creep(){if(!running)return;const m=document.getElementById('creepModal'
  document.getElementById('creepYes').onclick=()=>{m.classList.remove('on');creepAccepts++;trust-=15;score+=25;flash('Mission creep accepted (+25 easy points, Trust -15). '+(creepAccepts>=3?'Third acceptance: you built a surveillance system. GAME OVER.':'Accept 3 and it\u2019s game over — you built a surveillance system.'));upd();checkEnd();};
  document.getElementById('creepNo').onclick=()=>{m.classList.remove('on');trust=Math.min(100,trust+4);score+=30;flash('Policy held. That refusal is the entire job. +30');upd();};}
 function startGame(){if(running)return;resetGame();running=true;startAt=Date.now();lastCreep=Date.now();
- spawnT=setInterval(spawnCar,950);tickT=setInterval(()=>{timeLeft=90-(Date.now()-startAt)/1000;upd();
+ spawnT=setInterval(spawnCar,950);tickT=setInterval(()=>{timeLeft=30-(Date.now()-startAt)/1000;upd();
   cars.forEach(c=>{c.x+=c.speed;if(!c.read&&c.x>400&&c.x<510){c.read=true;addFeed(c);}});cars=cars.filter(c=>c.x<940);
-  if(Date.now()-lastCreep>26000){if(document.getElementById('feed').children.length===0){lastCreep=Date.now();creep();}else{lastCreep=Date.now()-20000;}}
+  if(Date.now()-lastCreep>12000){if(document.getElementById('feed').children.length===0){lastCreep=Date.now();creep();}else{lastCreep=Date.now()-6000;}}
   if(timeLeft<=0||trust<=0)endGame();},50);draw();}
 function checkEnd(){if(trust<=0||creepAccepts>=3)endGame();}
 function endGame(){if(!running)return;running=false;clearInterval(spawnT);clearInterval(tickT);document.getElementById('creepModal').classList.remove('on');
  const r=document.getElementById('arcadeResult');r.style.display='block';
  r.textContent=(creepAccepts>=3?'GAME OVER — MISSION CREEP WON. Three "just this once" requests and the plate reader became a surveillance system. That is a policy failure, not a software failure.':trust<=0?'GAME OVER — TRUST COLLAPSED. Too many false dispatches or retention breaches. The technology worked perfectly the whole time.':'ROUND OVER — TIME.')+`\n\nPlates read automatically: ${reads} · Total software cost: $0.000 · Avg read: under 100 ms\nHotlist hits confirmed: ${hits} · False dispatches: ${falseD} · Non-hits shredded / bad reads rejected: ${shredded} · Missed / expired: ${missed}\nFinal score: ${score} · Trust: ${Math.max(0,Math.round(trust))}%\n\nEvery one of those reads is the part vendors charge rent for. The reading is solved. The governing is the work.`;}
-function resetGame(){running=false;clearInterval(spawnT);clearInterval(tickT);cars=[];score=0;trust=100;reads=0;hits=0;falseD=0;shredded=0;missed=0;creepAccepts=0;timeLeft=90;document.getElementById('feed').innerHTML='';upd();draw();}
+function resetGame(){running=false;clearInterval(spawnT);clearInterval(tickT);cars=[];score=0;trust=100;reads=0;hits=0;falseD=0;shredded=0;missed=0;creepAccepts=0;timeLeft=30;document.getElementById('feed').innerHTML='';upd();draw();}
 resetGame();
 // ---------- BUDGET BOSS ----------
 const CATS=[
