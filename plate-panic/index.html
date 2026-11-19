@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PLATE PANIC! — The ALPR Game That Runs Itself</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:#070b1a;color:#eef1ff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:#ffd75e}
+.wrap{max-width:980px;margin:0 auto;padding:16px}
+header{text-align:center;padding:22px 10px 8px}
+.logo{font-size:13px;letter-spacing:.35em;color:#ffd75e}
+h1{font-size:clamp(38px,8vw,72px);margin:6px 0 2px;color:#fff;text-shadow:0 0 24px #3550ff}
+.tag{color:#b9c2ff;font-size:clamp(15px,2.6vw,19px)}
+.point{background:#0e1738;border:1px solid #2a3a7a;border-radius:12px;padding:12px 16px;margin:14px 0;line-height:1.5}
+.point b{color:#ffd75e}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:14px 0}
+.tabs button,.btn{background:#16225c;color:#fff;border:1px solid #3a4fa8;border-radius:999px;padding:10px 18px;font-size:16px;cursor:pointer}
+.tabs button.on{background:#ffd75e;color:#111;border-color:#ffd75e;font-weight:700}
+.btn.primary{background:#ffd75e;color:#111;font-weight:700;border-color:#ffd75e}
+.btn.danger{background:#7a1622;border-color:#c33}
+.btn.good{background:#14532d;border-color:#2a7}
+.panel{display:none}.panel.on{display:block}
+.hud{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;background:#0e1738;border:1px solid #2a3a7a;border-radius:12px;padding:10px 14px;margin:10px 0;font-variant-numeric:tabular-nums}
+.hud b{color:#ffd75e}
+canvas#road{width:100%;height:auto;background:#101736;border:1px solid #2a3a7a;border-radius:12px;display:block}
+.pipe{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:10px 0;font-size:13px}
+.pipe span{background:#101c4a;border:1px solid #33448c;border-radius:999px;padding:5px 10px}
+.pipe span.hit{background:#ffd75e;color:#111;font-weight:700}
+.feed{display:grid;gap:10px;margin-top:10px}
+.card{background:#0e1738;border:1px solid #2a3a7a;border-radius:12px;padding:12px}
+.card.alert{border-color:#e33;box-shadow:0 0 0 1px #e33}
+.card.lowconf{border-color:#e8a33d}
+.plate{display:inline-block;background:linear-gradient(180deg,#b9d2ee 0%,#eef5fc 55%,#ffffff 100%);color:#111;font-family:ui-monospace,Menlo,monospace;font-weight:800;letter-spacing:.12em;padding:4px 10px;border-radius:6px;border:2px solid #223}
+.meta{color:#b9c2ff;font-size:14px;margin:6px 0}
+.bar{height:8px;background:#222a55;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:#ffd75e}
+.card .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.modal{position:fixed;inset:0;background:rgba(2,4,16,.82);display:none;align-items:center;justify-content:center;padding:18px;z-index:9}
+.modal.on{display:flex}
+.modal .box{background:#0e1738;border:2px solid #ffd75e;border-radius:16px;max-width:520px;padding:22px;text-align:center;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:10px 0}
+.opt{background:#0e1738;border:2px solid #2a3a7a;border-radius:12px;padding:12px;cursor:pointer;text-align:left;color:#eef1ff;width:100%}
+.opt.sel{border-color:#ffd75e;background:#18265e}
+.opt .p{color:#ffd75e;font-weight:700}
+table{width:100%;border-collapse:collapse;margin:10px 0}td,th{border-bottom:1px solid #2a3a7a;padding:8px;text-align:left}
+.small{font-size:13px;color:#aab4e8;line-height:1.55}
+.center{text-align:center}
+footer{text-align:center;color:#8b96cc;padding:26px 10px;font-size:14px;line-height:1.6}
+#ocrCanvas{background:#fff;border-radius:8px;max-width:100%;height:auto;width:560px}
+.result{background:#0e1738;border:1px solid #2a3a7a;border-radius:12px;padding:14px;margin-top:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+</style></head><body><div class="wrap">
+<header><div class="logo">THE STOIC OPPOSITION PRESENTS</div><h1>PLATE PANIC!</h1>
+<div class="tag">The ALPR game that runs itself.</div></header>
+<div class="point">If a free browser game — no server, no account, no per-read fee — can detect, read, and hotlist-match a license plate, then <b>the software is not the expensive part</b> of a city plate-reader system. The hard part is governance. In this game, <b>you never read a plate. The system does.</b> You are the operator: confirm real hits, reject bad reads, and shred innocent drivers' data before you keep it too long.</div>
+<div class="tabs">
+<button id="tab-arcade" class="on" onclick="showPanel('arcade')">🕹️ Arcade Scan</button>
+<button id="tab-budget" onclick="showPanel('budget')">💰 Budget Boss</button>
+<button id="tab-prove" onclick="showPanel('prove')">🔬 Prove It — Real OCR</button>
+</div>
+
+<section id="panel-arcade" class="panel on">
+<div class="hud"><span>⏱️ Time <b id="hTime">90</b></span><span>Score <b id="hScore">0</b></span><span>Trust <b id="hTrust">100%</b></span><span>Reads <b id="hReads">0</b></span><span>Software cost <b>$0.000</b></span></div>
+<canvas id="road" width="900" height="300"></canvas>
+<div class="pipe" id="pipe"><span>DETECT</span><span>CROP</span><span>OCR</span><span>HOTLIST MATCH</span><span>DELETE NON-HIT</span></div>
+<div class="center"><button class="btn primary" id="startBtn" onclick="startGame()">▶ START ROUND — 90 SECONDS</button>
+<button class="btn" onclick="resetGame()">Reset</button></div>
+<p class="small center">How to play: cards appear below as the camera reads cars. <b style="color:#ff8a8a">HOTLIST</b> + high confidence = CONFIRM it. Low confidence lookalike (0/O, 8/B) = REJECT it. Ordinary driver = SHRED it fast — if the yellow retention bar empties, you kept an innocent person's data too long. Watch for Mission Creep cards.</p>
+<div class="feed" id="feed"></div>
+<div class="result" id="arcadeResult" style="display:none"></div>
+</section>
+
+<section id="panel-budget" class="panel">
+<h2>💰 Budget Boss</h2>
+<p>The claim: <i>"A first-party system would be prohibitively expensive!"</i> Build a 9-camera city-owned system for Cabot. Pick one in each row. Beat the lease.</p>
+<div id="budgetGrid"></div>
+<div class="result" id="budgetResult">Pick your parts, then press BUILD IT.</div>
+<div class="center" style="margin-top:12px"><button class="btn primary" onclick="buildIt()">🔧 BUILD IT</button></div>
+<table><tr><th></th><th>City-owned build</th><th>Lease forever</th></tr>
+<tr><td>Year 1</td><td>$21,861–$37,611 (standard $26,361)</td><td rowspan="2">$27,500 / yr<br>$137,500 over 5 years</td></tr>
+<tr><td>5 years</td><td>$53,829–$69,579</td></tr></table>
+<p class="small">Real numbers panel: these are Corey's hostile-QA'd planning estimates (Nov 17, 2026), not a vendor quote. Unpriced lines — connectivity, CJIS-compliant hosting, PoE power, and staff admin time — are disclosed unknowns; pricing them is the Citizens Commission's first job. Per-item prices in the game above are planning allowances (camera ~$2,000 owned from the reported Quincy, MA route; commercial plate software $500/camera/yr from the same route) — the totals table is the sourced comparison.</p>
+</section>
+
+<section id="panel-prove" class="panel">
+<h2>🔬 Prove It — run real OCR, right here</h2>
+<p>No trick code, and <b>no downloads</b> — the first version of this panel borrowed the Tesseract OCR engine from a CDN, and if that CDN is blocked the panel dies, which rather proves the wrong point. So this version carries its <b>own OCR engine inside this one file</b>: a template-matching reader written in plain JavaScript (the classic OCR technique — segment the serial band into characters, then match each character's pixels against rendered templates). It generates a brand-new plate drawn to look like a <b>real Arkansas plate</b> — sky-blue-to-white gradient, the Crater of Diamonds diamond in the center, maroon “Arkansas” on top, “The Natural State” at the bottom, current <b>ABC 12D</b> format (Arkansas skips O and Q — so does the generator) — with an invented serial, because publishing real plate data is exactly what this game is against. Then the built-in engine reads it. No server, no CDN, no upload. It works offline, from a file, forever.</p>
+<div class="center"><canvas id="ocrCanvas" width="640" height="320"></canvas><br><br>
+<button class="btn primary" onclick="newPlate()">🎲 New Plate</button>
+<button class="btn good" onclick="runOCR()">▶ Run Real OCR On This Plate</button></div>
+<div class="result" id="ocrResult">Press Run Real OCR. The engine is already in this file — nothing downloads, nothing loads from a CDN, and it works with the Wi-Fi off.</div>
+<p class="small">Honest caveat: this plate is flat, clean, and straight-on — the easy case, even with the diamond behind the serial and the real Arkansas layout. Real roads add angle, night, dirt, and speed — which is an argument about cameras, placement, and confidence thresholds, not about paying rent forever on plate-reading software. Production open-source stacks (OpenALPR, FastALPR, CodeProject.AI) use plate-trained models and run locally for $0 in license fees.</p>
+</section>
+
+<div class="point"><b>The stack this is based on:</b> OpenALPR (open-source ALPR library) · FastALPR / Fast-Plate-OCR (MIT, YOLO detection + plate OCR, runs locally) · CodeProject.AI (free, self-hosted) · Tesseract (open-source OCR) — and this game's own built-in template-matching OCR, which needs no library at all. All synthetic plates. No camera access. No data collected, stored, or sent anywhere.</div>
+<footer>PLATE PANIC! — a free game about a solved problem.<br>
+The Stoic Opposition Presents · Directed by Corey Spangler · Built by Vesper / Muse<br>
+All plates fictional — realistic Arkansas design, invented serials. No real plate data is used, collected, or kept. That is rather the point.</footer>
+</div>
+
+<div class="modal" id="creepModal"><div class="box"><h2>⚠️ MISSION CREEP</h2><p id="creepText"></p>
+<button class="btn danger" id="creepYes">Accept — what's the harm?</button><br><br>
+<button class="btn good" id="creepNo">Refuse — follow the policy</button></div></div>
+
+<script>
+function showPanel(p){document.querySelectorAll('.panel').forEach(e=>e.classList.remove('on'));document.querySelectorAll('.tabs button').forEach(e=>e.classList.remove('on'));document.getElementById('panel-'+p).classList.add('on');document.getElementById('tab-'+p).classList.add('on');if(p==='prove'&&!window._plate) newPlate();}
+// ---------- ARCADE ----------
+const cv=document.getElementById('road'),ctx=cv.getContext('2d');
+let cars=[],feed=[],running=false,timeLeft=90,score=0,trust=100,reads=0,hits=0,falseD=0,shredded=0,missed=0,creepAccepts=0,spawnT=null,tickT=null,lastCreep=0,startAt=0;
+const HOT=['ARK 48S','TXP 17L','STL 91K'];
+// Real current Arkansas format (2021-present): ABC 12D — and Arkansas skips O and Q, so this alphabet does too.
+function rndPlate(){const L='ABCDEFGHIJKLMNPRSTUVWXYZ';const ch=()=>L[Math.floor(Math.random()*L.length)];return ch()+ch()+ch()+' '+(10+Math.floor(Math.random()*90))+ch();}
+function lookalike(p){return p.replace('0','O').replace('O','0').replace('8','B').replace('1','I');}
+function spawnCar(){
+  const r=Math.random();let plate,kind,conf;
+  if(r<0.22){plate=HOT[Math.floor(Math.random()*HOT.length)];kind='hot';conf=88+Math.floor(Math.random()*12);}
+  else if(r<0.42){plate=lookalike(HOT[Math.floor(Math.random()*HOT.length)]);kind='look';conf=52+Math.floor(Math.random()*22);}
+  else{plate=rndPlate();kind='norm';conf=85+Math.floor(Math.random()*15);}
+  cars.push({x:-140,y:55+Math.floor(Math.random()*2)*130,speed:5.5+Math.random()*3,plate,kind,read:false,color:['#3b82f6','#ef4444','#eab308','#22c55e','#a855f7'][Math.floor(Math.random()*5)]});
+}
+function draw(){ctx.fillStyle='#101736';ctx.fillRect(0,0,900,300);ctx.fillStyle='#1b2650';ctx.fillRect(0,40,900,220);
+ctx.strokeStyle='#ffd75e';ctx.setLineDash([18,14]);ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,150);ctx.lineTo(900,150);ctx.stroke();ctx.setLineDash([]);
+ctx.fillStyle='rgba(255,215,94,.13)';ctx.fillRect(400,40,110,220);ctx.strokeStyle='#ffd75e';ctx.strokeRect(400,40,110,220);
+ctx.fillStyle='#ffd75e';ctx.font='bold 13px system-ui';ctx.fillText('CAMERA',412,32);
+cars.forEach(c=>{ctx.fillStyle=c.color;ctx.beginPath();ctx.roundRect(c.x,c.y,110,52,10);ctx.fill();ctx.fillStyle='#0b1026';ctx.fillRect(c.x+14,c.y+12,34,22);ctx.fillRect(c.x+62,c.y+12,34,22);
+ctx.fillStyle='#fff';ctx.fillRect(c.x+22,c.y+56,66,20);ctx.fillStyle='#111';ctx.font='bold 12px monospace';ctx.fillText(c.plate,c.x+26,c.y+70);});
+if(running)requestAnimationFrame(draw);}
+function addFeed(c){
+  reads++;document.getElementById('hReads').textContent=reads;
+  const ms=28+Math.floor(Math.random()*55);
+  const steps=document.querySelectorAll('#pipe span');steps.forEach(s=>s.classList.remove('hit'));let i=0;const iv=setInterval(()=>{if(i>0)steps[i-1].classList.remove('hit');if(i>=steps.length){clearInterval(iv);return;}steps[i].classList.add('hit');i++;},90);
+  const el=document.createElement('div');el.className='card'+(c.kind==='hot'?' alert':c.kind==='look'?' lowconf':'');
+  const ttl=6000;const born=Date.now();
+  el.innerHTML=`<span class="plate">${c.plate}</span> <span class="meta">read in ${ms} ms · cost $0.000 · OCR confidence ${c.conf}% ${c.kind==='hot'?'· 🚨 <b style="color:#ff8a8a">HOTLIST MATCH</b>':c.kind==='look'?'· ⚠️ <b style="color:#ffcf7a">POSSIBLE HOTLIST — LOW CONFIDENCE, CHECK THE LOOKALIKES</b>':'· no hotlist match'}</span><div class="bar"><i style="width:100%"></i></div><div class="row"><button class="btn danger">✔ CONFIRM / DISPATCH</button><button class="btn good">${c.kind==='norm'?'🗑️ SHRED NON-HIT':'✖ REJECT READ'}</button></div>`;
+  const bar=el.querySelector('.bar i');const iv2=setInterval(()=>{const left=1-(Date.now()-born)/ttl;bar.style.width=Math.max(0,left*100)+'%';if(left<=0){clearInterval(iv2);expire(el,c);}},100);
+  const [b1,b2]=el.querySelectorAll('button');
+  b1.onclick=()=>{clearInterval(iv2);act(el,c,true);};b2.onclick=()=>{clearInterval(iv2);act(el,c,false);};
+  el._iv=iv2;document.getElementById('feed').prepend(el);while(document.getElementById('feed').children.length>4){const last=document.getElementById('feed').lastChild;clearInterval(last._iv);last.remove();}
+}
+function expire(el,c){if(!el.parentNode)return;el.remove();if(c.kind==='hot'){missed++;trust-=8;flash('A real hotlist hit drove off — and its data timed out.');}else if(c.kind==='norm'){missed++;trust-=5;flash('Retention breach: you kept an innocent driver\u2019s data too long. Trust -5.');}upd();}
+function act(el,c,confirm){el.remove();
+ if(confirm&&c.kind==='hot'){hits++;score+=100;flash('Hit confirmed. +100');}
+ else if(confirm){falseD++;score-=150;trust-=12;flash(c.kind==='look'?'FALSE DISPATCH — that was a lookalike read at '+c.conf+'% confidence. An innocent driver just got stopped. Trust -12.':'FALSE DISPATCH — that driver was on no hotlist. Trust -12.');}
+ else{if(c.kind==='hot'){missed++;trust-=8;flash('You shredded a real hit. -Trust');}else{shredded++;score+=c.kind==='look'?50:15;flash(c.kind==='look'?'Good catch — lookalike rejected. +50':'Non-hit shredded on time. +15');}}
+ upd();checkEnd();}
+function flash(m){const r=document.getElementById('arcadeResult');r.style.display='block';r.textContent=m;}
+function upd(){document.getElementById('hScore').textContent=score;document.getElementById('hTrust').textContent=Math.max(0,Math.round(trust))+'%';document.getElementById('hTime').textContent=Math.max(0,Math.ceil(timeLeft));}
+const CREEPS=['"While we have it — can we also flag every car with an expired tag?"','"Can we pull every plate that drove past the protest last Tuesday?"','"A federal agency asked for a bulk export of last month\u2019s reads. Just this once?"','"Let\u2019s keep non-hit data for two years instead of deleting it. Storage is cheap."'];
+function creep(){if(!running)return;const m=document.getElementById('creepModal');document.getElementById('creepText').textContent=CREEPS[Math.floor(Math.random()*CREEPS.length)];m.classList.add('on');
+ document.getElementById('creepYes').onclick=()=>{m.classList.remove('on');creepAccepts++;trust-=15;score+=25;flash('Mission creep accepted (+25 easy points, Trust -15). '+(creepAccepts>=3?'Third acceptance: you built a surveillance system. GAME OVER.':'Accept 3 and it\u2019s game over — you built a surveillance system.'));upd();checkEnd();};
+ document.getElementById('creepNo').onclick=()=>{m.classList.remove('on');trust=Math.min(100,trust+4);score+=30;flash('Policy held. That refusal is the entire job. +30');upd();};}
+function startGame(){if(running)return;resetGame();running=true;startAt=Date.now();lastCreep=Date.now();
+ spawnT=setInterval(spawnCar,950);tickT=setInterval(()=>{timeLeft=90-(Date.now()-startAt)/1000;upd();
+  cars.forEach(c=>{c.x+=c.speed;if(!c.read&&c.x>400&&c.x<510){c.read=true;addFeed(c);}});cars=cars.filter(c=>c.x<940);
+  if(Date.now()-lastCreep>26000){if(document.getElementById('feed').children.length===0){lastCreep=Date.now();creep();}else{lastCreep=Date.now()-20000;}}
+  if(timeLeft<=0||trust<=0)endGame();},50);draw();}
+function checkEnd(){if(trust<=0||creepAccepts>=3)endGame();}
+function endGame(){if(!running)return;running=false;clearInterval(spawnT);clearInterval(tickT);document.getElementById('creepModal').classList.remove('on');
+ const r=document.getElementById('arcadeResult');r.style.display='block';
+ r.textContent=(creepAccepts>=3?'GAME OVER — MISSION CREEP WON. Three "just this once" requests and the plate reader became a surveillance system. That is a policy failure, not a software failure.':trust<=0?'GAME OVER — TRUST COLLAPSED. Too many false dispatches or retention breaches. The technology worked perfectly the whole time.':'ROUND OVER — TIME.')+`\n\nPlates read automatically: ${reads} · Total software cost: $0.000 · Avg read: under 100 ms\nHotlist hits confirmed: ${hits} · False dispatches: ${falseD} · Non-hits shredded / bad reads rejected: ${shredded} · Missed / expired: ${missed}\nFinal score: ${score} · Trust: ${Math.max(0,Math.round(trust))}%\n\nEvery one of those reads is the part vendors charge rent for. The reading is solved. The governing is the work.`;}
+function resetGame(){running=false;clearInterval(spawnT);clearInterval(tickT);cars=[];score=0;trust=100;reads=0;hits=0;falseD=0;shredded=0;missed=0;creepAccepts=0;timeLeft=90;document.getElementById('feed').innerHTML='';upd();draw();}
+resetGame();
+// ---------- BUDGET BOSS ----------
+const CATS=[
+ {name:'📷 Cameras (9)',opts:[{t:'Buy cameras you own',p:'$2,000 / camera, one-time',y1:18000,y5:18000},{t:'Lease cameras forever',p:'bundled into a per-camera yearly rent',y1:0,y5:0,lease:true}]},
+ {name:'🧠 Plate software',opts:[{t:'Open-source (OpenALPR / FastALPR)',p:'$0 / yr — the point of this game',y1:0,y5:0},{t:'Commercial, city-owned data',p:'$500 / camera / yr',y1:4500,y5:22500},{t:'Vendor lease bundle',p:'$27,500 / yr for 9 cameras, vendor keeps the system',y1:27500,y5:137500,lease:true}]},
+ {name:'🖥️ Compute + storage',opts:[{t:'Local server / mini-PC, city storage',p:'$3,700 one-time allowance',y1:3700,y5:3700},{t:'Vendor cloud',p:'$6,000 / yr, vendor holds the data',y1:6000,y5:30000}]},
+ {name:'⏱️ Retention policy',opts:[{t:'Delete non-hits in 14 days, local',p:'$0 — a policy, not a product',y1:0,y5:0},{t:'Keep everything, indefinitely',p:'$0 in dollars — paid for in trust',y1:0,y5:0,creep:true}]},
+ {name:'🔧 Install',opts:[{t:'Install allowance',p:'$650 / camera allowance',y1:5850,y5:5850}]}];
+let picks={};
+const bg=document.getElementById('budgetGrid');
+CATS.forEach((cat,ci)=>{const h=document.createElement('h3');h.textContent=cat.name;bg.appendChild(h);const g=document.createElement('div');g.className='grid';
+ cat.opts.forEach((o,oi)=>{const b=document.createElement('button');b.className='opt';b.innerHTML='<b>'+o.t+'</b><div class="p">'+o.p+'</div>';b.onclick=()=>{picks[ci]=oi;g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');};g.appendChild(b);});bg.appendChild(g);});
+function buildIt(){let y1=0,y5=0,lease=false,creep=false,missing=[];
+ CATS.forEach((cat,ci)=>{if(picks[ci]===undefined){if(cat.opts.length>1)missing.push(cat.name);else picks[ci]=0;}const o=cat.opts[picks[ci]||0];y1+=o.y1;y5+=o.y5;if(o.lease)lease=true;if(o.creep)creep=true;});
+ if(!lease){y5+=7500;y1+=0;} // $7,500 maintenance allowance over 5 years on an owned build
+ const r=document.getElementById('budgetResult');
+ if(missing.length){r.textContent='Pick one in each row first — missing: '+missing.join(', ');return;}
+ if(lease){r.textContent=`YOUR BUILD: Year 1 $${y1.toLocaleString()} · 5 years $${y5.toLocaleString()}\n\n❌ That's not a first-party system — that's the lease again with extra steps. You don't own the cameras, the software, or the data. Try buying the (commodity) hardware and using the (solved) software.`;return;}
+ if(creep){r.textContent=`YOUR BUILD: Year 1 $${y1.toLocaleString()} · 5 years $${y5.toLocaleString()}\n\n⚠️ Cheap — and wrong. Indefinite retention turns a plate reader into a location-history database. The dollars work; the policy doesn't. Delete non-hits and build it again.`;return;}
+ r.textContent=`YOUR BUILD: Year 1 $${y1.toLocaleString()} · 5 years $${y5.toLocaleString()} (incl. $7,500 maintenance allowance)\nvs LEASE FOREVER: $27,500/yr · $137,500 over 5 years\n\n🏆 YOU WIN. You own the cameras, the data stays local, non-hits get deleted, and the game-priced parts come in well under the lease. Add the still-unpriced real-world lines — connectivity, CJIS hosting, admin time — and you land in the real planning range of $53,829–$69,579 over 5 years, still roughly half the lease. The "prohibitively expensive" part was never the software. It was the rent.`;}
+// ---------- PROVE IT OCR ----------
+let curPlate='';
+function newPlate(){curPlate=rndPlate();const c=document.getElementById('ocrCanvas'),x=c.getContext('2d');const W=640,H=320;
+ // sky-blue to white gradient, like the real 2006-present Arkansas baseplate
+ const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#9ec2e8');g.addColorStop(.45,'#d9e9f8');g.addColorStop(1,'#ffffff');x.fillStyle=g;x.fillRect(0,0,W,H);
+ x.strokeStyle='#5a6b7d';x.lineWidth=4;x.strokeRect(4,4,W-8,H-8);x.strokeStyle='rgba(255,255,255,.7)';x.lineWidth=2;x.strokeRect(10,10,W-20,H-20);
+ // the diamond (Crater of Diamonds), centered behind the serial
+ x.save();x.translate(W/2,178);x.beginPath();x.moveTo(0,-92);x.lineTo(105,0);x.lineTo(0,92);x.lineTo(-105,0);x.closePath();x.fillStyle='rgba(170,190,212,.38)';x.fill();x.strokeStyle='rgba(110,135,165,.55)';x.lineWidth=2;x.stroke();
+ x.beginPath();x.moveTo(-105,0);x.lineTo(105,0);x.moveTo(0,-92);x.lineTo(0,92);x.moveTo(0,-92);x.lineTo(-38,0);x.lineTo(0,92);x.moveTo(0,-92);x.lineTo(38,0);x.lineTo(0,92);x.strokeStyle='rgba(110,135,165,.35)';x.stroke();x.restore();
+ // mounting holes
+ [[30,30],[W-30,30],[30,H-30],[W-30,H-30]].forEach(([hx,hy])=>{x.beginPath();x.arc(hx,hy,11,0,7);x.fillStyle='#e8edf2';x.fill();x.strokeStyle='#8a97a5';x.lineWidth=2;x.stroke();});
+ // validation sticker, top right (fictional)
+ x.fillStyle='#f5a623';x.fillRect(W-118,18,72,42);x.strokeStyle='#b97a10';x.strokeRect(W-118,18,72,42);x.fillStyle='#111';x.font='bold 20px system-ui';x.textAlign='center';x.fillText('04 · 27',W-82,45);
+ // state name + slogan, maroon serif like the real plate
+ x.fillStyle='#7c2128';x.font='bold 52px Georgia,"Times New Roman",serif';x.textAlign='center';x.fillText('Arkansas',W/2,64);
+ x.font='26px Georgia,"Times New Roman",serif';x.fillText('The Natural State',W/2,296);
+ // serial, black embossed look
+ try{x.letterSpacing='6px';}catch(e){}
+ x.fillStyle='rgba(0,0,0,.18)';x.font='900 96px "Arial Narrow",Arial,sans-serif';x.fillText(curPlate,W/2+3,203);
+ x.fillStyle='#101418';x.fillText(curPlate,W/2,200);try{x.letterSpacing='0px';}catch(e){}
+ x.textAlign='left';window._plate=curPlate;
+ document.getElementById('ocrResult').textContent='Plate generated: '+curPlate+' — realistic Arkansas design, invented serial. Now run the real OCR and see what it reads — no server involved.';}
+// ---------- Built-in OCR engine (no CDN, no downloads, no server) ----------
+// Classic template-matching OCR: segment the serial band into character
+// blobs by column projection, normalize each blob to 32x48, and match it
+// against templates rendered in the same plate font. ~100 lines of plain JS.
+const OCR_FONT='900 96px "Arial Narrow",Arial,sans-serif';
+let _templates=null;
+function _darkMap(cv){const x=cv.getContext('2d');const d=x.getImageData(0,0,cv.width,cv.height).data;const m=new Uint8Array(cv.width*cv.height);for(let i=0;i<m.length;i++){const r=d[i*4],g=d[i*4+1],b=d[i*4+2];m[i]=(0.2126*r+0.7152*g+0.0722*b)<115?1:0;}return m;}
+function _bbox(m,W,H,x0,x1){let minX=1e9,minY=1e9,maxX=-1,maxY=-1;for(let y=0;y<H;y++)for(let x=x0;x<x1;x++){if(m[y*W+x]){if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y;}}return maxX<0?null:{x:minX,y:minY,w:maxX-minX+1,h:maxY-minY+1};}
+function _normalize(cv,bb){const n=document.createElement('canvas');n.width=32;n.height=48;n.getContext('2d').drawImage(cv,bb.x,bb.y,bb.w,bb.h,0,0,32,48);return _darkMap(n);}
+function _buildTemplates(){if(_templates)return _templates;_templates={};const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+ for(const ch of chars){const tc=document.createElement('canvas');tc.width=160;tc.height=150;const tx=tc.getContext('2d');tx.fillStyle='#ffffff';tx.fillRect(0,0,160,150);tx.fillStyle='#101418';tx.font=OCR_FONT;tx.textAlign='center';tx.fillText(ch,80,105);
+  const m=_darkMap(tc);const bb=_bbox(m,160,150,0,160);if(bb)_templates[ch]=_normalize(tc,bb);}return _templates;}
+function _segmentSerial(){const c=document.getElementById('ocrCanvas');const band=document.createElement('canvas');band.width=640;band.height=145;band.getContext('2d').drawImage(c,0,95,640,145,0,0,640,145);
+ const m=_darkMap(band);const col=new Array(640).fill(0);for(let x=50;x<590;x++)for(let y=0;y<145;y++)if(m[y*640+x])col[x]++;
+ let runs=[];let start=-1,gap=0;for(let x=50;x<590;x++){if(col[x]>0){if(start<0)start=x;gap=0;}else if(start>=0){gap++;if(gap>3){runs.push([start,x-gap]);start=-1;gap=0;}}}
+ if(start>=0)runs.push([start,589]);
+ runs=runs.filter(([a,b])=>b-a>=6);
+ // Slanted neighbours (V/A, A/V, W, Y, X) can bridge a column projection even
+ // when the glyphs never touch. If we found fewer than 6 glyphs, split the
+ // widest run at its thinnest interior column until we have 6.
+ while(runs.length<6){let wi=-1,ww=0;runs.forEach(([a,b],i)=>{if(b-a>ww){ww=b-a;wi=i;}});if(wi<0||ww<24)break;
+  const [a,b]=runs[wi];let bx=-1,bc=1e9;for(let x=a+Math.floor(ww*0.25);x<b-Math.floor(ww*0.25);x++){if(col[x]<bc){bc=col[x];bx=x;}}
+  if(bx<0)break;runs.splice(wi,1,[a,bx-1],[bx,b]);runs.sort((p,q)=>p[0]-q[0]);}
+ // And if noise gave us too many, merge the closest pair.
+ while(runs.length>6){let mi=0,mg=1e9;for(let i=0;i<runs.length-1;i++){const g=runs[i+1][0]-runs[i][1];if(g<mg){mg=g;mi=i;}}runs.splice(mi,2,[runs[mi][0],runs[mi+1][1]]);}
+ return runs.map(([a,b])=>{const bb=_bbox(m,640,145,a,b+1);return bb?_normalize(band,bb):null;}).filter(Boolean);}
+function runOCR(){const out=document.getElementById('ocrResult');out.textContent='Reading with the built-in engine…';
+ setTimeout(()=>{try{const t0=performance.now();const T=_buildTemplates();const glyphs=_segmentSerial();
+  let chars='',confs=[];for(const g of glyphs){let best='?',bs=-1;for(const ch in T){const t=T[ch];let same=0;for(let i=0;i<g.length;i++)if(g[i]===t[i])same++;const s=same/g.length;if(s>bs){bs=s;best=ch;}}chars+=best;confs.push(bs);}
+  const ms=Math.round(performance.now()-t0);const raw=chars.length>=4?chars.slice(0,3)+' '+chars.slice(3):chars;
+  const avg=confs.length?Math.round(confs.reduce((a,b)=>a+b,0)/confs.length*100):0;
+  out.textContent=`OCR READ: "${raw}"\nEXPECTED:  "${curPlate}"\n${chars===curPlate.replace(/ /g,'')?'✅ EXACT MATCH':'⚠️ Not exact — this is a tiny template matcher reading through a diamond graphic, not a trained production model. Imperfect ≠ unsolved, and it definitely ≠ $27,500/yr in rent.'}\nCharacters found: ${glyphs.length} (expect 6) · Average match confidence: ${avg}%\nPipeline used: detect plate → crop serial band → segment characters → template-match each one. The actual ALPR pipeline, in ~100 lines of JavaScript, inside this file.\nTime: ${ms.toLocaleString()} ms\nServer used: none · CDN used: none · Data uploaded: none · Software cost: $0`;
+ }catch(e){out.textContent='Built-in OCR hit an error: '+((e&&e.message)?e.message:e);}},40);}
+</script></body></html>
