@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attention Merchant — The Stoic Opposition</title>
+<style>
+  :root{ --navy:#14213d; --paper:#f4f0e6; --ink:#1c2430; --gold:#c9a227; --red:#9e2b25; --green:#2e6b34; --line:#b9b09a; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.45}
+  main{max-width:860px;margin:0 auto;padding:18px 16px 40px}
+  h1,h2,h3{font-family:Verdana,Geneva,sans-serif;line-height:1.15;margin:.4em 0}
+  h1{font-size:2rem;letter-spacing:.02em}
+  .kicker{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;font-size:.78rem;color:var(--navy)}
+  .presents{text-align:center;border-bottom:3px double var(--navy);padding-bottom:10px;margin-bottom:14px}
+  .presents .brand{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.22em;font-size:.8rem;color:var(--navy)}
+  .screen{display:none}
+  .screen.on{display:block}
+  .card{background:#fffdf6;border:1.5px solid var(--navy);padding:14px 16px;margin:14px 0;box-shadow:3px 3px 0 rgba(20,33,61,.18)}
+  .ledgers{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+  .ledger{flex:1 1 260px;border:2px solid var(--navy);padding:10px 12px;background:#fffdf6}
+  .ledger.b{border-color:var(--gold)}
+  .ledger h3{margin:0 0 6px;font-size:.92rem;letter-spacing:.04em}
+  .ledger .big{font-size:1.5rem;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .meter{height:14px;background:#e4ddc9;border:1px solid var(--line);margin:4px 0 8px}
+  .meter>i{display:block;height:100%;background:var(--green)}
+  .meter.low>i{background:var(--red)}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;margin:8px 0}
+  th,td{border:1px solid var(--line);padding:5px 7px;text-align:right}
+  th:first-child,td:first-child{text-align:left}
+  th{background:var(--navy);color:var(--paper);font-family:Verdana,sans-serif;font-size:.75rem}
+  .sigrow{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:#fffdf6;padding:8px 10px;margin:8px 0;flex-wrap:wrap}
+  .sigrow .nm{flex:1 1 170px}
+  .sigrow .nm b{font-family:Verdana,sans-serif;font-size:.9rem}
+  .sigrow .nm span{display:block;font-size:.8rem;color:#55503f}
+  .stepper{display:flex;align-items:center;gap:6px}
+  .stepper button{width:38px;height:38px;font-size:1.15rem;border:2px solid var(--navy);background:var(--paper);cursor:pointer;font-family:ui-monospace,monospace}
+  .stepper button:active{background:var(--gold)}
+  .wval{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1.25rem;min-width:52px;text-align:center}
+  .tsrow{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+  .tsbtn{flex:1 1 120px;border:2px solid var(--navy);background:#fffdf6;padding:8px;cursor:pointer;font-family:Verdana,sans-serif;font-size:.82rem;text-align:left}
+  .tsbtn.sel{background:var(--navy);color:var(--paper)}
+  .tsbtn small{display:block;font-family:Georgia,serif;margin-top:3px}
+  .btn{display:inline-block;border:2px solid var(--navy);background:var(--navy);color:var(--paper);padding:12px 22px;font-family:Verdana,sans-serif;font-size:1rem;cursor:pointer;margin:8px 6px 8px 0}
+  .btn.alt{background:var(--paper);color:var(--navy)}
+  .btn:disabled{opacity:.38;cursor:not-allowed}
+  .btn.danger{background:var(--red);border-color:var(--red)}
+  .sumline{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1.05rem;margin:10px 0}
+  .sumline.bad{color:var(--red)}
+  .banner{border:2px solid var(--gold);background:#fbf3d3;padding:10px 12px;margin:12px 0}
+  .banner.red{border-color:var(--red);background:#f7e3e0}
+  .mixrow{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.9rem}
+  .mixrow .lb{flex:0 0 128px}
+  .mixrow .bar{flex:1;height:16px;background:#e4ddc9;border:1px solid var(--line)}
+  .mixrow .bar>i{display:block;height:100%;background:var(--navy)}
+  .mixrow .pc{flex:0 0 52px;text-align:right;font-family:ui-monospace,monospace}
+  .small{font-size:.85rem;color:#55503f}
+  .debrief-sec{border-top:2px solid var(--navy);padding-top:8px;margin-top:18px}
+  .debrief-sec h3{font-size:1rem}
+  .tag{font-family:ui-monospace,monospace;font-size:.75rem;border:1px solid var(--navy);padding:1px 6px;border-radius:8px;white-space:nowrap}
+  footer{border-top:3px double var(--navy);margin-top:26px;padding-top:10px;font-size:.85rem;color:#55503f;text-align:center}
+  .delta-up{color:var(--green)} .delta-dn{color:var(--red)}
+  @media (max-width:560px){ .mixrow .lb{flex-basis:96px} h1{font-size:1.6rem} }
+</style>
+</head>
+<body>
+<div style="background:#14213d;color:#f4f0e6;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:8px 14px;display:flex;gap:18px;flex-wrap:wrap"><a href="../games.html" style="color:#f4f0e6;text-decoration:none">&larr; Back to the Game Shelf</a><a href="../index.html" style="color:#f4f0e6;text-decoration:none">The Stoic Opposition</a></div>
+<main>
+  <div class="presents">
+    <div class="brand">THE STOIC OPPOSITION PRESENTS</div>
+  </div>
+
+  <!-- ============ TITLE ============ -->
+  <section id="screen-title" class="screen on">
+    <p class="kicker">Systems You Can Play</p>
+    <h1>ATTENTION MERCHANT</h1>
+    <p>You are the product lead for the feed at <b>The Commons</b> <span class="tag">○ fictional platform</span> — a social network of about forty million people. You do not write posts. You do not ban posts. You set four numbers: the ranking weights the feed uses to decide what each person sees next.</p>
+    <p>The board wants cumulative net revenue of <b>$420M</b> <span class="tag">◇ target</span> over eight quarters. Advertisers pay for engagement. Engagement is whatever your weights say it is.</p>
+    <p>Two ledgers run side by side for the whole game. Ledger A is the one you are paid on. Ledger B is the one everybody has to live in.</p>
+    <div class="card">
+      <h3>How a quarter works</h3>
+      <p>1. Split <b>100 weight points</b> across four signals: Watch Time, Shares, Comments, and Surveyed Trust.<br>
+      2. Set the <b>Trust &amp; Safety budget</b> — it costs revenue and blunts damage.<br>
+      3. Run the quarter. The feed is built from your weights <span class="tag">＝ calculated</span>, the money arrives, and Information Health moves.</p>
+      <p class="small">Every post type, profile, and dollar figure in this game is a labelled scenario assumption <span class="tag">◇</span> or fiction <span class="tag">○</span>. The one real-world anchor is in the credits, marked <span class="tag">◆</span>. Nobody in this game will ever ask you to lie, fabricate a post, or ban a viewpoint. Watch what the weights do on their own.</p>
+    </div>
+    <button class="btn" id="startBtn" onclick="startGame()">Take the job</button>
+    <div class="card">
+      <h3>Credits &amp; sources</h3>
+      <p class="small">◆ <b>Sourced:</b> reporting on internal company research (The Wall Street Journal, “The Facebook Files,” 2021) described engagement-based ranking amplifying outrage and divisive content.<br>
+      ◇ <b>Assumed:</b> all post-archetype profiles, base shares, dollar rates, the $420M board target, thresholds, and event sizes are scenario parameters, shown in full during play.<br>
+      ＝ <b>Calculated:</b> every ledger figure is arithmetic on those parameters, using the formulas printed in the debrief.<br>
+      ○ <b>Fictional:</b> The Commons, its users, its board, and every post are invented.</p>
+      <p class="small">Directed by Corey Spangler · Built by AI</p>
+    </div>
+  </section>
+
+  <!-- ============ ASSIGN ============ -->
+  <section id="screen-assign" class="screen">
+    <p class="kicker" id="qKicker">Quarter 1 of 8</p>
+    <h2 id="qTitle">Set the weights</h2>
+    <div class="ledgers">
+      <div class="ledger">
+        <h3>LEDGER A — THE BUSINESS ＝</h3>
+        <div>Cumulative net revenue</div>
+        <div class="big" id="ledRev">$0.0M</div>
+        <div class="small">Board target: $420M ◇ over 8 quarters · Total engagement: <span id="ledEng">0</span></div>
+      </div>
+      <div class="ledger b">
+        <h3>LEDGER B — THE PUBLIC SQUARE ＝</h3>
+        <div>Information Health: <b id="ledIH">62</b> / 100</div>
+        <div class="meter" id="ihMeter"><i style="width:62%"></i></div>
+        <div>Public Trust: <b id="ledTrust">58</b> / 100</div>
+        <div class="meter" id="trMeter"><i style="width:58%"></i></div>
+      </div>
+    </div>
+    <div id="eventZone"></div>
+    <h3>The pool this quarter ◇</h3>
+    <p class="small">What exists to be ranked. Affinity = how strongly a post type responds when you weight that signal (0–10). Health = what amplifying it does to Information Health, per unit of reach.</p>
+    <div id="poolTable"></div>
+    <h3>Ranking weights — spend exactly 100 points</h3>
+    <div id="sigRows"></div>
+    <div class="sumline" id="sumLine">Points allocated: <span id="sumVal">100</span> / 100</div>
+    <button class="btn alt" onclick="resetWeights()">Reset to 25 / 25 / 25 / 25</button>
+    <h3>Trust &amp; Safety budget ◇</h3>
+    <p class="small">Moderation, labelling, and review staff. Charged against revenue. Blunts the Information Health damage done by outrage and conspiracy reach — and softens a viral falsehood, if one comes.</p>
+    <div class="tsrow" id="tsRow"></div>
+    <div>
+      <button class="btn" id="runBtn" onclick="runQuarter()">Run the quarter</button>
+      <span class="small" id="runHint"></span>
+    </div>
+    <p class="small">Scoring, printed in full: each post type's boost ＝ (Σ weight × affinity) / 100. Reach ＝ base × (0.2 + boost / 5), normalised to 100 units of feed. Engagement ＝ Σ reach × engagement rate. Gross revenue ＝ engagement × $0.12M ◇. A growth bonus of $8M ◇ pays in any quarter where engagement beats the quarter before. Information Health moves 3.5 × Σ (reach × health) / 100, with negative contributions reduced by your Trust &amp; Safety level.</p>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="screen-results" class="screen">
+    <p class="kicker" id="rKicker">Quarter 1 — results</p>
+    <h2 id="rTitle">What the feed became</h2>
+    <p id="rLead"></p>
+    <h3>The mix ＝</h3>
+    <div id="mixZone"></div>
+    <div class="ledgers">
+      <div class="ledger">
+        <h3>LEDGER A — THE BUSINESS ＝</h3>
+        <div id="rMoney"></div>
+      </div>
+      <div class="ledger b">
+        <h3>LEDGER B — THE PUBLIC SQUARE ＝</h3>
+        <div id="rHealth"></div>
+      </div>
+    </div>
+    <div id="rEvent"></div>
+    <button class="btn" id="nextBtn" onclick="nextQuarter()">Next quarter</button>
+    <button class="btn" id="endBtn" onclick="showEnd()" style="display:none">See the ending</button>
+  </section>
+
+  <!-- ============ END / DEBRIEF ============ -->
+  <section id="screen-end" class="screen">
+    <p class="kicker">Eight quarters, done</p>
+    <h2 id="endTitle"></h2>
+    <p id="endText"></p>
+    <div id="debrief"></div>
+    <p style="margin-top:18px">
+      <button class="btn" onclick="restart()">Play again</button>
+      <a class="btn alt" href="../games.html" style="text-decoration:none">Back to the Game Shelf</a>
+    </p>
+  </section>
+
+  <footer>ATTENTION MERCHANT — a playable argument about engagement ranking.<br>Directed by Corey Spangler · Built by AI · The Stoic Opposition Presents<br>No data collected. No external calls. The platform is fictional; the incentives are not.</footer>
+</main>
+
+<script>
+"use strict";
+/* ================= DATA — every figure ◇ assumed unless marked ================= */
+var SIGNALS = [
+  {id:"WT", name:"Watch Time",    desc:"Minutes spent watching / reading"},
+  {id:"SH", name:"Shares",        desc:"Reposts into other people's feeds"},
+  {id:"CM", name:"Comments",      desc:"Replies, threads, arguments"},
+  {id:"TR", name:"Surveyed Trust",desc:"Users surveyed: \u201Cworth my time, and I trust it\u201D"}
+];
+var ARCH = [
+  {id:"news",    name:"Local news",       base:14, aff:{WT:5,SH:4,CM:3,TR:9},  eng:3.0, health: 6,  note:"School board, weather, road closures."},
+  {id:"outrage", name:"Outrage clip",     base:16, aff:{WT:9,SH:10,CM:9,TR:1}, eng:9.5, health:-7,  note:"A stranger, filmed mid-argument."},
+  {id:"recipe",  name:"Recipe / how-to",  base:18, aff:{WT:7,SH:6,CM:4,TR:7},  eng:4.5, health: 2,  note:"Soup, shelves, sourdough."},
+  {id:"consp",   name:"Conspiracy theory",base:10, aff:{WT:8,SH:9,CM:8,TR:0},  eng:8.5, health:-10, note:"What \u201Cthey\u201D don't want you to see."},
+  {id:"photos",  name:"Friends' photos",  base:26, aff:{WT:6,SH:5,CM:6,TR:8},  eng:5.0, health: 3,  note:"Kids, dogs, a new porch."},
+  {id:"civic",   name:"Civic notice",     base:16, aff:{WT:3,SH:3,CM:2,TR:9},  eng:1.5, health: 5,  note:"Boil-water advisory. Polling places."}
+];
+/* Election quarter (Q5): the pool itself shifts ◇ */
+var ELECTION_BASE = {news:18, outrage:24, recipe:14, consp:16, photos:20, civic:20};
+var TS = [
+  {name:"None",     cost:0.00, mit:0.00, blurb:"No staff. The feed is the feed."},
+  {name:"Light",    cost:0.05, mit:0.20, blurb:"5% of gross revenue. Blunts damage 20%."},
+  {name:"Standard", cost:0.10, mit:0.40, blurb:"10% of gross revenue. Blunts damage 40%."},
+  {name:"Heavy",    cost:0.18, mit:0.60, blurb:"18% of gross revenue. Blunts damage 60%."}
+];
+var TARGET = 420;          /* ◇ board target, cumulative net $M */
+var REV_RATE = 0.12;       /* ◇ $M per engagement point */
+var GROWTH_BONUS = 8;      /* ◇ $M */
+var HEALTH_SCALE = 3.5;    /* ◇ */
+var FH_THRESHOLD = 12;     /* ◇ conspiracy reach % in Q5 that counts as "amplified" */
+var FH_PENALTY = 12;       /* ◇ Information Health points, before T&S mitigation */
+
+/* ================= STATE ================= */
+var S = null;
+function newState(){
+  return { q:1, weights:{WT:25,SH:25,CM:25,TR:25}, ts:1,
+    IH:62, trust:58, cumRev:0, totEng:0, prevEG:null,
+    boycottEver:false, boycottActive:false,
+    falsehood:null, q5ConspReach:null, q5Top:"", hist:[] };
+}
+function archFor(q){
+  return ARCH.map(function(a){
+    var c = {id:a.id,name:a.name,base:a.base,aff:{WT:a.aff.WT,SH:a.aff.SH,CM:a.aff.CM,TR:a.aff.TR},eng:a.eng,health:a.health,note:a.note};
+    if(q===5){
+      c.base = ELECTION_BASE[a.id];
+      if(a.id==="outrage" || a.id==="consp"){
+        ["WT","SH","CM"].forEach(function(s){ c.aff[s] = Math.min(10, c.aff[s]+1); });
+      }
+    }
+    return c;
+  });
+}
+function weightSum(){ return SIGNALS.reduce(function(t,s){ return t + S.weights[s.id]; }, 0); }
+
+/* ================= CORE MATH (＝ calculated from ◇ inputs) ================= */
+function computeQuarter(){
+  var pool = archFor(S.q), w = S.weights, ts = TS[S.ts];
+  var rows = pool.map(function(a){
+    var boost = SIGNALS.reduce(function(t,s){ return t + w[s.id]*a.aff[s.id]; }, 0) / 100;
+    var raw = a.base * (0.2 + boost/5);
+    if(S.q===6 && a.id==="consp"){
+      if(S.falsehood==="throttle") raw *= 0.5;
+      if(S.falsehood==="ride") raw *= 2.0;
+    }
+    return {arch:a, boost:boost, raw:raw, reach:0, eng:0};
+  });
+  var totRaw = rows.reduce(function(t,r){ return t+r.raw; }, 0);
+  var EG = 0, healthSum = 0;
+  rows.forEach(function(r){
+    r.reach = 100 * r.raw / totRaw;
+    r.eng = r.reach * r.arch.eng;
+    EG += r.eng;
+    var h = r.reach * r.arch.health;
+    if(h < 0) h *= (1 - ts.mit);
+    healthSum += h;
+  });
+  var gross = EG * REV_RATE;
+  var bonus = 0;
+  if(S.prevEG !== null && EG > S.prevEG && !(S.q===6 && S.falsehood==="throttle")) bonus = GROWTH_BONUS;
+  var tsCost = (gross + bonus) * ts.cost;
+  var boycottCut = S.boycottActive ? 0.6 : 1;
+  var net = (gross + bonus - tsCost) * boycottCut;
+  var healthDelta = HEALTH_SCALE * healthSum / 100;
+  var fhPenalty = (S.q===6 && S.falsehood==="ride") ? -FH_PENALTY * (1 - ts.mit) : 0;
+  return {rows:rows, EG:EG, gross:gross, bonus:bonus, tsCost:tsCost, boycottCut:boycottCut,
+          net:net, healthDelta:healthDelta, fhPenalty:fhPenalty};
+}
+
+/* ================= UI HELPERS ================= */
+function $(id){ return document.getElementById(id); }
+function fmtM(x){ return "$" + x.toFixed(1) + "M"; }
+function fmt1(x){ return (Math.round(x*10)/10).toString(); }
+function show(id){
+  ["screen-title","screen-assign","screen-results","screen-end"].forEach(function(s){ $(s).classList.toggle("on", s===id); });
+}
+function topSignal(){
+  var best = SIGNALS[0];
+  SIGNALS.forEach(function(s){ if(S.weights[s.id] > S.weights[best.id]) best = s; });
+  return best;
+}
+
+/* ================= ASSIGN SCREEN ================= */
+function renderAssign(){
+  show("screen-assign");
+  $("qKicker").textContent = "Quarter " + S.q + " of 8" + (S.q===5 ? " — ELECTION QUARTER" : "");
+  $("qTitle").textContent = S.q===5 ? "Set the weights — election quarter" : "Set the weights";
+  $("ledRev").textContent = fmtM(S.cumRev);
+  $("ledEng").textContent = Math.round(S.totEng).toLocaleString("en-US");
+  $("ledIH").textContent = fmt1(S.IH);
+  $("ledTrust").textContent = fmt1(S.trust);
+  $("ihMeter").firstElementChild.style.width = S.IH + "%";
+  $("ihMeter").className = "meter" + (S.IH < 35 ? " low" : "");
+  $("trMeter").firstElementChild.style.width = S.trust + "%";
+  $("trMeter").className = "meter" + (S.trust < 35 ? " low" : "");
+
+  /* events */
+  var ev = "";
+  if(S.q===5){
+    ev += '<div class="banner"><b>Election quarter.</b> The pool changes: outrage and conspiracy posts multiply and hit harder, civic notices and local news multiply too. Nobody changed the voters. The supply changed. ◇</div>';
+  }
+  if(S.boycottActive){
+    ev += '<div class="banner red"><b>Advertiser boycott in effect.</b> Major advertisers have paused spending while Information Health sits at ' + fmt1(S.IH) + '. Revenue is cut 40% ＝ until Information Health recovers above 35. Nobody banned anything. The advertisers ran their own arithmetic.</div>';
+  }
+  if(S.q===6 && S.falsehood==="pending"){
+    ev += '<div class="banner red"><b>A falsehood is going viral.</b> A conspiracy post claiming the election was rigged by ballot software is spreading — and your Quarter 5 weights gave the conspiracy archetype <b>' + fmt1(S.q5ConspReach) + '% of the feed</b> ＝, so your feed is one of its engines. You cannot delete it, and this game will not ask you to lie about it. You have exactly two levers:</div>'
+      + '<p><button class="btn danger" id="fh-throttle" onclick="chooseFH(\'throttle\')">Throttle its reach</button> '
+      + '<button class="btn" id="fh-ride" onclick="chooseFH(\'ride\')">Let it ride</button></p>'
+      + '<p class="small">Throttle: conspiracy reach is halved this quarter ◇ and the quarter\'s growth bonus is forfeited. Let it ride: conspiracy reach doubles ◇, engagement and revenue climb, and Information Health takes the hit (blunted by Trust &amp; Safety).</p>';
+  }
+  if(S.q===6 && S.falsehood==="none"){
+    ev += '<div class="banner"><b>A falsehood is circulating</b> about the election — but your Quarter 5 weights gave the conspiracy archetype only <b>' + fmt1(S.q5ConspReach) + '% of the feed</b> ＝. In your feed, it never gained traction. There is no throttle decision to make, because the weights already made it.</div>';
+  }
+  if(S.q===6 && (S.falsehood==="throttle" || S.falsehood==="ride")){
+    ev += '<div class="banner"><b>Falsehood decision recorded:</b> you chose to <b>' + (S.falsehood==="throttle" ? "throttle it" : "let it ride") + '</b>. It applies to this quarter\'s feed.</div>';
+  }
+  $("eventZone").innerHTML = ev;
+
+  /* pool table */
+  var pool = archFor(S.q);
+  var th = '<table><tr><th>Post type ○</th><th>Base ◇</th>' + SIGNALS.map(function(s){ return "<th>" + s.id + "</th>"; }).join("") + '<th>Eng ◇</th><th>Health ◇</th></tr>';
+  var tb = pool.map(function(a){
+    return "<tr><td><b>" + a.name + "</b><br><span class='small'>" + a.note + "</span></td><td>" + a.base + "</td>" +
+      SIGNALS.map(function(s){ return "<td>" + a.aff[s.id] + "</td>"; }).join("") +
+      "<td>" + a.eng.toFixed(1) + "</td><td>" + (a.health>0?"+":"") + a.health + "</td></tr>";
+  }).join("");
+  $("poolTable").innerHTML = th + tb + "</table>";
+
+  /* signal steppers */
+  $("sigRows").innerHTML = SIGNALS.map(function(s){
+    return '<div class="sigrow"><div class="nm"><b>' + s.name + '</b><span>' + s.desc + '</span></div>' +
+      '<div class="stepper"><button id="minus-' + s.id + '" onclick="stepW(\'' + s.id + '\',-1)" aria-label="less">−</button>' +
+      '<span class="wval" id="wVal-' + s.id + '">' + S.weights[s.id] + '</span>' +
+      '<button id="plus-' + s.id + '" onclick="stepW(\'' + s.id + '\',1)" aria-label="more">+</button></div></div>';
+  }).join("");
+
+  /* T&S selector */
+  $("tsRow").innerHTML = TS.map(function(t,i){
+    return '<button class="tsbtn' + (S.ts===i ? " sel" : "") + '" id="ts-' + i + '" onclick="setTS(' + i + ')"><b>' + t.name + '</b> — ' + Math.round(t.cost*100) + '% of revenue<small>' + t.blurb + '</small></button>';
+  }).join("");
+
+  refreshSum();
+}
+function refreshSum(){
+  var sum = weightSum();
+  $("sumVal").textContent = sum;
+  $("sumLine").className = "sumline" + (sum===100 ? "" : " bad");
+  var fhBlock = (S.q===6 && S.falsehood==="pending");
+  $("runBtn").disabled = (sum !== 100) || fhBlock;
+  $("runHint").textContent = fhBlock ? "Decide on the falsehood first." :
+    (sum !== 100 ? "Weights must total exactly 100." : "");
+}
+function stepW(sig, dir){
+  S.weights[sig] = Math.max(0, Math.min(100, S.weights[sig] + dir*5));
+  $("wVal-" + sig).textContent = S.weights[sig];
+  refreshSum();
+}
+function resetWeights(){
+  SIGNALS.forEach(function(s){ S.weights[s.id] = 25; var el = $("wVal-" + s.id); if(el) el.textContent = 25; });
+  refreshSum();
+}
+function setTS(i){
+  S.ts = i;
+  TS.forEach(function(t,j){ $("ts-" + j).className = "tsbtn" + (S.ts===j ? " sel" : ""); });
+}
+function chooseFH(choice){
+  S.falsehood = choice;
+  renderAssign();
+}
+
+/* ================= RUN / RESULTS ================= */
+function runQuarter(){
+  var r = computeQuarter();
+  var prevIH = S.IH, prevTrust = S.trust;
+  S.cumRev += r.net;
+  S.totEng += r.EG;
+  S.IH = Math.max(0, Math.min(100, S.IH + r.healthDelta + r.fhPenalty));
+  S.trust = Math.max(0, Math.min(100, S.trust + (S.IH - S.trust) * 0.35));
+  if(S.q===5){
+    var c = r.rows.filter(function(x){ return x.arch.id==="consp"; })[0];
+    S.q5ConspReach = c.reach;
+    var t = topSignal();
+    S.q5Top = t.name + " (" + S.weights[t.id] + " of 100 points)";
+    S.falsehood = (c.reach >= FH_THRESHOLD) ? "pending" : "none";
+  }
+  var boycottJustStarted = false;
+  if(S.IH <= 20 && !S.boycottEver){ S.boycottEver = true; S.boycottActive = true; boycottJustStarted = true; }
+  else if(S.IH <= 20){ S.boycottActive = true; }
+  else if(S.IH > 35){ S.boycottActive = false; }
+  S.hist.push({q:S.q, EG:r.EG, net:r.net, IH:S.IH, trust:S.trust});
+  S.prevEG = r.EG;
+
+  /* results screen */
+  show("screen-results");
+  $("rKicker").textContent = "Quarter " + S.q + " of 8 — results";
+  var top = r.rows.slice().sort(function(a,b){ return b.reach - a.reach; })[0];
+  $("rLead").innerHTML = "The feed led with <b>" + top.arch.name.toLowerCase() + "</b> — " + fmt1(top.reach) + "% of everything shown ＝. Nobody ordered that. The weights, applied to the pool, produced it.";
+  $("mixZone").innerHTML = r.rows.map(function(x){
+    return '<div class="mixrow"><span class="lb">' + x.arch.name + '</span><span class="bar"><i style="width:' + x.reach.toFixed(1) + '%"></i></span><span class="pc">' + fmt1(x.reach) + '%</span></div>';
+  }).join("");
+  $("rMoney").innerHTML =
+    "Engagement: <b>" + Math.round(r.EG).toLocaleString("en-US") + "</b> points ＝<br>" +
+    "Gross revenue: " + fmtM(r.gross) + " ＝" + (r.bonus ? "<br>Growth bonus: +" + fmtM(r.bonus) + " ◇" : "") +
+    "<br>Trust &amp; Safety: −" + fmtM(r.tsCost) + " ＝" +
+    (r.boycottCut < 1 ? "<br>Boycott cut: ×0.6 ＝" : "") +
+    "<br>Net this quarter: <span class='big'>" + fmtM(r.net) + "</span>" +
+    "<br>Cumulative: <b>" + fmtM(S.cumRev) + "</b> of the board's $420M ◇";
+  var dIH = S.IH - prevIH, dT = S.trust - prevTrust;
+  $("rHealth").innerHTML =
+    "Information Health: <b>" + fmt1(S.IH) + "</b> / 100 " +
+    "<span class='" + (dIH>=0 ? "delta-up" : "delta-dn") + "'>(" + (dIH>=0?"+":"") + fmt1(dIH) + ")</span> ＝" +
+    (r.fhPenalty ? "<br>Includes the falsehood you let ride: " + fmt1(r.fhPenalty) + " ＝" : "") +
+    "<br>Public Trust: <b>" + fmt1(S.trust) + "</b> / 100 " +
+    "<span class='" + (dT>=0 ? "delta-up" : "delta-dn") + "'>(" + (dT>=0?"+":"") + fmt1(dT) + ")</span> ＝" +
+    "<br><span class='small'>Trust moves toward Information Health, slowly. It is easier to spend than to earn back.</span>";
+  var ev = "";
+  if(S.q===5){
+    ev = '<div class="banner">Election quarter, scored. The conspiracy archetype took <b>' + fmt1(S.q5ConspReach) + '%</b> of your feed ＝. Remember that number next quarter.</div>';
+  }
+  if(boycottJustStarted){
+    ev += '<div class="banner red"><b>Information Health has hit ' + fmt1(S.IH) + '.</b> Major advertisers are pausing spend. The boycott stays until Information Health recovers above 35 — if it does.</div>';
+  }
+  $("rEvent").innerHTML = ev;
+  $("nextBtn").style.display = S.q < 8 ? "" : "none";
+  $("endBtn").style.display = S.q < 8 ? "none" : "";
+}
+function nextQuarter(){ S.q += 1; renderAssign(); }
+
+/* ================= ENDING + DEBRIEF ================= */
+function endingFor(){
+  if(S.boycottEver && S.IH < 40) return "collapse";
+  if(S.IH >= 50) return "trusted";
+  return "hollowed";
+}
+function fhSentence(){
+  if(S.falsehood==="throttle") return "When the election-cycle falsehood went viral in Quarter 6, you throttled it — conspiracy reach halved, the quarter's growth bonus forfeited.";
+  if(S.falsehood==="ride") return "When the election-cycle falsehood went viral in Quarter 6, you let it ride — conspiracy reach doubled, and Information Health took the hit.";
+  return "Your Quarter 5 weights gave the conspiracy archetype only " + fmt1(S.q5ConspReach) + "% of the feed, so the election-cycle falsehood never gained traction in your feed. There was no throttle decision to make; the weights had already made it.";
+}
+function showEnd(){
+  var e = endingFor();
+  var titles = {
+    hollowed: "Record Quarters, Empty Square",
+    trusted: "Smaller, Trusted — and Priced Accordingly",
+    collapse: "The Advertisers Walk"
+  };
+  var texts = {
+    hollowed: "Eight quarters: <b>" + fmtM(S.cumRev) + "</b> in cumulative net revenue ＝ and <b>" + Math.round(S.totEng).toLocaleString("en-US") + "</b> engagement points ＝, against Information Health of <b>" + fmt1(S.IH) + "</b> and public trust of <b>" + fmt1(S.trust) + "</b>. The board got its growth. The advertisers got their reach. The public square got whatever the weights left over. At no point did anyone at The Commons ○ fabricate a post, suppress a viewpoint, or tell a lie. The weights did all of it.",
+    trusted: "Eight quarters: Information Health ends at <b>" + fmt1(S.IH) + "</b> and public trust at <b>" + fmt1(S.trust) + "</b> — and cumulative net revenue is <b>" + fmtM(S.cumRev) + "</b> ＝, short of the board's $420M ◇ pace. The market prices The Commons ○ like a utility, not a rocket ship. What the balance sheet cannot show is the asset on Ledger B: a feed whose users believe what they see in it. You were never asked to lie to protect it, either. You just had to weight the one signal that pays least.",
+    collapse: "The boycott came, and it stayed. Cumulative net revenue: <b>" + fmtM(S.cumRev) + "</b> ＝ — the boycott cut alone took 40% off every quarter it ran. Information Health ends at <b>" + fmt1(S.IH) + "</b>, public trust at <b>" + fmt1(S.trust) + "</b>. Advertisers did not leave because they were ordered to. They left because adjacency to a poisoned feed stopped being worth the reach — the same arithmetic you were running, run by the other side."
+  };
+  $("endTitle").textContent = titles[e];
+  $("endText").innerHTML = texts[e];
+  $("debrief").innerHTML =
+    '<div class="debrief-sec"><h3>THE DEBRIEF — 1 of 4 · The simulation\'s assumptions</h3>' +
+    "<p>Every number in this game is a scenario parameter ◇, printed during play: six post archetypes with fixed base shares and signal affinities; engagement ＝ Σ reach × rate, with reach ＝ base × (0.2 + boost/5) normalised to 100; revenue ＝ engagement × $0.12M; Information Health moves 3.5 × Σ (reach × health)/100 per quarter, negative contributions blunted by Trust &amp; Safety; public trust drifts 35% of the way toward Information Health each quarter. The election quarter changed the pool, not the voters. The boycott rule (health ≤ 20 triggers it, recovery above 35 ends it) and the $420M board target are assumptions, not findings. A different honest set of parameters would move the numbers. It would not change which archetypes the engagement signals reward — that ordering is in the affinities, and the affinities are the argument you are invited to check.</p></div>" +
+    '<div class="debrief-sec"><h3>2 of 4 · Your results</h3>' +
+    "<p>Cumulative net revenue: <b>" + fmtM(S.cumRev) + "</b> ＝ (board target $420M ◇ — " + (S.cumRev >= TARGET ? "met" : "missed") + "). Total engagement: <b>" + Math.round(S.totEng).toLocaleString("en-US") + "</b> points ＝. Final Information Health: <b>" + fmt1(S.IH) + "</b> / 100. Final public trust: <b>" + fmt1(S.trust) + "</b> / 100. Advertiser boycott: <b>" + (S.boycottEver ? "happened" : "never triggered") + "</b>. Election quarter (Q5): your heaviest signal was <b>" + S.q5Top + "</b>, and the conspiracy archetype took <b>" + fmt1(S.q5ConspReach) + "%</b> of the feed. " + fhSentence() + "</p></div>" +
+    '<div class="debrief-sec"><h3>3 of 4 · The documented evidence</h3>' +
+    "<p>◆ Reporting on internal company research (The Wall Street Journal, \u201CThe Facebook Files,\u201D 2021) described engagement-based ranking amplifying outrage and divisive content. That is the one real-world anchor in this game, and it is stated at exactly that strength: internal research, reported by journalists, describing what the company's own systems measured. Everything else here — The Commons ○, its archetypes, its dollars — is labelled assumption ◇ or fiction ○, not evidence.</p></div>" +
+    '<div class="debrief-sec"><h3>4 of 4 · The author\'s conclusion</h3>' +
+    "<p><i>The author's conclusion — you may disagree:</i> a feed ranked on engagement alone will select for fury, not because anyone chose fury, but because fury is what the engagement signals measure best. Outrage is not a content policy. It is an output. The one lever in this game that pushed the other way — surveyed trust, what users say was worth their time — is the lever the revenue ledger prices lowest, and that pricing, not any villain, is the whole story. If you think the conclusion is wrong, the assumptions are printed above: change them, and see if the ordering survives.</p></div>" +
+    '<p><a href="../ledger.html">The Living Ledger</a> · <a href="../games.html">The Game Shelf</a> · <a href="../index.html">The Stoic Opposition</a></p>';
+  show("screen-end");
+}
+function startGame(){ S = newState(); window.AM.state = S; renderAssign(); }
+function restart(){ S = newState(); window.AM.state = S; show("screen-title"); }
+
+/* audit / debug surface */
+window.AM = { state:null, ARCH:ARCH, SIGNALS:SIGNALS, TS:TS, ELECTION_BASE:ELECTION_BASE,
+  archFor:archFor, computeQuarter:computeQuarter, endingFor:endingFor, newState:newState,
+  TARGET:TARGET, REV_RATE:REV_RATE, GROWTH_BONUS:GROWTH_BONUS, FH_THRESHOLD:FH_THRESHOLD };
+</script>
+</body>
+</html>

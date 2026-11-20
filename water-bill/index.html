@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Water Bill — The Stoic Opposition</title>
+<style>
+:root{--navy:#14213d;--cream:#f4f0e6;--paper:#fbf8f1;--ink:#1d2333;--gold:#c98a12;--red:#c1121f;--blue:#2b6cb0;--green:#2a9d8f;--muted:#5f6472;--line:#d8d0bf;--mono:ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.45}
+a{color:var(--navy)}
+button{font:inherit;cursor:pointer;border:1px solid var(--navy);background:var(--paper);color:var(--navy);border-radius:6px;padding:8px 14px;min-height:40px;touch-action:manipulation}
+button:hover:not(:disabled){background:#efe8d8}
+button:disabled{opacity:.45;cursor:default}
+button.primary{background:var(--navy);color:var(--cream)}
+button.primary:hover:not(:disabled){background:#22325a}
+.wrap{max-width:1200px;margin:0 auto;padding:16px}
+[hidden]{display:none!important}
+.kicker{font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted)}
+h1.title{font-family:var(--serif);font-size:clamp(44px,9vw,92px);margin:.1em 0 .05em;color:var(--navy)}
+.credit{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.title-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:18px}
+@media(max-width:820px){.title-grid{grid-template-columns:1fr}}
+.title-grid ul{padding-left:20px;margin:8px 0}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;background:#e6dfcf;color:var(--muted);border-radius:4px;padding:1px 6px;vertical-align:middle}
+/* game */
+.strip{position:sticky;top:0;z-index:6;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 0;background:var(--cream)}
+.strip>div{border-radius:8px;padding:6px 10px;font-family:var(--mono);font-size:12.5px;line-height:1.35}
+.strip .sp{background:#fff6dd;border-left:5px solid var(--gold)}
+.strip .sh{background:#fbe7e7;border-left:5px solid var(--red)}
+.strip b{font-size:14px}
+.bar{height:6px;background:#e6dfcf;border-radius:3px;overflow:hidden;margin-top:3px}
+.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.bar.r i{background:var(--red)}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 10px}
+.topbar .wk{font-family:var(--mono);font-size:14px;min-width:220px}
+.topbar .ctrls{display:flex;gap:6px;flex-wrap:wrap}
+.topbar .ctrls button{padding:6px 10px;min-height:36px;font-size:14px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;align-items:start}
+@media(max-width:940px){.layout{grid-template-columns:1fr}}
+#town{width:100%;display:block;border-radius:10px;border:1px solid var(--line);background:#cfe3d4}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:6px;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.sw{width:22px;height:5px;display:inline-block;border-radius:2px}
+#ticker{display:flex;flex-direction:column;gap:4px;margin-top:8px}
+#ticker div{background:rgba(20,33,61,.9);color:var(--cream);font-size:12.5px;padding:5px 9px;border-radius:6px;font-family:var(--mono)}
+.panel{display:flex;flex-direction:column;gap:12px}
+.ledger{border-radius:10px;padding:10px 12px;background:var(--paper);border:1px solid var(--line)}
+.ledger.p{border-left:6px solid var(--gold)}
+.ledger.h{border-left:6px solid var(--red)}
+.ledger h3{margin:0 0 4px;font-size:13px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.ledger .big{font-family:var(--mono);font-size:22px;font-weight:700}
+.ledger .rows{font-family:var(--mono);font-size:12.5px;display:grid;grid-template-columns:1fr auto;gap:1px 10px}
+.ledger .rows span:nth-child(even){text-align:right;font-weight:600}
+.note{font-size:11.5px;color:var(--muted)}
+.desk{border-radius:10px;background:#1c2b4a;color:#eef1f7;padding:12px 14px;font-size:13.5px}
+.desk h3{margin:0 0 4px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:#9fb3d9;text-transform:uppercase}
+.desk p{margin:6px 0}
+.offer{background:rgba(255,255,255,.07);border-radius:8px;padding:8px 10px;margin:8px 0;font-size:13px}
+.opts{display:grid;gap:8px;margin-top:8px}
+.opts button{text-align:left;background:#2a3d66;color:#fff;border-color:#4a5f92;padding:9px 12px}
+.opts button:hover:not(:disabled){background:#344a7a}
+.opts button.sel{outline:3px solid #f2c14e}
+.opts small{display:block;font-size:11.5px;opacity:.85}
+.confirm{background:#f2c14e;color:#14213d;border-color:#f2c14e;font-weight:700;width:100%;margin-top:8px}
+.confirm:hover:not(:disabled){background:#f6cf6c!important}
+.mini label{display:flex;justify-content:space-between;font-size:13px;margin-top:8px}
+.mini input{width:100%;accent-color:#f2c14e;height:28px}
+.mini output{font-family:var(--mono)}
+.lever label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600}
+.lever input{width:100%;accent-color:var(--navy);height:30px}
+.lever output{font-family:var(--mono)}
+.role{border-radius:10px;padding:10px 12px;background:#1c2b4a;color:#eef1f7;font-size:13.5px}
+.role b{color:#f2c14e}
+canvas.chart{width:100%;display:block;background:var(--paper);border:1px solid var(--line);border-radius:8px}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(20,33,61,.55);z-index:20;display:flex;align-items:center;justify-content:center;padding:14px}
+.modal .box{background:var(--paper);max-width:760px;width:100%;max-height:88vh;overflow:auto;border-radius:12px;padding:18px 20px;position:relative}
+.modal .box .x{position:absolute;top:10px;right:10px}
+ol.assump{padding-left:22px;margin:8px 0}
+ol.assump li{margin:4px 0;font-size:14px}
+/* debrief */
+.part{margin:18px 0;border-radius:12px;padding:16px 18px;background:var(--paper);border:1px solid var(--line)}
+.part h2{margin:0 0 8px;font-family:var(--serif);font-size:22px;color:var(--navy)}
+.part .pn{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.part.p1{border-top:6px solid #8a8f9c}
+.part.p2{border-top:6px solid var(--gold)}
+.part.p3{border-top:6px solid var(--green)}
+.part.p4{border-top:6px solid var(--red)}
+.outcome{font-family:var(--serif);font-size:clamp(24px,4.5vw,38px);color:var(--navy);margin:6px 0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:720px){.cols{grid-template-columns:1fr}}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:12.5px}
+th,td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td.red{color:var(--red);font-weight:700}
+tr.you td{background:#fff6dd}
+.evid li{margin:8px 0}
+.src{font-size:12.5px;color:var(--muted)}
+blockquote{margin:8px 0;padding:8px 14px;border-left:4px solid var(--red);background:#fbefef;font-family:var(--serif);font-size:17px}
+.links{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.links a{display:inline-block;padding:9px 14px;border:1px solid var(--navy);border-radius:6px;text-decoration:none;background:var(--paper)}
+@media(max-width:600px){.strip>div{font-size:11px;padding:5px 7px}.strip b{font-size:12.5px}.topbar .ctrls button{padding:4px 8px;font-size:13px}}
+footer{text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted);padding:22px 10px 30px}
+</style>
+</head>
+<body>
+<div style="background:#14213d;color:#f4f0e6;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:8px 14px;display:flex;gap:18px;flex-wrap:wrap"><a href="../games.html" style="color:#f4f0e6;text-decoration:none">&larr; Back to the Game Shelf</a><a href="../index.html" style="color:#f4f0e6;text-decoration:none">The Stoic Opposition</a></div>
+
+<main>
+<!-- ============ TITLE ============ -->
+<section id="screen-title" class="wrap">
+  <div class="kicker">The Stoic Opposition Presents</div>
+  <h1 class="title">THE WATER BILL</h1>
+  <p style="font-family:var(--serif);font-size:20px;margin:6px 0 4px">The check clears this year. The pipes come due later.</p>
+  <div class="credit">Directed by Corey Spangler · Built by AI</div>
+  <div class="title-grid">
+    <div class="card">
+      <h2 style="margin:0 0 6px;font-family:var(--serif)">Two acts, one water system.</h2>
+      <p style="margin:6px 0"><b>Act 1 — you are the mayor</b> of Cedar Fork, a fictional town of about 20,000 people. The budget has a <b><span id="t-hole"></span> hole</b> <span class="tag">◇ scenario</span>. A private operator offers a large payment up front to lease the town's water system for 30 years. Your job: close the hole.</p>
+      <p style="margin:6px 0"><b>Act 2 — 30 years in fast-forward.</b> If you signed, you switch chairs and run the system as the operator, with investors expecting a set return. If you refused, you stay mayor and run it as a public utility. Either way, the main lever is maintenance.</p>
+      <div class="btnrow">
+        <button class="primary" id="btn-start">Begin Act 1</button>
+        <button id="btn-assump1">Scenario assumptions</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin:0 0 6px">How to play</h3>
+      <ul>
+        <li>The town is drawn in 3D-style isometric view. Pipes run under the streets: blue is sound, amber is aging, red is cracked and leaking.</li>
+        <li>Act 1: choose one of three options. Refusing opens a short budget puzzle.</li>
+        <li>Act 2: drag the maintenance lever while the years roll by (about 5 seconds a year; 2× and 4× available). Watch for main breaks and boil-water notices.</li>
+        <li>Two ledgers stay on screen: yours, and what residents pay and drink.</li>
+        <li>About 5–8 minutes.</li>
+      </ul>
+      <p class="note">Every number in the game is a scenario assumption for a fictional town, listed under “Scenario assumptions.” The operator, Clearwell Water Partners, is invented.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAME ============ -->
+<section id="screen-game" class="wrap" hidden>
+  <div class="strip">
+    <div class="sp"><div id="s-l1">YOU · MAYOR · budget hole</div><b id="s-a">$0</b> <span id="s-a2"></span><div class="bar"><i id="s-abar"></i></div></div>
+    <div class="sh"><div>RESIDENTS · water bill · pipes</div><b id="s-bill">$0</b>/yr · pipes <b id="s-pipe">0</b>/100 · <span id="s-boil">no boil notices</span><div class="bar r"><i id="s-hbar"></i></div></div>
+  </div>
+  <div class="topbar">
+    <div class="wk" id="g-when">Act 1 · Year 0</div>
+    <div class="ctrls">
+      <button id="btn-pause" hidden>Pause</button>
+      <button id="btn-speed" hidden>Speed 1×</button>
+      <button id="btn-assump2">Assumptions</button>
+      <button id="btn-restart">Restart</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div>
+      <canvas id="town" aria-label="Isometric view of the town of Cedar Fork and its water system"></canvas>
+      <div class="legend">
+        <span><i class="sw" style="background:#2b8cd6"></i>sound pipe</span>
+        <span><i class="sw" style="background:#e09a2c"></i>aging</span>
+        <span><i class="sw" style="background:#c1121f"></i>cracked / leaking</span>
+        <span><span style="background:#f2c14e;color:#14213d;font-weight:700;padding:0 4px;border-radius:2px;font-size:10px">!</span> boil-water notice</span>
+        <span>water tower color = water quality</span>
+      </div>
+      <div id="ticker"></div>
+    </div>
+    <aside class="panel">
+      <!-- ACT 1 -->
+      <div id="act1">
+        <div class="desk">
+          <h3>Mayor's desk · Act 1</h3>
+          <p>Cedar Fork owes <b id="a1-hole"></b> that comes due this year: debt and a pension catch-up built up over a decade <span class="tag" style="background:#33456e;color:#c4cde0">◇ scenario</span>. Without new money, the town faces layoffs and a downgrade.</p>
+          <div class="offer"><b>Offer from Clearwell Water Partners</b> (a fictional private operator): lease the water and sewer system for 30 years. The town keeps ownership; Clearwell runs it, keeps the water revenue, and sets rates under the contract.</div>
+          <div class="opts">
+            <button data-o="A"><b>Sign the lease</b><small id="o-a"></small></button>
+            <button data-o="B"><b>Sign with rate caps</b><small id="o-b"></small></button>
+            <button data-o="C"><b>Refuse — close the hole yourself</b><small>Raise taxes and fees, keep running the system</small></button>
+          </div>
+          <div id="a1-detail"></div>
+        </div>
+      </div>
+      <!-- ACT 2 -->
+      <div id="act2" hidden>
+        <div class="role" id="role"></div>
+        <div class="card" style="padding:12px 14px;margin-top:12px">
+          <div class="lever"><label for="lv-m">Maintenance spending <output id="o-m"></output></label><input type="range" id="lv-m" min="25" max="150" step="5" value="100"></div>
+          <div class="note" id="m-note"></div>
+        </div>
+      </div>
+      <div class="ledger p">
+        <h3 id="l1-title">Your ledger — the town budget</h3>
+        <div class="big" id="l1-big">—</div>
+        <div class="rows" id="l1-rows" style="margin-top:6px"></div>
+      </div>
+      <div class="ledger h">
+        <h3>The other ledger — the residents</h3>
+        <div class="big" id="l2-big">—</div>
+        <div class="note" style="margin-top:-2px">average household water + sewer bill this year</div>
+        <div class="rows" id="l2-rows" style="margin-top:6px"></div>
+      </div>
+      <p class="note" style="margin:-4px 2px 0">All figures are scenario assumptions for a fictional town — not real-world data. <a href="#" id="lnk-assump">See assumptions</a>.</p>
+      <div>
+        <canvas class="chart" id="trend"></canvas>
+        <div class="note" id="trend-note"></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ DEBRIEF ============ -->
+<section id="screen-debrief" class="wrap" hidden>
+  <div class="kicker">The Water Bill · 30 years closed</div>
+  <div class="outcome" id="d-outcome"></div>
+  <p id="d-sub" style="font-size:17px;margin:4px 0 0"></p>
+
+  <div class="part p1">
+    <div class="pn">Part 1 of 4</div>
+    <h2>The simulation's assumptions</h2>
+    <p style="margin:4px 0">These are the rules of the fictional town you just ran. They are scenario choices, not measurements of any real town, contract or company.</p>
+    <ol class="assump" id="d-assump"></ol>
+  </div>
+
+  <div class="part p2">
+    <div class="pn">Part 2 of 4</div>
+    <h2>Your results</h2>
+    <p style="margin:4px 0">Your actual numbers from this run (scenario units).</p>
+    <div class="cols" style="margin-top:8px">
+      <div class="ledger p"><h3 id="d-l1t">Your ledger</h3><div class="rows" id="d-l1"></div></div>
+      <div class="ledger h"><h3>The residents' ledger</h3><div class="rows" id="d-l2"></div></div>
+    </div>
+    <p id="d-line" style="margin:12px 0 8px"></p>
+    <canvas class="chart" id="d-trend" style="margin-top:6px"></canvas>
+    <div class="note">Red: average household bill per year. Blue: pipe condition. Gold: your ledger's running total.</div>
+    <h3 style="margin:14px 0 6px">What the other choices would have cost (same assumptions)</h3>
+    <p class="note" style="margin-top:0">Each row is the model run for 30 years with one maintenance level held steady. Your own run is highlighted above in your ledgers; rows marked ★ match your Act 1 choice.</p>
+    <div class="tbl"><table id="d-compare"></table></div>
+    <h3 style="margin:14px 0 6px">Year by year</h3>
+    <div class="tbl"><table id="d-table"></table></div>
+  </div>
+
+  <div class="part p3">
+    <div class="pn">Part 3 of 4</div>
+    <h2>The documented evidence</h2>
+    <p style="margin:4px 0">Only these real-world facts are used. Everything else in the game is scenario.</p>
+    <ul class="evid">
+      <li><b>Long-term leases of public water systems, with rates set by contract formula, are a real U.S. municipal pattern.</b> In December 2012, the Bayonne, New Jersey, Municipal Utilities Authority signed a 40-year water and wastewater concession with a joint venture of United Water (part of Suez) and the investment firm KKR. The authority kept ownership; rates were to follow a formula in the agreement. The deal was described as paying off more than $130 million of Bayonne's debt.<br><span class="src">Sources: KKR, <a href="https://media.kkr.com/news-releases/news-release-details/united-water-and-kkr-sign-unique-utility-partnership-city" target="_blank" rel="noopener">United Water and KKR Sign Unique Utility Partnership with City of Bayonne, NJ</a> (Dec. 20, 2012); Knowledge at Wharton, <a href="https://knowledge.wharton.upenn.edu/article/a-tale-of-two-public-private-partnership-cities/" target="_blank" rel="noopener">A Tale of Two Public-Private Partnership Cities</a> (2015).</span></li>
+      <li><b>Its scheduled rate increases were widely reported.</b> Water and sewer bills rose 8.5% in 2012, with further increases in later years. Local reporting explained that when revenue fell below the contract's “revenue path,” rates rose to make up the difference, and by 2016 rates were reported to have risen almost 28% since the deal.<br><span class="src">Sources: Knowledge at Wharton (above); Hudson County View, <a href="https://hudsoncountyview.com/?p=51507" target="_blank" rel="noopener">reporting on Bayonne's annual water rate increase and the revenue path</a>; NJTV News via EnviroPolitics, <a href="https://enviropolitics.com/?p=2852" target="_blank" rel="noopener">report on Bayonne water rates</a> (2016).</span></li>
+      <li><b>The deal has defenders.</b> A Federal Highway Administration case study credits the concession with a $150 million up-front payment that retired the city's debts, plus system upgrades including advanced metering; the operator has said later increases ran about 5% a year, below the national average.<br><span class="src">Sources: U.S. Federal Highway Administration, <a href="https://www.fhwa.dot.gov/ipd/pdfs/value_capture/case_studies/bayonne_new_jersey.pdf" target="_blank" rel="noopener">Bayonne, New Jersey case study</a>; Hudson County View, <a href="https://hudsoncountyview.com/?p=66989" target="_blank" rel="noopener">report on calls for a state review of the deal, with the operator's response</a>.</span></li>
+    </ul>
+    <p class="note">What the game does not claim: Cedar Fork and Clearwell are invented. Their contract terms, rates and pipe conditions are not Bayonne's, and nothing here says Bayonne's pipes were neglected.</p>
+  </div>
+
+  <div class="part p4">
+    <div class="pn">Part 4 of 4</div>
+    <h2>The conclusion the author draws</h2>
+    <p class="note" style="margin-top:0">This is Corey Spangler's reading, not a finding of the simulation.</p>
+    <blockquote>Nobody in Cedar Fork wanted bad water. The mayor had a real hole and a real offer. The operator had investors and a contract that guaranteed revenue but not pipes. When what residents pay is fixed by schedule and upkeep is the one cost left to move, deferring maintenance is how the return gets made, and the bill for that deferral arrives years later, to people who never signed anything. The question isn't public versus private. It's whether a contract ties what residents pay to what the system actually gets.</blockquote>
+    <p><b>Disagree?</b> Good. Play it again: sign with caps, refuse and raise taxes, or run the operator at full maintenance, and tell us which assumption you think is wrong and why.</p>
+  </div>
+
+  <div class="btnrow"><button class="primary" id="btn-again">Play again</button><button id="btn-assump3">Scenario assumptions</button></div>
+  <div class="links"><a href="../games.html">&larr; Back to the Game Shelf</a><a href="../index.html">The Stoic Opposition</a></div>
+</section>
+</main>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="box">
+    <button class="x" id="m-close">Close</button>
+    <h2 id="m-title" style="margin:0 0 6px;font-family:var(--serif)">Scenario assumptions &amp; credits</h2>
+    <p style="margin:4px 0" class="note">Every in-game number comes from this list. Cedar Fork and Clearwell Water Partners are fictional.</p>
+    <p style="margin:4px 0" class="note">How this suite labels numbers: ◆ sourced (named source) · ◇ assumed (scenario parameter) · ＝ calculated (arithmetic on the game's own figures) · ○ fictional (invented place, company or person). Every figure in this game is ◇ or ＝; ◆ sources appear only in the debrief.</p>
+    <ol class="assump" id="m-assump"></ol>
+    <h3 style="margin:14px 0 4px">Credits</h3>
+    <p style="margin:2px 0">The Stoic Opposition Presents <i>The Water Bill</i> — part of “Systems You Can Play.”<br>Directed by Corey Spangler · Built by AI.</p>
+    <p class="note">No data collected. No external calls. Real-world sources appear only in the end-of-game debrief.</p>
+  </div>
+</div>
+
+<footer>No data collected. No external calls.</footer>
+
+<script>
+'use strict';
+/* ================= SCENARIO ASSUMPTIONS ================= */
+const P = {
+  YEARS: 30, H: 8000, BILL0: 600, INF: 0.025, HOLE: 40e6, RATE: 0.04,
+  OPS: 0.6e6, WATER: 0.9e6, REQ: 2.0e6, BREAK_COST: 0.1e6,
+  C0: 58, ELAST: 0.2, DEC_A: 6, DEC_B: 5.5,
+  A_UP: 40e6, A_PATH: 0.045,
+  B_UP: 20e6, B_CAP: 0.025, B_TERM: 10,
+  FLOOR: 0.25, TARGET_IRR: 0.08, BUY: 0.065, RESTORE: 0.6e6,
+  DOFF: [-14, 6, 10, -2], YEAR_SEC: 5
+};
+const DN = ['Old Town', 'Mill Flats', 'Hillcrest', 'Orchard Park'];
+
+function assumptionList() {
+  return [
+    'Cedar Fork, its residents and Clearwell Water Partners are fictional. The contract terms are invented for this game.',
+    `The town has ${num(P.H)} households. Its budget hole is ${money(P.HOLE)}, due now.`,
+    `Year-0 average water + sewer bill: ${money0(P.BILL0)} a year. General inflation: ${pct1(P.INF)} a year.`,
+    `Costs (year 0 dollars, rising with inflation): operations ${money(P.OPS)} a year; buying and treating water ${money(P.WATER)} a year at 10% leakage, more as leakage rises; holding the pipes steady takes ${money(P.REQ)} a year of maintenance (“100%” on the lever).`,
+    `Pipe condition starts at ${P.C0}/100 (old pipes). Each year it changes by ${P.DEC_A} × (maintenance ÷ the 100% level) − ${P.DEC_B}, minus a little more for each main break. At 100% it slowly improves; at 50% it falls about 2.5 points a year.`,
+    'Leakage = 10% of water plus 0.4% for every point of pipe condition below 100.',
+    `Main breaks per year = 6 × ((100 − condition) ÷ 100)². Each emergency patch costs ${money(P.BREAK_COST)} (inflating).`,
+    'Water quality in each neighborhood = its pipe condition + 20. Below 40, a boil-water notice goes out; each point below 40 adds 4 notice-days, up to 120 a year. Neighborhood pipes differ from the town average (Old Town is oldest).',
+    `Households use about ${Math.round(P.ELAST * 100)}% less water for every doubling of the real price of a bill.`,
+    `Standard lease: Clearwell pays ${money(P.A_UP)} up front (exactly the hole) and keeps all water revenue for 30 years. The contract's revenue path rises ${pct1(P.A_PATH)} a year; if households use less water, rates are “trued up” so revenue still meets the path.`,
+    `Lease with rate caps: Clearwell pays ${money(P.B_UP)} up front. Rates may rise no more than ${pct1(P.B_CAP)} a year and are not trued up. The town covers the remaining ${money(P.HOLE - P.B_UP)} with a ${P.B_TERM}-year property-tax surcharge financed at ${pct1(P.RATE)}.`,
+    `Both leases set a contract floor for maintenance at ${Math.round(P.FLOOR * 100)}% of the steady level; the operator chooses anything above it.`,
+    `Clearwell's investors expect an ${Math.round(P.TARGET_IRR * 100)}% annual return (internal rate of return) on the up-front payment over the 30 years.`,
+    `Buy-back price: if the town wants its system back early, it owes the up-front payment grown ${pct1(P.BUY)} a year.`,
+    `Refusing: the town borrows the hole at ${pct1(P.RATE)} and repays it with a property-tax surcharge and/or a water-fee surcharge you choose. Its utility then sets rates to cover operations, water, maintenance and breaks, plus 2%.`,
+    `Restoring pipes after year 30 costs about ${money(P.RESTORE)} per point of condition below 60 (today's dollars).`,
+    '“Total paid by residents” = all water bills plus any tax or fee surcharges used to close the hole.',
+    'None of these figures describes any real town, contract or company.'
+  ];
+}
+
+/* ================= HELPERS ================= */
+const $ = id => document.getElementById(id);
+function money(x) {
+  const s = x < 0 ? '−' : ''; x = Math.abs(x);
+  if (x >= 1e6) return s + '$' + (x / 1e6).toFixed(1) + 'M';
+  if (x >= 1e4) return s + '$' + Math.round(x / 1e3) + 'K';
+  return s + '$' + Math.round(x).toLocaleString();
+}
+function money0(x) { return (x < 0 ? '−$' : '$') + Math.round(Math.abs(x)).toLocaleString(); }
+function pct1(x) { return (x * 100).toFixed(1) + '%'; }
+function num(x) { return Math.round(x).toLocaleString(); }
+function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+function annuity(n, r) { return (1 - Math.pow(1 + r, -n)) / r; }
+function irr(cfs) {
+  const npv = r => cfs.reduce((a, c, t) => a + c / Math.pow(1 + r, t), 0);
+  let lo = -0.95, hi = 1.5;
+  if (npv(lo) * npv(hi) > 0) return null;
+  for (let i = 0; i < 70; i++) { const mid = (lo + hi) / 2; if (npv(lo) * npv(mid) <= 0) hi = mid; else lo = mid; }
+  return (lo + hi) / 2;
+}
+
+/* ================= MODEL (pure, deterministic) ================= */
+// plan for refusing: { tax: $/household/yr, fee: fraction of bill, n: years }
+function newSim(opt, plan) {
+  const s = { opt, plan, y: 0, C: P.C0, price: P.BILL0, u: 1, bill: P.BILL0, paidBills: 0, paidTax: 0, cfs: [], profitCum: 0, boilTotal: 0, boilYear: 0, breaks: 0, rows: [], dist: P.DOFF.map(o => clamp(P.C0 + o, 0, 100)), boilD: [0, 0, 0, 0] };
+  if (opt === 'A') s.cfs.push(-P.A_UP);
+  if (opt === 'B') { s.cfs.push(-P.B_UP); s.taxPerHH = (P.HOLE - P.B_UP) / annuity(P.B_TERM, P.RATE) / P.H; s.taxYears = P.B_TERM; }
+  if (opt === 'C') { s.taxPerHH = plan.tax; s.taxYears = plan.n; }
+  return s;
+}
+function simYear(s, f) {
+  const y = s.y + 1, infl = Math.pow(1 + P.INF, y);
+  const L = 0.1 + 0.004 * (100 - s.C);
+  const O = P.OPS * infl + P.WATER * infl * 0.9 / (1 - L);
+  const R = P.REQ * infl;
+  const m = f * R;
+  const breaks = 6 * Math.pow((100 - s.C) / 100, 2);
+  const bc = breaks * P.BREAK_COST * infl;
+  const solve = target => Math.pow(target / (P.H * Math.pow(infl * P.BILL0, P.ELAST)), 1 / (1 - P.ELAST));
+  let price, trueUp = 0;
+  if (s.opt === 'A') {
+    const path = P.H * P.BILL0 * Math.pow(1 + P.A_PATH, y);
+    price = solve(path);
+    trueUp = price / s.price - 1 - P.A_PATH;
+  } else if (s.opt === 'B') {
+    price = P.BILL0 * Math.pow(1 + P.B_CAP, y);
+  } else {
+    price = solve((O + m + bc) * 1.02);
+  }
+  const u = Math.pow(price / (infl * P.BILL0), -P.ELAST);
+  let bill = price * u;
+  let fee = 0;
+  if (s.opt === 'C' && y <= s.plan.n) { fee = bill * s.plan.fee; }
+  const rev = P.H * bill;
+  const profit = rev - O - m - bc;
+  const tax = (y <= (s.taxYears || 0)) ? s.taxPerHH * P.H : 0;
+  s.paidBills += rev + fee * P.H;
+  s.paidTax += tax;
+  if (s.opt !== 'C') { s.cfs.push(profit); s.profitCum += profit; }
+  const prevC = s.C;
+  s.C = clamp(s.C + P.DEC_A * (m / R) - P.DEC_B - 0.2 * breaks, 0, 100);
+  s.dist = P.DOFF.map(o => clamp(s.C + o, 0, 100));
+  s.boilD = s.dist.map(c => { const q = c + 20; return q < 40 ? Math.min(120, (40 - q) * 4) : 0; });
+  s.boilYear = s.boilD.reduce((a, b) => a + b, 0) / 4;
+  s.boilTotal += s.boilYear;
+  s.breaks = breaks;
+  const priceChange = price / s.price - 1;
+  s.price = price; s.u = u; s.bill = bill + fee; s.y = y;
+  const row = { y, f, bill: s.bill, billReal: s.bill / infl, C: s.C, prevC, L, breaks, boil: s.boilYear, profit, rev, m, tax: tax / P.H, priceChange, trueUp, infl };
+  s.rows.push(row);
+  return row;
+}
+function simIRR(s) { return s.opt === 'C' ? null : irr(s.cfs); }
+function paceIRR(s) {
+  if (s.opt === 'C') return null;
+  const cfs = s.cfs.slice();
+  const last = s.rows.length ? s.rows[s.rows.length - 1].profit : 0;
+  for (let y = s.y + 1; y <= P.YEARS; y++) cfs.push(last * Math.pow(1.03, y - s.y));
+  return irr(cfs);
+}
+function buyBack(s) { const up = s.opt === 'A' ? P.A_UP : P.B_UP; return up * Math.pow(1 + P.BUY, s.y); }
+function restoreCost(C) { return Math.max(0, 60 - C) * P.RESTORE; }
+function runFull(opt, f, plan) { const s = newSim(opt, plan); for (let i = 0; i < P.YEARS; i++) simYear(s, f); return s; }
+const DEFAULT_PLAN = { tax: Math.ceil(P.HOLE / annuity(15, P.RATE) / P.H / 25) * 25, fee: 0, n: 15 };
+
+/* ================= GAME STATE ================= */
+let G = null;
+function newGame() {
+  return { act: 1, opt: null, plan: { tax: 300, fee: 0.15, n: 12 }, sim: null, f: 1, speed: 1, paused: false, acc: 0, over: false, msgs: [], t: 0, geysers: [], drops: [], pending: null };
+}
+
+/* ================= ISOMETRIC TOWN ================= */
+const townC = $('town'), tx = townC.getContext('2d');
+const TW = 56, TH = 28, N = 12, LW = 760, LH = 450, OX = 380, OY = 70;
+const ROADS = [3, 8];
+let townScale = 1;
+function iso(x, y, z) { return [OX + (x - y) * TW / 2, OY + (x + y) * TH / 2 - (z || 0)]; }
+function isRoad(x, y) { return ROADS.includes(x) || ROADS.includes(y); }
+function distOf(x, y) { return (y < 6 ? 0 : 2) + (x < 6 ? 0 : 1); }
+const TILE = [];
+(function buildTown() {
+  let seed = 7;
+  const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+  for (let x = 0; x < N; x++) { TILE[x] = []; for (let y = 0; y < N; y++) {
+    let t = 'house';
+    if (x === N - 1) t = 'river';
+    else if (isRoad(x, y)) t = 'road';
+    else if ((x === 9 || x === 10) && (y === 0 || y === 1)) t = 'plant';
+    else if ((x === 0 || x === 1) && (y === 0 || y === 1)) t = 'tower';
+    else if ((x === 5 || x === 6) && (y === 5 || y === 6)) t = 'hall';
+    else if ((x === 4 && y === 10) || (x === 5 && y === 10) || (x === 4 && y === 11)) t = 'park';
+    const pal = [['#e8d9b8', '#a8432f'], ['#d9e2ea', '#5c6b7a'], ['#efe2c8', '#7d4f2f'], ['#cfd9c4', '#8a3b2e'], ['#f0d3c2', '#4f5d75'], ['#e4e0d6', '#9b5a3c']];
+    TILE[x][y] = { t, h: 14 + Math.floor(rnd() * 12), pal: pal[Math.floor(rnd() * pal.length)], ph: rnd() * 6.28 };
+  } }
+})();
+function poly(pts, fill, stroke) {
+  tx.beginPath(); tx.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length; i++) tx.lineTo(pts[i][0], pts[i][1]);
+  tx.closePath(); if (fill) { tx.fillStyle = fill; tx.fill(); } if (stroke) { tx.strokeStyle = stroke; tx.lineWidth = 1; tx.stroke(); }
+}
+function box(x0, y0, x1, y1, h, top, left, right, z0) {
+  z0 = z0 || 0;
+  poly([iso(x0, y1, z0), iso(x1, y1, z0), iso(x1, y1, z0 + h), iso(x0, y1, z0 + h)], left);
+  poly([iso(x1, y0, z0), iso(x1, y1, z0), iso(x1, y1, z0 + h), iso(x1, y0, z0 + h)], right);
+  poly([iso(x0, y0, z0 + h), iso(x1, y0, z0 + h), iso(x1, y1, z0 + h), iso(x0, y1, z0 + h)], top);
+}
+function shade(hex, f) {
+  const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  return `rgb(${Math.round(r * f)},${Math.round(g * f)},${Math.round(b * f)})`;
+}
+function pipeColor(c) { return c >= 60 ? '#2b8cd6' : c >= 40 ? '#e09a2c' : '#c1121f'; }
+function lerpC(a, b, t) { return a + (b - a) * t; }
+function dispDist() {
+  // condition per district, interpolated across the year in Act 2
+  if (!G || !G.sim) return P.DOFF.map(o => clamp(P.C0 + o, 0, 100));
+  const s = G.sim; const r = s.rows[s.rows.length - 1];
+  const t = G.act === 2 ? clamp(G.acc / P.YEAR_SEC, 0, 1) : 1;
+  const prev = r ? P.DOFF.map(o => clamp(r.prevC + o, 0, 100)) : s.dist;
+  return s.dist.map((c, i) => r ? lerpC(prev[i], c, Math.min(1, t * 1.5)) : c);
+}
+function quality(cDist) { return clamp(cDist.reduce((a, b) => a + b, 0) / 4 + 20, 0, 100); }
+function drawTown(dt) {
+  if (!G) return;
+  G.t += dt;
+  const t = G.t;
+  tx.setTransform(townScale, 0, 0, townScale, 0, 0);
+  const sky = tx.createLinearGradient(0, 0, 0, LH);
+  sky.addColorStop(0, '#dfeee6'); sky.addColorStop(1, '#c7dccd');
+  tx.fillStyle = sky; tx.fillRect(0, 0, LW, LH);
+  const cd = dispDist();
+  const boil = G.sim ? G.sim.boilD : [0, 0, 0, 0];
+  // ground
+  for (let s = 0; s <= 2 * N - 2; s++) for (let x = 0; x < N; x++) {
+    const y = s - x; if (y < 0 || y >= N) continue;
+    const T = TILE[x][y];
+    const pts = [iso(x, y), iso(x + 1, y), iso(x + 1, y + 1), iso(x, y + 1)];
+    let col = (x + y) % 2 ? '#9cc489' : '#a3ca90';
+    if (T.t === 'road') col = '#8d8f94';
+    if (T.t === 'river') col = `rgb(${70 + 10 * Math.sin(t * 2 + y)},${130 + 10 * Math.sin(t * 2 + y)},190)`;
+    if (T.t === 'park') col = '#7fb26d';
+    if (T.t === 'hall') col = '#cfc8b6';
+    poly(pts, col, 'rgba(0,0,0,0.06)');
+  }
+  // pipes under streets
+  tx.lineCap = 'round';
+  for (let x = 0; x < N - 1; x++) for (let y = 0; y < N; y++) {
+    if (TILE[x][y].t !== 'road') continue;
+    const c = cd[distOf(x, y)];
+    const segs = [];
+    if (ROADS.includes(x)) segs.push([iso(x + 0.5, y), iso(x + 0.5, y + 1)]);
+    if (ROADS.includes(y)) segs.push([iso(x, y + 0.5), iso(x + 1, y + 0.5)]);
+    for (const [a, b] of segs) {
+      tx.strokeStyle = pipeColor(c); tx.lineWidth = 5;
+      tx.beginPath(); tx.moveTo(a[0], a[1]); tx.lineTo(b[0], b[1]); tx.stroke();
+      if (c >= 40) {
+        tx.strokeStyle = 'rgba(255,255,255,.55)'; tx.lineWidth = 2; tx.setLineDash([4, 8]); tx.lineDashOffset = -t * 18;
+        tx.beginPath(); tx.moveTo(a[0], a[1]); tx.lineTo(b[0], b[1]); tx.stroke(); tx.setLineDash([]);
+      } else {
+        // cracks
+        const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
+        tx.strokeStyle = '#3b0a0a'; tx.lineWidth = 1.4;
+        tx.beginPath(); tx.moveTo(mx - 6, my - 3); tx.lineTo(mx - 2, my + 2); tx.lineTo(mx + 2, my - 2); tx.lineTo(mx + 6, my + 3); tx.stroke();
+        if (c < 30) {
+          tx.fillStyle = 'rgba(70,130,190,.45)';
+          tx.beginPath(); tx.ellipse(mx, my + 4, 9, 3.5, 0, 0, 6.283); tx.fill();
+          if (Math.random() < 0.06 * dt * 60) G.drops.push({ x: mx + (Math.random() - 0.5) * 8, y: my, vy: -1.2 - Math.random(), life: 0.7 });
+        }
+      }
+    }
+  }
+  // objects in depth order
+  for (let s = 0; s <= 2 * N - 2; s++) for (let x = 0; x < N; x++) {
+    const y = s - x; if (y < 0 || y >= N) continue;
+    const T = TILE[x][y];
+    if (T.t === 'house') {
+      const h = T.h, [wall, roof] = T.pal;
+      box(x + 0.2, y + 0.2, x + 0.8, y + 0.8, h, wall, shade(wall, 0.78), shade(wall, 0.9));
+      const ym = y + 0.5, r = 10;
+      poly([iso(x + 0.15, y + 0.15, h), iso(x + 0.85, y + 0.15, h), iso(x + 0.85, ym, h + r), iso(x + 0.15, ym, h + r)], shade(roof, 0.8));
+      poly([iso(x + 0.15, y + 0.85, h), iso(x + 0.85, y + 0.85, h), iso(x + 0.85, ym, h + r), iso(x + 0.15, ym, h + r)], roof);
+      poly([iso(x + 0.85, y + 0.15, h), iso(x + 0.85, y + 0.85, h), iso(x + 0.85, ym, h + r)], shade(roof, 0.65));
+      // window
+      const w = iso(x + 0.5, y + 0.8, h * 0.5);
+      tx.fillStyle = '#ffeeb0'; tx.fillRect(w[0] - 3, w[1] - 3, 5, 5);
+      const d = distOf(x, y);
+      if (boil[d] > 0 && (x + y) % 2 === 0) {
+        const p = iso(x + 0.5, y + 0.5, h + r + 12);
+        if (Math.sin(t * 4 + T.ph) > -0.3) {
+          tx.fillStyle = '#f2c14e'; tx.strokeStyle = '#14213d'; tx.lineWidth = 1.2;
+          tx.beginPath(); tx.moveTo(p[0], p[1] - 8); tx.lineTo(p[0] + 7, p[1]); tx.lineTo(p[0], p[1] + 8); tx.lineTo(p[0] - 7, p[1]); tx.closePath(); tx.fill(); tx.stroke();
+          tx.fillStyle = '#14213d'; tx.font = 'bold 10px system-ui,sans-serif'; tx.textAlign = 'center'; tx.fillText('!', p[0], p[1] + 4); tx.textAlign = 'left';
+        }
+      }
+    } else if (T.t === 'park' && (x + y) % 1 === 0) {
+      const p = iso(x + 0.5, y + 0.5);
+      tx.fillStyle = '#6b4b2a'; tx.fillRect(p[0] - 1.5, p[1] - 12, 3, 12);
+      tx.fillStyle = '#3f7d3a'; tx.beginPath(); tx.arc(p[0], p[1] - 16, 9, 0, 6.283); tx.fill();
+    } else if (T.t === 'hall' && x === 6 && y === 6) {
+      box(5.15, 5.15, 6.85, 6.85, 30, '#e9e2d0', '#bdb4a0', '#d3cbb7');
+      poly([iso(5.1, 5.1, 30), iso(6.9, 5.1, 30), iso(6, 6, 46)], '#8e9aa8');
+      poly([iso(6.9, 5.1, 30), iso(6.9, 6.9, 30), iso(6, 6, 46)], '#6e7a88');
+      poly([iso(5.1, 6.9, 30), iso(6.9, 6.9, 30), iso(6, 6, 46)], '#7d8997');
+      for (let k = 0; k < 4; k++) { const c = iso(5.35 + k * 0.42, 6.9, 0); tx.fillStyle = '#f7f3ea'; tx.fillRect(c[0] - 2, c[1] - 26, 4, 24); }
+      const f = iso(6, 6, 46); tx.strokeStyle = '#333'; tx.lineWidth = 1.5; tx.beginPath(); tx.moveTo(f[0], f[1]); tx.lineTo(f[0], f[1] - 22); tx.stroke();
+      tx.fillStyle = '#2b6cb0'; tx.fillRect(f[0], f[1] - 22, 12, 7);
+      // budget banner (Act 1 only)
+      if (G.act === 1) {
+      const b = iso(6, 6, 92);
+      const txt = !G.opt ? `${money(P.HOLE)} budget hole` : 'Town hall';
+      tx.font = 'bold 12px ui-monospace,Menlo,Consolas,monospace';
+      const tw = tx.measureText(txt).width + 14;
+      tx.fillStyle = !G.opt ? '#c1121f' : 'rgba(20,33,61,.8)';
+      tx.fillRect(b[0] - tw / 2, b[1] - 12, tw, 18);
+      tx.fillStyle = '#fff'; tx.textAlign = 'center'; tx.fillText(txt, b[0], b[1] + 1); tx.textAlign = 'left';
+      }
+    } else if (T.t === 'tower' && x === 1 && y === 1) {
+      const q = quality(cd);
+      const base = iso(1, 1);
+      tx.strokeStyle = '#5b6470'; tx.lineWidth = 3;
+      for (const [dx, dy] of [[-16, -4], [16, -4], [-8, 6], [8, 6]]) { tx.beginPath(); tx.moveTo(base[0] + dx, base[1] + dy); tx.lineTo(base[0] + dx * 0.5, base[1] - 58); tx.stroke(); }
+      const tc = q >= 60 ? '#5aa9e6' : q >= 45 ? '#b3a46a' : '#8a6b3a';
+      tx.fillStyle = shade(tc, 0.8); tx.fillRect(base[0] - 20, base[1] - 86, 40, 26);
+      tx.fillStyle = tc; tx.beginPath(); tx.ellipse(base[0], base[1] - 86, 20, 8, 0, 0, 6.283); tx.fill();
+      tx.fillStyle = shade(tc, 0.7); tx.beginPath(); tx.ellipse(base[0], base[1] - 60, 20, 8, 0, 0, Math.PI); tx.fill();
+      tx.fillStyle = '#fff'; tx.font = 'bold 7px ui-monospace,Menlo,Consolas,monospace'; tx.textAlign = 'center'; tx.fillText('CEDAR FORK', base[0], base[1] - 71); tx.textAlign = 'left';
+    } else if (T.t === 'plant' && x === 10 && y === 1) {
+      box(9.1, 0.1, 10.9, 0.9, 18, '#d8dde3', '#a9b1ba', '#c1c8cf');
+      for (const cx of [9.5, 10.4]) {
+        const c = iso(cx, 1.5);
+        tx.fillStyle = '#9aa5b0'; tx.fillRect(c[0] - 13, c[1] - 14, 26, 14);
+        tx.fillStyle = '#7cc0e8'; tx.beginPath(); tx.ellipse(c[0], c[1] - 14, 13, 6, 0, 0, 6.283); tx.fill();
+        tx.strokeStyle = 'rgba(255,255,255,.7)'; tx.lineWidth = 1; tx.beginPath(); tx.ellipse(c[0], c[1] - 14, 8 + 3 * Math.sin(t * 2 + cx), 3.5, 0, 0, 6.283); tx.stroke();
+      }
+      const l = iso(10, 0.5, 30); tx.fillStyle = '#14213d'; tx.font = 'bold 10px ui-monospace,Menlo,Consolas,monospace'; tx.textAlign = 'center'; tx.fillText('TREATMENT', l[0], l[1]); tx.textAlign = 'left';
+    }
+  }
+  // drops
+  for (const d of G.drops) { d.life -= dt; d.y += d.vy; d.vy += 0.12; tx.fillStyle = 'rgba(80,150,220,.9)'; tx.fillRect(d.x, d.y, 2, 3); }
+  G.drops = G.drops.filter(d => d.life > 0).slice(-120);
+  // geysers (main breaks)
+  for (const g of G.geysers) {
+    g.life -= dt;
+    const p = iso(g.x + 0.5, g.y + 0.5);
+    const hgt = 30 * Math.min(1, g.life);
+    for (let k = 0; k < 10; k++) {
+      const a = (k / 10 - 0.5) * 0.9, hh = hgt * (0.6 + 0.4 * Math.sin(t * 20 + k));
+      tx.fillStyle = 'rgba(110,170,230,.8)'; tx.fillRect(p[0] + a * 18, p[1] - hh, 2, hh);
+    }
+    tx.fillStyle = '#c1121f'; tx.font = 'bold 10px ui-monospace,Menlo,Consolas,monospace'; tx.textAlign = 'center'; tx.fillText('MAIN BREAK', p[0], p[1] - hgt - 6); tx.textAlign = 'left';
+  }
+  G.geysers = G.geysers.filter(g => g.life > 0);
+  // district labels with boil notices
+  const centers = [[5.4, 0.3], [9.5, 4.8], [1.5, 10.2], [9.5, 10.2]];
+  tx.font = 'bold 11px ui-monospace,Menlo,Consolas,monospace'; tx.textAlign = 'center';
+  centers.forEach((c, i) => {
+    const p = iso(c[0], c[1], 0);
+    const txt = boil[i] > 0 ? `${DN[i]} · BOIL NOTICE` : DN[i];
+    const w = tx.measureText(txt).width + 10;
+    tx.fillStyle = boil[i] > 0 ? 'rgba(242,193,78,.95)' : 'rgba(255,255,255,.7)';
+    tx.fillRect(p[0] - w / 2, p[1] - 10, w, 15);
+    tx.fillStyle = '#14213d'; tx.fillText(txt, p[0], p[1] + 1);
+  });
+  tx.textAlign = 'left';
+  // year stamp
+  tx.fillStyle = 'rgba(20,33,61,.85)'; tx.fillRect(10, 10, 170, 24);
+  tx.fillStyle = '#fff'; tx.font = 'bold 12px ui-monospace,Menlo,Consolas,monospace';
+  tx.fillText(G.act === 1 ? 'Cedar Fork · Year 0' : `Cedar Fork · Year ${Math.min(P.YEARS, G.sim.y + (G.over ? 0 : 1))}`, 18, 26);
+}
+
+/* ================= CHARTS ================= */
+const trendC = $('trend'), trX = trendC.getContext('2d');
+const dTrendC = $('d-trend'), dTrX = dTrendC.getContext('2d');
+function fitCanvas(c, ctx, lw, lh) {
+  const r = c.getBoundingClientRect();
+  if (r.width < 2) return 0;
+  const dpr = window.devicePixelRatio || 1;
+  c.style.height = (r.width * lh / lw) + 'px';
+  c.width = Math.round(r.width * dpr); c.height = Math.round(r.width * lh / lw * dpr);
+  const sc = c.width / lw; ctx.setTransform(sc, 0, 0, sc, 0, 0);
+  return sc;
+}
+function goldSeries(s) {
+  // operator: cumulative cash to investors (incl. up-front); mayor: hole repaid by residents
+  let cum = s.opt === 'C' ? 0 : -(s.opt === 'A' ? P.A_UP : P.B_UP);
+  return s.rows.map(r => { cum += s.opt === 'C' ? r.tax * P.H + (s.plan && r.y <= s.plan.n ? (r.bill - r.bill / (1 + s.plan.fee)) * P.H : 0) : r.profit; return cum; });
+}
+function drawTrend(ctx, w, h) {
+  ctx.clearRect(0, 0, w, h); ctx.fillStyle = '#fbf8f1'; ctx.fillRect(0, 0, w, h);
+  const pl = 48, pr = 44, pt = 14, pb = 22, cw = w - pl - pr, ch = h - pt - pb;
+  const X = y => pl + (y - 1) / (P.YEARS - 1) * cw;
+  ctx.strokeStyle = '#d8d0bf'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pl, pt); ctx.lineTo(pl, pt + ch); ctx.lineTo(pl + cw, pt + ch); ctx.lineTo(pl + cw, pt); ctx.stroke();
+  ctx.font = '10px ui-monospace,Menlo,Consolas,monospace'; ctx.fillStyle = '#5f6472'; ctx.textAlign = 'center';
+  for (let y = 1; y <= P.YEARS; y += 5) ctx.fillText('Y' + y, X(y), pt + ch + 14);
+  ctx.textAlign = 'left';
+  if (!G || !G.sim || !G.sim.rows.length) { ctx.fillText(G && G.act === 1 ? 'Act 2 chart appears after you choose.' : 'Year 1 in progress…', pl + 8, pt + ch / 2); return; }
+  const R = G.sim.rows, gs = goldSeries(G.sim);
+  const bmax = Math.max(1200, ...R.map(r => r.bill)) * 1.1;
+  const gmin = Math.min(0, ...gs), gmax = Math.max(1, ...gs) * 1.1;
+  const YB = v => pt + ch - v / bmax * ch, YC = v => pt + ch - v / 100 * ch, YG = v => pt + ch - (v - gmin) / (gmax - gmin) * ch;
+  ctx.fillStyle = '#c1121f'; ctx.textAlign = 'right'; ctx.fillText('$' + num(bmax), pl - 3, pt + 8); ctx.fillText('$0', pl - 3, pt + ch);
+  ctx.fillStyle = '#c98a12'; ctx.textAlign = 'left'; ctx.fillText(money(gmax), pl + cw + 3, pt + 8); ctx.fillText(money(gmin), pl + cw + 3, pt + ch);
+  if (gmin < 0) { ctx.strokeStyle = 'rgba(201,138,18,.4)'; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(pl, YG(0)); ctx.lineTo(pl + cw, YG(0)); ctx.stroke(); ctx.setLineDash([]); }
+  const line = (vals, Y, col, wdt) => { ctx.strokeStyle = col; ctx.lineWidth = wdt; ctx.beginPath(); vals.forEach((v, i) => { const x = X(i + 1), y = Y(v); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke(); };
+  line(R.map(r => r.C), YC, 'rgba(43,140,214,.8)', 2);
+  line(gs, YG, '#c98a12', 2.5);
+  line(R.map(r => r.bill), YB, '#c1121f', 2.5);
+}
+
+/* ================= UI ================= */
+function show(id) { for (const s of ['screen-title', 'screen-game', 'screen-debrief']) $(s).hidden = s !== id; window.scrollTo(0, 0); }
+function say(txt) { G.msgs.push(txt); if (G.msgs.length > 3) G.msgs.shift(); const shown = window.innerWidth < 600 ? G.msgs.slice(-1) : G.msgs; $('ticker').innerHTML = shown.map(m => '<div>' + m + '</div>').join(''); }
+function rows(el, list) { $(el).innerHTML = list.map(([a, b]) => `<span>${a}</span><span>${b}</span>`).join(''); }
+
+function updateLedgers() {
+  const s = G.sim;
+  const C = s ? s.C : P.C0, bill = s ? s.bill : P.BILL0;
+  const y = s ? s.y : 0;
+  const infl = Math.pow(1 + P.INF, y);
+  const dist = s ? s.dist : P.DOFF.map(o => clamp(P.C0 + o, 0, 100));
+  const boilY = s ? s.boilYear : 0;
+  // residents' ledger
+  $('s-bill').textContent = money0(bill); $('s-pipe').textContent = Math.round(C);
+  $('s-boil').textContent = boilY > 0 ? `${Math.round(boilY)} boil-notice days` : 'no boil notices';
+  $('s-hbar').style.width = clamp(bill / 2500, 0, 1) * 100 + '%';
+  $('l2-big').textContent = money0(bill) + '/yr';
+  const paid = s ? s.paidBills + s.paidTax : 0;
+  rows('l2-rows', [
+    ['In year-0 dollars', money0(bill / infl)],
+    ['Total paid by residents', money(paid)],
+    ['Pipe condition', `${Math.round(C)}/100`],
+    ['Water quality (town avg)', `${Math.round(quality(dist))}/100`],
+    ['Boil-notice days, this year / total', `${Math.round(boilY)} / ${Math.round(s ? s.boilTotal : 0)}`],
+    ['Main breaks this year', s ? (s.breaks).toFixed(1) : '—']
+  ]);
+  // your ledger
+  if (G.act === 1) {
+    $('s-l1').textContent = 'YOU · MAYOR · budget hole';
+    $('s-a').textContent = money(P.HOLE); $('s-a2').textContent = 'uncovered'; $('s-abar').style.width = '0%';
+    $('l1-title').textContent = 'Your ledger — the town budget';
+    $('l1-big').textContent = money(P.HOLE) + ' hole';
+    rows('l1-rows', [['Goal', 'close the hole this year'], ['Water system', 'town-run'], ['Years ahead', '30']]);
+  } else if (G.opt === 'C') {
+    const repaid = s.rows.reduce((a, r) => a + r.tax * P.H, 0) + s.rows.reduce((a, r) => a + (r.y <= G.plan.n ? (r.bill - r.bill / (1 + G.plan.fee)) * P.H : 0), 0);
+    $('s-l1').textContent = 'YOU · MAYOR · system goal';
+    $('s-a').textContent = `pipes ${Math.round(C)}/100`; $('s-a2').textContent = `· ${Math.round(s.boilTotal)} notice-days`;
+    $('s-abar').style.width = clamp(C, 0, 100) + '%';
+    $('l1-title').textContent = 'Your ledger — mayor, public utility';
+    $('l1-big').textContent = (C >= 50 && s.boilTotal === 0) ? 'On track' : 'Off track';
+    rows('l1-rows', [['Goal', 'pipes ≥ 50 and no boil notices at year 30'], ['Hole repayments collected', money(repaid)], ['Surcharge ends', `after year ${G.plan.n}`], ['Utility budget', 'covers costs + 2%']]);
+  } else {
+    const pace = paceIRR(s), up = G.opt === 'A' ? P.A_UP : P.B_UP;
+    $('s-l1').textContent = 'YOU · CLEARWELL · investor return on pace';
+    $('s-a').textContent = pace === null ? '—' : pct1(pace); $('s-a2').textContent = `target ${Math.round(P.TARGET_IRR * 100)}%`;
+    $('s-abar').style.width = clamp((pace || 0) / (P.TARGET_IRR * 1.5), 0, 1) * 100 + '%';
+    $('l1-title').textContent = 'Your ledger — Clearwell (operator)';
+    $('l1-big').textContent = (pace === null ? '—' : pct1(pace)) + ' on pace';
+    rows('l1-rows', [['Investors\' target return', pct1(P.TARGET_IRR)], ['Paid up front', money(up)], ['Cash returned so far', money(s.profitCum)], ['Profit last year', s.rows.length ? money(s.rows[s.rows.length - 1].profit) : '—'], ['Town\'s buy-back price now', money(buyBack(s))]]);
+  }
+  $('g-when').textContent = G.act === 1 ? 'Act 1 · Mayor · Year 0' : `Act 2 · Year ${Math.min(P.YEARS, (s.y) + (G.over ? 0 : 1))} of ${P.YEARS}`;
+  $('trend-note').innerHTML = G.opt === 'C'
+    ? 'Red: avg household bill. Blue: pipe condition. Gold: hole repayments collected from residents. Scenario figures.'
+    : 'Red: avg household bill. Blue: pipe condition. Gold: Clearwell\'s cumulative cash (starts at minus the up-front payment). Scenario figures.';
+}
+
+/* ================= ACT 1 ================= */
+function renderAct1Detail() {
+  const el = $('a1-detail');
+  document.querySelectorAll('.opts button').forEach(b => b.classList.toggle('sel', b.dataset.o === G.opt));
+  if (!G.opt) { el.innerHTML = ''; return; }
+  if (G.opt === 'A') {
+    el.innerHTML = `<div class="offer">Clearwell pays <b>${money(P.A_UP)}</b> now — the whole hole. For 30 years the contract's revenue path rises <b>${pct1(P.A_PATH)} a year</b>; if residents use less water, rates are trued up so revenue still meets the path. Maintenance is Clearwell's call above a ${Math.round(P.FLOOR * 100)}% floor.</div><button class="confirm" id="go">Sign the lease</button>`;
+  } else if (G.opt === 'B') {
+    const tax = (P.HOLE - P.B_UP) / annuity(P.B_TERM, P.RATE) / P.H;
+    el.innerHTML = `<div class="offer">Clearwell pays <b>${money(P.B_UP)}</b> now. Rates may rise no more than <b>${pct1(P.B_CAP)} a year</b>, with no true-up. The town still owes ${money(P.HOLE - P.B_UP)}: a property-tax surcharge of <b>${money0(tax)} per household a year for ${P.B_TERM} years</b>. Maintenance is Clearwell's call above a ${Math.round(P.FLOOR * 100)}% floor.</div><button class="confirm" id="go">Sign with rate caps</button>`;
+  } else {
+    el.innerHTML = `<div class="offer mini">Borrow the ${money(P.HOLE)} at ${pct1(P.RATE)} and repay it yourself.
+      <label>Property-tax surcharge <output id="o-tax"></output></label><input type="range" id="p-tax" min="0" max="800" step="25" value="${G.plan.tax}">
+      <label>Water-fee surcharge <output id="o-fee"></output></label><input type="range" id="p-fee" min="0" max="40" step="1" value="${Math.round(G.plan.fee * 100)}">
+      <label>Repay over <output id="o-n"></output></label><input type="range" id="p-n" min="5" max="20" step="1" value="${G.plan.n}">
+      <div id="p-out" style="margin-top:6px"></div></div><button class="confirm" id="go">Adopt this budget</button>`;
+    const upd = () => {
+      G.plan.tax = +$('p-tax').value; G.plan.fee = +$('p-fee').value / 100; G.plan.n = +$('p-n').value;
+      $('o-tax').textContent = money0(G.plan.tax) + '/household/yr'; $('o-fee').textContent = Math.round(G.plan.fee * 100) + '% of each bill'; $('o-n').textContent = G.plan.n + ' years';
+      const perYear = P.H * (G.plan.tax + G.plan.fee * P.BILL0 * 1.03);
+      const pv = perYear * annuity(G.plan.n, P.RATE);
+      const ok = pv >= P.HOLE;
+      $('p-out').innerHTML = `Raises <b>${money(pv)}</b> of ${money(P.HOLE)} needed (about ${money0(perYear / P.H)} per household a year). ${ok ? '<span style="color:#9be59b">Covers the hole.</span>' : '<span style="color:#ffb3b3">Not enough yet.</span>'}`;
+      $('go').disabled = !ok;
+    };
+    ['p-tax', 'p-fee', 'p-n'].forEach(id => $(id).addEventListener('input', upd));
+    upd();
+  }
+  $('go').addEventListener('click', startAct2);
+  drawTown(0);
+}
+document.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => { if (!G || G.act !== 1) return; G.opt = b.dataset.o; renderAct1Detail(); }));
+
+/* ================= ACT 2 ================= */
+function startAct2() {
+  G.act = 2;
+  G.sim = newSim(G.opt, G.opt === 'C' ? Object.assign({}, G.plan) : null);
+  G.f = 1; G.acc = 0; G.paused = false; G.speed = 1;
+  $('lv-m').value = 100; $('o-m').textContent = '100%';
+  $('act1').hidden = true; $('act2').hidden = false;
+  $('btn-pause').hidden = false; $('btn-speed').hidden = false; $('btn-pause').textContent = 'Pause'; $('btn-speed').textContent = 'Speed 1×';
+  if (G.opt === 'C') {
+    $('role').innerHTML = `You stay <b>mayor</b>. Cedar Fork runs its own utility and sets rates to cover its costs. Your goal: hand the next mayor a sound system — <b>pipes at 50 or better and no boil notices</b> at year 30 — while keeping bills down.`;
+    $('lv-m').min = 25;
+    $('m-note').textContent = 'Less maintenance lowers this year\'s bills (rates cover costs). The pipes keep the score.';
+    say(`Budget adopted: ${money0(G.plan.tax)} per household a year in property tax and a ${Math.round(G.plan.fee * 100)}% water-fee surcharge for ${G.plan.n} years.`);
+  } else {
+    $('role').innerHTML = `Contract signed. You now sit in <b>Clearwell's chair</b>. Your investors put up ${money(G.opt === 'A' ? P.A_UP : P.B_UP)} and expect <b>${Math.round(P.TARGET_IRR * 100)}% a year</b> over 30 years. Rates follow the contract${G.opt === 'A' ? ' schedule, trued up if usage falls' : ', capped'}. Maintenance is yours to set, down to the contract floor of ${Math.round(P.FLOOR * 100)}%.`;
+    $('m-note').textContent = `Contract floor: ${Math.round(P.FLOOR * 100)}%. 100% holds the pipes roughly steady. Every dollar not spent on maintenance is profit this year.`;
+    say(`Clearwell pays ${money(G.opt === 'A' ? P.A_UP : P.B_UP)}. The budget hole is ${G.opt === 'A' ? 'closed' : 'closed with a tax surcharge for the rest'}. You now run the system.`);
+  }
+  updateLedgers(); resizeAll();
+}
+function yearMessages(r) {
+  const s = G.sim;
+  if (G.opt === 'A') say(`Year ${r.y}: rates +${pct1(r.priceChange)} on the contract path${r.trueUp > 0.002 ? ` (incl. ${pct1(r.trueUp)} true-up: residents used less water)` : ''}. Avg bill ${money0(r.bill)}.`);
+  else if (G.opt === 'B') say(`Year ${r.y}: rates +${pct1(r.priceChange)} (capped). Avg bill ${money0(r.bill)}. Clearwell profit ${money(r.profit)}.`);
+  else say(`Year ${r.y}: utility rates set to cover costs. Avg bill ${money0(r.bill)}.`);
+  if (r.breaks >= 1) say(`${r.breaks.toFixed(1)} main breaks this year (expected). Emergency patches only.`);
+  if (r.boil > 0) say(`Boil-water notices: ${Math.round(r.boil)} days on average across neighborhoods. ${s.boilD.map((d, i) => d > 0 ? DN[i] : null).filter(Boolean).join(', ')} affected.`);
+  if (G.opt !== 'C' && (r.y === 10 || r.y === 20)) say(`The town asks what it would cost to buy the system back: ${money(buyBack(s))}.`);
+}
+function stepYear() {
+  const r = simYear(G.sim, G.f);
+  // visual breaks
+  const nb = Math.round(r.breaks);
+  const roads = [];
+  for (let x = 0; x < N - 1; x++) for (let y = 0; y < N; y++) if (TILE[x][y].t === 'road') roads.push([x, y]);
+  roads.sort((a, b) => G.sim.dist[distOf(a[0], a[1])] - G.sim.dist[distOf(b[0], b[1])] + (Math.random() - 0.5) * 30);
+  for (let k = 0; k < Math.min(nb, 6); k++) G.geysers.push({ x: roads[k][0], y: roads[k][1], life: 2.2 });
+  yearMessages(r);
+  updateLedgers(); drawCharts();
+  if (G.sim.y >= P.YEARS) finish();
+}
+function drawCharts() { drawTrend(trX, 380, 170); }
+
+/* ================= FLOW ================= */
+function startGame() {
+  G = newGame();
+  show('screen-game');
+  $('act1').hidden = false; $('act2').hidden = true;
+  $('btn-pause').hidden = true; $('btn-speed').hidden = true;
+  $('ticker').innerHTML = '';
+  $('a1-hole').textContent = money(P.HOLE);
+  $('o-a').textContent = `${money(P.A_UP)} now, 30-year lease, rates follow the contract path`;
+  $('o-b').textContent = `${money(P.B_UP)} now, rates capped at ${pct1(P.B_CAP)}/yr; tax the rest`;
+  renderAct1Detail();
+  updateLedgers(); resizeAll();
+  say(`Act 1. Cedar Fork must close a ${money(P.HOLE)} budget hole (scenario). Choose an option on the mayor's desk.`);
+}
+function finish() {
+  G.over = true;
+  buildDebrief();
+  show('screen-debrief');
+  resizeAll();
+}
+function buildDebrief() {
+  const s = G.sim, last = s.rows[s.rows.length - 1], first = s.rows[0];
+  const total = s.paidBills + s.paidTax;
+  const ir = simIRR(s);
+  const restore = restoreCost(s.C);
+  let outcome, sub;
+  const act1 = G.opt === 'A' ? 'Act 1: you closed the hole by signing the lease.' : G.opt === 'B' ? 'Act 1: you closed the hole with a capped lease plus a tax surcharge.' : 'Act 1: you closed the hole yourself with taxes and fees.';
+  if (G.opt === 'C') {
+    const ok = s.C >= 50 && s.boilTotal === 0;
+    outcome = ok ? 'Goal met: a sound system, handed on.' : 'Goal missed: the system you hand on needs work.';
+    sub = `${act1} Over 30 years residents paid ${money(total)} in water bills and surcharges to close a ${money(P.HOLE)} hole and run their system. Pipes ended at ${Math.round(s.C)}/100 with ${Math.round(s.boilTotal)} boil-notice days.`;
+  } else {
+    const hit = ir !== null && ir >= P.TARGET_IRR;
+    outcome = hit ? `Investor target hit: ${pct1(ir)} a year.` : `Investor target missed: ${ir === null ? 'no positive return' : pct1(ir) + ' a year'}.`;
+    sub = `${act1} Over 30 years residents paid ${money(total)} in water bills${G.opt === 'B' ? ' and tax surcharges' : ''} — against a ${money(P.HOLE)} hole. Pipes ended at ${Math.round(s.C)}/100, with ${Math.round(s.boilTotal)} boil-notice days. The town gets back a system that would cost about ${money(restore)} to restore.`;
+  }
+  $('d-outcome').textContent = outcome; $('d-sub').textContent = sub;
+  $('d-assump').innerHTML = assumptionList().map(a => '<li>' + a + '</li>').join('');
+  const avgF = s.rows.reduce((a, r) => a + r.f, 0) / s.rows.length;
+  if (G.opt === 'C') {
+    $('d-l1t').textContent = 'Your ledger — mayor';
+    rows('d-l1', [['Act 1 choice', 'refused; taxes + fees'], ['Plan', `${money0(G.plan.tax)}/household/yr tax + ${Math.round(G.plan.fee * 100)}% fee, ${G.plan.n} yrs`], ['Average maintenance', Math.round(avgF * 100) + '%'], ['Pipes at year 30', `${Math.round(s.C)}/100`], ['Boil-notice days', num(s.boilTotal)], ['Goal (pipes ≥ 50, no notices)', s.C >= 50 && s.boilTotal === 0 ? 'met' : 'missed']]);
+  } else {
+    $('d-l1t').textContent = 'Your ledger — Clearwell';
+    rows('d-l1', [['Act 1 choice', G.opt === 'A' ? 'standard lease' : 'lease with rate caps'], ['Paid up front', money(G.opt === 'A' ? P.A_UP : P.B_UP)], ['Cash returned over 30 years', money(s.profitCum)], ['Investor return (IRR)', ir === null ? '—' : pct1(ir)], ['Target', pct1(P.TARGET_IRR)], ['Average maintenance', Math.round(avgF * 100) + '%'], ['Buy-back price at year 30', money(buyBack(s))]]);
+  }
+  rows('d-l2', [
+    ['Total paid by residents', money(total)], ['…of which water bills', money(s.paidBills)], ['…of which tax surcharges', money(s.paidTax)],
+    ['Avg bill, year 1 → 30', `${money0(first.bill)} → ${money0(last.bill)}`], ['Year-30 bill in year-0 dollars', money0(last.billReal)],
+    ['Pipes, start → end', `${P.C0} → ${Math.round(s.C)}/100`], ['Boil-notice days', num(s.boilTotal)], ['Cost to restore pipes after', money(restore)]
+  ]);
+  $('d-line').textContent = `The budget hole was ${money(P.HOLE)}. Residents paid ${money(total)} over the 30 years — ${(total / P.HOLE).toFixed(1)}× the hole — and ${restore > 0 ? `inherit about ${money(restore)} in deferred pipe work.` : 'inherit pipes in fair shape.'}`;
+  // comparison
+  const plan = DEFAULT_PLAN;
+  let t = '<tr><th>Option · maintenance held at</th><th>Residents paid (30 yrs)</th><th>Year-30 bill</th><th>Pipes</th><th>Boil days</th><th>Investor return</th></tr>';
+  for (const [o, name] of [['A', 'Standard lease'], ['B', 'Lease with caps'], ['C', 'Refuse (tax plan, 15 yrs)']]) for (const f of [1, 0.5]) {
+    const r = runFull(o, f, plan), i = simIRR(r);
+    t += `<tr class="${o === G.opt ? 'you' : ''}"><td>${o === G.opt ? '★ ' : ''}${name} · ${f * 100}%</td><td>${money(r.paidBills + r.paidTax)}</td><td>${money0(r.bill)}</td><td>${Math.round(r.C)}</td><td class="${r.boilTotal > 0 ? 'red' : ''}">${num(r.boilTotal)}</td><td>${i === null ? '—' : pct1(i)}</td></tr>`;
+  }
+  $('d-compare').innerHTML = t;
+  let yt = '<tr><th>Year</th><th>Maintenance</th><th>Avg bill</th><th>Pipes</th><th>Main breaks</th><th>Boil days</th><th>' + (G.opt === 'C' ? 'Tax/household' : 'Clearwell profit') + '</th></tr>';
+  for (const r of s.rows) yt += `<tr><td>Y${r.y}</td><td>${Math.round(r.f * 100)}%</td><td>${money0(r.bill)}</td><td>${Math.round(r.C)}</td><td>${r.breaks.toFixed(1)}</td><td class="${r.boil > 0 ? 'red' : ''}">${Math.round(r.boil)}</td><td>${G.opt === 'C' ? money0(r.tax) : money(r.profit)}</td></tr>`;
+  $('d-table').innerHTML = yt;
+}
+
+/* ================= RESIZE / LOOP ================= */
+function resizeAll() {
+  if (!$('screen-game').hidden && G) { townScale = fitCanvas(townC, tx, LW, LH) || townScale; fitCanvas(trendC, trX, 380, 170); drawTown(0); drawCharts(); }
+  if (!$('screen-debrief').hidden && G) { fitCanvas(dTrendC, dTrX, 760, 260); drawTrend(dTrX, 760, 260); }
+}
+let lastT = 0;
+function frame(ts) {
+  const dt = lastT ? Math.min(0.1, (ts - lastT) / 1000) : 0.016; lastT = ts;
+  if (G && !$('screen-game').hidden && !G.over) {
+    if (G.act === 2 && !G.paused && $('modal').hidden) {
+      G.acc += dt * G.speed;
+      if (G.acc >= P.YEAR_SEC) { G.acc = 0; stepYear(); }
+    }
+    if (!G.over) drawTown(G.paused ? 0 : dt);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ================= EVENTS ================= */
+function openModal() { $('m-assump').innerHTML = assumptionList().map(a => '<li>' + a + '</li>').join(''); $('modal').hidden = false; $('m-close').focus(); }
+function closeModal() { $('modal').hidden = true; }
+$('btn-start').addEventListener('click', startGame);
+$('btn-again').addEventListener('click', () => show('screen-title'));
+['btn-assump1', 'btn-assump2', 'btn-assump3'].forEach(id => $(id).addEventListener('click', openModal));
+$('lnk-assump').addEventListener('click', e => { e.preventDefault(); openModal(); });
+$('m-close').addEventListener('click', closeModal);
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('modal').hidden) closeModal(); });
+$('lv-m').addEventListener('input', e => { if (!G) return; G.f = +e.target.value / 100; $('o-m').textContent = e.target.value + '%'; });
+$('btn-pause').addEventListener('click', () => { if (!G || G.act !== 2 || G.over) return; G.paused = !G.paused; $('btn-pause').textContent = G.paused ? 'Resume' : 'Pause'; });
+$('btn-speed').addEventListener('click', () => { if (!G) return; G.speed = G.speed === 1 ? 2 : G.speed === 2 ? 4 : 1; $('btn-speed').textContent = 'Speed ' + G.speed + '×'; });
+let restartArm = -Infinity;
+$('btn-restart').addEventListener('click', () => {
+  const now = performance.now();
+  if (now - restartArm < 3000) { restartArm = 0; if (G) G.over = true; $('btn-restart').textContent = 'Restart'; show('screen-title'); return; }
+  restartArm = now; $('btn-restart').textContent = 'Tap again to restart';
+  setTimeout(() => { if (performance.now() - restartArm >= 2900) $('btn-restart').textContent = 'Restart'; }, 3000);
+});
+document.addEventListener('visibilitychange', () => { if (document.hidden && G && G.act === 2 && !G.over && !G.paused) { G.paused = true; $('btn-pause').textContent = 'Resume'; } });
+window.addEventListener('resize', resizeAll);
+$('t-hole').textContent = money(P.HOLE);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

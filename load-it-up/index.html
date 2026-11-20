@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LOAD IT UP — The Stoic Opposition Presents</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:#f6f4ee;color:#122a42;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:#8a5a00}
+.wrap{max-width:920px;margin:0 auto;padding:16px}
+header{text-align:center;padding:24px 10px 6px}
+.seal{display:inline-block;border:3px double #122a42;border-radius:50%;width:104px;height:104px;line-height:1.25;padding-top:20px;font-size:10px;letter-spacing:.18em;font-weight:700}
+.logo{font-size:13px;letter-spacing:.35em;color:#8a5a00;margin-top:12px}
+h1{font-size:clamp(34px,7.5vw,64px);margin:4px 0 2px;letter-spacing:.03em}
+.tag{color:#44546a;font-size:clamp(15px,2.6vw,19px);font-style:italic}
+.point{background:#fff;border:1px solid #c9c2ae;border-left:6px solid #122a42;border-radius:10px;padding:13px 16px;margin:14px 0;line-height:1.55}
+.btn{background:#122a42;color:#f6f4ee;border:1px solid #122a42;border-radius:999px;padding:11px 20px;font-size:16px;cursor:pointer;margin:4px}
+.btn.primary{background:#c99700;border-color:#c99700;color:#122a42;font-weight:800}
+.btn.ghost{background:transparent;color:#122a42}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.small{padding:7px 14px;font-size:14px}
+.screen{display:none}.screen.on{display:block}
+.hud{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;background:#122a42;color:#f6f4ee;border-radius:12px;padding:11px 14px;margin:10px 0;font-variant-numeric:tabular-nums}
+.hud b{color:#ffd75e}
+.bar{height:9px;background:#ddd6c2;border-radius:99px;overflow:hidden;margin:3px 0 10px}.bar i{display:block;height:100%;background:#c99700}
+.bar.red i{background:#b03040}
+.bar.blue i{background:#122a42}
+.result{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:16px;margin-top:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;font-variant-numeric:tabular-nums}
+.small{font-size:13px;color:#5a6a7e;line-height:1.55}
+.disc{font-size:12.5px;color:#8a5a00;background:#fdf6da;border:1px dashed #c99700;border-radius:8px;padding:8px 11px;line-height:1.5}
+.center{text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:10px 0}
+.card{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:14px;line-height:1.5}
+.card h3{margin:2px 0 8px}
+.ledger{font-variant-numeric:tabular-nums}
+.ledger table{width:100%;border-collapse:collapse;font-size:14.5px}
+.ledger td{padding:3px 0;border-bottom:1px dotted #ddd6c2}
+.ledger td:last-child{text-align:right;font-weight:600}
+.ledger tr.tot td{border-bottom:none;border-top:2px solid #122a42;font-weight:800;font-size:16px}
+.optgroup{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:12px;margin:10px 0}
+.optgroup h3{margin:2px 0 4px}
+.optgroup .sub{font-size:13px;color:#5a6a7e;margin:0 0 6px;line-height:1.45}
+.opt{display:block;width:100%;text-align:left;margin:7px 0;background:#f6f4ee;border:1px solid #122a42;border-radius:10px;padding:11px 13px;font-size:15px;cursor:pointer;color:#122a42;line-height:1.45}
+.opt:hover{border-color:#c99700}
+.opt.sel{border:2px solid #c99700;background:#fdf6da;font-weight:600}
+.opt .sub{display:block;font-size:13px;color:#5a6a7e;font-weight:400}
+.opt:disabled{opacity:.35;cursor:not-allowed}
+table.who{width:100%;border-collapse:collapse;margin:8px 0;font-size:15px;font-variant-numeric:tabular-nums}
+table.who td,table.who th{padding:6px 4px;border-bottom:1px solid #ddd6c2;text-align:left}
+table.who td:last-child,table.who th:last-child{text-align:right}
+.deb{background:#fff;border:1px solid #c9c2ae;border-radius:12px;padding:16px;margin-top:12px;line-height:1.6}
+.deb h3{margin:14px 0 6px}.deb h3:first-child{margin-top:0}
+footer{text-align:center;font-size:12.5px;color:#5a6a7e;padding:22px 10px 30px;line-height:1.6}
+.kick{font-size:12px;letter-spacing:.22em;color:#8a5a00;font-weight:700}
+</style></head>
+<body>
+<div style="background:#14213d;color:#f4f0e6;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:8px 14px;display:flex;gap:18px;flex-wrap:wrap"><a href="../games.html" style="color:#f4f0e6;text-decoration:none">&larr; Back to the Game Shelf</a><a href="../index.html" style="color:#f4f0e6;text-decoration:none">The Stoic Opposition</a></div>
+<div class="wrap">
+<header>
+  <div class="seal">THE<br>STOIC<br>OPPOSITION</div>
+  <div class="logo">THE STOIC OPPOSITION PRESENTS</div>
+  <h1>LOAD IT UP</h1>
+  <div class="tag">You are the private-equity firm. The debt is not yours. That is the point.</div>
+</header>
+
+<!-- ============ TITLE ============ -->
+<section id="scr-title" class="screen on">
+  <div class="point">
+    <b>The deal.</b> Your fund has just bought <b>PlayMart Toys &amp; Hobbies</b> ○ — a fictional
+    regional chain of 42 toy-and-hobby stores, 3,300 employees ◇ — for $600M ◇.
+    Your fund wrote a check for <b>$120M</b> ◇ of its own money. The other <b>$480M</b> ◇ was borrowed —
+    and the loan was placed on <b>PlayMart's</b> balance sheet, not yours. PlayMart now owes the money
+    that was used to buy PlayMart.
+  </div>
+  <div class="point">
+    <b>Your job, for five years:</b> maximize your fund's <b>return multiple</b> — every dollar the fund
+    gets back, divided by the $120M it put in ＝. Each year you may borrow more against the company and pay
+    it out to the fund, sell the stores' real estate to a fund affiliate and charge the company rent, bill
+    the company management fees, cut its costs, or invest in it. <b>Nothing on that menu is blocked.</b>
+    The lenders' only rules are printed below, and they apply to everyone equally.
+  </div>
+  <div class="card">
+    <h3>The term sheet (all ◇ scenario assumptions, fixed for the whole game)</h3>
+    <p class="small" style="color:#122a42">
+      Interest: 8% a year on company debt while leverage (debt ÷ EBITDA) is 8× or less; 11% above 8×;
+      14% above 12×. The lenders reprice automatically — watch the projection line before you close the books.<br>
+      Total company debt is capped at $1,000M by the credit agreement.<br>
+      A dividend recap borrows money and pays it straight to the fund: debt up, fund up, company cash untouched.<br>
+      A sale-leaseback pays the company cash for its buildings today; the company then pays rent of 8.5% of the
+      sale price, every year, to the fund's affiliate. Sold stores also earn a little less from then on.<br>
+      Investing grows the company's earnings and quality; cutting costs books cash now and erodes both.<br>
+      The fund's investors (its LPs) watch what comes back to them. Send too little back for too long and
+      <b>Fund Patience</b> runs out: the LPs force a sale of the fund's stake, cheap, whenever it hits zero.<br>
+      At the end of Year 5 the fund sells its stake for whatever the company's equity is worth:
+      earnings × a multiple that rises with company quality, minus the debt. If the company's cash goes
+      negative at any year-end, it is bankrupt — and the fees it already paid stay paid.
+    </p>
+  </div>
+  <p class="disc">Every figure in this game is a ◇ scenario assumption or ＝ arithmetic on those assumptions,
+  except the documented real-world case in the debrief (◆ sourced). PlayMart is ○ fictional. No real fund or
+  company is depicted.</p>
+  <div class="center"><button class="btn primary" id="btnStart">Sign the deal — start Year 1</button></div>
+</section>
+
+<!-- ============ GAME ============ -->
+<section id="scr-game" class="screen">
+  <div class="hud"><span>YEAR <b id="hYear">1</b> OF 5</span><span>FUND CASH RETURNED <b id="hFirm">$0M</b></span><span>MULTIPLE SO FAR <b id="hMult">0.00×</b></span></div>
+  <div class="grid">
+    <div class="card ledger">
+      <div class="kick">LEDGER ONE — THE FUND</div>
+      <h3>What the firm has taken out</h3>
+      <table>
+        <tr><td>Management fees</td><td id="lFees">$0M</td></tr>
+        <tr><td>Recap dividends</td><td id="lDivs">$0M</td></tr>
+        <tr><td>Rent (via affiliate)</td><td id="lRent">$0M</td></tr>
+        <tr><td>Exit proceeds</td><td id="lExit">—</td></tr>
+        <tr class="tot"><td>Total returned</td><td id="lFirmTot">$0M</td></tr>
+      </table>
+      <p class="small">Against the fund's own $120M check ◇. Multiple ＝ total ÷ 120.</p>
+    </div>
+    <div class="card ledger">
+      <div class="kick">LEDGER TWO — THE COMPANY</div>
+      <h3>What PlayMart looks like</h3>
+      <table>
+        <tr><td>Cash</td><td id="lCash">$60M</td></tr>
+        <tr><td>Debt (the buyout loan + recaps)</td><td id="lDebt">$480M</td></tr>
+        <tr><td>Real estate still owned</td><td id="lRE">$240M</td></tr>
+        <tr><td>Rent owed per year</td><td id="lRentDue">$0M</td></tr>
+        <tr><td>Last year's EBITDA</td><td id="lEbitda">—</td></tr>
+        <tr><td>Employees</td><td id="lJobs">3,300</td></tr>
+      </table>
+      <p class="small" style="margin-bottom:2px">Store &amp; staff quality: <b id="lQualTxt">70</b>/100</p>
+      <div class="bar blue"><i id="lQual" style="width:70%"></i></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="kick">FUND PATIENCE</div>
+    <p class="small" style="margin:4px 0;color:#122a42">The LPs' patience: <b id="lPatTxt">70</b>/100. Distributions refill it; quiet years and heavy
+    reinvestment drain it. At zero, the LPs force a cheap sale of the fund's stake.</p>
+    <div class="bar red"><i id="lPat" style="width:70%"></i></div>
+  </div>
+
+  <div id="controls">
+    <div class="optgroup" id="grp-recap">
+      <h3>1 · Dividend recapitalization</h3>
+      <p class="sub">Borrow against PlayMart and pay the cash straight to the fund. Debt up, fund up; PlayMart's cash is untouched — but its interest bill grows.</p>
+      <button class="opt" data-g="recap" data-v="0">No recap<span class="sub">Debt stays where it is.</span></button>
+      <button class="opt" data-g="recap" data-v="50">Recap — $50M<span class="sub">Borrow $50M, pay the fund $50M.</span></button>
+      <button class="opt" data-g="recap" data-v="120">Recap — $120M<span class="sub">Borrow $120M, pay the fund $120M. (Credit agreement caps total debt at $1,000M.)</span></button>
+    </div>
+    <div class="optgroup" id="grp-slb">
+      <h3>2 · Sale-leaseback</h3>
+      <p class="sub">Sell PlayMart's buildings to the fund's real-estate affiliate. PlayMart gets cash today and pays rent — 8.5% of the sale price, every year — from now on. Sold locations earn slightly less thereafter.</p>
+      <button class="opt" data-g="slb" data-v="none">No sale<span class="sub">PlayMart keeps owning its stores.</span></button>
+      <button class="opt" data-g="slb" data-v="third">Sell a third of what's left<span class="sub">Cash in now; rent forever.</span></button>
+      <button class="opt" data-g="slb" data-v="all">Sell everything left<span class="sub">All remaining real estate goes to the affiliate.</span></button>
+    </div>
+    <div class="optgroup" id="grp-fee">
+      <h3>3 · Management fee</h3>
+      <p class="sub">An annual fee from PlayMart to the fund for "monitoring and advice." Paid out of PlayMart's cash, into the fund's ledger.</p>
+      <button class="opt" data-g="fee" data-v="0">No fee<span class="sub">$0 this year.</span></button>
+      <button class="opt" data-g="fee" data-v="8">Standard fee — $8M<span class="sub">The customary monitoring fee.</span></button>
+      <button class="opt" data-g="fee" data-v="15">Full fee — $15M<span class="sub">Monitoring, plus a transaction advisory.</span></button>
+      <button class="opt" data-g="fee" data-v="20">Full fee + special review — $20M<span class="sub">The board approves it. The board is appointed by the fund.</span></button>
+    </div>
+    <div class="optgroup" id="grp-posture">
+      <h3>4 · Operating posture</h3>
+      <p class="sub">What the company itself does this year. This is the only lever that changes what PlayMart is worth.</p>
+      <button class="opt" data-g="posture" data-v="invest">Invest — spend $25M<span class="sub">Refit stores, stock the shelves, hire. Quality and future earnings rise. The LPs notice cash staying in the company.</span></button>
+      <button class="opt" data-g="posture" data-v="hold">Hold — spend $6M<span class="sub">Basic maintenance. Quality drifts down slowly; stores age.</span></button>
+      <button class="opt" data-g="posture" data-v="cut">Cut — save $18M<span class="sub">Layoffs and thinner inventory book $18M of cash now. Quality and future earnings fall. The LPs approve.</span></button>
+    </div>
+    <div class="point" id="proj" style="margin-bottom:6px"></div>
+    <div class="center"><button class="btn primary" id="btnSettle">Close the books — end the year</button></div>
+  </div>
+  <div id="report"></div>
+</section>
+
+<!-- ============ END ============ -->
+<section id="scr-end" class="screen">
+  <div id="endBody"></div>
+  <div class="center" style="margin-top:14px"><button class="btn primary" id="btnAgain">Run it back — play again</button></div>
+</section>
+
+<footer>LOAD IT UP — a playable argument about leveraged buyouts.<br>
+Directed by Corey Spangler · Built by AI · The Stoic Opposition Presents<br>
+No data collected. No external calls. PlayMart is fictional; the structure is not.</footer>
+</div>
+
+<script>
+"use strict";
+/* ---------- scenario constants (all ◇ assumed) ---------- */
+var EQUITY_IN = 120;          // fund's own check, $M
+var START_CASH = 60, START_DEBT = 480, DEBT_CAP = 1000;
+var START_RE = 240;           // real estate book value, $M
+var RENT_RATE = 0.085;        // of sale price, per year
+var START_QUALITY = 70, START_JOBS = 3300;
+var SEVERANCE_PER_JOB = 3500; // $ per worker, for the bankruptcy shortfall line
+var POSTURE = {
+  invest:{cash:-25, qual:8,  trend:3,  jobs:0.02, pat:-6, label:"Invest"},
+  hold:  {cash:-6,  qual:-2, trend:0,  jobs:0,     pat:0,  label:"Hold"},
+  cut:   {cash:18,  qual:-12, trend:-3, jobs:-0.08, pat:2,  label:"Cut"}
+};
+var S = null;
+function freshState(){
+  return { year:1, cash:START_CASH, debt:START_DEBT, re:START_RE, rentAnnual:0,
+    quality:START_QUALITY, trend:0, jobs:START_JOBS, jobsLaidOff:0,
+    patience:70, firmFees:0, firmDivs:0, firmRent:0, firmExit:0,
+    lastEbitda:null, over:false, ending:null };
+}
+var picks = { recap:0, slb:"none", fee:0, posture:"hold" };
+
+function $(id){ return document.getElementById(id); }
+function fmt(n){ var s = (Math.round(n*10)/10).toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:1}); return s; }
+function money(n){ return (n<0?"-$":"$") + fmt(Math.abs(n)) + "M"; }
+function firmTotal(){ return S.firmFees + S.firmDivs + S.firmRent + S.firmExit; }
+function multiple(){ return firmTotal() / EQUITY_IN; }
+
+/* EBITDA from start-of-year quality/trend; tired stores (low quality) lose customers */
+function runRateEbitda(){
+  var e = 34 + S.quality*0.45 + S.trend;
+  if (S.quality < 25) e *= 0.70; else if (S.quality < 40) e *= 0.85;
+  return Math.round(e);
+}
+function interestRate(debt, ebitda){
+  var lev = debt / Math.max(1, ebitda);
+  return lev > 12 ? 0.14 : (lev > 8 ? 0.11 : 0.08);
+}
+function exitEquity(ebitda){
+  var mult = 4.5 + S.quality/40;
+  return Math.max(0, Math.round(ebitda*mult) - S.debt);
+}
+
+function show(id){
+  ["scr-title","scr-game","scr-end"].forEach(function(x){ $(x).classList.toggle("on", x===id); });
+}
+function render(){
+  $("hYear").textContent = Math.min(S.year,5);
+  $("hFirm").textContent = money(firmTotal());
+  $("hMult").textContent = multiple().toFixed(2)+"×";
+  $("lFees").textContent = money(S.firmFees);
+  $("lDivs").textContent = money(S.firmDivs);
+  $("lRent").textContent = money(S.firmRent);
+  $("lExit").textContent = S.over ? money(S.firmExit) : "—";
+  $("lFirmTot").textContent = money(firmTotal());
+  $("lCash").textContent = money(S.cash);
+  $("lDebt").textContent = money(S.debt);
+  $("lRE").textContent = money(S.re);
+  $("lRentDue").textContent = money(S.rentAnnual);
+  $("lEbitda").textContent = S.lastEbitda===null ? "—" : money(S.lastEbitda);
+  $("lJobs").textContent = Math.round(S.jobs).toLocaleString("en-US");
+  $("lQualTxt").textContent = Math.round(S.quality);
+  $("lQual").style.width = Math.max(0,Math.min(100,S.quality))+"%";
+  $("lPatTxt").textContent = Math.round(S.patience);
+  $("lPat").style.width = Math.max(0,Math.min(100,S.patience))+"%";
+  /* sale-leaseback availability */
+  document.querySelectorAll('#grp-slb .opt').forEach(function(b){
+    if (b.dataset.v!=="none") b.disabled = (S.re<=0);
+  });
+  updateProj();
+}
+function plannedDiv(){
+  return Math.min(picks.recap, Math.max(0, DEBT_CAP - S.debt));
+}
+function plannedSale(){
+  if (picks.slb==="all") return S.re;
+  if (picks.slb==="third") return Math.round(S.re/3);
+  return 0;
+}
+function updateProj(){
+  var e = runRateEbitda();
+  var d = S.debt + plannedDiv();
+  var rate = interestRate(d, e);
+  var interest = d*rate;
+  var lev = d/Math.max(1,e);
+  $("proj").innerHTML = "<b>Projection for Year "+S.year+":</b> run-rate EBITDA ≈ "+money(e)+
+    " ◇ · debt after recap "+money(d)+" · leverage ＝ "+lev.toFixed(1)+"× → interest rate "+
+    (rate*100)+"% → interest ≈ "+money(interest)+
+    " · rent due "+money(S.rentAnnual + plannedSale()*RENT_RATE)+
+    " · fee "+money(picks.fee)+". Settlement order: earnings in, posture, interest, rent, fee.";
+}
+
+/* ---------- option picking ---------- */
+document.querySelectorAll(".opt").forEach(function(b){
+  b.addEventListener("click", function(){
+    var g = b.dataset.g;
+    document.querySelectorAll('.opt[data-g="'+g+'"]').forEach(function(x){ x.classList.remove("sel"); });
+    b.classList.add("sel");
+    picks[g] = (g==="recap"||g==="fee") ? parseInt(b.dataset.v,10) : b.dataset.v;
+    updateProj();
+  });
+});
+function markDefaults(){
+  document.querySelectorAll(".opt").forEach(function(b){
+    var g=b.dataset.g, want = (g==="recap"||g==="fee") ? String(picks[g]) : picks[g];
+    b.classList.toggle("sel", b.dataset.v===want);
+  });
+}
+
+/* ---------- settle one year ---------- */
+function settle(){
+  if (S.over) return;
+  var lines = [];
+  var yr = S.year;
+  /* 0 · earnings are struck on start-of-year quality/trend, before this year's moves */
+  var q0 = S.quality, t0 = S.trend;
+  var ebitda = runRateEbitda(); S.lastEbitda = ebitda;
+  /* 1 · recap: borrowed money passes through the company to the fund */
+  var div = plannedDiv();
+  if (div>0){
+    S.debt += div; S.firmDivs += div;
+    lines.push("Dividend recap: borrowed "+money(div)+" against PlayMart and paid it to the fund. (Debt +"+money(div)+", fund +"+money(div)+", company cash untouched.)"+(div<picks.recap?" Lenders capped it — the credit agreement's "+money(DEBT_CAP)+" ceiling.":""));
+  } else if (picks.recap>0){
+    lines.push("Dividend recap: declined by the lenders — debt is already at the "+money(DEBT_CAP)+" ceiling.");
+  } else lines.push("Dividend recap: none.");
+  /* 2 · sale-leaseback */
+  var sold = plannedSale();
+  if (sold>0){
+    S.cash += sold; S.re -= sold;
+    var newRent = sold*RENT_RATE; S.rentAnnual += newRent;
+    S.trend += (picks.slb==="all" ? -6 : -2);
+    lines.push("Sale-leaseback: sold "+money(sold)+" of buildings to the fund's affiliate. PlayMart's cash +"+money(sold)+"; rent is now "+money(S.rentAnnual)+" a year, and the sold locations earn a little less from here on.");
+  } else lines.push("Sale-leaseback: none. PlayMart still owns "+money(S.re)+" of its buildings.");
+  /* 3 · earnings (struck at step 0, on start-of-year quality/trend) */
+  S.cash += ebitda;
+  lines.push("Operations: EBITDA "+money(ebitda)+" ＝ (quality "+Math.round(q0)+", trend "+(t0>=0?"+":"")+t0+").");
+  /* 4 · posture cash + effects */
+  var P = POSTURE[picks.posture];
+  S.cash += P.cash;
+  lines.push("Posture — "+P.label+": "+(P.cash>=0? "booked +"+money(P.cash) : "spent "+money(-P.cash))+" of cash.");
+  /* 5 · interest */
+  var rate = interestRate(S.debt, ebitda);
+  var interest = Math.round(S.debt*rate*10)/10;
+  S.cash -= interest;
+  lines.push("Interest: "+money(interest)+" ＝ ("+money(S.debt)+" × "+(rate*100)+"% — leverage "+(S.debt/Math.max(1,ebitda)).toFixed(1)+"×).");
+  /* 6 · rent to the affiliate */
+  if (S.rentAnnual>0){ S.cash -= S.rentAnnual; S.firmRent += S.rentAnnual; lines.push("Rent to the fund's affiliate: "+money(S.rentAnnual)+" out of PlayMart, into the fund's side of the ledger."); }
+  /* 7 · management fee */
+  if (picks.fee>0){ S.cash -= picks.fee; S.firmFees += picks.fee; lines.push("Management fee: "+money(picks.fee)+" out of PlayMart, into the fund."); }
+  /* 8 · quality / trend / jobs from posture */
+  S.quality = Math.max(0, Math.min(100, S.quality + P.qual));
+  S.trend += P.trend;
+  if (P.jobs<0){ var lost = Math.round(S.jobs*(-P.jobs)); S.jobs -= lost; S.jobsLaidOff += lost; lines.push("Layoffs: "+lost.toLocaleString("en-US")+" jobs cut this year."); }
+  if (P.jobs>0){ var gained = Math.round(S.jobs*P.jobs); S.jobs += gained; lines.push("Hiring: +"+gained.toLocaleString("en-US")+" jobs."); }
+  /* 9 · fund patience */
+  var dist = div + picks.fee + S.rentAnnual;
+  var dPat = (dist>=30?12 : dist>=12?2 : dist>=1?-6 : -13) + P.pat;
+  S.patience = Math.max(0, Math.min(100, S.patience + dPat));
+  lines.push("Fund distributions this year: "+money(dist)+" → patience "+(dPat>=0?"+":"")+dPat+" (now "+Math.round(S.patience)+").");
+  lines.push("Year "+yr+" closes: cash "+money(S.cash)+", debt "+money(S.debt)+", quality "+Math.round(S.quality)+".");
+  /* 10 · endings */
+  var ending = null;
+  if (S.cash < 0) ending = "bankrupt";
+  else if (yr === 5) ending = (exitEquity(ebitda)>0 && S.quality>=50) ? "healthy" : "hollow";
+  else if (S.patience <= 0) ending = "forced";
+  render();
+  var html = "<div class='result'><b>YEAR "+yr+" — SETTLEMENT RECEIPT</b>\n" + lines.join("\n") + "</div>";
+  if (ending){ S.ending = ending; html += "<div class='center' style='margin-top:10px'><button class='btn primary' id='btnToEnd'>See how it ends</button></div>"; }
+  else { S.year++; html += "<div class='center' style='margin-top:10px'><button class='btn primary' id='btnNext'>Begin Year "+S.year+"</button></div>"; }
+  $("report").innerHTML = html;
+  $("controls").style.display = "none";
+  var bEnd = $("btnToEnd"), bNext = $("btnNext");
+  if (bEnd) bEnd.addEventListener("click", function(){ finish(ending); });
+  if (bNext) bNext.addEventListener("click", function(){
+    $("report").innerHTML=""; $("controls").style.display="";
+    picks = { recap:0, slb:"none", fee:0, posture:"hold" }; markDefaults(); render();
+    window.scrollTo(0,0);
+  });
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+/* ---------- endings + debrief ---------- */
+function finish(kind){
+  S.over = true;
+  var ebitda = S.lastEbitda || runRateEbitda();
+  var title="", story="";
+  if (kind==="bankrupt"){
+    S.firmExit = 0;
+    title = "CHAPTER 11 — YEAR "+S.year;
+    story = "PlayMart's cash went negative at year-end: "+money(S.cash)+". The lenders take the keys. "+
+      "The stores are sold off in pieces, and the "+Math.round(S.jobs).toLocaleString("en-US")+
+      " people still working there lose their jobs. Every fee, dividend, and rent payment PlayMart made "+
+      "in the years before stays made — none of it is clawed back. The fund's losses are limited to its stake; "+
+      "the debt belonged to the company.";
+  } else if (kind==="forced"){
+    var eq = exitEquity(ebitda); S.firmExit = Math.round(eq*0.4);
+    title = "THE FUND CALLS IT — YEAR "+S.year;
+    story = "Fund Patience hit zero. The LPs have seen too little come back, so they force a sale of the fund's "+
+      "stake now, at 40 cents on the dollar of its equity value ◇: "+money(S.firmExit)+" instead of "+money(eq)+". "+
+      "PlayMart itself survives — a new owner buys a working company with "+Math.round(S.jobs).toLocaleString("en-US")+
+      " employees and "+money(S.cash)+" in the bank. The fund's clock, not the company's health, set the price.";
+  } else if (kind==="healthy"){
+    S.firmExit = exitEquity(ebitda);
+    title = "THE COMPANY OUTLIVES THE FUND";
+    story = "Five years are up. The fund sells its stake for the equity value: EBITDA "+money(ebitda)+
+      " × multiple "+(4.5+S.quality/40).toFixed(2)+" − debt "+money(S.debt)+" ＝ "+money(S.firmExit)+". "+
+      "PlayMart is still standing — "+Math.round(S.jobs).toLocaleString("en-US")+" employees, quality "+
+      Math.round(S.quality)+", cash "+money(S.cash)+" — and keeps operating under its new owners. "+
+      "The fund made its money the slow way: mostly at the exit, and only because there was something left to sell.";
+  } else {
+    S.firmExit = exitEquity(ebitda);
+    title = "THE SHELL CHANGES HANDS";
+    story = "Five years are up, and PlayMart is solvent — cash "+money(S.cash)+" — but the equity is worth "+
+      money(S.firmExit)+" against "+money(S.debt)+" of debt, with quality at "+Math.round(S.quality)+". "+
+      "The fund's stake sells for what the arithmetic says. The company continues under lender-chosen owners, "+
+      "smaller than it was: "+S.jobsLaidOff.toLocaleString("en-US")+" jobs were cut along the way. "+
+      "The fund's real returns were never going to come from the exit. They came out year by year, in fees, "+
+      "dividends, and rent — and those are already in the fund's ledger.";
+  }
+  render();
+  var lendersWriteDown = 0;
+  if (kind==="bankrupt"){
+    lendersWriteDown = Math.max(0, Math.round((S.debt - Math.max(0,S.cash) - S.re)*10)/10);
+  }
+  var sevShortfall = kind==="bankrupt" ? Math.round(S.jobs)*SEVERANCE_PER_JOB/1e6 : 0;
+  var who =
+    "<div class='deb'><h3>Who got what</h3><table class='who'>"+
+    "<tr><th>The fund</th><td>"+money(firmTotal())+" back on "+money(EQUITY_IN)+" in ＝ <b>"+multiple().toFixed(2)+"×</b> (fees "+money(S.firmFees)+", dividends "+money(S.firmDivs)+", rent "+money(S.firmRent)+", exit "+money(S.firmExit)+")</td></tr>"+
+    "<tr><th>The lenders</th><td>"+(kind==="bankrupt" ? "Left holding "+money(S.debt)+" of company debt; after the remaining cash and buildings, a write-down of ≈ "+money(lendersWriteDown)+" ＝" : "Still owed "+money(S.debt)+" by a company with "+money(S.cash)+" cash — repaid or refinanced by the new owners")+"</td></tr>"+
+    "<tr><th>The workers</th><td>"+S.jobsLaidOff.toLocaleString("en-US")+" jobs cut during the five years ＝"+(kind==="bankrupt" ? "; "+Math.round(S.jobs).toLocaleString("en-US")+" more lost at closure ＝; severance &amp; pension shortfall ≈ "+money(sevShortfall)+" ◇ ($3,500 per remaining worker, scenario assumption)" : "; "+Math.round(S.jobs).toLocaleString("en-US")+" jobs remain")+"</td></tr>"+
+    "<tr><th>The company</th><td>"+(kind==="bankrupt" ? "Gone. Liquidated in Year "+S.year+"." : kind==="forced" ? "Alive, under new owners, from Year "+S.year+"." : "Alive: cash "+money(S.cash)+", debt "+money(S.debt)+", quality "+Math.round(S.quality)+", "+Math.round(S.jobs).toLocaleString("en-US")+" employees.")+"</td></tr>"+
+    "</table></div>";
+  var debrief =
+    "<div class='deb'><h3>Debrief, part 1 — the simulation's assumptions</h3>"+
+    "<p>Every number above is a ◇ scenario assumption or ＝ arithmetic on one: a $600M purchase ($120M fund equity, $480M of debt placed on the company), interest repricing at 8% / 11% / 14% as leverage crosses 8× and 12×, rent at 8.5% of sale price, an exit multiple of 4.5 + quality ÷ 40, a forced sale at 40% of equity value, and a $1,000M debt ceiling. PlayMart ○ is fictional. The model is deliberately simple — one company, no taxes, no surprises — so that every dollar can be traced from one ledger to the other. In every year you played, each dollar of fees and rent came out of company cash, and each dollar of recap dividends added a dollar of company debt. Nothing appeared from nowhere.</p>"+
+    "<h3>Debrief, part 2 — your results</h3>"+
+    "<p>"+endingLine(kind)+"</p>"+
+    "<h3>Debrief, part 3 — the documented evidence ◆</h3>"+
+    "<p>Toys &ldquo;R&rdquo; Us — a real toy retailer, like PlayMart but real — was bought in a 2005 leveraged buyout of about <b>$6.6 billion</b> ◆. It filed for bankruptcy in <b>2017</b> ◆, its U.S. stores closed in <b>2018</b> ◆, and roughly <b>33,000 jobs</b> ◆ were lost. Those are the only real-world figures in this game; everything PlayMart did was scenario arithmetic. The structure, though — purchase debt carried by the target company, fees and dividends flowing to the owner while the debt stayed behind — is the structure that case is documented to have had.</p>"+
+    "<h3>Debrief, part 4 — the conclusion the author draws</h3>"+
+    "<p>The author's conclusion: nobody in this game had to make a mistake for the company to die, and nobody had to be a villain for it to be hollowed out. The fund's return and the company's survival were pulling on the same dollars, and the documents — the fund's clock, the fee schedule, the loan on the company's own books — decided in advance which claim got paid first. If you read the same ledgers and reach a different conclusion, the game regards that as a legitimate result: the receipts above are the whole argument, and they are yours to re-run.</p>"+
+    "<p><a href='../games.html'>&larr; Back to the Game Shelf</a> · <a href='../index.html'>The Stoic Opposition</a></p></div>";
+  $("endBody").innerHTML = "<div class='point' style='border-left-color:#b03040'><div class='kick'>FINAL SETTLEMENT</div>"+
+    "<h2 style='margin:6px 0'>"+title+"</h2><p style='margin:0'>"+story+"</p></div>"+ who + debrief;
+  show("scr-end");
+  window.scrollTo(0,0);
+}
+function endingLine(kind){
+  var base = "You returned "+money(firmTotal())+" to the fund on its "+money(EQUITY_IN)+" check ＝ a <b>"+
+    multiple().toFixed(2)+"×</b> multiple — fees "+money(S.firmFees)+", recap dividends "+money(S.firmDivs)+
+    ", rent "+money(S.firmRent)+", exit proceeds "+money(S.firmExit)+". PlayMart ended with cash "+money(S.cash)+
+    ", debt "+money(S.debt)+", quality "+Math.round(S.quality)+", and "+Math.round(S.jobs).toLocaleString("en-US")+
+    " of its original 3,300 jobs ("+S.jobsLaidOff.toLocaleString("en-US")+" cut along the way).";
+  if (kind==="bankrupt") return base + " The company did not survive you.";
+  if (kind==="forced") return base + " The company survived; the fund's patience did not.";
+  if (kind==="healthy") return base + " The company survived with its quality intact.";
+  return base + " The company survived, diminished.";
+}
+
+/* ---------- wiring ---------- */
+$("btnStart").addEventListener("click", function(){
+  S = freshState(); picks = { recap:0, slb:"none", fee:0, posture:"hold" };
+  markDefaults(); $("report").innerHTML=""; $("controls").style.display="";
+  show("scr-game"); render(); window.scrollTo(0,0);
+});
+$("btnSettle").addEventListener("click", settle);
+$("btnAgain").addEventListener("click", function(){
+  S = freshState(); picks = { recap:0, slb:"none", fee:0, posture:"hold" };
+  markDefaults(); $("report").innerHTML=""; $("controls").style.display="";
+  show("scr-game"); render(); window.scrollTo(0,0);
+});
+S = freshState();
+window.__S = function(){ return S; };
+window.__settle = settle;
+window.__picks = function(p){ if(p) picks = p; return picks; };
+</script>
+</body></html>

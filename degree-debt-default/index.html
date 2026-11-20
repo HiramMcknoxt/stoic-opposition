@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Degree, Debt, Default — The Stoic Opposition Presents</title>
+<style>
+  :root{--navy:#14213d;--paper:#f4f0e6;--ink:#1d1d1b;--red:#b3271e;--green:#1e6b3a;--amber:#b8860b;--line:#c9c2ae}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.45}
+  .wrap{max-width:1080px;margin:0 auto;padding:18px 16px 40px}
+  h1,h2,h3{font-family:ui-monospace,Menlo,Consolas,monospace;line-height:1.15}
+  h1{font-size:clamp(1.7rem,5vw,2.6rem);margin:.2em 0}
+  .kicker{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-size:.85rem}
+  .lede{font-size:1.12rem;max-width:46rem}
+  .btn{display:inline-block;background:var(--navy);color:var(--paper);border:2px solid var(--navy);padding:.6rem 1.1rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1rem;cursor:pointer;border-radius:3px}
+  .btn:hover{background:var(--red);border-color:var(--red)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.alt{background:transparent;color:var(--navy)}
+  .btn.alt:hover{color:var(--red)}
+  .screen{display:none}.screen.on{display:block}
+  .cols{display:grid;grid-template-columns:1.25fr .9fr;gap:18px;align-items:start}
+  @media(max-width:820px){.cols{grid-template-columns:1fr}}
+  .card{background:#fffdf6;border:2px solid var(--navy);border-radius:4px;padding:14px 16px;margin-bottom:16px}
+  .card h2,.card h3{margin-top:0}
+  .ledger h3{font-size:1rem;letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--navy);padding-bottom:.3rem}
+  .ledger.maya{border-color:var(--red)}
+  .ledger.maya h3{border-color:var(--red);color:var(--red)}
+  .row{display:flex;justify-content:space-between;gap:12px;padding:.22rem 0;border-bottom:1px dashed var(--line)}
+  .row b{font-family:ui-monospace,Menlo,Consolas,monospace;white-space:nowrap}
+  .plain-note{background:#f7e9e7;border:1px solid var(--red);padding:.55rem .7rem;font-size:.92rem;margin-top:.6rem}
+  .lever{margin-bottom:14px}
+  .lever .lname{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:.95rem;margin-bottom:4px}
+  .lever .ldesc{font-size:.88rem;color:#444;margin-bottom:6px}
+  .seg{display:flex;flex-wrap:wrap;gap:6px}
+  .seg button{flex:1 1 30%;min-width:96px;padding:.5rem .4rem;border:2px solid var(--navy);background:#fffdf6;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;cursor:pointer;border-radius:3px}
+  .seg button.sel{background:var(--navy);color:var(--paper)}
+  .seg button small{display:block;font-size:.72rem;opacity:.85}
+  #log{font-size:.93rem}
+  #log .yr{border-left:4px solid var(--navy);padding:.35rem .6rem;margin:.5rem 0;background:#fffdf6}
+  #log .yr.maya-yr{border-left-color:var(--red)}
+  .event{border:2.5px solid var(--amber);background:#fdf6e0;padding:12px 14px;border-radius:4px;margin-bottom:14px}
+  .event h3{margin:.1rem 0 .4rem;color:#7a5c00}
+  .event .choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:.6rem}
+  .tag{font-size:.75rem;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .result-big{font-size:1.25rem;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .debrief h3{border-top:2px solid var(--navy);padding-top:.6rem;margin-top:1.2rem}
+  footer{margin-top:28px;font-size:.85rem;color:#555;border-top:1px solid var(--line);padding-top:10px}
+  a{color:var(--navy)}
+  .small{font-size:.9rem}
+  ul{margin:.3rem 0 .3rem 1.1rem;padding:0}
+</style>
+</head>
+<body>
+<div style="background:#14213d;color:#f4f0e6;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:8px 14px;display:flex;gap:18px;flex-wrap:wrap"><a href="../games.html" style="color:#f4f0e6;text-decoration:none">&larr; Back to the Game Shelf</a><a href="../index.html" style="color:#f4f0e6;text-decoration:none">The Stoic Opposition</a></div>
+<div class="wrap">
+
+<section id="screen-title" class="screen on">
+  <p class="kicker">The Stoic Opposition Presents</p>
+  <h1>DEGREE, DEBT, DEFAULT</h1>
+  <p class="lede">You are the president of <b>Alderbrook University</b> (○ a fictional mid-size university) for ten years. Set tuition, amenities, marketing, financial aid, and who teaches. Grow the rankings. Grow enrollment. Keep the reserves healthy.</p>
+  <p>The money arrives as student loans, and loans arrive whether or not a student ever graduates. Your rankings formula — printed on the president's dashboard, where everyone can see it — counts spending and selectivity. It does not count graduation rates. And if a former student defaults on a loan, the loss is booked to the student and the federal loan program. The university's share of every default, in every year, under every strategy, is <b>$0</b>.</p>
+  <p>In the corner of your screen, all ten years, is one student. Her name is Maya (○ fictional). Her debt is calculated from <em>your</em> tuition and aid choices. Nothing in her panel feeds any of your numbers. It never will. That is the design — this game's, and the real one's.</p>
+  <p><button class="btn" id="btnStart">Take the president's office</button></p>
+  <p class="small">About 8 minutes. Five levers a year, ten years, three ways it can end. Every figure is labelled: ◆ sourced · ◇ assumed · ＝ calculated · ○ fictional.</p>
+</section>
+
+<section id="screen-game" class="screen">
+  <h2 id="yearHead">Year 1 of 10</h2>
+  <div class="cols">
+    <div>
+      <div id="eventSlot"></div>
+      <div class="card">
+        <h3>The President's Levers <span class="tag">(all settings ◇ scenario assumptions)</span></h3>
+        <div id="levers"></div>
+        <p><button class="btn" id="btnRun">Run Year 1</button></p>
+        <p class="small" id="runHint"></p>
+      </div>
+      <div class="card">
+        <h3>The Record</h3>
+        <div id="log"><p class="small">Your years will be recorded here.</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="card ledger">
+        <h3>Ledger 1 — The University</h3>
+        <div id="uniLedger"></div>
+      </div>
+      <div class="card ledger maya">
+        <h3>Ledger 2 — Maya, One Student (○)</h3>
+        <div id="mayaLedger"></div>
+        <div class="plain-note">Nothing in this panel feeds the university's finances, rankings, or enrollment. It never will. That is stated here, in plain text, because it is the whole point.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screen-ending" class="screen">
+  <p class="kicker">Ten Years Later</p>
+  <h2 id="endingTitle"></h2>
+  <p id="endingText" class="lede"></p>
+  <div class="cols">
+    <div class="card ledger"><h3>Ledger 1 — The University (final)</h3><div id="uniFinal"></div></div>
+    <div class="card ledger maya"><h3>Ledger 2 — Maya (final)</h3><div id="mayaFinal"></div></div>
+  </div>
+  <div class="card debrief" id="debrief"></div>
+  <p><button class="btn" id="btnRestart">Serve another decade</button></p>
+</section>
+
+<footer>
+  DEGREE, DEBT, DEFAULT — a playable argument about who carries the risk in student lending.<br>
+  Directed by Corey Spangler · Built by AI · The Stoic Opposition Presents<br>
+  No data collected. No external calls. The university and the student are fictional; the risk allocation is not.
+</footer>
+</div>
+
+<script>
+"use strict";
+/* ============ Model. All parameters are ◇ scenario assumptions unless marked. ============ */
+var START = { sticker: 32000, enrollment: 4000, rank: 50, reserves: 40000000, facDebt: 0,
+              adminCost: 26000000, otherRevenue: 28000000 };
+var OPS_PER = 3000;              /* ◇ per-student operations cost (plant, IT, advising) on top of instruction */
+var TUITION = {
+  hold: { label: "Hold", growth: 0.00, rank: -1 },
+  up5:  { label: "Raise 5%", growth: 0.05, rank: 1 },
+  up9:  { label: "Raise 9%", growth: 0.09, rank: 2 }
+};
+var AID = {
+  low: { label: "Low", rate: 0.20 },
+  std: { label: "Standard", rate: 0.35 },
+  gen: { label: "Generous", rate: 0.50 }
+};
+var AMEN = {
+  lean: { label: "Lean", cost: 2000000, enr: -1, rank: -1, debt: 0 },
+  comp: { label: "Competitive", cost: 6000000, enr: 1, rank: 1, debt: 3000000 },
+  arms: { label: "Arms Race", cost: 12000000, enr: 3, rank: 3, debt: 10000000 }
+};
+var MKT = {
+  low:  { label: "Quiet", cost: 1000000, enr: -1, rank: 0 },
+  mid:  { label: "Standard", cost: 3000000, enr: 1, rank: 1 },
+  high: { label: "Saturation", cost: 6000000, enr: 2, rank: 2 }
+};
+var ADJ = {
+  a25: { label: "25% adjunct", ratio: 0.25, costPer: 13500, rank: 1 },
+  a50: { label: "50% adjunct", ratio: 0.50, costPer: 11500, rank: 0 },
+  a75: { label: "75% adjunct", ratio: 0.75, costPer: 10000, rank: -2 }
+};
+var MAYA_DRAW = 55;              /* ○ Maya's fixed draw: she graduates if her chance (%) >= 55 */
+var LOAN_RATE = 0.05;            /* ◇ interest on her balance while enrolled */
+var LIVING_NET = -6000;          /* ◇ family contribution + campus work cover her living costs and $6,000 of tuition; she borrows the rest */
+
+var S;                            /* game state, exposed as window.__game */
+function newState() {
+  return {
+    year: 1, over: false, ending: null,
+    sticker: START.sticker, enrollment: START.enrollment, rank: START.rank,
+    reserves: START.reserves, facDebt: START.facDebt,
+    choices: { tuition: "up5", aid: "std", amen: "comp", mkt: "mid", adj: "a50" },
+    pendingEvent: null,
+    mods: { enrollNext: 0, comply: false, hireYears: 0, lobbied: false },
+    adjHighYears: 0,
+    taxpayerLoss: 0, universityLoss: 0, universityDefaultShare: 0,
+    maya: { years: 0, balance: 0, adjSum: 0, aidSum: 0, status: "enrolled",
+            chance: null, graduated: null, income: 0, annualPayment: 0,
+            defaulted: false, defaultYear: null, lossBooked: 0, remaining: null,
+            hist: [] },
+    history: []
+  };
+}
+S = newState(); window.__game = S;
+
+function $(id){ return document.getElementById(id); }
+function fmt(n){ return "$" + Math.round(n).toLocaleString("en-US"); }
+function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+
+function amortAnnual(balance){
+  var r = LOAN_RATE / 12, n = 120;
+  var pmt = balance * r / (1 - Math.pow(1 + r, -n));
+  return pmt * 12;
+}
+function remainingAfter(balance, months){
+  var r = LOAN_RATE / 12;
+  var pmt = balance * r / (1 - Math.pow(1 + r, -120));
+  var grown = balance * Math.pow(1 + r, months);
+  var paid = pmt * ((Math.pow(1 + r, months) - 1) / r);
+  return Math.max(0, grown - paid);
+}
+
+function netTuition(){ return Math.round(S.sticker * (1 - AID[S.choices.aid].rate)); }
+
+function priceEffect(nt){ if (nt > 26000) return -4; if (nt > 22000) return -2; return 0; }
+
+var EVENTS = {
+  2: { id: "gainful", title: "A Rule Is Proposed (Year 2)",
+       text: "A federal gainful-employment rule is proposed: programs whose graduates drown in debt could lose loan eligibility. Your government-relations office prices both responses.",
+       choices: [
+         { id: "lobby", label: "Lobby to weaken it — $2,000,000 ◇",
+           note: "The rule is weakened. Nothing about your operation has to change.",
+           apply: function(){ S.reserves -= 2000000; S.mods.lobbied = true; } },
+         { id: "comply", label: "Comply and publish outcomes — $500,000/yr ◇",
+           note: "Outcome reporting costs money every year. Publishing what happens to students also, quietly, makes the institution pay a little more attention to whether they finish.",
+           apply: function(){ S.mods.comply = true; } }
+       ] },
+  3: { id: "rival", title: "The Arms Race Calls (Year 3)",
+       text: "Rival State U (○ fictional) has opened a lazy river and a climbing wall shaped like its mascot. Your admissions office is nervous.",
+       choices: [
+         { id: "match", label: "Match them — amenities run at Arms Race next year",
+           note: "Next year's amenities are set to Arms Race, whatever you choose on the lever.",
+           apply: function(){ S.mods.forceArmsNext = true; } },
+         { id: "hold", label: "Hold the line",
+           note: "Some applicants choose the lazy river. Enrollment takes a one-year hit (−3% ＝).",
+           apply: function(){ S.mods.enrollNext -= 3; } }
+       ] },
+  7: { id: "cliff", title: "The Demographic Cliff (Year 7)",
+       text: "The registrar's projection is on your desk: the number of high-school graduates in the region is falling, and every college in it is fishing the same shrinking pond. From next year the headwind stiffens (−3%/yr ◇ baseline). There is no lever for this. There is only the institution you have built when it arrives.",
+       choices: [
+         { id: "note", label: "Noted. Run the university I have.",
+           note: "No choice changes the demography. That is rather the point of a cliff.",
+           apply: function(){} }
+       ] }
+};
+function accreditationEvent() {
+  return { id: "accred", title: "Accreditation Warning (Year 7)",
+    text: "Your accreditor has noticed the adjunct ratio. A warning letter asks, in polite language, who exactly is teaching the students. Two responses are available.",
+    choices: [
+      { id: "hire", label: "Hire tenure lines — instruction cost +15% for 2 years ◇",
+        note: "Expensive, and the warning goes away. Students get instructors with offices.",
+        apply: function(){ S.mods.hireYears = 2; } },
+      { id: "ride", label: "Ride it out",
+        note: "The warning becomes public. Rankings −6 (＝) and next year's enrollment −4% (＝).",
+        apply: function(){ S.rank = clamp(S.rank - 6, 5, 98); S.mods.enrollNext -= 4; } }
+    ] };
+}
+</script>
+<script>
+"use strict";
+/* ============ Flow, rendering, endings, debrief ============ */
+function show(id){
+  ["screen-title","screen-game","screen-ending"].forEach(function(x){ $(x).classList.toggle("on", x===id); });
+}
+
+var LEVER_DEFS = [
+  { key:"tuition", name:"Tuition (sticker price)", table:TUITION,
+    desc:"Loan-funded revenue arrives at enrollment, whatever happens later. Higher sticker also reads as prestige.",
+    fmt:function(k,v){ return v.label + " · " + fmt(S.sticker*(1+v.growth)) + " next yr"; } },
+  { key:"aid", name:"Financial-aid discounting", table:AID,
+    desc:"The share of sticker price discounted away. Generous aid lowers what students actually borrow.",
+    fmt:function(k,v){ return v.label + " · " + Math.round(v.rate*100) + "% off"; } },
+  { key:"amen", name:"Amenities spending", table:AMEN,
+    desc:"The climbing-wall line. Applicants tour amenities; they do not tour graduation rates.",
+    fmt:function(k,v){ return v.label + " · " + fmt(v.cost) + "/yr"; } },
+  { key:"mkt", name:"Marketing", table:MKT,
+    desc:"Enrollment responds to being seen. Outcomes are harder to photograph.",
+    fmt:function(k,v){ return v.label + " · " + fmt(v.cost) + "/yr"; } },
+  { key:"adj", name:"Adjunct ratio", table:ADJ,
+    desc:"Who teaches. Adjuncts are cheaper per student — and carry no office hours, no advising load, no continuity.",
+    fmt:function(k,v){ return v.label + " · " + fmt(v.costPer) + "/student"; } }
+];
+
+function renderLevers(){
+  var html = "";
+  LEVER_DEFS.forEach(function(L){
+    html += '<div class="lever"><div class="lname">' + L.name + '</div><div class="ldesc">' + L.desc + '</div><div class="seg" data-lever="' + L.key + '">';
+    Object.keys(L.table).forEach(function(k){
+      var v = L.table[k];
+      html += '<button data-choice="' + k + '"' + (S.choices[L.key]===k ? ' class="sel"' : "") + '>' + L.fmt(k, v) + '</button>';
+    });
+    html += '</div></div>';
+  });
+  $("levers").innerHTML = html;
+  Array.prototype.forEach.call(document.querySelectorAll(".seg"), function(seg){
+    seg.addEventListener("click", function(e){
+      var b = e.target.closest("button"); if(!b) return;
+      S.choices[seg.getAttribute("data-lever")] = b.getAttribute("data-choice");
+      renderLevers();
+    });
+  });
+}
+
+function ledgerRows(){
+  var nt = netTuition();
+  return ''
+   + '<div class="row"><span>Enrollment</span><b>' + S.enrollment.toLocaleString("en-US") + '</b></div>'
+   + '<div class="row"><span>Sticker tuition (◇ path)</span><b>' + fmt(S.sticker) + '</b></div>'
+   + '<div class="row"><span>Net tuition after aid (＝)</span><b>' + fmt(nt) + '</b></div>'
+   + '<div class="row"><span>Rankings index (◇ modelled: spending + selectivity; graduation rate is not an input)</span><b>' + S.rank + ' / 100</b></div>'
+   + '<div class="row"><span>Reserves</span><b>' + fmt(S.reserves) + '</b></div>'
+   + '<div class="row"><span>Facilities debt</span><b>' + fmt(S.facDebt) + '</b></div>'
+   + '<div class="row"><span>University share of student-loan defaults</span><b>$0</b></div>'
+   + '<div class="row"><span>Default losses booked to students / taxpayers (＝, this game)</span><b>' + fmt(S.taxpayerLoss) + '</b></div>';
+}
+function mayaRows(){
+  var m = S.maya, h = "";
+  if (m.status === "enrolled") {
+    h += '<div class="row"><span>Status</span><b>Enrolled — year ' + (m.years + 1) + ' of 4</b></div>';
+  } else if (m.status === "finished") {
+    h += '<div class="row"><span>Status</span><b>' + (m.graduated ? "Graduated (year 4)" : "Left without a degree (year 4)") + '</b></div>';
+    h += '<div class="row"><span>Her modelled completion chance (◇)</span><b>' + m.chance + '%</b></div>';
+    h += '<div class="row"><span>Income after leaving (◇)</span><b>' + fmt(m.income) + '/yr</b></div>';
+    h += '<div class="row"><span>Loan payment (＝, 10-yr standard plan ◇ 5%)</span><b>' + fmt(m.annualPayment) + '/yr</b></div>';
+    if (m.defaulted) {
+      h += '<div class="row"><span>Defaulted</span><b>Year ' + m.defaultYear + '</b></div>';
+      h += '<div class="row"><span>Loss booked to the federal loan program — taxpayers (＝)</span><b>' + fmt(m.lossBooked) + '</b></div>';
+      h += '<div class="row"><span>Loss booked to Alderbrook University</span><b>$0</b></div>';
+    } else if (m.remaining !== null) {
+      h += '<div class="row"><span>Still paying — balance remaining (＝)</span><b>' + fmt(m.remaining) + '</b></div>';
+    }
+  }
+  h += '<div class="row"><span>Her debt balance (＝ from your tuition &amp; aid)</span><b>' + fmt(m.balance) + '</b></div>';
+  return h;
+}
+function render(){
+  $("yearHead").textContent = "Year " + S.year + " of 10";
+  $("btnRun").textContent = "Run Year " + S.year;
+  $("uniLedger").innerHTML = ledgerRows();
+  $("mayaLedger").innerHTML = mayaRows();
+  $("runHint").textContent = S.pendingEvent ? "An event is waiting for your decision above." : "";
+  $("btnRun").disabled = !!S.pendingEvent;
+}
+
+function maybeEvent(){
+  var ev = null;
+  if (S.year === 7 && S.adjHighYears >= 3) ev = accreditationEvent();
+  else if (EVENTS[S.year]) ev = EVENTS[S.year];
+  if (!ev) { S.pendingEvent = null; $("eventSlot").innerHTML = ""; return; }
+  S.pendingEvent = ev;
+  var html = '<div class="event"><h3>' + ev.title + '</h3><p>' + ev.text + '</p><div class="choices">';
+  ev.choices.forEach(function(c, i){ html += '<button class="btn alt" data-ev="' + i + '">' + c.label + '</button>'; });
+  html += '</div><p class="small" id="evNote"></p></div>';
+  $("eventSlot").innerHTML = html;
+  Array.prototype.forEach.call($("eventSlot").querySelectorAll("button"), function(b){
+    b.addEventListener("click", function(){
+      var c = ev.choices[Number(b.getAttribute("data-ev"))];
+      c.apply();
+      $("evNote").textContent = c.note;
+      Array.prototype.forEach.call($("eventSlot").querySelectorAll("button"), function(x){ x.disabled = true; });
+      S.pendingEvent = null;
+      render();
+    });
+  });
+}
+
+function runYear(){
+  if (S.pendingEvent || S.over) return;
+  var yr = S.year;
+  var ch = Object.assign({}, S.choices);
+  if (S.mods.forceArmsNext) { ch.amen = "arms"; S.mods.forceArmsNext = false; }
+  var T = TUITION[ch.tuition], A = AID[ch.aid], AM = AMEN[ch.amen], MK = MKT[ch.mkt], AJ = ADJ[ch.adj];
+
+  /* tuition path */
+  S.sticker = Math.round(S.sticker * (1 + T.growth));
+  var nt = netTuitionWith(A);
+  function netTuitionWith(a){ return Math.round(S.sticker * (1 - a.rate)); }
+
+  /* Maya borrows (her years 1–4 of the decade) */
+  var mayaNote = "";
+  if (S.maya.status === "enrolled") {
+    var borrowing = Math.max(0, nt + LIVING_NET);
+    S.maya.balance = Math.round(S.maya.balance * (1 + LOAN_RATE)) + borrowing;
+    S.maya.years += 1; S.maya.adjSum += AJ.ratio; S.maya.aidSum += A.rate;
+    S.maya.hist.push({ year: yr, sticker: S.sticker, aidRate: A.rate, netTuition: nt, borrowing: borrowing, balance: S.maya.balance });
+    mayaNote = "Maya borrowed " + fmt(borrowing) + " this year (net tuition " + fmt(nt) + ", minus $6,000 of family contribution and campus work). Her balance: " + fmt(S.maya.balance) + ".";
+    if (S.maya.years === 4) finishMaya();
+  } else if (S.maya.status === "finished" && !S.maya.defaulted && S.maya.remaining !== null) {
+    var months = (yr - 4) * 12;
+    S.maya.remaining = Math.round(remainingAfter(S.maya.balance, months));
+    if (yr === 6) {
+      if (S.maya.annualPayment > 0.20 * S.maya.income) {
+        S.maya.defaulted = true; S.maya.defaultYear = 6;
+        S.maya.lossBooked = Math.round(remainingAfter(S.maya.balance, 24));
+        S.taxpayerLoss += S.maya.lossBooked;
+        mayaNote = "Maya's payment — " + fmt(S.maya.annualPayment) + " a year — ran past a fifth of her " + fmt(S.maya.income) + " income. She defaulted. The remaining " + fmt(S.maya.lossBooked) + " was booked to the federal loan program. Alderbrook's share of the loss: $0.";
+      } else {
+        mayaNote = "Maya is paying " + fmt(S.maya.annualPayment) + " a year against " + fmt(S.maya.income) + " of income. It is tight. She is current.";
+      }
+    }
+  }
+
+  /* enrollment */
+  var base = yr >= 8 ? -3 : -1;
+  var pct = base + AM.enr + MK.enr + priceEffect(nt)
+          + (S.rank >= 65 ? 1 : (S.rank <= 35 ? -1 : 0))
+          + S.mods.enrollNext;
+  S.mods.enrollNext = 0;
+  S.enrollment = Math.max(800, Math.round(S.enrollment * (1 + pct / 100)));
+
+  /* finances */
+  var revenue = S.enrollment * nt + START.otherRevenue;
+  var instr = S.enrollment * AJ.costPer * (S.mods.hireYears > 0 ? 1.15 : 1);
+  if (S.mods.hireYears > 0) S.mods.hireYears -= 1;
+  var debtService = Math.round(S.facDebt * 0.05);
+  var costs = instr + S.enrollment * OPS_PER + START.adminCost + AM.cost + MK.cost + debtService + (S.mods.comply ? 500000 : 0);
+  var surplus = revenue - costs;
+  S.reserves += surplus;
+  S.facDebt += AM.debt;
+  if (AJ.ratio >= 0.75) S.adjHighYears += 1;
+
+  /* rankings: spending + selectivity. Graduation rate is not an input. */
+  S.rank = clamp(S.rank + AM.rank + MK.rank + T.rank + AJ.rank, 5, 98);
+
+  S.history.push({ year: yr, choices: ch, sticker: S.sticker, netTuition: nt,
+                   enrollment: S.enrollment, surplus: surplus, rank: S.rank,
+                   reserves: S.reserves, facDebt: S.facDebt });
+
+  var line = "<b>Year " + yr + ".</b> Enrollment " + S.enrollment.toLocaleString("en-US")
+    + " (" + (pct >= 0 ? "+" : "") + pct + "%). Net tuition " + fmt(nt) + ". "
+    + (surplus >= 0 ? "Surplus " : "Deficit ") + fmt(Math.abs(surplus)) + ". Rankings index " + S.rank + "."
+    + (mayaNote ? " " + mayaNote : "");
+  var div = document.createElement("div");
+  div.className = "yr" + (mayaNote ? " maya-yr" : "");
+  div.innerHTML = line;
+  var log = $("log"); if (S.history.length === 1) log.innerHTML = "";
+  log.prepend(div);
+
+  if (yr === 10) { endGame(); return; }
+  S.year += 1;
+  renderLevers(); maybeEvent(); render();
+}
+
+function finishMaya(){
+  var m = S.maya;
+  var avgAdj = m.adjSum / 4, avgAid = m.aidSum / 4;
+  var chance = 68;
+  if (avgAdj <= 0.30) chance += 6; else if (avgAdj >= 0.70) chance -= 12;
+  if (avgAid >= 0.45) chance += 4; else if (avgAid <= 0.25) chance -= 4;
+  if (S.mods.comply) chance += 3;
+  m.chance = clamp(chance, 5, 95);
+  m.graduated = m.chance >= MAYA_DRAW;
+  m.income = m.graduated ? 46000 : 28000;
+  m.annualPayment = Math.round(amortAnnual(m.balance));
+  m.remaining = m.balance;
+  m.status = "finished";
+}
+
+function evaluateEnding(){
+  if (S.enrollment < 2400 || S.reserves < -20000000) return "cliff";
+  if (S.rank >= 68 && S.facDebt >= 55000000) return "gleaming";
+  if (S.reserves >= 40000000 && S.facDebt <= 30000000 && S.rank < 68) return "modest";
+  return "middle";
+}
+
+function endGame(){
+  S.over = true;
+  S.ending = evaluateEnding();
+  var m = S.maya;
+  var titles = {
+    gleaming: "Gleaming, Ranked, Fragile",
+    modest: "Modest, Solvent, Unranked",
+    cliff: "The Enrollment Cliff",
+    middle: "The Middle of the Pack"
+  };
+  var texts = {
+    gleaming: "The campus gleams. The rankings index stands at " + S.rank + ", the tour route is a brochure, and the facilities debt stands at " + fmt(S.facDebt) + " — a bet that enrollment, demography, and cheap money all hold still at once. The institution looks strongest exactly where it is most exposed.",
+    modest: "No lazy river. No headline rank — the index ends at " + S.rank + ", and the rankings punish the restraint. But the reserves stand at " + fmt(S.reserves) + ", the debt is " + fmt(S.facDebt) + ", and the university can survive a bad decade. The formula never once asked whether that trade was worth making.",
+    cliff: "Enrollment ends at " + S.enrollment.toLocaleString("en-US") + ", down from 4,000 — and a university is a fixed-cost machine built for the students it expected. Merger talks, program closures, a teach-out plan: the vocabulary changes, the arithmetic doesn't. The loans your former students took out are not on the list of the university's problems. They were never going to be.",
+    middle: "Neither gleaming nor gone. The university ends the decade at rank " + S.rank + ", enrollment " + S.enrollment.toLocaleString("en-US") + ", reserves " + fmt(S.reserves) + ". Most real institutions land here: muddling through, on other people's borrowed money."
+  };
+  $("endingTitle").textContent = titles[S.ending];
+  $("endingText").textContent = texts[S.ending];
+  $("uniFinal").innerHTML = ledgerRows();
+  $("mayaFinal").innerHTML = mayaRows();
+  var d = ''
+   + '<h2 style="margin-top:0">Debrief</h2>'
+   + '<h3>1 · The simulation\u2019s assumptions</h3>'
+   + '<p>Every lever effect, price, and probability in this game is a \u25C7 scenario assumption, printed on the levers and in the credits: enrollment answers amenities and marketing more than outcomes; the rankings index is built from spending and selectivity and contains no graduation term; regional demographics turn against every strategy in years 8\u201310. Maya\u2019s completion chance (\u25C7) is nudged by the adjunct ratio and aid she actually experienced, and resolved against one fixed \u25CB draw. Her borrowing each year is your net tuition minus the $6,000 that family contribution and campus work cover, at \u25C7 5% interest while enrolled.</p>'
+   + '<h3>2 · Your results</h3>'
+   + '<p class="result-big">University: rankings index ' + S.rank + ' \u00B7 enrollment ' + S.enrollment.toLocaleString("en-US") + ' \u00B7 reserves ' + fmt(S.reserves) + ' \u00B7 facilities debt ' + fmt(S.facDebt) + ' \u00B7 default losses borne by the university: $0.</p>'
+   + '<p class="result-big">Maya: debt at exit \uFF1D ' + fmt(m.balance) + ' \u00B7 ' + (m.graduated ? "graduated" : "left without a degree") + ' \u00B7 income ' + fmt(m.income) + '/yr \u00B7 payment ' + fmt(m.annualPayment) + '/yr \u00B7 ' + (m.defaulted ? ("defaulted in year " + m.defaultYear + "; " + fmt(m.lossBooked) + " booked to taxpayers") : "still paying; the loss, if it ever comes, will not be the university\u2019s") + '.</p>'
+   + '<p>Two ledgers. Both were on your screen the whole decade. Only one of them ever entered a single decision the game offered you.</p>'
+   + '<h3>3 · The documented evidence</h3>'
+   + '<ul>'
+   + '<li>\u25C6 United States student-loan debt totals roughly <b>$1.6 trillion</b> (Federal Reserve, household debt statistics).</li>'
+   + '<li>\u25C6 Federal student loans are <b>exceptionally hard to discharge in bankruptcy</b> \u2014 they survive it in all but the rarest showings of undue hardship \u2014 and the 2005 bankruptcy reform (BAPCPA) extended the same treatment to <b>private</b> student loans.</li>'
+   + '<li>Everything else in this game \u2014 Alderbrook, Maya, every price and probability \u2014 is \u25C7 assumed or \u25CB fictional, and is labelled as such where it appears.</li>'
+   + '</ul>'
+   + '<h3>4 · The conclusion the author draws</h3>'
+   + '<p><em>This is the author\u2019s conclusion, labelled as such:</em> a system in which revenue is guaranteed by loans the borrower cannot discharge, quality is scored by formulas that omit completion, and default losses land on everyone except the institution that set the price, does not need a single villain to produce indebted dropouts. It only needs presidents responding rationally to the scoreboard in front of them \u2014 which is what you just did, whichever ending you reached. You are invited to disagree; the ledgers above are the whole argument, and they are yours to re-run.</p>'
+   + '<p><a href="../games.html">&larr; Back to the Game Shelf</a> \u00B7 <a href="../index.html">The Stoic Opposition</a></p>'
+   + '<h3>Credits &amp; number labels</h3>'
+   + '<p class="small">\u25C6 Sourced: the two evidence items in part 3 (Federal Reserve; BAPCPA 2005). \u25C7 Assumed: every price, lever effect, probability, income, and interest rate. \uFF1D Calculated: net tuition, Maya\u2019s balance and payments, surpluses, enrollment changes \u2014 arithmetic on the figures above. \u25CB Fictional: Alderbrook University, Maya, Rival State U. The university\u2019s $0 share of defaults is not an assumption; it is a structural rule of the game, set to match the allocation described in part 3.</p>';
+  $("debrief").innerHTML = d;
+  show("screen-ending");
+}
+
+$("btnStart").addEventListener("click", function(){
+  show("screen-game"); renderLevers(); maybeEvent(); render();
+});
+$("btnRun").addEventListener("click", runYear);
+$("btnRestart").addEventListener("click", function(){
+  S = newState(); window.__game = S;
+  $("log").innerHTML = '<p class="small">Your years will be recorded here.</p>';
+  $("eventSlot").innerHTML = "";
+  show("screen-game"); renderLevers(); maybeEvent(); render();
+});
+</script>
+</body>
+</html>

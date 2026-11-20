@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planned to Break — The Stoic Opposition</title>
+<style>
+  :root{--ink:#1c2430;--paper:#f4f0e6;--navy:#14213d;--gold:#c9a227;--red:#9e2b25;--green:#2e6b34;--card:#fffdf7;--line:#d8d0ba}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.45}
+  .wrap{max-width:860px;margin:0 auto;padding:18px 16px 40px}
+  h1{font-size:2rem;margin:.2em 0 .1em;letter-spacing:.5px}
+  h2{font-size:1.3rem;margin:1em 0 .4em;border-bottom:2px solid var(--navy);padding-bottom:4px}
+  h3{margin:.8em 0 .3em}
+  .presents{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:2px;text-transform:uppercase;color:var(--navy);font-size:.85rem}
+  .sub{color:#4a4232;font-style:italic}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:12px 0;box-shadow:0 1px 3px rgba(20,33,61,.08)}
+  .meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}
+  .meter{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  .meter .lab{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--navy)}
+  .meter .val{font-size:1.25rem;font-weight:bold}
+  .bar{height:12px;background:#e7e0cb;border-radius:6px;overflow:hidden;margin-top:6px}
+  .bar>div{height:100%;background:var(--navy);transition:width .4s}
+  .bar>div.good{background:var(--green)} .bar>div.warn{background:var(--gold)} .bar>div.bad{background:var(--red)}
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:6px 0 4px}
+  .choice{border:2px solid var(--line);border-radius:8px;background:#fff;padding:10px;cursor:pointer;text-align:left;font-family:inherit;font-size:.95rem;width:100%}
+  .choice:hover{border-color:var(--navy)}
+  .choice.sel{border-color:var(--navy);background:#eef1f8;box-shadow:inset 0 0 0 1px var(--navy)}
+  .choice b{display:block;font-size:1rem}
+  .choice span{color:#5a5342;font-size:.85rem}
+  button.go{background:var(--navy);color:var(--paper);border:0;border-radius:8px;padding:12px 22px;font-size:1.05rem;cursor:pointer;font-family:inherit}
+  button.go:hover{background:#1f3465}
+  button.go:disabled{opacity:.45;cursor:not-allowed}
+  .arith{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;background:#f8f4e8;border:1px dashed var(--line);border-radius:6px;padding:10px 12px;white-space:pre-wrap;word-break:break-word}
+  .event{border-left:5px solid var(--gold);background:#fdf6dd;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0}
+  .event.bad{border-left-color:var(--red);background:#fbeae8}
+  .small{font-size:.85rem;color:#5a5342}
+  .tag{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.72rem;border:1px solid var(--navy);border-radius:4px;padding:1px 5px;color:var(--navy);white-space:nowrap}
+  .hidden{display:none}
+  .debrief-part{margin:14px 0}
+  .debrief-part h3{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);border-bottom:1px solid var(--line);padding-bottom:3px}
+  table{border-collapse:collapse;width:100%;font-size:.9rem}
+  td,th{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left;vertical-align:top}
+  footer{margin-top:26px;border-top:2px solid var(--navy);padding-top:10px;font-size:.85rem;color:#4a4232}
+  a{color:var(--navy)}
+  .era-banner{background:var(--navy);color:var(--paper);border-radius:8px;padding:12px 16px;margin:12px 0}
+  .era-banner .yr{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+  .era-banner .nm{font-size:1.4rem;font-weight:bold}
+</style>
+</head>
+<body>
+<div style="background:#14213d;color:#f4f0e6;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:8px 14px;display:flex;gap:18px;flex-wrap:wrap"><a href="../games.html" style="color:#f4f0e6;text-decoration:none">&larr; Back to the Game Shelf</a><a href="../index.html" style="color:#f4f0e6;text-decoration:none">The Stoic Opposition</a></div>
+<div class="wrap">
+
+<!-- ============ TITLE ============ -->
+<section id="screen-title">
+  <p class="presents">The Stoic Opposition Presents</p>
+  <h1>Planned to Break</h1>
+  <p class="sub">A playable argument about planned obsolescence — and the company that makes perfect products.</p>
+  <div class="card">
+    <p>You are the CEO of the <b>Meridian Home Goods Company</b> <span class="tag">○ fictional</span>, across three product generations: <b>light bulbs</b>, <b>washing machines</b>, then <b>phones</b>. Each generation, you set three things: how long the product is designed to last, what it costs, and how long you warranty it.</p>
+    <p>Here is the whole trap, up front. A product that lasts is a product nobody has to replace. Your owners' repeat purchases — the engine of your growth — are a function of how fast the installed base <i>dies</i>. Build it to last and your customers love you while your sales flatten and the board loses patience. Build it to fail and the growth is beautiful, right up until the teardown video.</p>
+    <p>Two ledgers, kept separately, never merged:</p>
+    <ul>
+      <li><b>Company Value</b> — cumulative profit, in dollars. This is what the board watches.</li>
+      <li><b>Reputation</b> — what your customers think of you. This is what the internet watches.</li>
+    </ul>
+    <p class="small">The board also judges each generation's unit sales against a target set by the <i>standard</i> replacement cycle <span class="tag">◇ assumption</span> — the industry's normal lifespan, not yours. Beat the target and patience grows. Miss it and patience drains. Run out of patience and you are replaced, whatever your reputation says.</p>
+    <p class="small">All economy figures in this game are <span class="tag">◇ scenario assumptions</span>. Sales figures are <span class="tag">＝ calculated</span> from the installed-base model printed in the debrief. The two historical facts in the debrief are <span class="tag">◆ sourced</span>. Nothing else here claims to be real.</p>
+    <button class="go" id="btn-start">Take the job</button>
+  </div>
+</section>
+
+<!-- ============ GAME ============ -->
+<section id="screen-game" class="hidden">
+  <div class="meters">
+    <div class="meter"><div class="lab">Company Value (cumulative profit)</div><div class="val" id="m-value">$0</div></div>
+    <div class="meter"><div class="lab">Reputation</div><div class="val" id="m-rep">50 / 100</div><div class="bar"><div id="m-rep-bar" style="width:50%"></div></div></div>
+    <div class="meter"><div class="lab">Board Patience</div><div class="val" id="m-pat">55 / 100</div><div class="bar"><div id="m-pat-bar" style="width:55%"></div></div></div>
+    <div class="meter"><div class="lab">Your installed base</div><div class="val" id="m-base">300,000</div><div class="small">households using your product</div></div>
+  </div>
+
+  <div class="era-banner"><div class="yr" id="era-yr">Generation 1 of 3</div><div class="nm" id="era-name">Light Bulbs</div><div class="small" style="color:#d8d0ba" id="era-note"></div></div>
+
+  <div id="decisions">
+    <h3>1 · Design lifespan — how long is it built to last?</h3>
+    <div class="choices" id="ch-life"></div>
+    <h3>2 · Price</h3>
+    <div class="choices" id="ch-price"></div>
+    <h3>3 · Warranty</h3>
+    <div class="choices" id="ch-warr"></div>
+    <p><button class="go" id="btn-ship" disabled>Ship this generation</button></p>
+  </div>
+
+  <div id="policy" class="hidden">
+    <h2>A new law is on the table</h2>
+    <div class="card">
+      <p>A <b>right-to-repair law</b> has been proposed for this generation's product: manufacturers would have to sell spare parts and publish repair manuals to anyone. Your lobbyists want instructions. Your engineers, quietly, have already drawn up the parts catalogue.</p>
+      <div class="choices">
+        <button class="choice" id="btn-lobby"><b>Lobby against it</b><span>Costs $20,000,000 <span class="tag">◇</span> in lobbying and campaign support. If it works, the model stays exactly as it is. Reputation: no change — nobody reports a meeting.</span></button>
+        <button class="choice" id="btn-adapt"><b>Adapt and sell the parts</b><span>Publish the manuals, sell parts and tools. Parts revenue = 12% of this generation's unit revenue <span class="tag">＝</span>. Reputation +10 — the repair cafés put your logo on the wall.</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2 id="res-title">Generation results</h2>
+    <div class="arith" id="res-arith"></div>
+    <div id="res-event"></div>
+    <p><button class="go" id="btn-next">Continue</button></p>
+  </div>
+</section>
+
+<!-- ============ END / DEBRIEF ============ -->
+<section id="screen-end" class="hidden">
+  <p class="presents">The Stoic Opposition Presents</p>
+  <h1 id="end-title">—</h1>
+  <p id="end-sub" class="sub"></p>
+
+  <div class="debrief-part">
+    <h3>Debrief · Part 1 — The simulation's assumptions</h3>
+    <div class="card" id="db-assump"></div>
+  </div>
+  <div class="debrief-part">
+    <h3>Debrief · Part 2 — Your results</h3>
+    <div class="card" id="db-results"></div>
+  </div>
+  <div class="debrief-part">
+    <h3>Debrief · Part 3 — The documented evidence</h3>
+    <div class="card" id="db-evidence"></div>
+  </div>
+  <div class="debrief-part">
+    <h3>Debrief · Part 4 — The conclusion the author draws</h3>
+    <div class="card" id="db-conclusion"></div>
+  </div>
+
+  <p><button class="go" onclick="location.reload()">Play again</button></p>
+  <p><a href="../games.html">&larr; Back to the Game Shelf</a> · <a href="../index.html">The Stoic Opposition</a></p>
+</section>
+
+<footer>
+  PLANNED TO BREAK — a playable argument about planned obsolescence.<br>
+  Directed by Corey Spangler · Built by AI · The Stoic Opposition Presents<br>
+  No data collected. No external calls. The company is fictional; the arithmetic is the argument.
+</footer>
+</div>
+<script>
+"use strict";
+/* ================= PLANNED TO BREAK — engine =================
+   All economy figures are ◇ scenario assumptions (see ASSUMPTIONS).
+   All sales figures are ＝ calculated by computeGen() below; the audit
+   re-derives every one of them from the logged inputs.              */
+
+var ERAS = [
+  {name:"Light Bulbs",       product:"light bulbs",      years:5,  price:2,   cost:1.10, newHH:250000, lifespans:[1,2,5],   note:"Cycle length: 5 years ◇. A bulb rated at 1 year dies five times in one cycle — if its owner keeps replacing it."},
+  {name:"Washing Machines",  product:"washing machines", years:10, price:400, cost:260,   newHH:120000, lifespans:[2,5,10],  note:"Cycle length: 10 years ◇. The standard machine is rated 5 years — two turnovers per cycle at the industry norm."},
+  {name:"Phones",            product:"phones",           years:4,  price:700, cost:430,   newHH:40000,  lifespans:[2,4,8],   note:"Cycle length: 4 years ◇. The market is nearly saturated — first-time buyers are drying up. Replacement is almost the whole business now."}
+];
+var LIFE_TIERS = [
+  {key:"short", label:"Short",    costMult:0.80, repDelta:-3, appeal:-0.05, retAdj:-0.08, blurb:"Cheaper to build. Owners meet the replacement counter often."},
+  {key:"standard", label:"Standard", costMult:1.00, repDelta:2, appeal:0, retAdj:0, blurb:"The industry norm. Nobody writes articles about it, either way."},
+  {key:"long", label:"Long",     costMult:1.45, repDelta:8, appeal:0.05, retAdj:0.06, blurb:"Costs 45% more to build ◇. Owners may never come back — because they never have to."}
+];
+var PRICE_TIERS = [
+  {key:"low", label:"Low", mult:0.85, shareAdj:0.10, blurb:"15% under the standard price ◇. First-time buyers notice."},
+  {key:"standard", label:"Standard", mult:1.00, shareAdj:0, blurb:"The going rate."},
+  {key:"premium", label:"Premium", mult:1.25, shareAdj:-0.10, blurb:"25% over ◇. Margin per unit up, first-time buyers down."}
+];
+var WARR_TIERS = [
+  {key:"none", label:"No warranty", years:0, repDelta:-1, retAdj:0, blurb:"Every failure is the owner's problem — and their next purchase is an open question."},
+  {key:"w2", label:"2-year warranty", years:2, repDelta:2, retAdj:0.03, blurb:"You pay for early failures. Owners remember being covered."},
+  {key:"w5", label:"5-year warranty", years:5, repDelta:5, retAdj:0.06, blurb:"A long promise. Expensive when the design life is short — you are warranting past the grave."}
+];
+var EVENTS = [
+  {name:"A repair-café movement", rep:-5, fine:0, text:"Volunteers in church basements start fixing your product for free and posting the manuals you never published. Attendance is small. The local paper sends a photographer anyway. Reputation −5."},
+  {name:"A viral teardown video", rep:-10, fine:0, text:"An engineer with a screwdriver and eleven million followers opens your product on camera and finds the part that was designed to fail first. The comments are not kind. Reputation −10."},
+  {name:"A regulator opens an inquiry", rep:-12, fine:0.15, text:"A regulator, having watched the teardown, opens a formal inquiry into designed failure. The fine is set at 15% of this generation's revenue ＝. Reputation −12."}
+];
+var ASSUMPTIONS = [
+  "The company, its board, and its customers are ○ fictional. Every dollar figure, percentage, lifespan, and cycle length in the simulation is a ◇ scenario assumption, chosen to make the arithmetic legible — not measured from any real firm.",
+  "Installed-base model ＝: in each generation, every owner faces k = (cycle years ÷ rated lifespan) replacement moments. An owner buys from you again with probability r at each moment, so the share of your starting owners still yours at the end is r^k. Replacement sales = installed base × (1 − r^k) ÷ (1 − r). Owners lost = installed base × (1 − r^k). First-time sales = new households × s, where s is your share of new buyers.",
+  "Loyalty r ＝ 62% + 0.25 × reputation + design adjustment (long +6, short −8) + warranty adjustment (2-yr +3, 5-yr +6), capped at 95%. New-buyer share s ＝ 30% + 0.3 × reputation + price adjustment (low +10, premium −10) + design appeal (long +5, short −5).",
+  "Warranty claims ＝: the share of units failing inside the warranty window is min(warranty years ÷ lifespan, 1) × 35% ◇; each claim costs half the unit price ◇.",
+  "Board target ＝: the board expects unit sales of (installed base × cycle years ÷ standard lifespan) × 0.95 — the volume the standard replacement cycle would have produced. Patience: beat the target +8; 80–100% of it −8; 60–80% −16; under 60% −26; a money-losing generation costs a further −8.",
+  "Reputation events are deterministic in this model ◇: the first short-lifespan generation draws a repair-café movement, the second a viral teardown, the third a regulator's inquiry. Reality is less tidy; the direction of the pressure is the point being modelled."
+];
+
+var state, log;
+function freshState(){ return {gen:0, base:300000, rep:50, patience:55, value:0, shortCount:0, longCount:0, over:false, ending:null, prevSales:null}; }
+state = freshState(); log = [];
+var sel = {life:null, price:null, warr:null};
+
+function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
+function fmt(n){ return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,","); }
+function fmt$(n){ var s = fmt(Math.abs(n)); return (n<0?"−$":"$")+s; }
+function fmt2(n){ return Math.round(n*100)/100; }
+
+/* The one place sales are computed. Audit re-derives from the log. */
+function computeGen(st, era, lifeIdx, priceIdx, warrIdx, policy){
+  var life = LIFE_TIERS[lifeIdx], priceT = PRICE_TIERS[priceIdx], warr = WARR_TIERS[warrIdx];
+  var L = era.lifespans[lifeIdx], Lstd = era.lifespans[1];
+  var price = fmt2(era.price * priceT.mult), unitCost = fmt2(era.cost * life.costMult);
+  var r = clamp(0.62 + st.rep*0.0025 + life.retAdj + warr.retAdj, 0.30, 0.95);
+  var s = clamp(0.30 + st.rep*0.003 + priceT.shareAdj + life.appeal, 0.05, 0.85);
+  var k = era.years / L, rk = Math.pow(r, k);
+  var leavers = Math.round(st.base * (1 - rk));
+  var repl = Math.round(st.base * (1 - rk) / (1 - r));
+  var first = Math.round(era.newHH * s);
+  var sales = repl + first;
+  var revenue = Math.round(sales * price);
+  var prodCost = Math.round(sales * unitCost);
+  var claimFrac = warr.years>0 ? Math.min(warr.years/L, 1) * 0.35 : 0;
+  var claims = Math.round(sales * claimFrac);
+  var claimCost = Math.round(claims * price * 0.5);
+  var ev = null, fine = 0;
+  var shortCount = st.shortCount + (life.key==="short" ? 1 : 0);
+  if(life.key==="short" && shortCount>=1 && shortCount<=3){ ev = EVENTS[shortCount-1]; if(ev.fine) fine = Math.round(revenue * ev.fine); }
+  var lobby = (policy==="lobby") ? 20000000 : 0;
+  var parts = (policy==="adapt") ? Math.round(revenue * 0.12) : 0;
+  var profit = revenue - prodCost - claimCost - fine - lobby + parts;
+  var target = Math.round(st.base * (era.years / Lstd) * 0.95);
+  var ratio = target>0 ? sales/target : 1;
+  var patDelta = ratio>=1 ? 8 : ratio>=0.8 ? -8 : ratio>=0.6 ? -16 : -26;
+  if(profit<0) patDelta -= 8;
+  var repDelta = life.repDelta + warr.repDelta + (ev?ev.rep:0) + (policy==="adapt"?10:0);
+  return {
+    gen: st.gen, eraName: era.name, lifeKey: life.key, lifeLabel: life.label, L: L, priceKey: priceT.key, price: price,
+    warrKey: warr.key, warrYears: warr.years, policy: policy || null,
+    baseStart: st.base, repStart: st.rep, r: r, s: s, k: k, rk: rk, leavers: leavers, repl: repl, first: first, sales: sales,
+    revenue: revenue, prodCost: prodCost, claims: claims, claimCost: claimCost, fine: fine, lobby: lobby, parts: parts, profit: profit,
+    target: target, ratio: ratio, patDelta: patDelta,
+    repAfter: clamp(st.rep + repDelta, 0, 100), patAfter: clamp(st.patience + patDelta, 0, 100),
+    baseAfter: st.base - leavers + first, valueAfter: st.value + profit,
+    eventName: ev ? ev.name : null, eventText: ev ? ev.text : null
+  };
+}
+
+function applyResult(res){
+  state.base = res.baseAfter; state.rep = res.repAfter; state.patience = res.patAfter;
+  state.value = res.valueAfter; state.prevSales = res.sales;
+  if(res.lifeKey==="short") state.shortCount++;
+  if(res.lifeKey==="long") state.longCount++;
+  log.push(res);
+  if(state.patience<=0) return "ousted";
+  if(state.rep<=15) return "collapse";
+  if(state.gen>=2){
+    if(state.longCount>=2 && state.rep>=55) return "durable";
+    return "growth";
+  }
+  return null;
+}
+
+/* ================= UI ================= */
+function $(id){ return document.getElementById(id); }
+function show(id){ ["screen-title","screen-game","screen-end"].forEach(function(x){ $(x).classList.toggle("hidden", x!==id); }); }
+function renderMeters(){
+  $("m-value").textContent = fmt$(state.value);
+  $("m-rep").textContent = state.rep + " / 100";
+  $("m-pat").textContent = state.patience + " / 100";
+  $("m-base").textContent = fmt(state.base);
+  var rb = $("m-rep-bar"); rb.style.width = state.rep + "%"; rb.className = state.rep>=55?"good":state.rep>=30?"warn":"bad";
+  var pb = $("m-pat-bar"); pb.style.width = state.patience + "%"; pb.className = state.patience>=50?"good":state.patience>=25?"warn":"bad";
+}
+function buildChoices(el, tiers, key, render){
+  el.innerHTML = "";
+  tiers.forEach(function(t, i){
+    var b = document.createElement("button");
+    b.className = "choice" + (sel[key]===i ? " sel" : "");
+    b.innerHTML = render(t, i);
+    b.onclick = function(){ sel[key]=i; refreshChoices(); };
+    el.appendChild(b);
+  });
+}
+function refreshChoices(){
+  var era = ERAS[state.gen];
+  buildChoices($("ch-life"), LIFE_TIERS, "life", function(t,i){
+    return "<b>" + t.label + " — rated " + era.lifespans[i] + " years</b><span>Build cost ×" + t.costMult.toFixed(2) + " ◇. " + t.blurb + "</span>"; });
+  buildChoices($("ch-price"), PRICE_TIERS, "price", function(t){
+    return "<b>" + t.label + " — " + fmt$(fmt2(era.price*t.mult)) + "</b><span>" + t.blurb + "</span>"; });
+  buildChoices($("ch-warr"), WARR_TIERS, "warr", function(t){
+    return "<b>" + t.label + "</b><span>" + t.blurb + "</span>"; });
+  $("btn-ship").disabled = !(sel.life!==null && sel.price!==null && sel.warr!==null);
+}
+function startGen(){
+  var era = ERAS[state.gen];
+  sel = {life:null, price:null, warr:null};
+  $("era-yr").textContent = "Generation " + (state.gen+1) + " of 3";
+  $("era-name").textContent = era.name;
+  $("era-note").textContent = era.note;
+  $("decisions").classList.remove("hidden");
+  $("policy").classList.add("hidden");
+  $("results").classList.add("hidden");
+  renderMeters(); refreshChoices();
+}
+var pendingRes = null;
+function ship(){
+  var era = ERAS[state.gen];
+  if(state.gen===2){
+    pendingRes = computeGen(state, era, sel.life, sel.price, sel.warr, null);
+    $("decisions").classList.add("hidden");
+    $("policy").classList.remove("hidden");
+    return;
+  }
+  var res = computeGen(state, era, sel.life, sel.price, sel.warr, null);
+  finishGen(res);
+}
+function choosePolicy(p){
+  var era = ERAS[state.gen];
+  var res = computeGen(state, era, sel.life, sel.price, sel.warr, p);
+  pendingRes = null;
+  $("policy").classList.add("hidden");
+  finishGen(res);
+}
+function finishGen(res){
+  var ending = applyResult(res);
+  renderMeters();
+  var lines = [];
+  lines.push("THE INSTALLED-BASE MODEL ＝ — " + res.eraName.toUpperCase());
+  lines.push("Your owners at the start: " + fmt(res.baseStart) + " households. Rated life " + res.L + " yrs over a " + ERAS[res.gen].years + "-year cycle → k = " + fmt2(res.k) + " replacement moments each.");
+  lines.push("Loyalty r = " + Math.round(res.r*100) + "% → share of your owners still yours at cycle's end: r^k = " + Math.round(res.rk*100) + "%.");
+  lines.push("Owners lost ＝ " + fmt(res.baseStart) + " × (1 − " + fmt2(res.rk) + ") = " + fmt(res.leavers));
+  lines.push("Replacement sales ＝ " + fmt(res.baseStart) + " × (1 − " + fmt2(res.rk) + ") ÷ (1 − " + fmt2(res.r) + ") = " + fmt(res.repl));
+  lines.push("First-time sales ＝ " + fmt(ERAS[res.gen].newHH) + " new households × " + Math.round(res.s*100) + "% share = " + fmt(res.first));
+  lines.push("UNIT SALES ＝ " + fmt(res.repl) + " + " + fmt(res.first) + " = " + fmt(res.sales));
+  lines.push("Revenue ＝ " + fmt(res.sales) + " × " + fmt$(res.price) + " = " + fmt$(res.revenue));
+  lines.push("Production cost ＝ " + fmt(res.sales) + " × " + fmt$(fmt2(ERAS[res.gen].cost * LIFE_TIERS[["short","standard","long"].indexOf(res.lifeKey)].costMult)) + " = " + fmt$(res.prodCost));
+  if(res.claims>0) lines.push("Warranty claims ＝ " + fmt(res.claims) + " claims × " + fmt$(fmt2(res.price*0.5)) + " = " + fmt$(res.claimCost));
+  if(res.fine>0) lines.push("Regulatory fine ＝ 15% of revenue = " + fmt$(res.fine));
+  if(res.lobby>0) lines.push("Lobbying ＝ " + fmt$(res.lobby) + " ◇");
+  if(res.parts>0) lines.push("Parts & manuals revenue ＝ 12% of unit revenue = " + fmt$(res.parts));
+  lines.push("PROFIT ＝ " + fmt$(res.profit) + "  →  Company Value is now " + fmt$(res.valueAfter));
+  lines.push("Board target ＝ " + fmt(res.target) + " units (the standard cycle's volume). You shipped " + Math.round(res.ratio*100) + "% of it → patience " + (res.patDelta>=0?"+":"") + res.patDelta + ".");
+  lines.push("Installed base now " + fmt(res.baseAfter) + " households. Reputation " + res.repAfter + " / 100. Board patience " + res.patAfter + " / 100.");
+  $("res-arith").textContent = lines.join("\n");
+  $("res-title").textContent = res.eraName + " — results";
+  var ev = $("res-event");
+  if(res.eventName){ ev.innerHTML = "<div class='event" + (res.fine>0?" bad":"") + "'><b>" + res.eventName + ".</b> " + res.eventText + "</div>"; }
+  else if(res.policy==="adapt"){ ev.innerHTML = "<div class='event'><b>You adapted.</b> The parts catalogue is public, the manuals are free, and the repair cafés stock your spares. Parts revenue is in the ledger above. Reputation +10.</div>"; }
+  else if(res.policy==="lobby"){ ev.innerHTML = "<div class='event'><b>You lobbied.</b> The bill is tabled for this session. The model is unchanged. The invoice is in the ledger above.</div>"; }
+  else { ev.innerHTML = ""; }
+  $("results").classList.remove("hidden");
+  $("btn-next").textContent = ending ? "See how it ends" : "Next generation";
+  $("btn-next").onclick = function(){ if(ending) endGame(ending); else { state.gen++; startGen(); } };
+}
+
+var ENDINGS = {
+  ousted:  {t:"Squeezed Out", s:"The board thanks you for your service. Your replacement's first memo is about 'restoring growth momentum.' The products you built are still out there, working. That was, in the end, the problem."},
+  collapse: {t:"Reputation Collapse", s:"The products still sell — for a while, to people who haven't seen the video yet. Then the shelf space goes to a competitor whose name people can say without wincing. The company doesn't die because its products failed. It dies because they failed on schedule, in public."},
+  durable: {t:"The Durable Company", s:"Smaller than the growth story promised. Slower than the board wanted. Still here — with customers who buy once, keep the manual, and hand the product down. You did not win the market. You outlasted the cycle."},
+  growth:   {t:"Growth, For Now", s:"The model holds. The replacement cycle turns, the numbers climb, and the board is pleased. Somewhere in a church basement, a volunteer is learning how your product comes apart. The law, this time, was only tabled."}
+};
+function endGame(ending){
+  state.over = true; state.ending = ending;
+  var e = ENDINGS[ending];
+  $("end-title").textContent = e.t;
+  $("end-sub").textContent = e.s;
+  $("db-assump").innerHTML = ASSUMPTIONS.map(function(a){ return "<p>" + a + "</p>"; }).join("");
+  var rows = log.map(function(r){
+    return "<tr><td><b>" + r.eraName + "</b></td><td>" + r.lifeLabel + " (" + r.L + " yrs), " + r.priceKey + " price, " + (r.warrYears? r.warrYears+"-yr warranty":"no warranty") + (r.policy ? ", policy: "+r.policy : "") + "</td><td>" + fmt(r.sales) + " units (" + Math.round(r.ratio*100) + "% of board target)</td><td>" + fmt$(r.profit) + "</td><td>Rep " + r.repAfter + " · Patience " + r.patAfter + "</td></tr>";
+  }).join("");
+  var totSales = log.reduce(function(a,r){return a+r.sales;},0);
+  $("db-results").innerHTML = "<table><tr><th>Generation</th><th>Your choices</th><th>Sales</th><th>Profit</th><th>Meters after</th></tr>" + rows + "</table>" +
+    "<p>Total units sold ＝ <b>" + fmt(totSales) + "</b>. Final Company Value (cumulative profit) ＝ <b>" + fmt$(state.value) + "</b>. Final reputation <b>" + state.rep + "</b>, board patience <b>" + state.patience + "</b>, installed base <b>" + fmt(state.base) + "</b> households. Ending reached: <b>" + e.t + "</b>.</p>" +
+    "<p class='small'>Every figure above is the game's own arithmetic (＝), printed from the actual run you just played — replay with different choices and this table changes.</p>";
+  $("db-evidence").innerHTML =
+    "<p>◆ <b>The Phoebus cartel (Geneva, 1924).</b> The major light-bulb manufacturers — including General Electric, Osram, and Philips — formed a cartel that standardized the life of a light bulb at <b>1,000 hours</b> and <b>fined member companies whose bulbs lasted longer</b>. Longevity was not an engineering limit; it was a policy, enforced with penalties. (Documented in IEEE Spectrum, “The Great Lightbulb Conspiracy,” 2014.)</p>" +
+    "<p>◆ <b>The Centennial Light (Livermore, California).</b> A hand-blown bulb installed in a Livermore fire station in <b>1901</b> has burned, with only brief interruptions, ever since — well over a million hours. A bulb <i>can</i> be built to last generations. (Guinness World Records; Centennial Light Committee.)</p>" +
+    "<p class='small'>Those are the only two real-world factual claims in this game, and both are about the first era. The washing-machine and phone economies above are ◇ scenario models built on the same arithmetic — offered as a model to think with, not as measurements of any real company.</p>";
+  $("db-conclusion").innerHTML =
+    "<p><b>The author's conclusion:</b> a company that sells things must sell them again. When revenue depends on replacement, durability stops being a quality and becomes a cost — and the market will punish the firm that refuses to notice, through boards and targets exactly like the ones in this game, without a single villain anywhere in the chain. The Phoebus cartel is what happens when firms say the quiet part in a contract; the incentive does the same work quietly when they don't. That is why the fix on the table in generation three is a <i>rule</i> — a right to repair changes what it pays to build — and not an appeal to CEOs to be better people.</p>" +
+    "<p class='small'>This conclusion is the author's. The arithmetic above is yours to check, and the assumptions are printed in Part 1 precisely so you can disagree with the conclusion without disputing the sums. If you think the model is rigged, the levers are on the previous screens: play it again and break it.</p>";
+  show("screen-end");
+}
+
+$("btn-start").onclick = function(){ show("screen-game"); startGen(); };
+$("btn-ship").onclick = ship;
+$("btn-lobby").onclick = function(){ choosePolicy("lobby"); };
+$("btn-adapt").onclick = function(){ choosePolicy("adapt"); };
+
+/* Audit hook: the full deterministic engine + run log, exposed for headless verification. */
+window.PTB = { computeGen: computeGen, freshState: freshState, ERAS: ERAS, LIFE_TIERS: LIFE_TIERS, PRICE_TIERS: PRICE_TIERS, WARR_TIERS: WARR_TIERS,
+  getState: function(){ return state; }, getLog: function(){ return log; } };
+</script>
+</body>
+</html>

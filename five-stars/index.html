@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Five Stars — The Stoic Opposition</title>
+<style>
+:root{--navy:#14213d;--cream:#f4f0e6;--paper:#fbf8f1;--ink:#1d2333;--gold:#c98a12;--gold2:#f2c14e;--red:#c1121f;--green:#2a9d8f;--amber:#e09a2c;--muted:#5f6472;--line:#d8d0bf;--mono:ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.45}
+a{color:var(--navy)}
+button{font:inherit;cursor:pointer;border:1px solid var(--navy);background:var(--paper);color:var(--navy);border-radius:6px;padding:8px 14px;min-height:40px;touch-action:manipulation}
+button:hover{background:#efe8d8}
+button.primary{background:var(--navy);color:var(--cream)}
+button.primary:hover{background:#22325a}
+.wrap{max-width:1200px;margin:0 auto;padding:16px}
+[hidden]{display:none!important}
+.kicker{font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted)}
+h1.title{font-family:var(--serif);font-size:clamp(44px,9vw,92px);margin:.1em 0 .05em;letter-spacing:.02em;color:var(--navy)}
+.stars{color:var(--gold2);letter-spacing:.2em;font-size:22px}
+.credit{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.title-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:18px}
+@media(max-width:820px){.title-grid{grid-template-columns:1fr}}
+.title-grid ul{padding-left:20px;margin:8px 0}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;background:#e6dfcf;color:var(--muted);border-radius:4px;padding:1px 6px;vertical-align:middle}
+/* game */
+.strip{position:sticky;top:0;z-index:6;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 0;background:var(--cream)}
+.strip>div{border-radius:8px;padding:6px 10px;font-family:var(--mono);font-size:12.5px;line-height:1.35}
+.strip .sp{background:#fff6dd;border-left:5px solid var(--gold)}
+.strip .sh{background:#fbe7e7;border-left:5px solid var(--red)}
+.strip b{font-size:14px}
+.bar{height:6px;background:#e6dfcf;border-radius:3px;overflow:hidden;margin-top:3px}
+.bar i{display:block;height:100%;width:0;background:var(--gold)}
+.bar.r i{background:var(--red)}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 10px}
+.topbar .wk{font-family:var(--mono);font-size:14px;min-width:220px}
+.topbar .ctrls{display:flex;gap:6px;flex-wrap:wrap}
+.topbar .ctrls button{padding:6px 10px;min-height:36px;font-size:14px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;align-items:start}
+@media(max-width:940px){.layout{grid-template-columns:1fr}}
+.citywrap{position:relative}
+#city{width:100%;aspect-ratio:1/1;display:block;border-radius:10px;border:1px solid var(--line);background:#e9e3d4;touch-action:manipulation}
+#ticker{position:absolute;left:8px;right:8px;bottom:8px;pointer-events:none;display:flex;flex-direction:column;gap:4px}
+#ticker div{background:rgba(20,33,61,.88);color:var(--cream);font-size:12.5px;padding:5px 9px;border-radius:6px;font-family:var(--mono)}
+#drivercard{position:absolute;top:8px;left:8px;max-width:310px;background:rgba(251,248,241,.97);border:1px solid var(--navy);border-radius:8px;padding:10px 12px;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+#drivercard button{position:absolute;top:4px;right:4px;min-height:28px;padding:2px 8px;font-size:12px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.panel{display:flex;flex-direction:column;gap:12px}
+.ledger{border-radius:10px;padding:10px 12px;background:var(--paper);border:1px solid var(--line)}
+.ledger.p{border-left:6px solid var(--gold)}
+.ledger.h{border-left:6px solid var(--red)}
+.ledger h3{margin:0 0 4px;font-size:13px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.ledger .big{font-family:var(--mono);font-size:22px;font-weight:700}
+.ledger .rows{font-family:var(--mono);font-size:12.5px;display:grid;grid-template-columns:1fr auto;gap:1px 10px}
+.ledger .rows span:nth-child(even){text-align:right;font-weight:600}
+.note{font-size:11.5px;color:var(--muted)}
+.lever{margin:8px 0 10px}
+.lever label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600}
+.lever label output{font-family:var(--mono)}
+.lever input{width:100%;accent-color:var(--navy);height:28px}
+.lever .hint{font-size:11.5px;color:var(--muted);margin-top:-2px}
+.split{display:flex;height:20px;border-radius:4px;overflow:hidden;font-size:11px;font-family:var(--mono);color:#fff;margin-top:4px}
+.split div{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;min-width:0}
+canvas.chart{width:100%;display:block;background:var(--paper);border:1px solid var(--line);border-radius:8px}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(20,33,61,.55);z-index:20;display:flex;align-items:center;justify-content:center;padding:14px}
+.modal .box{background:var(--paper);max-width:760px;width:100%;max-height:88vh;overflow:auto;border-radius:12px;padding:18px 20px;position:relative}
+.modal .box .x{position:absolute;top:10px;right:10px}
+ol.assump{padding-left:22px;margin:8px 0}
+ol.assump li{margin:4px 0;font-size:14px}
+/* debrief */
+.part{margin:18px 0;border-radius:12px;padding:16px 18px;background:var(--paper);border:1px solid var(--line)}
+.part h2{margin:0 0 8px;font-family:var(--serif);font-size:22px;color:var(--navy)}
+.part .pn{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.part.p1{border-top:6px solid #8a8f9c}
+.part.p2{border-top:6px solid var(--gold)}
+.part.p3{border-top:6px solid var(--green)}
+.part.p4{border-top:6px solid var(--red)}
+.outcome{font-family:var(--serif);font-size:clamp(26px,5vw,40px);color:var(--navy);margin:6px 0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:720px){.cols{grid-template-columns:1fr}}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:12.5px}
+th,td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td.red{color:var(--red);font-weight:700}
+.evid li{margin:8px 0}
+.src{font-size:12.5px;color:var(--muted)}
+blockquote{margin:8px 0;padding:8px 14px;border-left:4px solid var(--red);background:#fbefef;font-family:var(--serif);font-size:17px}
+.links{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.links a{display:inline-block;padding:9px 14px;border:1px solid var(--navy);border-radius:6px;text-decoration:none;background:var(--paper)}
+@media(max-width:600px){.strip>div{font-size:11px;padding:5px 7px}.strip b{font-size:12.5px}#ticker div{font-size:11px;padding:3px 7px}#drivercard{font-size:12px;max-width:260px;padding:8px 10px}.topbar .ctrls button{padding:4px 8px;font-size:13px}}
+footer{text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted);padding:22px 10px 30px}
+</style>
+</head>
+<body>
+<div style="background:#14213d;color:#f4f0e6;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:8px 14px;display:flex;gap:18px;flex-wrap:wrap"><a href="../games.html" style="color:#f4f0e6;text-decoration:none">&larr; Back to the Game Shelf</a><a href="../index.html" style="color:#f4f0e6;text-decoration:none">The Stoic Opposition</a></div>
+
+<main>
+<!-- ============ TITLE ============ -->
+<section id="screen-title" class="wrap">
+  <div class="kicker">The Stoic Opposition Presents</div>
+  <h1 class="title">FIVE STARS</h1>
+  <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+  <p style="font-family:var(--serif);font-size:20px;margin:6px 0 4px">Five stars for the delivery. What does the driver keep?</p>
+  <div class="credit">Directed by Corey Spangler · Built by AI</div>
+  <div class="title-grid">
+    <div class="card">
+      <h2 style="margin:0 0 6px;font-family:var(--serif)">You are the app.</h2>
+      <p style="margin:6px 0">You run a food-delivery platform in a fictional city for one quarter (13 weeks). You are not a driver. Your one job, set by the board: <b>hit the quarterly revenue target of <span id="t-target"></span></b> <span class="tag">◇ scenario</span>.</p>
+      <p style="margin:6px 0">In this scenario drivers are independent contractors: they pay for their own cars, and they are paid per delivery, not for time spent waiting for the next order.</p>
+      <ul>
+        <li><b>Take rate</b> — your cut of the customer's delivery fee.</li>
+        <li><b>Base pay</b> — what you pay the driver per delivery.</li>
+        <li><b>Quests &amp; streaks</b> — pressure on drivers to accept every offer and stay online.</li>
+        <li><b>Surge cap</b> — how high fees can climb where orders pile up.</li>
+      </ul>
+      <div class="btnrow">
+        <button class="primary" id="btn-start">Start the quarter</button>
+        <button id="btn-assump1">Scenario assumptions</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin:0 0 6px">How to play</h3>
+      <ul>
+        <li>Drag the four levers at any time. The city reacts live.</li>
+        <li>Each dot is a group of drivers. Green, amber, red shows what they are netting per hour after vehicle costs. A hollow ring means waiting, unpaid.</li>
+        <li>Tap or click any dot to see its numbers.</li>
+        <li>Watch the two ledgers at the top: yours, and the drivers'.</li>
+        <li>Each week takes about 30 seconds. A quarter takes about 6½ minutes (or less at 2× / 4× speed).</li>
+      </ul>
+      <p class="note">Every number in the game is a scenario assumption for a fictional city, listed under “Scenario assumptions.” None describes any real company.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAME ============ -->
+<section id="screen-game" class="wrap" hidden>
+  <div class="strip" aria-live="off">
+    <div class="sp"><div>YOU · quarter revenue</div><b id="s-rev">$0</b> of <span id="s-target"></span> target<div class="bar"><i id="s-revbar"></i></div></div>
+    <div class="sh"><div>DRIVERS · median net/hr</div><b id="s-med">$0</b> · <span id="s-red">0</span> red · <span id="s-off">0</span> logged off vs wk 1<div class="bar r"><i id="s-redbar"></i></div></div>
+  </div>
+  <div class="topbar">
+    <div class="wk">Week <b id="g-week">1</b> / 13 <span class="note" id="g-weeknote"></span><div class="bar" style="max-width:260px"><i id="g-wkbar" style="background:var(--navy)"></i></div></div>
+    <div class="ctrls">
+      <button id="btn-pause">Pause</button>
+      <button id="btn-speed">Speed 1×</button>
+      <button id="btn-assump2">Assumptions</button>
+      <button id="btn-restart">Restart</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div>
+      <div class="citywrap">
+        <canvas id="city" aria-label="City map of drivers and orders"></canvas>
+        <div id="ticker"></div>
+        <div id="drivercard" hidden><button id="dc-close" aria-label="Close">close</button><div id="dc-body"></div></div>
+      </div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--green)"></i>nets ≥ $18/hr</span>
+        <span><i class="dot" style="background:var(--amber)"></i>$15–18/hr</span>
+        <span><i class="dot" style="background:var(--red)"></i>below $15/hr scenario minimum</span>
+        <span><i class="dot" style="border:2px solid #555;background:transparent"></i>waiting (unpaid)</span>
+        <span><i class="dot" style="background:#b9b4a8"></i>logged off</span>
+        <span><i class="dot" style="background:#f0a04b;border-radius:2px"></i>surge zone</span>
+        <span><i class="dot" style="background:var(--navy);border-radius:2px"></i>restaurant</span>
+        <span>&#9670; order waiting</span>
+        <span>each dot = 40 drivers <span class="tag">◇ scenario</span></span>
+      </div>
+    </div>
+    <aside class="panel">
+      <div class="ledger p">
+        <h3>Your ledger — the platform</h3>
+        <div class="big" id="l-rev">$0</div>
+        <div class="bar"><i id="l-revbar"></i></div>
+        <div class="rows" style="margin-top:6px">
+          <span>Quarterly target</span><span id="l-target"></span>
+          <span>This week so far</span><span id="l-week">$0</span>
+          <span>On pace for</span><span id="l-pace">—</span>
+          <span>Avg delivery time</span><span id="l-adt">—</span>
+          <span>Customer rating</span><span id="l-stars">—</span>
+          <span>Offers accepted</span><span id="l-acc">—</span>
+          <span>Orders cancelled (qtr)</span><span id="l-cancel">0</span>
+        </div>
+      </div>
+      <div class="ledger h">
+        <h3>The other ledger — the drivers</h3>
+        <div class="big" id="l-med">$0/hr</div>
+        <div class="note" style="margin-top:-2px">median net per hour online, after vehicle costs, right now</div>
+        <div class="rows" style="margin-top:6px">
+          <span>Below $15/hr minimum</span><span id="l-red">0</span>
+          <span>Drivers online</span><span id="l-on">0</span>
+          <span>Logged off</span><span id="l-off">0</span>
+          <span>Unpaid waiting (qtr)</span><span id="l-wait">0 hrs</span>
+          <span>Car costs drivers paid (qtr)</span><span id="l-cost">$0</span>
+        </div>
+      </div>
+      <p class="note" style="margin:-4px 2px 0">All figures are scenario assumptions for a fictional city — not real-world data. <a href="#" id="lnk-assump">See assumptions</a>.</p>
+      <div class="card" style="padding:12px 14px">
+        <div class="lever"><label for="lv-take">Take rate <output id="o-take"></output></label><input type="range" id="lv-take" min="10" max="60" step="1"><div class="hint">Your share of the customer's delivery fee.</div></div>
+        <div class="lever"><label for="lv-base">Base pay per delivery <output id="o-base"></output></label><input type="range" id="lv-base" min="1" max="8" step="0.25"><div class="hint">Paid by you to the driver for each completed delivery.</div></div>
+        <div class="lever"><label for="lv-press">Quests &amp; streaks pressure <output id="o-press"></output></label><input type="range" id="lv-press" min="0" max="100" step="5"><div class="hint">Pushes drivers to accept low-paying offers and stay online. Small bonus cost.</div></div>
+        <div class="lever"><label for="lv-surge">Surge cap <output id="o-surge"></output></label><input type="range" id="lv-surge" min="1" max="3" step="0.1"><div class="hint">Max fee multiplier where orders outnumber drivers. Customers pay it; some order less.</div></div>
+        <div class="note" style="margin-top:4px">A typical 3.3-mile delivery at normal fees ($13 paid in by customer + restaurant):</div>
+        <div class="split" id="split"></div>
+        <div class="note" id="splitnote"></div>
+      </div>
+      <div>
+        <canvas class="chart" id="trend"></canvas>
+        <div class="note">Weekly: <b style="color:var(--gold)">your revenue</b> vs <b style="color:var(--red)">median driver net $/hr</b>. Dashed lines: target pace and $15 minimum. Scenario figures.</div>
+      </div>
+      <div>
+        <canvas class="chart" id="hist"></canvas>
+        <div class="note">Online drivers by recent net $/hr. Red bars are below the $15 scenario minimum.</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ DEBRIEF ============ -->
+<section id="screen-debrief" class="wrap" hidden>
+  <div class="kicker">Five Stars · Quarter closed</div>
+  <div class="outcome" id="d-outcome"></div>
+  <p id="d-sub" style="font-size:17px;margin:4px 0 0"></p>
+
+  <div class="part p1">
+    <div class="pn">Part 1 of 4</div>
+    <h2>The simulation's assumptions</h2>
+    <p style="margin:4px 0">These are the rules of the fictional city you just ran. They are scenario choices, not measurements of any real platform.</p>
+    <ol class="assump" id="d-assump"></ol>
+  </div>
+
+  <div class="part p2">
+    <div class="pn">Part 2 of 4</div>
+    <h2>Your results</h2>
+    <p style="margin:4px 0">Your actual numbers from this run (scenario units, extrapolated city-wide).</p>
+    <div class="cols" style="margin-top:8px">
+      <div class="ledger p"><h3>Your ledger</h3><div class="rows" id="d-plat"></div></div>
+      <div class="ledger h"><h3>The drivers' ledger</h3><div class="rows" id="d-human"></div></div>
+    </div>
+    <p id="d-pace" style="margin:12px 0 8px"></p>
+    <canvas class="chart" id="d-trend" style="margin-top:6px"></canvas>
+    <div class="note">Gold: your weekly revenue. Red: median driver net $/hr. Dashed: target pace and the $15 scenario minimum.</div>
+    <h3 style="margin:14px 0 6px">Week by week</h3>
+    <div class="tbl"><table id="d-table"></table></div>
+  </div>
+
+  <div class="part p3">
+    <div class="pn">Part 3 of 4</div>
+    <h2>The documented evidence</h2>
+    <p style="margin:4px 0">Only these real-world facts are used. Everything else in the game is scenario.</p>
+    <ul class="evid">
+      <li><b>In California, app-based delivery drivers are classified as independent contractors under Proposition 22.</b> Voters approved Prop 22 on November 3, 2020. It classifies app-based rideshare and delivery drivers as independent contractors rather than employees, so the state's AB 5 employment test does not apply to them.<br><span class="src">Sources: California Legislative Analyst's Office, <a href="https://lao.ca.gov/BallotAnalysis/Proposition?number=22&amp;year=2020" target="_blank" rel="noopener">Proposition 22 analysis</a> (2020); Ballotpedia, <a href="https://ballotpedia.org/California_App-Based_Drivers_Regulations_Initiative_(2020)" target="_blank" rel="noopener">California Proposition 22 (2020)</a>.</span></li>
+      <li><b>That classification has held.</b> On July 25, 2024, the California Supreme Court unanimously upheld Prop 22 in <i>Castellanos v. State of California</i>.<br><span class="src">Sources: Justia, <a href="https://news.justia.com/law-classifying-gig-workers-as-contractors-upheld-in-california-supreme-court" target="_blank" rel="noopener">Law Classifying Gig Workers as Contractors Upheld in California Supreme Court</a> (2024); Perkins Coie, <a href="https://perkinscoie.com/insights/update/california-supreme-court-upholds-proposition-22" target="_blank" rel="noopener">California Supreme Court Upholds Proposition 22</a> (2024).</span></li>
+      <li><b>As contractors, drivers carry vehicle costs and unpaid waiting time.</b> The LAO's analysis describes drivers using their own cars and paying their own expenses. Prop 22 did add an earnings floor and some benefits; the LAO notes the floor is based on time spent driving, not time spent waiting for a request.<br><span class="src">Source: California Legislative Analyst's Office, <a href="https://lao.ca.gov/BallotAnalysis/Proposition?number=22&amp;year=2020" target="_blank" rel="noopener">Proposition 22 analysis</a> (2020).</span></li>
+    </ul>
+    <p class="note">What the game does not claim: it does not reproduce any real company's pay formula, take rate, driver earnings, or revenue. Classification rules outside California differ.</p>
+  </div>
+
+  <div class="part p4">
+    <div class="pn">Part 4 of 4</div>
+    <h2>The conclusion the author draws</h2>
+    <p class="note" style="margin-top:0">This is Corey Spangler's reading, not a finding of the simulation.</p>
+    <blockquote>Nobody in this game is a villain, including you. You were handed one number and four levers. In this city, the levers that moved the number most were the ones that moved costs onto drivers: a bigger cut, less base pay, more pressure to accept, more unpaid miles chasing surge. The drivers who stayed red were the ones the scenario gives the fewest other options. When the people doing the work carry the car and the waiting, a platform's revenue target points at them, whoever happens to be running it. Who carries those costs is a policy choice, and policy choices can be made differently.</blockquote>
+    <p><b>Disagree?</b> Good. Run the quarter again, try to hit the target without turning the map red, and tell us which assumption you think is wrong and why.</p>
+  </div>
+
+  <div class="btnrow"><button class="primary" id="btn-again">Play again</button><button id="btn-assump3">Scenario assumptions</button></div>
+  <div class="links"><a href="../games.html">&larr; Back to the Game Shelf</a><a href="../index.html">The Stoic Opposition</a></div>
+</section>
+</main>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="box">
+    <button class="x" id="m-close">Close</button>
+    <h2 id="m-title" style="margin:0 0 6px;font-family:var(--serif)">Scenario assumptions &amp; credits</h2>
+    <p style="margin:4px 0" class="note">Every in-game number comes from this list. The city, the platform and the drivers are fictional.</p>
+    <p style="margin:4px 0" class="note">How this suite labels numbers: ◆ sourced (named source) · ◇ assumed (scenario parameter) · ＝ calculated (arithmetic on the game's own figures) · ○ fictional (invented place, company or person). Every figure in this game is ◇ or ＝; ◆ sources appear only in the debrief.</p>
+    <ol class="assump" id="m-assump"></ol>
+    <h3 style="margin:14px 0 4px">Credits</h3>
+    <p style="margin:2px 0">The Stoic Opposition Presents <i>Five Stars</i> — part of “Systems You Can Play.”<br>Directed by Corey Spangler · Built by AI.</p>
+    <p class="note">No data collected. No external calls. Real-world sources appear only in the end-of-game debrief.</p>
+  </div>
+</div>
+
+<footer>No data collected. No external calls.</footer>
+
+<script>
+'use strict';
+/* ================= SCENARIO ASSUMPTIONS ================= */
+const A = {
+  WEEKS: 13, WEEK_MIN: 150, SIM_PER_SEC: 5, DOT_PEOPLE: 40, OP_HOURS: 70,
+  BLOCK_MI: 0.3, BLOCK_MIN: 2.0, COST_MI: 0.55,
+  FEE: 7.00, COMMISSION: 6.00, QUEST: 0.60,
+  MIN_NET: 15, PREP: 8, HANDOFF: 2, PATIENCE: 25, DEMAND: 1.5, DT_OK: 30,
+  ELASTIC: 0.45, RES_MIN: 10, RES_MAX: 28, POOL: 70, TAU: 120,
+  TARGET: 12e6
+};
+const SCALE = A.DOT_PEOPLE * A.OP_HOURS / (A.WEEK_MIN / 60); // dot-units in a 2.5-hr sample -> city-wide weekly
+const DEFAULTS = { take: 20, base: 5, press: 20, surge: 1.5 };
+
+function assumptionList() {
+  return [
+    'The city, the platform, the board and every driver are fictional.',
+    `Each in-game week is a 30-second replay of a sample ${A.WEEK_MIN / 60} hours. Weekly totals extrapolate that sample: each dot stands for ${A.DOT_PEOPLE} drivers, and the city operates ${A.OP_HOURS} hours a week (×${SCALE.toLocaleString()} overall).`,
+    `Quarterly revenue target: ${money(A.TARGET)} over ${A.WEEKS} weeks.`,
+    `Money in per order: the customer's delivery fee of ${money2(A.FEE)} (times any surge) plus a ${money2(A.COMMISSION)} restaurant commission that goes to the platform.`,
+    `Driver pay per delivery = base pay + (100% − take rate) × delivery fee × surge + quest bonus (${money2(A.QUEST)} × pressure level).`,
+    'Platform revenue per delivery = commission + take rate × delivery fee × surge − base pay − quest bonus.',
+    `Drivers pay their own vehicle costs: ${money2(A.COST_MI)} per mile (fuel, wear, insurance, depreciation). One city block = ${A.BLOCK_MI} miles; drivers average ${Math.round(A.BLOCK_MI / A.BLOCK_MIN * 60)} mph in city traffic, including parking.`,
+    'Drivers are paid per completed delivery only. Time waiting for an offer, and miles driven toward surge zones, are unpaid.',
+    `Scenario minimum: ${money2(A.MIN_NET)} per hour online, net of vehicle costs. Dots turn red below it (amber up to $18).`,
+    `Each driver has a personal threshold between ${money2(A.RES_MIN)} and ${money2(A.RES_MAX)} per hour, standing in for their other options. When their recent net falls below it they tend to log off. Quests & streaks pressure lowers that threshold by up to 30%.`,
+    'Drivers judge whether to log back on by a mix of what other drivers are netting and the posted pay.',
+    'Drivers tend to decline offers that net less than 40% of their hourly threshold; quests & streaks pressure makes them accept anyway.',
+    `Quests & streaks also pay a bonus of up to ${money2(A.QUEST)} per delivery at 100% pressure.`,
+    `Customers: about ${A.DEMAND} orders per sample-minute when service is good. Demand falls when average delivery time runs above ${A.DT_OK} minutes. Orders no driver accepts within ${A.PATIENCE} minutes are cancelled. In surge zones, some customers decline to pay the higher fee.`,
+    `Food prep takes ${A.PREP} minutes; handoff takes ${A.HANDOFF} minutes.`,
+    'Customer rating is a scenario formula: 5 stars at 25-minute deliveries, falling as deliveries slow.',
+    'None of these figures describes any real company.'
+  ];
+}
+
+/* ================= HELPERS ================= */
+const $ = id => document.getElementById(id);
+function money(x) {
+  const s = x < 0 ? '−' : ''; x = Math.abs(x);
+  if (x >= 1e6) return s + '$' + (x / 1e6).toFixed(2) + 'M';
+  if (x >= 1e4) return s + '$' + Math.round(x / 1e3) + 'K';
+  if (x >= 1e3) return s + '$' + (x / 1e3).toFixed(1) + 'K';
+  return s + '$' + x.toFixed(0);
+}
+function money2(x) { return (x < 0 ? '−$' : '$') + Math.abs(x).toFixed(2); }
+function num(x) { return Math.round(x).toLocaleString(); }
+function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+function median(arr) {
+  if (!arr.length) return 0;
+  const a = arr.slice().sort((p, q) => p - q), m = a.length >> 1;
+  return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
+}
+function man(ax, ay, bx, by) { return Math.abs(ax - bx) + Math.abs(ay - by); }
+function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+
+/* ================= CITY GEOMETRY ================= */
+const G = 12, CELL = 46, M = 24, L = 600, ZB = 3, ZN = 4;
+const SPEED = 1 / A.BLOCK_MIN; // blocks per sim minute
+function zoneOf(x, y) { const zx = Math.min(ZN - 1, Math.floor(x / ZB)), zy = Math.min(ZN - 1, Math.floor(y / ZB)); return zy * ZN + zx; }
+function nodeInZone(z) { const zx = z % ZN, zy = Math.floor(z / ZN); return { x: clamp(zx * ZB + ri(0, ZB), 0, G), y: clamp(zy * ZB + ri(0, ZB), 0, G) }; }
+
+/* ================= STATE ================= */
+let S = null;
+
+function newState() {
+  const s = {
+    t: 0, qStart: 0, week: 0, over: false, running: false, userPaused: false, speed: 1,
+    lev: Object.assign({}, DEFAULTS),
+    drivers: [], orders: [], rest: [], zones: [], zI: new Array(ZN * ZN).fill(0),
+    shade: [], pops: [], msgs: [], cool: {}, sel: null,
+    rep: 1, adt: 26, expect: 0, accEW: 1,
+    wk: null, hist: [], cum: { rev: 0, del: 0, cancel: 0, wait: 0, cost: 0, gross: 0, lostPrice: 0, logoffs: 0, declines: 0, offers: 0 },
+    targetHitWeek: 0, peakOff: 0, logoffsWk: 0, nextId: 1
+  };
+  // block shades
+  for (let i = 0; i < G; i++) { s.shade[i] = []; for (let j = 0; j < G; j++) s.shade[i][j] = 200 + Math.floor(Math.random() * 22); }
+  // restaurants
+  let tries = 0;
+  while (s.rest.length < 10 && tries < 2000) {
+    tries++;
+    const x = ri(1, G - 1), y = ri(1, G - 1);
+    if (s.rest.every(r => man(r.x, r.y, x, y) >= 3)) s.rest.push({ x, y });
+  }
+  // zones (drifting demand weights so surge zones bloom and fade)
+  for (let z = 0; z < ZN * ZN; z++) {
+    const zx = z % ZN, zy = Math.floor(z / ZN);
+    const central = (zx === 1 || zx === 2) && (zy === 1 || zy === 2);
+    s.zones.push({ base: (central ? 1.35 : 0.8) * (0.8 + Math.random() * 0.4), ph: Math.random() * 6.28, fq: 1 / (20 + Math.random() * 25) });
+  }
+  s.wk = freshWeek();
+  return s;
+}
+function freshWeek() { return { rev: 0, del: 0, cancel: 0, lostPrice: 0, offers: 0, declines: 0, pay: 0, dtSum: 0 }; }
+
+function makeDrivers() {
+  const exp = advertised();
+  S.expect = exp;
+  for (let i = 0; i < A.POOL; i++) {
+    const u = (i + Math.random()) / A.POOL;
+    const r = A.RES_MIN + (A.RES_MAX - A.RES_MIN) * Math.pow(u, 1.25);
+    const home = { x: ri(0, G), y: ri(0, G) };
+    const d = {
+      id: i + 1, r, on: false, st: 'off', x: home.x, y: home.y, home, route: [], o: null,
+      e: exp, h: 60, cool: 0, ht: 0, tripCost: 0, nextCheck: Math.random() * 10,
+      jx: (Math.random() - 0.5) * 6, jy: (Math.random() - 0.5) * 6,
+      wk: { gross: 0, cost: 0, min: 0, wait: 0, del: 0 }
+    };
+    S.drivers.push(d);
+    if (r <= exp - 0.5) logon(d, true);
+  }
+}
+
+/* ================= ECONOMICS ================= */
+function splitFor(s) {
+  const T = S.lev.take / 100, p = S.lev.press / 100, fee = A.FEE * s, q = A.QUEST * p;
+  return { pay: S.lev.base + (1 - T) * fee + q, plat: A.COMMISSION + T * fee - S.lev.base - q };
+}
+function advertised() {
+  const sp = splitFor(1 + (S.lev.surge - 1) * 0.15);
+  return (sp.pay - 3.3 * A.COST_MI) * 1.9;
+}
+function surgeFor(z) {
+  const I = S.zI[z];
+  if (S.lev.surge <= 1.001 || I < 0.05) return 1;
+  return Math.round((1 + (S.lev.surge - 1) * I) * 10) / 10;
+}
+function netHr(d) { return d.h > 0 ? d.e / d.h * 60 : 0; }
+
+/* ================= DRIVERS ================= */
+function logon(d, initial) {
+  d.on = true; d.st = 'idle'; d.route = []; d.o = null; d.idleSince = S.t;
+  d.e = S.expect; d.h = 60; d.cool = 0;
+  if (!initial) { const n = { x: ri(0, G), y: ri(0, G) }; d.x = n.x; d.y = n.y; }
+  else { d.x = ri(0, G); d.y = ri(0, G); }
+}
+function logoff(d, why) {
+  d.on = false; d.st = 'off'; d.route = []; d.o = null;
+  d.x = d.home.x; d.y = d.home.y;
+  if (why === 'below') { S.cum.logoffs++; S.logoffsWk++; }
+  if (S.sel === d) updateCard(true);
+}
+function setRoute(d, tx, ty) {
+  const onRow = Math.abs(d.y - Math.round(d.y)) < 1e-6;
+  let wps;
+  if (onRow) { d.y = Math.round(d.y); wps = [{ x: tx, y: d.y }, { x: tx, y: ty }]; }
+  else { d.x = Math.round(d.x); wps = [{ x: d.x, y: ty }, { x: tx, y: ty }]; }
+  let px = d.x, py = d.y; d.route = [];
+  for (const w of wps) { if (Math.abs(w.x - px) + Math.abs(w.y - py) > 1e-9) d.route.push(w); px = w.x; py = w.y; }
+}
+function moveAlong(d, dist) {
+  let moved = 0;
+  while (dist > 1e-9 && d.route.length) {
+    const w = d.route[0], dx = w.x - d.x, dy = w.y - d.y, len = Math.abs(dx) + Math.abs(dy);
+    if (len <= dist) { d.x = w.x; d.y = w.y; dist -= len; moved += len; d.route.shift(); }
+    else { if (Math.abs(dx) > 1e-9) d.x += Math.sign(dx) * dist; else d.y += Math.sign(dy) * dist; moved += dist; dist = 0; }
+  }
+  return moved;
+}
+function decide(d) {
+  d.nextCheck = S.t + 10;
+  const p = S.lev.press / 100;
+  if (d.on) {
+    if (netHr(d) < d.r * (1 - 0.3 * p) && Math.random() < 0.35) { logoff(d, 'below'); return; }
+    if (Math.random() < 0.02) logoff(d, 'shift');
+  } else {
+    if (S.expect >= d.r && Math.random() < 0.3) logon(d, false);
+    else if (S.expect >= d.r * 0.9 && Math.random() < 0.03) logon(d, false);
+  }
+}
+function stepDriver(d, dt) {
+  const busy = d.on && d.st !== 'idle' && d.st !== 'drift';
+  if (S.t >= d.nextCheck && !busy) decide(d); // busy drivers decide when the delivery ends (see complete)
+  if (!d.on) return;
+  d.cool -= dt;
+  const f = Math.exp(-dt / A.TAU);
+  d.e *= f; d.h = d.h * f + dt;
+  d.wk.min += dt;
+  if (d.route.length) {
+    const moved = moveAlong(d, dt * SPEED);
+    if (moved > 0) {
+      const c = moved * A.BLOCK_MI * A.COST_MI;
+      d.e -= c; d.wk.cost += c; d.tripCost += c;
+    }
+  }
+  switch (d.st) {
+    case 'idle': d.wk.wait += dt; maybeDrift(d, dt); break;
+    case 'drift': d.wk.wait += dt; if (!d.route.length) d.st = 'idle'; break;
+    case 'pickup': if (!d.route.length) d.st = 'atrest'; break;
+    case 'atrest': if (S.t >= d.o.ready) { d.st = 'drop'; setRoute(d, d.o.cx, d.o.cy); } break;
+    case 'drop': if (!d.route.length) { d.st = 'handoff'; d.ht = A.HANDOFF; } break;
+    case 'handoff': d.ht -= dt; if (d.ht <= 0) complete(d); break;
+  }
+}
+function maybeDrift(d, dt) {
+  if (S.lev.surge <= 1.001) return;
+  let bz = -1, bi = 0.15;
+  for (let z = 0; z < ZN * ZN; z++) if (S.zI[z] > bi) { bi = S.zI[z]; bz = z; }
+  if (bz < 0 || zoneOf(d.x, d.y) === bz) return;
+  if (Math.random() < 0.05 * dt * (S.lev.surge - 1) * bi) {
+    const n = nodeInZone(bz);
+    setRoute(d, n.x, n.y);
+    if (d.route.length) { d.st = 'drift'; d.tripCost = 0; }
+  }
+}
+function complete(d) {
+  const o = d.o; o.st = 'done';
+  d.e += o.pay; d.wk.gross += o.pay; d.wk.del++;
+  S.wk.rev += o.plat; S.wk.del++; S.wk.pay += o.pay;
+  const dtime = S.t - o.t0; S.adt += (dtime - S.adt) * 0.06; S.wk.dtSum += dtime;
+  if (S.pops.length < 10) { addPop(d.x, d.y, '+' + money2(o.pay), '#1f7a5c'); addPop(d.x, d.y + 0.4, '−' + money2(d.tripCost) + ' car', '#c1121f'); }
+  d.tripCost = 0; d.o = null; d.st = 'idle'; d.route = []; d.idleSince = S.t;
+  if (S.t >= d.nextCheck) decide(d);
+}
+
+/* ================= ORDERS ================= */
+function zoneWeight(z) { const zn = S.zones[z]; return zn.base * (1 + 0.65 * Math.sin(S.t * zn.fq + zn.ph)); }
+function spawnOrders(dt) {
+  const lam = A.DEMAND * S.rep * dt;
+  let n = Math.floor(lam); if (Math.random() < lam - n) n++;
+  if (!n) return;
+  const w = []; let tot = 0;
+  for (let z = 0; z < ZN * ZN; z++) { const v = Math.max(0.05, zoneWeight(z)); w.push(v); tot += v; }
+  for (let k = 0; k < n; k++) {
+    let r = Math.random() * tot, z = 0;
+    while (z < w.length - 1 && r > w[z]) { r -= w[z]; z++; }
+    const s = surgeFor(z);
+    if (Math.random() > 1 / (1 + A.ELASTIC * (s - 1))) { S.wk.lostPrice++; continue; }
+    const c = nodeInZone(z);
+    let near = S.rest.filter(r => { const m = man(r.x, r.y, c.x, c.y); return m >= 2 && m <= 8; });
+    if (!near.length) near = S.rest.slice().sort((a, b) => man(a.x, a.y, c.x, c.y) - man(b.x, b.y, c.x, c.y)).slice(0, 2);
+    const rs = near[ri(0, near.length - 1)];
+    S.orders.push({ id: S.nextId++, z, rx: rs.x, ry: rs.y, cx: c.x, cy: c.y, s, t0: S.t, ready: S.t + A.PREP, st: 'open', drv: null, dec: new Map(), pay: 0, plat: 0 });
+  }
+}
+function dispatch() {
+  const idle = S.drivers.filter(d => d.on && (d.st === 'idle' || d.st === 'drift') && d.cool <= 0);
+  if (!idle.length) return;
+  const used = new Set(), p = S.lev.press / 100;
+  for (const o of S.orders) {
+    if (o.st !== 'open') continue;
+    let near = 1e9; const cand = [];
+    for (const d of idle) {
+      if (used.has(d)) continue;
+      const dt0 = o.dec.get(d.id);
+      if (dt0 !== undefined && S.t - dt0 < 6) continue;
+      const dd = man(d.x, d.y, o.rx, o.ry);
+      cand.push([d, dd]); if (dd < near) near = dd;
+    }
+    if (!cand.length) continue;
+    // nearby drivers (within 3 blocks of the closest) — the one waiting longest gets the offer
+    let best = null, bd = 0, since = 1e18;
+    for (const [d, dd] of cand) if (dd <= near + 3 && d.idleSince < since) { since = d.idleSince; best = d; bd = dd; }
+    used.add(best);
+    const sp = splitFor(o.s);
+    const miles = (bd + man(o.rx, o.ry, o.cx, o.cy)) * A.BLOCK_MI;
+    const net = sp.pay - miles * A.COST_MI;
+    S.wk.offers++;
+    const ok = net >= best.r * 0.4 || Math.random() < 0.12 + 0.88 * p;
+    S.accEW += ((ok ? 1 : 0) - S.accEW) * 0.03;
+    if (!ok) { o.dec.set(best.id, S.t); best.cool = 1.5; S.wk.declines++; continue; }
+    o.st = 'assigned'; o.drv = best; o.pay = sp.pay; o.plat = sp.plat;
+    best.o = o; best.st = 'pickup'; best.tripCost = 0;
+    setRoute(best, o.rx, o.ry);
+  }
+}
+
+/* ================= SIM STEP ================= */
+function step(dt) {
+  S.t += dt;
+  // zone surge intensity
+  const openZ = new Array(ZN * ZN).fill(0), idleZ = new Array(ZN * ZN).fill(0);
+  for (const o of S.orders) if (o.st === 'open') openZ[o.z]++;
+  for (const d of S.drivers) if (d.on && (d.st === 'idle' || d.st === 'drift')) idleZ[zoneOf(d.x, d.y)]++;
+  for (let z = 0; z < ZN * ZN; z++) {
+    const target = clamp((openZ[z] - 0.7 * idleZ[z] - 1) / 3, 0, 1);
+    S.zI[z] += (target - S.zI[z]) * Math.min(1, dt / 6);
+  }
+  spawnOrders(dt);
+  dispatch();
+  for (const d of S.drivers) stepDriver(d, dt);
+  // cancellations
+  for (const o of S.orders) if (o.st === 'open' && S.t - o.t0 > A.PATIENCE) { o.st = 'cancel'; S.wk.cancel++; }
+  S.orders = S.orders.filter(o => o.st === 'open' || o.st === 'assigned');
+  // customer demand follows service quality, with a lag
+  const want = clamp(1 - Math.max(0, S.adt - A.DT_OK) / 45, 0.35, 1.05);
+  S.rep += (want - S.rep) * Math.min(1, dt / 60);
+  // drivers' expectations: half what others net, half posted pay
+  if (Math.floor(S.t / 5) !== Math.floor((S.t - dt) / 5)) {
+    const on = S.drivers.filter(d => d.on);
+    const adv = advertised();
+    const obs = on.length >= 5 ? median(on.map(netHr)) : adv;
+    S.expect = 0.5 * obs + 0.5 * adv;
+  }
+  // week boundary
+  if (S.t - S.qStart >= (S.week + 1) * A.WEEK_MIN) closeWeek();
+}
+
+function liveStats() {
+  const on = S.drivers.filter(d => d.on);
+  const nets = on.map(netHr);
+  return {
+    on: on.length, off: A.POOL - on.length, med: nets.length ? median(nets) : null,
+    red: nets.filter(v => v < A.MIN_NET).length,
+    weekRev: S.wk.rev * SCALE,
+    qRev: S.cum.rev + S.wk.rev * SCALE,
+    wait: S.cum.wait + S.drivers.reduce((a, d) => a + d.wk.wait, 0) / 60 * SCALE,
+    cost: S.cum.cost + S.drivers.reduce((a, d) => a + d.wk.cost, 0) * SCALE,
+    cancel: S.cum.cancel + S.wk.cancel * SCALE,
+    stars: clamp(5 - Math.max(0, S.adt - 25) / 8, 1, 5)
+  };
+}
+
+function closeWeek() {
+  const rows = S.drivers.filter(d => d.wk.min >= 15).map(d => (d.wk.gross - d.wk.cost) / (d.wk.min / 60));
+  const ls = liveStats();
+  const rec = {
+    w: S.week + 1, rev: S.wk.rev * SCALE, del: S.wk.del * SCALE, med: rows.length ? median(rows) : null,
+    below: rows.length ? rows.filter(v => v < A.MIN_NET).length / rows.length : 0,
+    active: rows.length, off: ls.off, adt: S.wk.del ? S.wk.dtSum / S.wk.del : S.adt,
+    cancel: S.wk.cancel * SCALE, lev: Object.assign({}, S.lev),
+    wait: S.drivers.reduce((a, d) => a + d.wk.wait, 0) / 60 * SCALE,
+    cost: S.drivers.reduce((a, d) => a + d.wk.cost, 0) * SCALE,
+    gross: S.drivers.reduce((a, d) => a + d.wk.gross, 0) * SCALE,
+    acc: S.wk.offers ? 1 - S.wk.declines / S.wk.offers : 1,
+    hrs: S.drivers.reduce((a, d) => a + d.wk.min, 0) / 60 * SCALE,
+    logoffs: S.logoffsWk
+  };
+  S.hist.push(rec);
+  S.cum.rev += rec.rev; S.cum.del += rec.del; S.cum.cancel += rec.cancel; S.cum.wait += rec.wait;
+  S.cum.cost += rec.cost; S.cum.gross += rec.gross; S.cum.lostPrice += S.wk.lostPrice * SCALE;
+  S.peakOff = Math.max(S.peakOff, rec.off);
+  for (const d of S.drivers) d.wk = { gross: 0, cost: 0, min: 0, wait: 0, del: 0 };
+  S.wk = freshWeek(); S.logoffsWk = 0;
+  if (!S.targetHitWeek && S.cum.rev >= A.TARGET) { S.targetHitWeek = rec.w; say('Quarterly target reached in week ' + rec.w + '. The quarter keeps running.', 'hit', 0); }
+  say(`Week ${rec.w} closed: revenue ${money(rec.rev)} · ` + (rec.med === null ? 'no drivers online' : `median driver net ${money2(rec.med)}/hr`), 'wk' + rec.w, 0);
+  S.week++;
+  if (S.week >= A.WEEKS) finish();
+}
+
+/* ================= TICKER ================= */
+function say(txt, key, cd) {
+  const now = performance.now();
+  if (key && S.cool[key] && now - S.cool[key] < cd) return;
+  if (key) S.cool[key] = now;
+  S.msgs.push({ txt, t: now });
+  if (S.msgs.length > 3) S.msgs.shift();
+  renderTicker();
+}
+function renderTicker() {
+  const now = performance.now();
+  S.msgs = S.msgs.filter(m => now - m.t < 9000);
+  const shown = window.innerWidth < 600 ? S.msgs.slice(-2) : S.msgs;
+  $('ticker').innerHTML = shown.map(m => '<div>' + m.txt + '</div>').join('');
+}
+let lastObs = 0;
+function observe() {
+  if (S.t - lastObs < 12) return; lastObs = S.t;
+  const ls = liveStats();
+  const surging = S.zI.filter(v => v > 0.3).length;
+  if (surging >= 2 && S.lev.surge > 1.05) say(`Surge in ${surging} zones: customers pay up to ×${S.lev.surge.toFixed(1)}; idle drivers drive toward it, unpaid.`, 'surge', 25000);
+  if (S.logoffsWk >= 4) say(`${S.logoffsWk} driver groups logged off this week — their net fell below what they need.`, 'logoff', 20000);
+  if (S.adt > 36) say(`Average delivery now ${Math.round(S.adt)} min. Customers are ordering less.`, 'adt', 22000);
+  if (S.wk.cancel >= 3) say(`${S.wk.cancel * SCALE > 0 ? num(S.wk.cancel * SCALE) : 0} orders cancelled this week — no driver took them in time.`, 'cancel', 24000);
+  if (S.accEW < 0.75) say(`Drivers are declining low-net offers (${Math.round(S.accEW * 100)}% accepted).`, 'decl', 24000);
+  if (ls.on === 0) say('No drivers are online. Orders are going unanswered.', 'none', 20000);
+  else if (ls.red / ls.on > 0.5) say(`More than half of online drivers are netting under $15/hr right now.`, 'red', 30000);
+}
+
+/* ================= POPS ================= */
+function addPop(x, y, txt, col) { S.pops.push({ x, y, txt, col, age: 0 }); if (S.pops.length > 40) S.pops.shift(); }
+
+/* ================= RENDERING ================= */
+const cityC = $('city'), cityX = cityC.getContext('2d');
+const trendC = $('trend'), trendX = trendC.getContext('2d');
+const histC = $('hist'), histX = histC.getContext('2d');
+const dTrendC = $('d-trend'), dTrendX = dTrendC.getContext('2d');
+let cityScale = 1;
+
+function fitCanvas(c, ctx, lw, lh) {
+  const r = c.getBoundingClientRect();
+  if (r.width < 2) return 0;
+  const dpr = window.devicePixelRatio || 1;
+  c.style.height = (r.width * lh / lw) + 'px';
+  c.width = Math.round(r.width * dpr); c.height = Math.round(r.width * lh / lw * dpr);
+  const sc = c.width / lw;
+  ctx.setTransform(sc, 0, 0, sc, 0, 0);
+  return sc;
+}
+function resizeAll() {
+  if (!$('screen-game').hidden) {
+    const r = cityC.getBoundingClientRect();
+    if (r.width > 2) {
+      const dpr = window.devicePixelRatio || 1;
+      cityC.width = Math.round(r.width * dpr); cityC.height = Math.round(r.width * dpr);
+      cityScale = cityC.width / L;
+    }
+    fitCanvas(trendC, trendX, 380, 170);
+    fitCanvas(histC, histX, 380, 130);
+  }
+  if (!$('screen-debrief').hidden && S) { fitCanvas(dTrendC, dTrendX, 760, 260); drawTrend(dTrendX, 760, 260, S.hist, null); }
+  if (!$('screen-game').hidden && S) drawCharts();
+}
+function drawCharts() {
+  drawHist();
+  const frac = (S.t - S.qStart - S.week * A.WEEK_MIN) / A.WEEK_MIN;
+  const ls = liveStats();
+  drawTrend(trendX, 380, 170, S.hist, frac > 0.1 ? { w: S.week + 1, rev: ls.weekRev / frac, med: ls.med, live: true } : null);
+}
+function px(v) { return M + v * CELL; }
+function dotColor(n) { return n >= 18 ? '#2a9d8f' : n >= A.MIN_NET ? '#e09a2c' : '#c1121f'; }
+
+function drawCity(realDt) {
+  const c = cityX;
+  c.setTransform(cityScale, 0, 0, cityScale, 0, 0);
+  c.fillStyle = '#e9e3d4'; c.fillRect(0, 0, L, L);
+  // blocks
+  for (let i = 0; i < G; i++) for (let j = 0; j < G; j++) {
+    const v = S.shade[i][j];
+    c.fillStyle = `rgb(${v},${v - 8},${v - 26})`;
+    c.fillRect(px(i) + 5, px(j) + 5, CELL - 10, CELL - 10);
+  }
+  // roads
+  c.strokeStyle = '#f7f3ea'; c.lineWidth = 3;
+  c.beginPath();
+  for (let k = 0; k <= G; k++) { c.moveTo(px(k), px(0)); c.lineTo(px(k), px(G)); c.moveTo(px(0), px(k)); c.lineTo(px(G), px(k)); }
+  c.stroke();
+  // surge zones
+  if (S.lev.surge > 1.001) {
+    for (let z = 0; z < ZN * ZN; z++) {
+      const I = S.zI[z]; if (I < 0.05) continue;
+      const zx = z % ZN, zy = Math.floor(z / ZN), x0 = px(zx * ZB), y0 = px(zy * ZB), w = ZB * CELL;
+      c.fillStyle = `rgba(240,140,40,${0.1 + 0.32 * I})`;
+      c.fillRect(x0, y0, w, w);
+      if (I > 0.2) {
+        c.fillStyle = 'rgba(150,60,0,0.9)'; c.font = 'bold 13px ui-monospace,Menlo,Consolas,monospace';
+        c.fillText('SURGE ×' + surgeFor(z).toFixed(1), x0 + 6, y0 + 16);
+      }
+    }
+  }
+  // restaurants
+  for (const r of S.rest) {
+    c.fillStyle = '#14213d'; c.fillRect(px(r.x) - 7, px(r.y) - 7, 14, 14);
+    c.strokeStyle = '#f2c14e'; c.lineWidth = 1.5;
+    c.beginPath(); c.moveTo(px(r.x) - 3, px(r.y) - 4); c.lineTo(px(r.x) - 3, px(r.y) + 4); c.moveTo(px(r.x) + 3, px(r.y) - 4); c.lineTo(px(r.x) + 3, px(r.y) + 4); c.stroke();
+  }
+  const now = performance.now() / 1000;
+  // orders
+  for (const o of S.orders) {
+    const age = (S.t - o.t0) / A.PATIENCE;
+    const x = px(o.cx), y = px(o.cy);
+    if (o.st === 'assigned' && o.drv) {
+      c.strokeStyle = 'rgba(20,33,61,0.25)'; c.lineWidth = 1; c.setLineDash([3, 3]);
+      c.beginPath(); c.moveTo(px(o.drv.x) + o.drv.jx, px(o.drv.y) + o.drv.jy);
+      const tx = o.drv.st === 'pickup' || o.drv.st === 'atrest' ? px(o.rx) : x, ty = o.drv.st === 'pickup' || o.drv.st === 'atrest' ? px(o.ry) : y;
+      c.lineTo(tx, ty); c.stroke(); c.setLineDash([]);
+    }
+    const sz = o.st === 'open' ? 6 + Math.sin(now * 5 + o.id) * 1.2 : 5;
+    c.fillStyle = o.st === 'open' ? (age > 0.6 ? '#c1121f' : age > 0.3 ? '#e09a2c' : '#3a5a8c') : 'rgba(58,90,140,0.5)';
+    c.beginPath(); c.moveTo(x, y - sz); c.lineTo(x + sz, y); c.lineTo(x, y + sz); c.lineTo(x - sz, y); c.closePath(); c.fill();
+  }
+  // offline drivers
+  for (const d of S.drivers) if (!d.on) {
+    c.fillStyle = 'rgba(150,145,135,0.55)';
+    c.beginPath(); c.arc(px(d.x) + d.jx, px(d.y) + d.jy, 3.2, 0, 6.283); c.fill();
+  }
+  // online drivers
+  for (const d of S.drivers) if (d.on) {
+    const x = px(d.x) + d.jx, y = px(d.y) + d.jy, col = dotColor(netHr(d));
+    if (d.st === 'idle' || d.st === 'drift') {
+      c.strokeStyle = col; c.lineWidth = 2.5;
+      c.beginPath(); c.arc(x, y, 6 + Math.sin(now * 3 + d.id) * 1.2, 0, 6.283); c.stroke();
+      c.fillStyle = 'rgba(255,255,255,0.85)'; c.beginPath(); c.arc(x, y, 3.5, 0, 6.283); c.fill();
+    } else {
+      c.fillStyle = col; c.beginPath(); c.arc(x, y, 7, 0, 6.283); c.fill();
+      c.fillStyle = '#fbf8f1'; c.fillRect(x - 2.5, y - 2.5, 5, 5);
+    }
+  }
+  // selected
+  if (S.sel) {
+    const d = S.sel, x = px(d.x) + d.jx, y = px(d.y) + d.jy;
+    c.strokeStyle = '#14213d'; c.lineWidth = 2;
+    c.beginPath(); c.arc(x, y, 12, 0, 6.283); c.stroke();
+  }
+  // pops
+  c.font = 'bold 11px ui-monospace,Menlo,Consolas,monospace';
+  for (const p of S.pops) {
+    p.age += realDt;
+    const a = clamp(1 - p.age / 1.8, 0, 1);
+    if (a <= 0) continue;
+    c.fillStyle = p.col; c.globalAlpha = a;
+    c.fillText(p.txt, px(p.x) + 9, px(p.y) - 6 - p.age * 14);
+    c.globalAlpha = 1;
+  }
+  S.pops = S.pops.filter(p => p.age < 1.8);
+}
+
+function drawTrend(ctx, w, h, hist, live) {
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#fbf8f1'; ctx.fillRect(0, 0, w, h);
+  const pl = 46, pr = 40, pt = 14, pb = 22, cw = w - pl - pr, ch = h - pt - pb;
+  const pts = hist.map(r => ({ w: r.w, rev: r.rev, med: r.med }));
+  if (live) pts.push(live);
+  const pace = A.TARGET / A.WEEKS;
+  let rmax = pace * 1.6, rmin = 0;
+  for (const p of pts) { rmax = Math.max(rmax, p.rev * 1.1); rmin = Math.min(rmin, p.rev * 1.1); }
+  let mmax = 30; for (const p of pts) if (p.med !== null) mmax = Math.max(mmax, p.med + 2);
+  const X = wk => pl + (wk - 1) / (A.WEEKS - 1) * cw;
+  const YR = v => pt + ch - (v - rmin) / (rmax - rmin) * ch;
+  const YM = v => pt + ch - v / mmax * ch;
+  ctx.strokeStyle = '#d8d0bf'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pl, pt); ctx.lineTo(pl, pt + ch); ctx.lineTo(pl + cw, pt + ch); ctx.lineTo(pl + cw, pt); ctx.stroke();
+  ctx.font = '10px ui-monospace,Menlo,Consolas,monospace';
+  ctx.fillStyle = '#c98a12'; ctx.textAlign = 'right';
+  ctx.fillText(money(rmax), pl - 3, pt + 8); ctx.fillText(money(rmin), pl - 3, pt + ch);
+  ctx.fillStyle = '#c1121f'; ctx.textAlign = 'left';
+  ctx.fillText('$' + Math.round(mmax), pl + cw + 3, pt + 8); ctx.fillText('$0/hr', pl + cw + 3, pt + ch);
+  ctx.fillStyle = '#5f6472'; ctx.textAlign = 'center';
+  for (let k = 1; k <= A.WEEKS; k += 2) ctx.fillText('W' + k, X(k), pt + ch + 14);
+  ctx.textAlign = 'left';
+  // reference lines
+  ctx.setLineDash([4, 4]); ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(201,138,18,0.7)'; ctx.beginPath(); ctx.moveTo(pl, YR(pace)); ctx.lineTo(pl + cw, YR(pace)); ctx.stroke();
+  ctx.strokeStyle = 'rgba(193,18,31,0.6)'; ctx.beginPath(); ctx.moveTo(pl, YM(A.MIN_NET)); ctx.lineTo(pl + cw, YM(A.MIN_NET)); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(201,138,18,0.95)'; ctx.fillText('target pace', pl + 4, YR(pace) - 3);
+  ctx.fillStyle = 'rgba(193,18,31,0.9)'; ctx.fillText('$15 minimum', pl + 4, YM(A.MIN_NET) + 11);
+  if (!pts.length) { ctx.fillStyle = '#5f6472'; ctx.fillText('Week 1 in progress…', pl + 8, pt + ch / 2); return; }
+  function line(key, Y, col) {
+    ctx.strokeStyle = col; ctx.lineWidth = 2.5; ctx.beginPath();
+    let pen = false;
+    pts.forEach(p => { if (p[key] === null) { pen = false; return; } const x = X(p.w), y = Y(p[key]); pen ? ctx.lineTo(x, y) : ctx.moveTo(x, y); pen = true; });
+    ctx.stroke();
+    ctx.fillStyle = col;
+    pts.forEach(p => { if (p[key] === null) return; ctx.beginPath(); ctx.arc(X(p.w), Y(p[key]), p.live ? 2.5 : 3.5, 0, 6.283); ctx.fill(); });
+  }
+  line('rev', YR, '#c98a12');
+  line('med', YM, '#c1121f');
+}
+
+function drawHist() {
+  const ctx = histX, w = 380, h = 130;
+  ctx.clearRect(0, 0, w, h); ctx.fillStyle = '#fbf8f1'; ctx.fillRect(0, 0, w, h);
+  const bins = new Array(16).fill(0);
+  const on = S.drivers.filter(d => d.on);
+  for (const d of on) bins[clamp(Math.floor(netHr(d) / 2), 0, 15)]++;
+  const pl = 10, pr = 10, pt = 18, pb = 20, cw = w - pl - pr, ch = h - pt - pb, bw = cw / 16;
+  const mx = Math.max(6, ...bins);
+  for (let i = 0; i < 16; i++) {
+    const v = bins[i], bh = v / mx * ch, lo = i * 2;
+    ctx.fillStyle = lo + 2 <= A.MIN_NET ? '#c1121f' : lo < 18 ? '#e09a2c' : '#2a9d8f';
+    if (lo < A.MIN_NET && lo + 2 > A.MIN_NET) ctx.fillStyle = '#d4552a';
+    ctx.fillRect(pl + i * bw + 1, pt + ch - bh, bw - 2, bh);
+  }
+  const xm = pl + A.MIN_NET / 2 * bw;
+  ctx.setLineDash([4, 3]); ctx.strokeStyle = '#14213d'; ctx.beginPath(); ctx.moveTo(xm, pt - 4); ctx.lineTo(xm, pt + ch); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font = '10px ui-monospace,Menlo,Consolas,monospace'; ctx.fillStyle = '#5f6472';
+  ctx.textAlign = 'center';
+  for (let k = 0; k <= 30; k += 6) ctx.fillText('$' + k, pl + k / 2 * bw, pt + ch + 13);
+  ctx.textAlign = 'right'; ctx.fillStyle = '#14213d';
+  ctx.fillText('$15 min', xm - 3, pt - 6);
+  ctx.textAlign = 'right'; ctx.fillStyle = '#5f6472';
+  ctx.fillText(`${on.length} dots online · ${A.POOL - on.length} off`, w - pr, pt - 6);
+  ctx.textAlign = 'left';
+}
+
+function drawSplit() {
+  const sp = splitFor(1), car = 3.3 * A.COST_MI, pot = A.FEE + A.COMMISSION;
+  const drvNet = sp.pay - car;
+  const parts = [
+    { v: Math.max(0, drvNet), c: '#2a9d8f', t: 'driver keeps ' + money2(drvNet) },
+    { v: Math.min(car, Math.max(0, sp.pay)), c: '#8d3b3b', t: 'car ' + money2(car) },
+    { v: Math.max(0, sp.plat), c: '#c98a12', t: 'you ' + money2(sp.plat) }
+  ];
+  const tot = parts.reduce((a, p) => a + p.v, 0) || 1;
+  $('split').innerHTML = parts.map(p => `<div style="flex:${p.v / tot};background:${p.c}" title="${p.t}">${p.v / tot > 0.18 ? p.t : ''}</div>`).join('');
+  $('splitnote').textContent = `Driver paid ${money2(sp.pay)} − car ${money2(car)} = ${money2(drvNet)} kept · you keep ${money2(sp.plat)} of the ${money2(pot)} (scenario).`;
+}
+
+/* ================= UI UPDATE ================= */
+function updateLedgers() {
+  const ls = liveStats();
+  const frac = (S.t - S.qStart - S.week * A.WEEK_MIN) / A.WEEK_MIN;
+  const last = S.hist.length ? S.hist[S.hist.length - 1].rev : null;
+  const rate = frac > 0.2 ? ls.weekRev / frac : (last !== null ? last : ls.weekRev / Math.max(frac, 0.05));
+  const pace = S.cum.rev + rate * (A.WEEKS - S.week);
+  const pct = clamp(ls.qRev / A.TARGET, 0, 1) * 100;
+  $('s-rev').textContent = money(ls.qRev); $('s-revbar').style.width = pct + '%';
+  $('s-med').textContent = ls.med === null ? 'nobody online' : money2(ls.med); $('s-red').textContent = ls.red; $('s-off').textContent = (ls.off - S.offStart >= 0 ? '+' : '') + (ls.off - S.offStart);
+  $('s-redbar').style.width = (ls.on ? ls.red / ls.on * 100 : 0) + '%';
+  $('l-rev').textContent = money(ls.qRev); $('l-revbar').style.width = pct + '%';
+  $('l-week').textContent = money(ls.weekRev);
+  $('l-pace').textContent = money(pace);
+  $('l-pace').style.color = pace >= A.TARGET ? '#1f7a5c' : '#c1121f';
+  $('l-adt').textContent = Math.round(S.adt) + ' min';
+  $('l-stars').textContent = '★' + ls.stars.toFixed(1);
+  $('l-acc').textContent = Math.round(S.accEW * 100) + '%';
+  $('l-cancel').textContent = num(ls.cancel);
+  $('l-med').textContent = ls.med === null ? 'no drivers online' : money2(ls.med) + '/hr';
+  $('l-med').style.color = ls.med === null || ls.med < A.MIN_NET ? '#c1121f' : ls.med < 18 ? '#b07010' : '#1f7a5c';
+  $('l-red').textContent = `${ls.red} of ${ls.on} dots (${num(ls.red * A.DOT_PEOPLE)} people)`;
+  $('l-on').textContent = `${ls.on} dots (${num(ls.on * A.DOT_PEOPLE)})`;
+  $('l-off').textContent = `${ls.off} dots · ${ls.off - S.offStart >= 0 ? '+' : ''}${ls.off - S.offStart} since wk 1`;
+  $('l-wait').textContent = num(ls.wait) + ' hrs';
+  $('l-cost').textContent = money(ls.cost);
+  $('g-week').textContent = Math.min(S.week + 1, A.WEEKS);
+  $('g-wkbar').style.width = clamp(frac, 0, 1) * 100 + '%';
+  $('g-weeknote').textContent = S.userPaused ? '· paused' : '';
+}
+function updateCard(force) {
+  const d = S.sel;
+  if (!d) { $('drivercard').hidden = true; return; }
+  $('drivercard').hidden = false;
+  const stName = { off: 'logged off', idle: 'online, waiting for an offer (unpaid)', drift: 'driving toward a surge zone (unpaid miles)', pickup: 'driving to the restaurant', atrest: 'waiting at the restaurant for the food', drop: 'delivering', handoff: 'handing off the order' }[d.st];
+  const n = netHr(d), wkHr = d.wk.min / 60;
+  const thr = d.r * (1 - 0.3 * S.lev.press / 100);
+  $('dc-body').innerHTML =
+    `<b>Driver group #${d.id}</b><br><span class="tag">40 people · ◇ scenario</span><br>` +
+    `Status: ${stName}<br>` +
+    (d.on ? `Recent net: <b style="color:${dotColor(n)}">${money2(n)}/hr</b>${n < A.MIN_NET ? ' — below the $15 minimum' : ''}<br>` : '') +
+    `This week: ${d.wk.del} deliver${d.wk.del === 1 ? 'y' : 'ies'} · paid ${money2(d.wk.gross)} · car costs −${money2(d.wk.cost)}<br>` +
+    `Online ${wkHr.toFixed(1)} h, of which ${(d.wk.wait / 60).toFixed(1)} h waiting unpaid<br>` +
+    `Keeps logging on while net ≥ ~${money2(thr)}/hr (their other options, scenario)`;
+}
+
+/* ================= LEVERS ================= */
+const LV = [['take', v => v + '%'], ['base', v => money2(+v)], ['press', v => v + '%'], ['surge', v => (+v).toFixed(1) + '×']];
+function syncLevers() {
+  for (const [k, f] of LV) { $('lv-' + k).value = S.lev[k]; $('o-' + k).textContent = f(S.lev[k]); }
+  drawSplit();
+}
+for (const [k, f] of LV) {
+  $('lv-' + k).addEventListener('input', e => {
+    if (!S) return;
+    S.lev[k] = +e.target.value; $('o-' + k).textContent = f(S.lev[k]); drawSplit();
+  });
+}
+
+/* ================= FLOW ================= */
+function show(id) {
+  for (const s of ['screen-title', 'screen-game', 'screen-debrief']) $(s).hidden = s !== id;
+  window.scrollTo(0, 0);
+}
+function startGame() {
+  S = newState(); lastObs = 0;
+  makeDrivers();
+  // unscored warm-up so the quarter opens on a running city
+  S.qStart = 1e12; // no week boundaries during warm-up
+  for (let i = 0; i < 1400; i++) step(0.25);
+  S.qStart = S.t; lastObs = S.t; S.week = 0; S.hist = []; S.targetHitWeek = 0; S.cool = {};
+  for (const k in S.cum) S.cum[k] = 0; S.offStart = S.drivers.filter(d => !d.on).length; S.peakOff = S.offStart;
+  S.wk = freshWeek(); S.logoffsWk = 0; S.cum.logoffs = 0; S.pops = []; S.msgs = [];
+  for (const d of S.drivers) d.wk = { gross: 0, cost: 0, min: 0, wait: 0, del: 0 };
+  show('screen-game');
+  syncLevers();
+  $('s-target').textContent = money(A.TARGET); $('l-target').textContent = money(A.TARGET);
+  $('btn-pause').textContent = 'Pause'; $('btn-speed').textContent = 'Speed 1×';
+  $('drivercard').hidden = true;
+  resizeAll();
+  S.running = true;
+  say(`Quarter begins. The board's target: ${money(A.TARGET)} in platform revenue (scenario).`, 'start', 0);
+  say('Drag the levers (right, or below on phones). Tap any dot to see what that driver nets.', 'start2', 0);
+  updateLedgers();
+}
+function finish() {
+  S.over = true; S.running = false; S.sel = null;
+  buildDebrief();
+  show('screen-debrief');
+  resizeAll();
+}
+function buildDebrief() {
+  const H = S.hist, first = H[0], last = H[H.length - 1];
+  const fm = v => v === null ? 'no drivers online' : money2(v) + '/hr';
+  const lastLine = last.med === null ? 'In your final week no drivers were online at all.' : `In your final week the median driver netted ${money2(last.med)}/hr after car costs, and ${Math.round(last.below * 100)}% of active drivers were under the $15 scenario minimum.`;
+  const hit = S.cum.rev >= A.TARGET;
+  $('d-outcome').textContent = hit ? `Target hit: ${money(S.cum.rev)} of ${money(A.TARGET)}.` : `Target missed: ${money(S.cum.rev)} of ${money(A.TARGET)}.`;
+  $('d-sub').textContent = hit
+    ? `You did what the system asked${S.targetHitWeek ? ' (target crossed in week ' + S.targetHitWeek + ')' : ''}. ` + lastLine
+    : `You finished ${money(A.TARGET - S.cum.rev)} short. ` + lastLine;
+  $('d-assump').innerHTML = assumptionList().map(a => '<li>' + a + '</li>').join('');
+  const best = H.reduce((a, r) => r.rev > a.rev ? r : a, H[0]);
+  const lev = r => `take ${r.lev.take}% · base ${money2(r.lev.base)} · pressure ${r.lev.press}% · surge ${r.lev.surge.toFixed(1)}×`;
+  const avgAdt = H.reduce((a, r) => a + r.adt, 0) / H.length;
+  $('d-plat').innerHTML = [
+    ['Quarter revenue', money(S.cum.rev)], ['Target', money(A.TARGET)],
+    ['Best week', `W${best.w}: ${money(best.rev)}`], ['Deliveries completed', num(S.cum.del)],
+    ['Avg delivery time', Math.round(avgAdt) + ' min'], ['Orders cancelled', num(S.cum.cancel)],
+    ['Orders lost to surge prices', num(S.cum.lostPrice)]
+  ].map(([a, b]) => `<span>${a}</span><span>${b}</span>`).join('');
+  $('d-human').innerHTML = [
+    ['Median net, week 1', fm(first.med)], ['Median net, week 13', fm(last.med)],
+    ['Under $15 minimum, week 13', last.med === null ? '—' : Math.round(last.below * 100) + '% of active'],
+    ['Logged off, start → peak', `${S.offStart} → ${S.peakOff} dots (+${num(Math.max(0, S.peakOff - S.offStart) * A.DOT_PEOPLE)} people)`],
+    ['Unpaid waiting hours', num(S.cum.wait)], ['Car costs drivers paid', money(S.cum.cost)],
+    ['Driver pay, before car costs', money(S.cum.gross)]
+  ].map(([a, b]) => `<span>${a}</span><span>${b}</span>`).join('');
+  const pace = A.TARGET / A.WEEKS;
+  const onP = H.filter(r => r.rev >= pace && r.med !== null), offP = H.filter(r => r.rev < pace && r.med !== null);
+  const avg = a => a.reduce((s, r) => s + r.med, 0) / a.length;
+  let txt = `Your levers in week 1: ${lev(first)}. In week 13: ${lev(last)}. `;
+  if (onP.length && offP.length) txt += `In the ${onP.length} week${onP.length > 1 ? 's' : ''} your revenue was at or above target pace, the median driver netted ${money2(avg(onP))}/hr; in the other ${offP.length}, ${money2(avg(offP))}/hr.`;
+  else if (onP.length) txt += `Every week was at or above target pace; the median driver averaged ${money2(avg(onP))}/hr across them.`;
+  else if (offP.length) txt += `No week reached target pace; the median driver averaged ${money2(avg(offP))}/hr across the quarter.`;
+  $('d-pace').textContent = txt;
+  let t = '<tr><th>Week</th><th>Take</th><th>Base</th><th>Press.</th><th>Surge</th><th>Your revenue</th><th>Median driver net</th><th>Under $15</th><th>Logged off</th></tr>';
+  for (const r of H) {
+    t += `<tr><td>W${r.w}</td><td>${r.lev.take}%</td><td>${money2(r.lev.base)}</td><td>${r.lev.press}%</td><td>${r.lev.surge.toFixed(1)}×</td><td>${money(r.rev)}</td>` +
+      `<td class="${r.med === null || r.med < A.MIN_NET ? 'red' : ''}">${r.med === null ? 'nobody online' : money2(r.med) + '/hr'}</td><td>${r.med === null ? '—' : Math.round(r.below * 100) + '%'}</td><td>${r.off}</td></tr>`;
+  }
+  $('d-table').innerHTML = t;
+}
+
+/* ================= LOOP ================= */
+let lastT = 0, uiAcc = 0, modalWasRunning = false;
+function frame(ts) {
+  const realDt = lastT ? Math.min(0.1, (ts - lastT) / 1000) : 0.016;
+  lastT = ts;
+  if (S && !$('screen-game').hidden) {
+    if (S.running && !S.userPaused && !S.over) {
+      const sim = realDt * A.SIM_PER_SEC * S.speed;
+      const n = Math.max(1, Math.ceil(sim / 0.25));
+      for (let i = 0; i < n && !S.over; i++) step(sim / n);
+      observe();
+    }
+    if (!S.over && !$('screen-game').hidden) {
+      drawCity(S.userPaused ? 0 : realDt);
+      uiAcc += realDt;
+      if (uiAcc > 0.15) {
+        uiAcc = 0; updateLedgers(); drawCharts(); renderTicker(); if (S.sel) updateCard();
+      }
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ================= EVENTS ================= */
+function openModal() {
+  $('m-assump').innerHTML = assumptionList().map(a => '<li>' + a + '</li>').join('');
+  $('modal').hidden = false;
+  if (S && S.running && !S.over) { modalWasRunning = true; S.running = false; } else modalWasRunning = false;
+  $('m-close').focus();
+}
+function closeModal() {
+  $('modal').hidden = true;
+  if (S && modalWasRunning && !S.over) S.running = true;
+  modalWasRunning = false;
+}
+$('btn-start').addEventListener('click', startGame);
+$('btn-again').addEventListener('click', () => { show('screen-title'); });
+$('btn-assump1').addEventListener('click', openModal);
+$('btn-assump2').addEventListener('click', openModal);
+$('btn-assump3').addEventListener('click', openModal);
+$('lnk-assump').addEventListener('click', e => { e.preventDefault(); openModal(); });
+$('m-close').addEventListener('click', closeModal);
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('modal').hidden) closeModal(); });
+$('btn-pause').addEventListener('click', () => {
+  if (!S || S.over) return;
+  S.userPaused = !S.userPaused;
+  $('btn-pause').textContent = S.userPaused ? 'Resume' : 'Pause';
+  updateLedgers();
+});
+$('btn-speed').addEventListener('click', () => {
+  if (!S) return;
+  S.speed = S.speed === 1 ? 2 : S.speed === 2 ? 4 : 1;
+  $('btn-speed').textContent = 'Speed ' + S.speed + '×';
+});
+let restartArm = -Infinity;
+$('btn-restart').addEventListener('click', () => {
+  const now = performance.now();
+  if (now - restartArm < 3000) { restartArm = 0; if (S) { S.running = false; S.over = true; } $('btn-restart').textContent = 'Restart'; show('screen-title'); return; }
+  restartArm = now; $('btn-restart').textContent = 'Tap again to restart';
+  setTimeout(() => { if (performance.now() - restartArm >= 2900) $('btn-restart').textContent = 'Restart'; }, 3000);
+});
+cityC.addEventListener('click', e => {
+  if (!S || S.over) return;
+  const r = cityC.getBoundingClientRect();
+  const lx = (e.clientX - r.left) * L / r.width, ly = (e.clientY - r.top) * L / r.height;
+  let best = null, bd = 18;
+  for (const d of S.drivers) {
+    const dist = Math.hypot(px(d.x) + d.jx - lx, px(d.y) + d.jy - ly) - (d.on ? 0 : 6);
+    if (dist < bd) { bd = dist; best = d; }
+  }
+  S.sel = best; updateCard();
+});
+$('dc-close').addEventListener('click', () => { if (S) { S.sel = null; updateCard(); } });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && S && S.running && !S.over && !S.userPaused) {
+    S.userPaused = true; $('btn-pause').textContent = 'Resume';
+  }
+});
+window.addEventListener('resize', resizeAll);
+$('t-target').textContent = money(A.TARGET);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
