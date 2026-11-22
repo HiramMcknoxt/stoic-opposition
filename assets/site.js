@@ -1,4 +1,4 @@
-/* The Stoic Opposition — prototype tools.
+/* The Stoic Opposition — site tools.
    Everything runs locally in the browser. Nothing is sent or stored. */
 
 (function () {

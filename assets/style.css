@@ -1,4 +1,4 @@
-/* The Stoic Opposition — prototype stylesheet
+/* The Stoic Opposition — live stylesheet
    Library-basement print shop meets public record. Texture is CSS only. */
 
 :root {
@@ -116,10 +116,10 @@ main {
 
 h1, h2, h3 {
   font-family: "Oswald", sans-serif;
-  text-transform: uppercase;
   line-height: 1.12;
   letter-spacing: 0.015em;
 }
+h1 { text-transform: uppercase; }
 h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); margin: 0.4rem 0 0.8rem; }
 h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); margin: 2.4rem 0 0.7rem; }
 h3 { font-size: 1.2rem; margin: 1.4rem 0 0.4rem; }
@@ -170,6 +170,22 @@ section { margin-bottom: 2.2rem; }
 .stamp.green { border-color: var(--green); color: var(--green); transform: rotate(1.5deg); }
 .stamp.amber { border-color: var(--amber); color: var(--amber); transform: rotate(-1deg); }
 .stamp.ink { border-color: var(--ink); color: var(--ink); }
+.stamp.grey { border-color: #6f6a5e; color: #6f6a5e; transform: rotate(-1deg); }
+.step-label {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.45rem 0.85rem;
+  border: 1.5px dashed var(--ink);
+  border-radius: 3px;
+}
+.receipt .r-source { font-size: 0.85rem; margin-top: 0.6rem; }
+.footer-cols { display: flex; flex-wrap: wrap; gap: 0.8rem 3rem; margin: 0.8rem 0; }
+.footer-cols nav { display: flex; flex-direction: column; gap: 0.3rem; font-family: "IBM Plex Mono", monospace; font-size: 0.92rem; }
+.footer-cols .footer-head { font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.78rem; margin: 0 0 0.2rem; color: var(--ink); }
+.footer-cols a { color: var(--ink); }
+.footer-cols a:hover { color: var(--red); }
 
 .exhibit {
   display: inline-block;

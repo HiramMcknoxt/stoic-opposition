@@ -1,8 +1,7 @@
-# The Stoic Opposition — Prototype ("The Empty Committee Room")
+# The Stoic Opposition — Live Site ("The Empty Committee Room")
 
-A static prototype redesign of thestoicopposition.com, built to Muse's
-concept: a field manual disguised as a website. It does not replace the live
-site; nothing here is published until Corey approves it.
+The live site for thestoicopposition.com, launched Nov 22, 2026:
+a field manual disguised as a website.
 
 ## Rebuild
 
@@ -20,9 +19,12 @@ environment variable). No dependencies beyond Python 3.
 - `index.html` — home: hero, Lonoke County receipt, three doors, method, horizon.
 - `start.html` — Take a Seat: five-step county audit, quorum calculator,
   first-meeting packet builder (both tools run entirely in the browser).
-- `playbook.html` — Dynamic Synthesism, the three phases, the Four Pillars.
+- `playbook.html` — Civic Pragmatism / Operational Governance, the three phases, the Four Pillars.
 - `ledger.html` — the Living Ledger: claims with source, status, and date.
 - `vault.html` — Steal This Rule: the §601.4 designation mechanism + template.
+- `toolkit.html` — the free field guide: the method (rigid on principle,
+  flexible in practice) plus the voting-record toolkit, with free downloads
+  in `assets/downloads/` (blank template CSV + the guide as markdown).
 - `field-notes.html` — essays indexed by function, linked to their sources.
 - `argument-lab.html` — Premise Check hub: method, formats, episodes,
   fallacy catalog, corrections log.
@@ -31,7 +33,7 @@ environment variable). No dependencies beyond Python 3.
 - `about.html` — Corey, the project, canon vocabulary, AI disclosure.
 - `privacy.html` — plain-English privacy rules for any future roster.
 - `assets/style.css`, `assets/site.js` — shared styling and tools.
-- `sitemap.xml`, `robots.txt` — generated for the GitHub Pages staging URL.
+- `sitemap.xml`, `robots.txt` — generated for thestoicopposition.com.
 
 ## Fidelity rules (do not break these in edits)
 
@@ -47,5 +49,5 @@ environment variable). No dependencies beyond Python 3.
 4. Facebook links are copied verbatim from
    `~/workspace/stoic-opposition/content-bank.md`.
 5. No donate button. Ever. The ask is a Tuesday night, not a wallet.
-6. This prototype collects and stores nothing; `privacy.html` is the contract
+6. This site collects and stores nothing; `privacy.html` is the contract
    any future intake must honor before it launches.
