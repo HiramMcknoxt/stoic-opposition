@@ -66,9 +66,8 @@ city council minutes dated January 2023 through October 2026, extracted
 from the minutes embedded in public meeting packets. 516 of the 536 rows
 came from OCR of scanned minutes pages and are flagged "Needs check" in
 the file until a human verifies them. (Counts taken directly from the
-project's working file, `votes.csv`, on Nov 17, 2026.) This guide is a
-personal project of its author; it is not a City of Cabot publication, and
-nothing in it implies the city's endorsement.
+project's working file, `votes.csv`, on Nov 17, 2026.) The Stoic
+Opposition is an independent civic project.
 
 ### The steps
 

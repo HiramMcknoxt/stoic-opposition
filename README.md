@@ -30,7 +30,7 @@ environment variable). No dependencies beyond Python 3.
   fallacy catalog, corrections log.
 - `print.html` — Library Basement Press: handbill, one-page playbook,
   meeting-observation sheet (print CSS: one block per page).
-- `about.html` — Corey, the project, canon vocabulary, AI disclosure.
+- `about.html` — the project, canon vocabulary, AI disclosure.
 - `privacy.html` — plain-English privacy rules for any future roster.
 - `assets/style.css`, `assets/site.js` — shared styling and tools.
 - `sitemap.xml`, `robots.txt` — generated for thestoicopposition.com.
