@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<link rel="icon" href="data:," />
+<title>Premise Check: Spot the Fallacy — Week of November 16, 2026 (Launch Edition, Archived) | The Stoic Opposition</title>
+<meta name="description" content="Archived launch edition of the Premise Check game: week of November 16, 2026, built from Premise Check episodes 052–075. Every round cites its speaker, venue, and the episode it was audited in.">
+<link rel="canonical" href="https://thestoicopposition.com/premise-check/archive/2026-11-22/">
+<style>
+  :root{
+    --bg:#050505; --panel:#111111; --panel2:#171717; --line:#2a2a2a; --line2:#3a3a3a;
+    --white:#f5f5f0; --muted:#a8a8a0; --dim:#6f6f68;
+    --red:#ff5252; --red-bg:#2a0f0f; --green:#3ddc84; --green-bg:#0d2417;
+    --amber:#ffb020; --amber-bg:#2a1e05; --blue:#7cc7ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--white)}
+  body{font-family:"DejaVu Sans Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; -webkit-font-smoothing:antialiased; line-height:1.5}
+  button{font-family:inherit; cursor:pointer}
+  .wrap{max-width:680px;margin:0 auto;padding:16px 16px 28px;min-height:100dvh;display:flex;flex-direction:column}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0 14px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .topbar b{color:var(--white);font-weight:700}
+  .dot{color:var(--red)}
+  main{flex:1;display:flex;flex-direction:column}
+  footer{border-top:1px solid var(--line);margin-top:28px;padding-top:14px;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.6}
+  footer strong{color:var(--white)}
+
+  /* Title screen */
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin:28px 0 10px}
+  h1{font-size:clamp(34px,9vw,56px);line-height:.95;margin:0;letter-spacing:-.02em;text-transform:uppercase}
+  h1 .outline{color:transparent;-webkit-text-stroke:1.5px var(--white)}
+  .sub{color:var(--muted);font-size:15.5px;margin:16px 0 0;max-width:56ch}
+  .howto{background:var(--panel);border:1px solid var(--line);padding:16px;margin:22px 0}
+  .howto h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px;color:var(--white)}
+  .howto ol{margin:0;padding-left:20px;color:var(--muted);font-size:14px}
+  .howto li{margin:6px 0}
+  .howto li b{color:var(--white)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+  .chip{border:1px solid var(--line2);padding:6px 10px;font-size:12px}
+  .chip.red{color:var(--red);border-color:#5a2323}.chip.green{color:var(--green);border-color:#1e4d33}.chip.amber{color:var(--amber);border-color:#5a4310}
+  .btn{display:block;width:100%;min-height:56px;border:1px solid var(--white);background:var(--white);color:#000;font-size:16px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:14px 16px}
+  .btn:active{transform:translateY(1px)}
+  .btn.secondary{background:transparent;color:var(--white);border-color:var(--line2)}
+  .btn:focus-visible, .answer:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .meta{color:var(--dim);font-size:12.5px;text-align:center;margin-top:12px}
+
+  /* Game */
+  .hud{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted);margin:14px 0 8px;flex-wrap:wrap}
+  .hud b{color:var(--white);font-size:15px}
+  .timerwrap{height:10px;background:#222;border:1px solid var(--line);margin:6px 0 16px;overflow:hidden}
+  .timerbar{height:100%;background:var(--green);width:100%;transition:width .12s linear}
+  .timerbar.warn{background:var(--amber)} .timerbar.danger{background:var(--red)}
+  .timertext{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:4px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:18px}
+  .cardlabel{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .speaker{font-size:15px;font-weight:700}
+  .context{color:var(--muted);font-size:13px;margin-top:2px}
+  .quote{font-size:clamp(19px,5.2vw,24px);line-height:1.45;margin:16px 0 4px;color:var(--white)}
+  .quote::before{content:"“"} .quote::after{content:"”"}
+  .prompt{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin:20px 0 10px}
+  .answers{display:grid;gap:10px}
+  .answer{min-height:56px;text-align:left;background:var(--panel2);color:var(--white);border:1px solid var(--line2);padding:14px 14px;font-size:15.5px;display:flex;gap:12px;align-items:flex-start;width:100%}
+  .answer .letter{flex:0 0 28px;height:28px;border:1px solid var(--line2);display:grid;place-items:center;font-size:12px;color:var(--muted)}
+  .answer:disabled{opacity:1;cursor:default}
+  .answer.correct{background:var(--green-bg);border-color:var(--green);color:var(--white)}
+  .answer.correct .letter{border-color:var(--green);color:var(--green)}
+  .answer.wrong{background:var(--red-bg);border-color:var(--red)}
+  .answer.wrong .letter{border-color:var(--red);color:var(--red)}
+  .answer.dimmed{opacity:.55}
+  .audit{margin-top:16px;border:1px solid var(--line);background:#0b0b0b;padding:16px;display:none}
+  .audit.show{display:block}
+  .verdictline{font-size:18px;font-weight:700;margin:0 0 4px}
+  .verdictline.ok{color:var(--green)} .verdictline.no{color:var(--red)}
+  .points{color:var(--muted);font-size:13px;margin-bottom:12px}
+  .fallacyname{font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+  .def{color:var(--muted);font-size:13.5px;margin-top:4px}
+  .block{margin-top:14px;border-top:1px dashed var(--line2);padding-top:12px}
+  .blocklabel{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+  .blocklabel.red{color:var(--red)} .blocklabel.amber{color:var(--amber)} .blocklabel.green{color:var(--green)}
+  .block p{margin:0;font-size:14.5px}
+  .hiddenpremise{color:#ffd7d7}
+  .verdicttext{color:#ffe9b0}
+  .nextbtn{margin-top:16px}
+
+  /* End */
+  .scorecard{border:1px solid var(--line2);background:var(--panel);margin-top:18px}
+  .scorecard-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+  .bigscore{font-size:clamp(56px,16vw,84px);line-height:1;text-align:center;padding:22px 10px 4px;font-weight:700}
+  .bigscore small{font-size:14px;color:var(--muted);display:block;letter-spacing:.14em;text-transform:uppercase;margin-top:8px;font-weight:400}
+  .rank{margin:16px;padding:14px;text-align:center;border:1px solid var(--amber);background:var(--amber-bg);color:var(--amber);font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--line)}
+  .stat{padding:14px 10px;text-align:center;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:0}
+  .stat b{display:block;font-size:22px}
+  .stat span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .review{margin-top:18px}
+  .review h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .reviewrow{border:1px solid var(--line);background:var(--panel);padding:12px 14px;margin-bottom:8px;font-size:13.5px}
+  .reviewrow .r-top{display:flex;justify-content:space-between;gap:10px}
+  .ok{color:var(--green)} .no{color:var(--red)}
+  .reviewrow .r-quote{color:var(--muted);margin-top:4px;font-size:13px}
+  @media (prefers-reduced-motion: reduce){ .timerbar{transition:none} .btn:active{transform:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span><b>Premise Check</b> <span class="dot">●</span> The Stoic Opposition</span><span>Logic Audit Game</span></div>
+  <main id="app"></main>
+  <footer>“We autopsy the argument, not the person.”<br><strong>Premise Check · The Stoic Opposition</strong><br><span style="color:var(--dim)">All quotes are from real Premise Check episodes. Naming a fallacy grades the argument — it doesn’t settle the underlying facts.</span><br><a href="https://thestoicopposition.com/premise-check/" style="color:var(--amber)">Play the current edition</a> · <a href="https://thestoicopposition.com/premise-check/archive/" style="color:var(--amber)">All past weeks — the archive</a><br><a href="https://thestoicopposition.com/games.html" style="color:var(--amber)">More playable arguments — The Game Shelf</a> · <a href="https://thestoicopposition.com" style="color:var(--amber)">thestoicopposition.com</a></footer>
+</div>
+
+<script>
+var BANK = [
+{ep:"Ep. 055", speaker:"Sen. Tom Cotton (R-AR)", context:"Senate Armed Services Committee · Nov 17, 2026", quote:"If the picture painted by the Democrats were so bleak, would the Navy have reached its recruiting goals three months early?", correct:"Red herring", hidden:"People signing up tells you how the people already serving are doing.", verdict:"The number is real, and it answers a question nobody asked.", def:"Dodging the question at hand by substituting a different, more comfortable topic."},
+{ep:"Ep. 056", speaker:"Acting Navy Secretary Hung Cao", context:"Senate Armed Services Committee · Nov 17, 2026", quote:"It's like my kids opening up the refrigerator door and saying, 'There's nothing to eat in here!'", correct:"Weak analogy", hidden:"If some food exists, the food must be enough — and a sailor at sea is like a kid at home in front of a fridge.", verdict:"Some food is not enough food.", def:"Two things are alike in some respects, so they must be alike in the respect that matters — when the differences are the important part."},
+{ep:"Ep. 060", speaker:"Sen. Ron Johnson (R-WI)", context:"Fox Business · Nov 18, 2026", quote:"Social Security is a Ponzi scheme.", correct:"Weak analogy", hidden:"Sharing one payment flow makes two systems the same kind of thing.", verdict:"One shared mechanism is not an identity.", def:"Two things are alike in some respects, so they must be alike in the respect that matters — when the differences are the important part."},
+{ep:"Ep. 074", speaker:"DNI Jay Clayton", context:"CNN State of the Union · Nov 22, 2026 — asked whether Putin is a friend of the United States", quote:"I trust him completely.", correct:"Appeal to authority", hidden:"Trust in the man who made the claim is evidence about the claim.", verdict:"Ask for the evidence, not the loyalty.", def:"Treating a claim as settled because an authority figure asserted it, without the underlying evidence."},
+{ep:"Ep. 075", speaker:"Sen. John Kennedy (R-LA)", context:"NBC Meet the Press · Nov 22, 2026 — on whether Commerce “knowingly allowed” export-control failures", quote:"Either that or they didn't know what they were doing. They're so incompetent, you wouldn't put them in charge of a food truck. … I don't think they're incompetent. It appears that they knowingly allowed this to happen.", correct:"False dilemma", hidden:"Incompetence and knowing permission are the only two doors in the building.", verdict:"When a man gives you two doors, walk the hallway and count the rest.", def:"Presenting two options as the only possibilities when more exist."},
+{ep:"Ep. 073", speaker:"Rep. Robert Garcia (D-CA)", context:"Written statement on Executive Order 14438 · Nov 21, 2026", quote:"What is the White House trying to hide?", correct:"Loaded question", hidden:"The question already assumes concealment — and assumes the thing concealed is waste, fraud, and corruption, before any investigation has exposed it.", verdict:"A question is not evidence — when the verdict arrives inside the question, the answer was never the point.", def:"A question that smuggles in an unproven assumption, so any direct answer concedes it."},
+{ep:"Ep. 071", speaker:"Rep. Jamie Raskin (D-MD)", context:"Statement on Executive Order 14438 · Nov 21, 2026", quote:"Federal contractors are paid with taxpayer dollars, not Trump's personal billions.", correct:"Begging the question", hidden:"Who pays for the work decides who holds the privilege — and the order’s illegality is so plain it needs no statute, no case, and no court.", verdict:"When a verdict arrives wearing adjectives — blatant, obvious, clear — ask for the citation underneath.", def:"Assuming the very conclusion the argument is supposed to prove, so the “proof” travels in a circle."},
+{ep:"Ep. 070", speaker:"House Speaker Mike Johnson (R-LA)", context:"Dear Colleague letter · Nov 20, 2026", quote:"We have the lowest violent crime rate in 126 years.", correct:"Equivocation", hidden:"The 126-year number belongs to the violent crime rate — in fact it was borrowed from a different, smaller statistic: homicide alone.", verdict:"When a superlative arrives, ask which statistic, measured how, over what years.", def:"Using the same word — or number — in two different senses within one argument, so the conclusion trades on the confusion."},
+{ep:"Ep. 069", speaker:"Sen. Ron Johnson (R-WI)", context:"NPR Morning Edition · Nov 20, 2026 — on tying funding to ending the war", quote:"We're not going to shut down the war. That is President Trump's power.", correct:"Begging the question", hidden:"The authority is the president’s to begin with — the very point in dispute, since Congress never authorized this war.", verdict:"When a constitutional fight is settled by the words “constitutional authority,” ask for the clause.", def:"Assuming the very conclusion the argument is supposed to prove, so the “proof” travels in a circle."},
+{ep:"Ep. 068", speaker:"President Donald Trump", context:"White House news conference · Nov 20, 2026 — on Fed rates and GDP", quote:"If you look at India, they have low interest rates, and they have a 7 percent GDP. We'd have a 14, 15, maybe even a 20 percent GDP.", correct:"False cause", hidden:"The interest rate is the dial that sets a country’s growth, and one dial explains the whole gap between two economies.", verdict:"When one dial is said to explain an entire economy, check the dial in the example country first.", def:"Concluding that one thing caused another merely because it happened before it, or alongside it."},
+{ep:"Ep. 057", speaker:"President Donald Trump", context:"Truth Social post · Nov 17, 2026 — on gasoline prices", quote:"Biggest drop in gasoline in 18 years. Notice that they waited until after the 'Election?'", correct:"False cause", hidden:"A price trend has a “they” who can hold it and release it — and a date after the election proves they did.", verdict:"A trend that started in September cannot have waited until November.", def:"Concluding that one thing caused another merely because it happened before it, or alongside it."},
+{ep:"Ep. 067", speaker:"Sen. Josh Hawley (R-MO)", context:"Written statement on the permitting bill (BAAJA) · Nov 20, 2026", quote:"This bill is stuffed with giveaways to data centers and industry at the expense of farmers.", correct:"Cherry picking", hidden:"The part of the bill he named is the whole bill.", verdict:"When a bill is called stuffed, ask what was left on the cutting-room floor — a charge is not a giveaway.", def:"Selecting only the data points that support the conclusion and quietly omitting the ones that don’t."},
+{ep:"Ep. 062", speaker:"Sen. Rand Paul (R-KY)", context:"Senate Homeland Security hearing · Nov 19, 2026 — defending the one-sided GAO nominee process", quote:"They did nothing. They submitted no names.", correct:"Cherry picking", hidden:"A process the chairman never convened was open for them to use.", verdict:"An empty inbox proves nothing when you controlled the process that was supposed to fill it.", def:"Selecting only the data points that support the conclusion and quietly omitting the ones that don’t."},
+{ep:"Ep. 066", speaker:"President Donald Trump", context:"White House news conference · Nov 20, 2026 — on data centers built abroad", quote:"We're not allowing data centers to go into other countries because China will take all of them, and we're not allowing that to happen.", correct:"Appeal to fear", hidden:"A data center built abroad is a data center handed to China.", verdict:"When the argument is a takeover, demand the mechanism — if no one can show how the building changes hands, the fear is doing the arguing.", def:"Substituting a frightening outcome for evidence, so the audience reacts to the threat instead of weighing the claim."},
+{ep:"Ep. 065", speaker:"Rep. Jamie Raskin (D-MD)", context:"Preservation letters to DOJ, FBI, DHS, ICE & BOP · Nov 20, 2026", quote:"There is significant evidence that Trump Administration officials have engaged in the widespread destruction, mutilation, and concealment of government records.", correct:"Hasty generalization", hidden:"A setting on one chat proves a practice across five agencies — and proves the motive behind it.", verdict:"A preservation letter needs suspicion. A verdict of widespread destruction needs the preserved records.", def:"Drawing a sweeping conclusion about a whole group from a tiny, unrepresentative, or unverified sample."},
+{ep:"Ep. 064", speaker:"Michael LoSapio, CISA nominee", context:"Senate confirmation hearing · Nov 19, 2026 — asked whether the Capitol was attacked on Jan. 6", quote:"No, I don't believe it was an attack, no.", correct:"Appeal to ignorance", hidden:"If he cannot personally vouch for an event, the documented record of it does not count — not knowing, offered as proof it did not happen.", verdict:"“I don’t know” is a starting point, not a verdict.", def:"Claiming something is true because it hasn’t been proven false — or false because it hasn’t been proven true."},
+{ep:"Ep. 061", speaker:"President Donald Trump", context:"Fox News interview, Shenzhen · Nov 19, 2026 — asked what he wanted from the trilateral meeting", quote:"That's a big win for us. It's a big win for China too.", correct:"Red herring", hidden:"A host’s ceremony is a concession, and being honored is the same as prevailing.", verdict:"Applause is not an outcome — if the victory would look identical whether the talks succeed or fail, it is not evidence the talks succeeded.", def:"Dodging the question at hand by substituting a different, more comfortable topic."},
+{ep:"Ep. 059", speaker:"Homeland Security Secretary Markwayne Mullin", context:"House Homeland Security Committee · Nov 18, 2026 — defending a government-plane flight to the LSU–Texas game after the FAA ground stop", quote:"That would show distrust that we're not even willing to fly.", correct:"Red herring", hidden:"Travelers were watching his football plans as a safety signal.", verdict:"A trip is not a safety demonstration just because canceling it might look bad.", def:"Dodging the question at hand by substituting a different, more comfortable topic."},
+{ep:"Ep. 072", speaker:"Sen. Elizabeth Warren (D-MA)", context:"Response on X · Nov 21, 2026 — on capping credit card interest rates at 10%", quote:"Let's cap credit card interest rates and save Americans money.", correct:"No fallacy — it passes", hidden:"No hidden premise is smuggled in. The premises are checkable: median card rates near 22.2%, about $160 billion in interest charged in 2024, and a live bill (S. 381) that caps APR at 10%.", verdict:"When the numbers do the work, the adjectives can rest.", def:"Premise Check: PASSES — COGENT. Checkable premises, an inference that follows, and the strongest objection answered out loud.", isPass:true},
+{ep:"Ep. 052", speaker:"Sens. John Thune, John Kennedy & Thom Tillis", context:"Remarks to reporters · Nov 16, 2026 — demanding an explanation before further funds are released", quote:"Then I want him to explain how it's going to be fixed, when it's going to be fixed, who's going to fix it, and how much it's going to cost.", correct:"No fallacy — it passes", hidden:"No hidden premise is smuggled in. The move is the opposite of one: asking for the explanation itself, before the check is written.", verdict:"A price tag is not a plan — whoever asks for the explanation before the check is doing oversight.", def:"Premise Check: PASSES — COGENT. A strong inductive argument built on true, checkable premises.", isPass:true}
+];
+
+var ALL_FALLACIES = ["Red herring","Weak analogy","Appeal to authority","False dilemma","Loaded question","Begging the question","Equivocation","False cause","Cherry picking","Appeal to fear","Hasty generalization","Appeal to ignorance","Straw man","Ad hominem","Slippery slope","Appeal to popularity"];
+
+var app = document.getElementById('app');
+var state = { deck:[], idx:0, score:0, correct:0, timer:null, timeLeft:30, locked:false, results:[], currentOptions:[] };
+
+function shuffle(a){ var arr=a.slice(); for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; } return arr; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function showTitle(){
+  stopTimer();
+  app.innerHTML =
+    '<div class="kicker">A Premise Check Game</div>'+
+    '<h1>Spot the<br><span class="outline">Fallacy</span></h1>'+
+    '<p class="sub">Real quotes. Real audits. Read the argument, name the move — before the clock runs out. Two of the rounds in the bank actually pass. Watch for them.</p>'+
+    '<div class="howto"><h2>How to play</h2><ol>'+
+    '<li><b>10 rounds</b>, drawn at random from this edition&rsquo;s bank of 20 real Premise Check episodes (Eps. 052&ndash;075).</li>'+
+    '<li>Read the <b>quote card</b>, then pick the fallacy from <b>4 options</b>.</li>'+
+    '<li>You have <b>30 seconds</b> per round. Running out counts as a miss.</li>'+
+    '<li><b>100 points</b> per correct answer + up to <b>50 speed bonus</b>.</li>'+
+    '<li>After each pick, the audit opens: the <b>hidden premise</b> and the <b>one-line verdict</b>.</li>'+
+    '</ol><div class="legend"><span class="chip">○ Quote — white</span><span class="chip red">● Hidden premise — red</span><span class="chip green">● Correct — green</span><span class="chip amber">● Verdict — amber</span></div></div>'+
+    '<button class="btn" id="startBtn">▶ Start — 10 Rounds</button>'+
+    '<p class="meta" style="color:var(--amber);letter-spacing:.1em;text-transform:uppercase">Archived edition · Week of November 16, 2026 · Launch edition — from Premise Check episodes 052&ndash;075</p>'+
+    '<p class="meta">Bank: this edition&rsquo;s 20 rounds, frozen as published — every round cites its speaker, venue, and the Premise Check episode it came from · Speakers from both parties, graded by the same test</p>';
+  document.getElementById('startBtn').addEventListener('click', startGame);
+}
+
+function startGame(){
+  state.deck = shuffle(BANK).slice(0,10);
+  state.idx=0; state.score=0; state.correct=0; state.results=[];
+  renderRound();
+}
+
+function buildOptions(q){
+  if(q.isPass){
+    var pool = shuffle(ALL_FALLACIES.filter(function(f){ return f!==q.correct; })).slice(0,3);
+    return shuffle(pool.concat([q.correct]));
+  }
+  var pool2 = shuffle(ALL_FALLACIES.filter(function(f){ return f!==q.correct; })).slice(0,3);
+  return shuffle(pool2.concat([q.correct]));
+}
+
+function renderRound(){
+  stopTimer();
+  state.locked=false; state.timeLeft=30;
+  var q = state.deck[state.idx];
+  state.currentOptions = buildOptions(q);
+  var letters=['A','B','C','D'];
+  var answersHtml = state.currentOptions.map(function(opt,i){
+    return '<button class="answer" data-opt="'+esc(opt)+'"><span class="letter">'+letters[i]+'</span><span>'+esc(opt)+'</span></button>';
+  }).join('');
+  app.innerHTML =
+    '<div class="hud"><span>ROUND <b>'+(state.idx+1)+' / 10</b></span><span>SCORE <b>'+state.score+'</b></span><span>CORRECT <b>'+state.correct+'</b></span></div>'+
+    '<div class="timertext"><span>⏱ TIME</span><span id="timetext">30.0s</span></div>'+
+    '<div class="timerwrap"><div class="timerbar" id="timerbar"></div></div>'+
+    '<div class="card"><div class="cardlabel"><span>'+esc(q.ep)+' · PREMISE CHECK</span><span>QUOTE CARD</span></div>'+
+    '<div class="speaker">'+esc(q.speaker)+'</div><div class="context">'+esc(q.context)+'</div>'+
+    '<p class="quote">'+esc(q.quote)+'</p></div>'+
+    '<div class="prompt">▸ Spot the fallacy</div>'+
+    '<div class="answers" id="answers">'+answersHtml+'</div>'+
+    '<div class="audit" id="audit"></div>';
+  var btns = app.querySelectorAll('.answer');
+  btns.forEach(function(b){ b.addEventListener('click', function(){ answer(b.getAttribute('data-opt')); }); });
+  startTimer();
+  window.scrollTo(0,0);
+}
+
+function startTimer(){
+  var bar=document.getElementById('timerbar'), txt=document.getElementById('timetext');
+  var start=Date.now();
+  state.timer=setInterval(function(){
+    var elapsed=(Date.now()-start)/1000;
+    state.timeLeft=Math.max(0, 30-elapsed);
+    var pct=(state.timeLeft/30)*100;
+    if(bar){ bar.style.width=pct+'%'; bar.className='timerbar'+(state.timeLeft<=10?' danger':(state.timeLeft<=20?' warn':'')); }
+    if(txt){ txt.textContent=state.timeLeft.toFixed(1)+'s'; }
+    if(state.timeLeft<=0){ stopTimer(); timeoutAnswer(); }
+  },100);
+}
+function stopTimer(){ if(state.timer){ clearInterval(state.timer); state.timer=null; } }
+
+function timeoutAnswer(){
+  if(state.locked) return;
+  state.locked=true;
+  reveal(null, 0, true);
+}
+
+function answer(chosen){
+  if(state.locked) return;
+  state.locked=true;
+  stopTimer();
+  var q=state.deck[state.idx];
+  var isCorrect = (chosen===q.correct);
+  var bonus = isCorrect ? Math.round(50*(state.timeLeft/30)) : 0;
+  var pts = isCorrect ? 100+bonus : 0;
+  if(isCorrect){ state.correct++; }
+  state.score += pts;
+  reveal(chosen, pts, false);
+}
+
+function reveal(chosen, pts, timedOut){
+  var q=state.deck[state.idx];
+  var isCorrect = (chosen===q.correct);
+  state.results.push({ep:q.ep, speaker:q.speaker, quote:q.quote, correct:q.correct, chosen:chosen, ok:isCorrect, timedOut:timedOut});
+  var btns=app.querySelectorAll('.answer');
+  btns.forEach(function(b){
+    b.disabled=true;
+    var opt=b.getAttribute('data-opt');
+    if(opt===q.correct) b.classList.add('correct');
+    else if(opt===chosen) b.classList.add('wrong');
+    else b.classList.add('dimmed');
+  });
+  var hudScore = app.querySelectorAll('.hud b')[1]; if(hudScore) hudScore.textContent=state.score;
+  var hudCorrect = app.querySelectorAll('.hud b')[2]; if(hudCorrect) hudCorrect.textContent=state.correct;
+  var audit=document.getElementById('audit');
+  var headline = timedOut ? '⏱ TIME UP — MISSED' : (isCorrect ? '✓ CORRECT' : '✗ NOT QUITE');
+  var nextLabel = state.idx>=9 ? 'See final scorecard →' : 'Next round →';
+  audit.innerHTML =
+    '<p class="verdictline '+(isCorrect?'ok':'no')+'">'+headline+'</p>'+
+    '<div class="points">'+(isCorrect ? '+'+pts+' points'+(pts>100?' (includes speed bonus)':'') : (timedOut?'No points — the clock ran out.':'No points — the audit is below.'))+'</div>'+
+    '<div class="fallacyname">'+esc(q.correct)+'</div>'+
+    '<div class="def">'+esc(q.def)+'</div>'+
+    '<div class="block"><div class="blocklabel red">● Hidden premise</div><p class="hiddenpremise">'+esc(q.hidden)+'</p></div>'+
+    '<div class="block"><div class="blocklabel amber">● One-line verdict — '+esc(q.ep)+'</div><p class="verdicttext">'+esc(q.verdict)+'</p></div>'+
+    '<button class="btn nextbtn" id="nextBtn">'+nextLabel+'</button>';
+  audit.classList.add('show');
+  document.getElementById('nextBtn').addEventListener('click', function(){
+    if(state.idx>=9){ showEnd(); } else { state.idx++; renderRound(); }
+  });
+  setTimeout(function(){ var nb=document.getElementById('nextBtn'); if(nb) nb.scrollIntoView({block:'nearest', behavior:'smooth'}); },60);
+}
+
+function rankFor(c){
+  if(c<=3) return 'Rhetoric Load: Critical';
+  if(c<=6) return 'Premise Checker';
+  if(c<=8) return 'Logic Auditor';
+  return 'Stoic Oppositionist';
+}
+function rankNote(c){
+  if(c<=3) return 'The rhetoric did most of the arguing this game. The hidden premises were in there — they always are.';
+  if(c<=6) return 'You caught the loud ones. The quiet moves — equivocation, the loaded question — are the ones to drill next.';
+  if(c<=8) return 'Sharp audit. You’re reading for structure, not just for sides.';
+  return 'Full audit, no shortcuts. You autopsied the argument, not the person.';
+}
+
+function showEnd(){
+  stopTimer();
+  var c=state.correct, total=state.deck.length;
+  var accuracy = total? Math.round((c/total)*100):0;
+  var rows = state.results.map(function(r,i){
+    return '<div class="reviewrow"><div class="r-top"><span><b>'+(i+1)+'. '+esc(r.ep)+'</b> — '+esc(r.speaker)+'</span><span class="'+(r.ok?'ok':'no')+'">'+(r.ok?'✓':'✗')+'</span></div><div class="r-quote">“'+esc(r.quote)+'”</div><div style="margin-top:4px">Answer: <b>'+esc(r.correct)+'</b>'+(r.ok?'':' · You picked: '+esc(r.chosen||'— (time up)'))+'</div></div>';
+  }).join('');
+  app.innerHTML =
+    '<div class="kicker" style="margin-top:18px">Final Scorecard</div>'+
+    '<h1 style="font-size:clamp(28px,8vw,44px)">Audit<br>Complete</h1>'+
+    '<div class="scorecard"><div class="scorecard-head"><span>Premise Check</span><span>Validity · Soundness · Rhetoric</span></div>'+
+    '<div class="bigscore">'+state.score+'<small>Total score</small></div>'+
+    '<div class="rank">'+esc(rankFor(c))+'</div>'+
+    '<p style="padding:0 16px;color:var(--muted);font-size:14px;text-align:center">'+esc(rankNote(c))+'</p>'+
+    '<div class="stats"><div class="stat"><b>'+c+' / '+total+'</b><span>Correct</span></div><div class="stat"><b>'+accuracy+'%</b><span>Accuracy</span></div><div class="stat"><b>'+(total-c)+'</b><span>Missed</span></div></div></div>'+
+    '<button class="btn" id="againBtn" style="margin-top:18px">↻ Play again — reshuffle</button>'+
+    '<button class="btn secondary" id="titleBtn" style="margin-top:10px">Back to title</button>'+
+    '<div class="review"><h3>Round-by-round audit</h3>'+rows+'</div>';
+  document.getElementById('againBtn').addEventListener('click', startGame);
+  document.getElementById('titleBtn').addEventListener('click', showTitle);
+  window.scrollTo(0,0);
+}
+
+showTitle();
+</script>
+</body>
+</html>
