@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Owlsight · Daedalus — True Splat Viewer</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<!--
+  Owlsight - TRUE gaussian splat viewer (proper elliptical splats,
+  depth-sorted, spherical-harmonic color). Renderer: antimatter15/splat
+  (MIT), inlined so this file works offline. Patched by Vesper so a failed
+  default-scene download can never block drag & drop.
+  VESPER - the evening watch. Built for Corey Spangler, Cabot, Arkansas.
+  Site build for thestoicopposition.com (Nov 27, 2026): default scene is
+  Richie Road Park, delivered in base64 chunks - see the SITE BUILD notes
+  in the script. The desktop build keeps the original default behavior.
+-->
+<style>
+  html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#79a6d2;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  #canvas { width:100%; height:100%; display:block; touch-action:none; }
+  #bar { position:fixed; top:0; left:0; right:0; z-index:10; pointer-events:none;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:8px 14px; color:#e8ecf3; background:rgba(10,13,18,.72);
+    border-bottom:1px solid rgba(255,255,255,.08); font-size:13px; }
+  #bar b { color:#ffd97a; font-weight:600; }
+  #bar .hint { color:#9fb0c3; }
+  #bar .menucell { pointer-events:auto; display:flex; align-items:center; gap:8px; }
+  .menu { position:relative; }
+  #fileBtn { background:#1c2635; color:#e8ecf3; border:1px solid #33445c; border-radius:6px;
+    padding:4px 12px; cursor:pointer; font-size:13px; }
+  #fileBtn:hover { background:#273650; }
+  .dropdown { display:none; position:absolute; top:calc(100% + 6px); left:0; min-width:200px;
+    background:#131a26; border:1px solid #33445c; border-radius:8px; padding:4px; z-index:30;
+    box-shadow:0 8px 24px rgba(0,0,0,.45); }
+  .dropdown.open { display:block; }
+  .dropdown button { display:block; width:100%; text-align:left; background:none; border:none;
+    color:#e8ecf3; padding:7px 10px; cursor:pointer; font-size:13px; border-radius:5px; }
+  .dropdown button:hover { background:#273650; }
+
+  #progress { position:fixed; top:0; left:0; height:3px; width:0; z-index:20;
+    background:#ffd97a; transition:width .15s; }
+  #message { position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    color:#5f7189; font-size:17px; z-index:1; pointer-events:none; text-align:center; padding:20px; }
+  #spinner { position:fixed; right:16px; bottom:16px; width:22px; height:22px; z-index:10;
+    border-radius:50%; border:3px solid rgba(255,255,255,.15); border-top-color:#ffd97a;
+    animation:spin 0.9s linear infinite; display:none; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  #fps { position:fixed; left:14px; bottom:10px; color:#7d90a8; font-size:12px; z-index:10; }
+  #camid { position:fixed; right:14px; bottom:10px; color:#7d90a8; font-size:12px; z-index:10; }
+</style>
+</head>
+<body>
+<div id="bar">
+  <div class="menucell">
+    <div class="menu">
+      <button id="fileBtn" type="button">File</button>
+      <div id="fileMenu" class="dropdown">
+        <button id="openItem" type="button">Open Splat...</button>
+        <button id="saveItem" type="button">Save View as PNG...</button>
+      </div>
+    </div>
+    <span><b>Owlsight</b> &nbsp;True Splat Viewer</span>
+    <input id="fileIn" type="file" accept=".splat,.ply" style="display:none">
+  </div>
+  <div class="hint"><b>File &gt; Open</b>, or drag &amp; drop a <b>.splat</b> or <b>.ply</b> file &nbsp;·&nbsp; drag to orbit &nbsp;·&nbsp; scroll to zoom &nbsp;·&nbsp; WASD / arrows to fly</div>
+  <div class="hint">&#129417; Vesper</div>
+</div>
+<canvas id="canvas"></canvas>
+<div id="progress"></div>
+<div id="message">Open a .splat or .ply file (File menu, top left) or drop it here.</div>
+<div id="spinner"></div>
+<div id="fps"></div>
+<div id="camid"></div>
+<script>
+let cameras = [
+    {
+        id: 0,
+        img_name: "00001",
+        width: 1959,
+        height: 1090,
+        position: [
+            -3.0089893469241797, -0.11086489695181866, -3.7527640949141428,
+        ],
+        rotation: [
+            [0.876134201218856, 0.06925962026449776, 0.47706599800804744],
+            [-0.04747421839895102, 0.9972110940209488, -0.057586739349882114],
+            [-0.4797239414934443, 0.027805376500959853, 0.8769787916452908],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+    {
+        id: 1,
+        img_name: "00009",
+        width: 1959,
+        height: 1090,
+        position: [
+            -2.5199776022057296, -0.09704735754873686, -3.6247725540304545,
+        ],
+        rotation: [
+            [0.9982731285632193, -0.011928707708098955, -0.05751927260507243],
+            [0.0065061360949636325, 0.9955928229282383, -0.09355533724430458],
+            [0.058381769258182864, 0.09301955098900708, 0.9939511719154457],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+    {
+        id: 2,
+        img_name: "00017",
+        width: 1959,
+        height: 1090,
+        position: [
+            -0.7737533667465242, -0.3364271945329695, -2.9358969417573753,
+        ],
+        rotation: [
+            [0.9998813418672372, 0.013742375651625236, -0.0069605529394208224],
+            [-0.014268370388586709, 0.996512943252834, -0.08220929105659476],
+            [0.00580653013657589, 0.08229885200307129, 0.9965907801935302],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+    {
+        id: 3,
+        img_name: "00025",
+        width: 1959,
+        height: 1090,
+        position: [
+            1.2198221749590001, -0.2196687861401182, -2.3183162007028453,
+        ],
+        rotation: [
+            [0.9208648867765482, 0.0012010625395201253, 0.389880004297208],
+            [-0.06298204172269357, 0.987319521752825, 0.14571693239364383],
+            [-0.3847611242348369, -0.1587410451475895, 0.9092635249821667],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+    {
+        id: 4,
+        img_name: "00033",
+        width: 1959,
+        height: 1090,
+        position: [
+            1.742387858893817, -0.13848225198886954, -2.0566370113193146,
+        ],
+        rotation: [
+            [0.24669889292141334, -0.08370189346592856, -0.9654706879349405],
+            [0.11343747891376445, 0.9919082664242816, -0.05700815184573074],
+            [0.9624300466054861, -0.09545671285663988, 0.2541976029815521],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+    {
+        id: 5,
+        img_name: "00041",
+        width: 1959,
+        height: 1090,
+        position: [
+            3.6567309419223935, -0.16470990600750707, -1.3458085590422042,
+        ],
+        rotation: [
+            [0.2341293058324528, -0.02968330457755884, -0.9717522161434825],
+            [0.10270823606832301, 0.99469554638321, -0.005638106875665722],
+            [0.9667649592295676, -0.09848690996657204, 0.2359360976431732],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+    {
+        id: 6,
+        img_name: "00049",
+        width: 1959,
+        height: 1090,
+        position: [
+            3.9013554243203497, -0.2597500978038105, -0.8106154188297828,
+        ],
+        rotation: [
+            [0.6717235545638952, -0.015718162115524837, -0.7406351366386528],
+            [0.055627354673906296, 0.9980224478387622, 0.029270992841185218],
+            [0.7387104058127439, -0.060861588786650656, 0.6712695459756353],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+    {
+        id: 7,
+        img_name: "00057",
+        width: 1959,
+        height: 1090,
+        position: [4.742994605467533, -0.05591660945412069, 0.9500365976084458],
+        rotation: [
+            [-0.17042655709210375, 0.01207080756938, -0.9852964448542146],
+            [0.1165090336695526, 0.9931575292530063, -0.00798543433078162],
+            [0.9784581921120181, -0.1161568667478904, -0.1706667764862097],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+    {
+        id: 8,
+        img_name: "00065",
+        width: 1959,
+        height: 1090,
+        position: [4.34676307626522, 0.08168160516967145, 1.0876221470355405],
+        rotation: [
+            [-0.003575447631888379, -0.044792503246552894, -0.9989899137764799],
+            [0.10770152645126597, 0.9931680875192705, -0.04491693593046672],
+            [0.9941768441149182, -0.10775333677534978, 0.0012732004866391048],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+    {
+        id: 9,
+        img_name: "00073",
+        width: 1959,
+        height: 1090,
+        position: [3.264984351114202, 0.078974937336732, 1.0117200284114904],
+        rotation: [
+            [-0.026919994628162257, -0.1565891128261527, -0.9872968974090509],
+            [0.08444552208239385, 0.983768234577625, -0.1583319754069128],
+            [0.9960643893290491, -0.0876350978794554, -0.013259786205163005],
+        ],
+        fy: 1164.6601287484507,
+        fx: 1159.5880733038064,
+    },
+];
+
+let camera = cameras[0];
+
+function getProjectionMatrix(fx, fy, width, height) {
+    const znear = 0.2;
+    const zfar = 200;
+    return [
+        [(2 * fx) / width, 0, 0, 0],
+        [0, -(2 * fy) / height, 0, 0],
+        [0, 0, zfar / (zfar - znear), 1],
+        [0, 0, -(zfar * znear) / (zfar - znear), 0],
+    ].flat();
+}
+
+function getViewMatrix(camera) {
+    const R = camera.rotation.flat();
+    const t = camera.position;
+    const camToWorld = [
+        [R[0], R[1], R[2], 0],
+        [R[3], R[4], R[5], 0],
+        [R[6], R[7], R[8], 0],
+        [
+            -t[0] * R[0] - t[1] * R[3] - t[2] * R[6],
+            -t[0] * R[1] - t[1] * R[4] - t[2] * R[7],
+            -t[0] * R[2] - t[1] * R[5] - t[2] * R[8],
+            1,
+        ],
+    ].flat();
+    return camToWorld;
+}
+// function translate4(a, x, y, z) {
+//     return [
+//         ...a.slice(0, 12),
+//         a[0] * x + a[4] * y + a[8] * z + a[12],
+//         a[1] * x + a[5] * y + a[9] * z + a[13],
+//         a[2] * x + a[6] * y + a[10] * z + a[14],
+//         a[3] * x + a[7] * y + a[11] * z + a[15],
+//     ];
+// }
+
+function multiply4(a, b) {
+    return [
+        b[0] * a[0] + b[1] * a[4] + b[2] * a[8] + b[3] * a[12],
+        b[0] * a[1] + b[1] * a[5] + b[2] * a[9] + b[3] * a[13],
+        b[0] * a[2] + b[1] * a[6] + b[2] * a[10] + b[3] * a[14],
+        b[0] * a[3] + b[1] * a[7] + b[2] * a[11] + b[3] * a[15],
+        b[4] * a[0] + b[5] * a[4] + b[6] * a[8] + b[7] * a[12],
+        b[4] * a[1] + b[5] * a[5] + b[6] * a[9] + b[7] * a[13],
+        b[4] * a[2] + b[5] * a[6] + b[6] * a[10] + b[7] * a[14],
+        b[4] * a[3] + b[5] * a[7] + b[6] * a[11] + b[7] * a[15],
+        b[8] * a[0] + b[9] * a[4] + b[10] * a[8] + b[11] * a[12],
+        b[8] * a[1] + b[9] * a[5] + b[10] * a[9] + b[11] * a[13],
+        b[8] * a[2] + b[9] * a[6] + b[10] * a[10] + b[11] * a[14],
+        b[8] * a[3] + b[9] * a[7] + b[10] * a[11] + b[11] * a[15],
+        b[12] * a[0] + b[13] * a[4] + b[14] * a[8] + b[15] * a[12],
+        b[12] * a[1] + b[13] * a[5] + b[14] * a[9] + b[15] * a[13],
+        b[12] * a[2] + b[13] * a[6] + b[14] * a[10] + b[15] * a[14],
+        b[12] * a[3] + b[13] * a[7] + b[14] * a[11] + b[15] * a[15],
+    ];
+}
+
+function invert4(a) {
+    let b00 = a[0] * a[5] - a[1] * a[4];
+    let b01 = a[0] * a[6] - a[2] * a[4];
+    let b02 = a[0] * a[7] - a[3] * a[4];
+    let b03 = a[1] * a[6] - a[2] * a[5];
+    let b04 = a[1] * a[7] - a[3] * a[5];
+    let b05 = a[2] * a[7] - a[3] * a[6];
+    let b06 = a[8] * a[13] - a[9] * a[12];
+    let b07 = a[8] * a[14] - a[10] * a[12];
+    let b08 = a[8] * a[15] - a[11] * a[12];
+    let b09 = a[9] * a[14] - a[10] * a[13];
+    let b10 = a[9] * a[15] - a[11] * a[13];
+    let b11 = a[10] * a[15] - a[11] * a[14];
+    let det =
+        b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+    if (!det) return null;
+    return [
+        (a[5] * b11 - a[6] * b10 + a[7] * b09) / det,
+        (a[2] * b10 - a[1] * b11 - a[3] * b09) / det,
+        (a[13] * b05 - a[14] * b04 + a[15] * b03) / det,
+        (a[10] * b04 - a[9] * b05 - a[11] * b03) / det,
+        (a[6] * b08 - a[4] * b11 - a[7] * b07) / det,
+        (a[0] * b11 - a[2] * b08 + a[3] * b07) / det,
+        (a[14] * b02 - a[12] * b05 - a[15] * b01) / det,
+        (a[8] * b05 - a[10] * b02 + a[11] * b01) / det,
+        (a[4] * b10 - a[5] * b08 + a[7] * b06) / det,
+        (a[1] * b08 - a[0] * b10 - a[3] * b06) / det,
+        (a[12] * b04 - a[13] * b02 + a[15] * b00) / det,
+        (a[9] * b02 - a[8] * b04 - a[11] * b00) / det,
+        (a[5] * b07 - a[4] * b09 - a[6] * b06) / det,
+        (a[0] * b09 - a[1] * b07 + a[2] * b06) / det,
+        (a[13] * b01 - a[12] * b03 - a[14] * b00) / det,
+        (a[8] * b03 - a[9] * b01 + a[10] * b00) / det,
+    ];
+}
+
+function rotate4(a, rad, x, y, z) {
+    let len = Math.hypot(x, y, z);
+    x /= len;
+    y /= len;
+    z /= len;
+    let s = Math.sin(rad);
+    let c = Math.cos(rad);
+    let t = 1 - c;
+    let b00 = x * x * t + c;
+    let b01 = y * x * t + z * s;
+    let b02 = z * x * t - y * s;
+    let b10 = x * y * t - z * s;
+    let b11 = y * y * t + c;
+    let b12 = z * y * t + x * s;
+    let b20 = x * z * t + y * s;
+    let b21 = y * z * t - x * s;
+    let b22 = z * z * t + c;
+    return [
+        a[0] * b00 + a[4] * b01 + a[8] * b02,
+        a[1] * b00 + a[5] * b01 + a[9] * b02,
+        a[2] * b00 + a[6] * b01 + a[10] * b02,
+        a[3] * b00 + a[7] * b01 + a[11] * b02,
+        a[0] * b10 + a[4] * b11 + a[8] * b12,
+        a[1] * b10 + a[5] * b11 + a[9] * b12,
+        a[2] * b10 + a[6] * b11 + a[10] * b12,
+        a[3] * b10 + a[7] * b11 + a[11] * b12,
+        a[0] * b20 + a[4] * b21 + a[8] * b22,
+        a[1] * b20 + a[5] * b21 + a[9] * b22,
+        a[2] * b20 + a[6] * b21 + a[10] * b22,
+        a[3] * b20 + a[7] * b21 + a[11] * b22,
+        ...a.slice(12, 16),
+    ];
+}
+
+function translate4(a, x, y, z) {
+    return [
+        ...a.slice(0, 12),
+        a[0] * x + a[4] * y + a[8] * z + a[12],
+        a[1] * x + a[5] * y + a[9] * z + a[13],
+        a[2] * x + a[6] * y + a[10] * z + a[14],
+        a[3] * x + a[7] * y + a[11] * z + a[15],
+    ];
+}
+
+function createWorker(self) {
+    let buffer;
+    let vertexCount = 0;
+    let viewProj;
+    // 6*4 + 4 + 4 = 8*4
+    // XYZ - Position (Float32)
+    // XYZ - Scale (Float32)
+    // RGBA - colors (uint8)
+    // IJKL - quaternion/rot (uint8)
+    const rowLength = 3 * 4 + 3 * 4 + 4 + 4;
+    let lastProj = [];
+    let depthIndex = new Uint32Array();
+    let lastVertexCount = 0;
+
+    var _floatView = new Float32Array(1);
+    var _int32View = new Int32Array(_floatView.buffer);
+
+    function floatToHalf(float) {
+        _floatView[0] = float;
+        var f = _int32View[0];
+
+        var sign = (f >> 31) & 0x0001;
+        var exp = (f >> 23) & 0x00ff;
+        var frac = f & 0x007fffff;
+
+        var newExp;
+        if (exp == 0) {
+            newExp = 0;
+        } else if (exp < 113) {
+            newExp = 0;
+            frac |= 0x00800000;
+            frac = frac >> (113 - exp);
+            if (frac & 0x01000000) {
+                newExp = 1;
+                frac = 0;
+            }
+        } else if (exp < 142) {
+            newExp = exp - 112;
+        } else {
+            newExp = 31;
+            frac = 0;
+        }
+
+        return (sign << 15) | (newExp << 10) | (frac >> 13);
+    }
+
+    function packHalf2x16(x, y) {
+        return (floatToHalf(x) | (floatToHalf(y) << 16)) >>> 0;
+    }
+
+    function generateTexture() {
+        if (!buffer) return;
+        const f_buffer = new Float32Array(buffer);
+        const u_buffer = new Uint8Array(buffer);
+
+        var texwidth = 1024 * 2; // Set to your desired width
+        var texheight = Math.ceil((2 * vertexCount) / texwidth); // Set to your desired height
+        var texdata = new Uint32Array(texwidth * texheight * 4); // 4 components per pixel (RGBA)
+        var texdata_c = new Uint8Array(texdata.buffer);
+        var texdata_f = new Float32Array(texdata.buffer);
+
+        // Here we convert from a .splat file buffer into a texture
+        // With a little bit more foresight perhaps this texture file
+        // should have been the native format as it'd be very easy to
+        // load it into webgl.
+        for (let i = 0; i < vertexCount; i++) {
+            // x, y, z
+            texdata_f[8 * i + 0] = f_buffer[8 * i + 0];
+            texdata_f[8 * i + 1] = f_buffer[8 * i + 1];
+            texdata_f[8 * i + 2] = f_buffer[8 * i + 2];
+
+            // r, g, b, a
+            texdata_c[4 * (8 * i + 7) + 0] = u_buffer[32 * i + 24 + 0];
+            texdata_c[4 * (8 * i + 7) + 1] = u_buffer[32 * i + 24 + 1];
+            texdata_c[4 * (8 * i + 7) + 2] = u_buffer[32 * i + 24 + 2];
+            texdata_c[4 * (8 * i + 7) + 3] = u_buffer[32 * i + 24 + 3];
+
+            // quaternions
+            let scale = [
+                f_buffer[8 * i + 3 + 0],
+                f_buffer[8 * i + 3 + 1],
+                f_buffer[8 * i + 3 + 2],
+            ];
+            let rot = [
+                (u_buffer[32 * i + 28 + 0] - 128) / 128,
+                (u_buffer[32 * i + 28 + 1] - 128) / 128,
+                (u_buffer[32 * i + 28 + 2] - 128) / 128,
+                (u_buffer[32 * i + 28 + 3] - 128) / 128,
+            ];
+
+            // Compute the matrix product of S and R (M = S * R)
+            const M = [
+                1.0 - 2.0 * (rot[2] * rot[2] + rot[3] * rot[3]),
+                2.0 * (rot[1] * rot[2] + rot[0] * rot[3]),
+                2.0 * (rot[1] * rot[3] - rot[0] * rot[2]),
+
+                2.0 * (rot[1] * rot[2] - rot[0] * rot[3]),
+                1.0 - 2.0 * (rot[1] * rot[1] + rot[3] * rot[3]),
+                2.0 * (rot[2] * rot[3] + rot[0] * rot[1]),
+
+                2.0 * (rot[1] * rot[3] + rot[0] * rot[2]),
+                2.0 * (rot[2] * rot[3] - rot[0] * rot[1]),
+                1.0 - 2.0 * (rot[1] * rot[1] + rot[2] * rot[2]),
+            ].map((k, i) => k * scale[Math.floor(i / 3)]);
+
+            const sigma = [
+                M[0] * M[0] + M[3] * M[3] + M[6] * M[6],
+                M[0] * M[1] + M[3] * M[4] + M[6] * M[7],
+                M[0] * M[2] + M[3] * M[5] + M[6] * M[8],
+                M[1] * M[1] + M[4] * M[4] + M[7] * M[7],
+                M[1] * M[2] + M[4] * M[5] + M[7] * M[8],
+                M[2] * M[2] + M[5] * M[5] + M[8] * M[8],
+            ];
+
+            texdata[8 * i + 4] = packHalf2x16(4 * sigma[0], 4 * sigma[1]);
+            texdata[8 * i + 5] = packHalf2x16(4 * sigma[2], 4 * sigma[3]);
+            texdata[8 * i + 6] = packHalf2x16(4 * sigma[4], 4 * sigma[5]);
+        }
+
+        self.postMessage({ texdata, texwidth, texheight }, [texdata.buffer]);
+    }
+
+    function runSort(viewProj) {
+        if (!buffer) return;
+        const f_buffer = new Float32Array(buffer);
+        if (lastVertexCount == vertexCount) {
+            let dot =
+                lastProj[2] * viewProj[2] +
+                lastProj[6] * viewProj[6] +
+                lastProj[10] * viewProj[10];
+            if (Math.abs(dot - 1) < 0.01) {
+                return;
+            }
+        } else {
+            generateTexture();
+            lastVertexCount = vertexCount;
+        }
+
+        console.time("sort");
+        let maxDepth = -Infinity;
+        let minDepth = Infinity;
+        let sizeList = new Int32Array(vertexCount);
+        for (let i = 0; i < vertexCount; i++) {
+            let depth =
+                ((viewProj[2] * f_buffer[8 * i + 0] +
+                    viewProj[6] * f_buffer[8 * i + 1] +
+                    viewProj[10] * f_buffer[8 * i + 2]) *
+                    4096) |
+                0;
+            sizeList[i] = depth;
+            if (depth > maxDepth) maxDepth = depth;
+            if (depth < minDepth) minDepth = depth;
+        }
+
+        // This is a 16 bit single-pass counting sort
+        let depthInv = (256 * 256 - 1) / (maxDepth - minDepth);
+        let counts0 = new Uint32Array(256 * 256);
+        for (let i = 0; i < vertexCount; i++) {
+            sizeList[i] = ((sizeList[i] - minDepth) * depthInv) | 0;
+            counts0[sizeList[i]]++;
+        }
+        let starts0 = new Uint32Array(256 * 256);
+        for (let i = 1; i < 256 * 256; i++)
+            starts0[i] = starts0[i - 1] + counts0[i - 1];
+        depthIndex = new Uint32Array(vertexCount);
+        for (let i = 0; i < vertexCount; i++)
+            depthIndex[starts0[sizeList[i]]++] = i;
+
+        console.timeEnd("sort");
+
+        lastProj = viewProj;
+        self.postMessage({ depthIndex, viewProj, vertexCount }, [
+            depthIndex.buffer,
+        ]);
+    }
+
+    function processPlyBuffer(inputBuffer) {
+        const ubuf = new Uint8Array(inputBuffer);
+        // 10KB ought to be enough for a header...
+        const header = new TextDecoder().decode(ubuf.slice(0, 1024 * 10));
+        const header_end = "end_header\n";
+        const header_end_index = header.indexOf(header_end);
+        if (header_end_index < 0)
+            throw new Error("Unable to read .ply file header");
+        const vertexCount = parseInt(/element vertex (\d+)\n/.exec(header)[1]);
+        console.log("Vertex Count", vertexCount);
+        let row_offset = 0,
+            offsets = {},
+            types = {};
+        const TYPE_MAP = {
+            double: "getFloat64",
+            int: "getInt32",
+            uint: "getUint32",
+            float: "getFloat32",
+            short: "getInt16",
+            ushort: "getUint16",
+            uchar: "getUint8",
+        };
+        for (let prop of header
+            .slice(0, header_end_index)
+            .split("\n")
+            .filter((k) => k.startsWith("property "))) {
+            const [p, type, name] = prop.split(" ");
+            const arrayType = TYPE_MAP[type] || "getInt8";
+            types[name] = arrayType;
+            offsets[name] = row_offset;
+            row_offset += parseInt(arrayType.replace(/[^\d]/g, "")) / 8;
+        }
+        console.log("Bytes per row", row_offset, types, offsets);
+
+        let dataView = new DataView(
+            inputBuffer,
+            header_end_index + header_end.length,
+        );
+        let row = 0;
+        const attrs = new Proxy(
+            {},
+            {
+                get(target, prop) {
+                    if (!types[prop]) throw new Error(prop + " not found");
+                    return dataView[types[prop]](
+                        row * row_offset + offsets[prop],
+                        true,
+                    );
+                },
+            },
+        );
+
+        console.time("calculate importance");
+        let sizeList = new Float32Array(vertexCount);
+        let sizeIndex = new Uint32Array(vertexCount);
+        for (row = 0; row < vertexCount; row++) {
+            sizeIndex[row] = row;
+            if (!types["scale_0"]) continue;
+            const size =
+                Math.exp(attrs.scale_0) *
+                Math.exp(attrs.scale_1) *
+                Math.exp(attrs.scale_2);
+            const opacity = 1 / (1 + Math.exp(-attrs.opacity));
+            sizeList[row] = size * opacity;
+        }
+        console.timeEnd("calculate importance");
+
+        console.time("sort");
+        sizeIndex.sort((b, a) => sizeList[a] - sizeList[b]);
+        console.timeEnd("sort");
+
+        // 6*4 + 4 + 4 = 8*4
+        // XYZ - Position (Float32)
+        // XYZ - Scale (Float32)
+        // RGBA - colors (uint8)
+        // IJKL - quaternion/rot (uint8)
+        const rowLength = 3 * 4 + 3 * 4 + 4 + 4;
+        const buffer = new ArrayBuffer(rowLength * vertexCount);
+
+        console.time("build buffer");
+        for (let j = 0; j < vertexCount; j++) {
+            row = sizeIndex[j];
+
+            const position = new Float32Array(buffer, j * rowLength, 3);
+            const scales = new Float32Array(buffer, j * rowLength + 4 * 3, 3);
+            const rgba = new Uint8ClampedArray(
+                buffer,
+                j * rowLength + 4 * 3 + 4 * 3,
+                4,
+            );
+            const rot = new Uint8ClampedArray(
+                buffer,
+                j * rowLength + 4 * 3 + 4 * 3 + 4,
+                4,
+            );
+
+            if (types["scale_0"]) {
+                const qlen = Math.sqrt(
+                    attrs.rot_0 ** 2 +
+                        attrs.rot_1 ** 2 +
+                        attrs.rot_2 ** 2 +
+                        attrs.rot_3 ** 2,
+                );
+
+                rot[0] = (attrs.rot_0 / qlen) * 128 + 128;
+                rot[1] = (attrs.rot_1 / qlen) * 128 + 128;
+                rot[2] = (attrs.rot_2 / qlen) * 128 + 128;
+                rot[3] = (attrs.rot_3 / qlen) * 128 + 128;
+
+                scales[0] = Math.exp(attrs.scale_0);
+                scales[1] = Math.exp(attrs.scale_1);
+                scales[2] = Math.exp(attrs.scale_2);
+            } else {
+                scales[0] = 0.01;
+                scales[1] = 0.01;
+                scales[2] = 0.01;
+
+                rot[0] = 255;
+                rot[1] = 0;
+                rot[2] = 0;
+                rot[3] = 0;
+            }
+
+            position[0] = attrs.x;
+            position[1] = attrs.y;
+            position[2] = attrs.z;
+
+            if (types["f_dc_0"]) {
+                const SH_C0 = 0.28209479177387814;
+                rgba[0] = (0.5 + SH_C0 * attrs.f_dc_0) * 255;
+                rgba[1] = (0.5 + SH_C0 * attrs.f_dc_1) * 255;
+                rgba[2] = (0.5 + SH_C0 * attrs.f_dc_2) * 255;
+            } else {
+                rgba[0] = attrs.red;
+                rgba[1] = attrs.green;
+                rgba[2] = attrs.blue;
+            }
+            if (types["opacity"]) {
+                rgba[3] = (1 / (1 + Math.exp(-attrs.opacity))) * 255;
+            } else {
+                rgba[3] = 255;
+            }
+        }
+        console.timeEnd("build buffer");
+        return buffer;
+    }
+
+    const throttledSort = () => {
+        if (!sortRunning) {
+            sortRunning = true;
+            let lastView = viewProj;
+            runSort(lastView);
+            setTimeout(() => {
+                sortRunning = false;
+                if (lastView !== viewProj) {
+                    throttledSort();
+                }
+            }, 0);
+        }
+    };
+
+    let sortRunning;
+    self.onmessage = (e) => {
+        if (e.data.ply) {
+            vertexCount = 0;
+            runSort(viewProj);
+            buffer = processPlyBuffer(e.data.ply);
+            vertexCount = Math.floor(buffer.byteLength / rowLength);
+            postMessage({ buffer: buffer, save: !!e.data.save });
+        } else if (e.data.buffer) {
+            buffer = e.data.buffer;
+            vertexCount = e.data.vertexCount;
+        } else if (e.data.vertexCount) {
+            vertexCount = e.data.vertexCount;
+        } else if (e.data.view) {
+            viewProj = e.data.view;
+            throttledSort();
+        }
+    };
+}
+
+const vertexShaderSource = `
+#version 300 es
+precision highp float;
+precision highp int;
+
+uniform highp usampler2D u_texture;
+uniform mat4 projection, view;
+uniform vec2 focal;
+uniform vec2 viewport;
+
+in vec2 position;
+in int index;
+
+out vec4 vColor;
+out vec2 vPosition;
+
+void main () {
+    uvec4 cen = texelFetch(u_texture, ivec2((uint(index) & 0x3ffu) << 1, uint(index) >> 10), 0);
+    vec4 cam = view * vec4(uintBitsToFloat(cen.xyz), 1);
+    vec4 pos2d = projection * cam;
+
+    float clip = 1.2 * pos2d.w;
+    if (pos2d.z < -clip || pos2d.x < -clip || pos2d.x > clip || pos2d.y < -clip || pos2d.y > clip) {
+        gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+        return;
+    }
+
+    uvec4 cov = texelFetch(u_texture, ivec2(((uint(index) & 0x3ffu) << 1) | 1u, uint(index) >> 10), 0);
+    vec2 u1 = unpackHalf2x16(cov.x), u2 = unpackHalf2x16(cov.y), u3 = unpackHalf2x16(cov.z);
+    mat3 Vrk = mat3(u1.x, u1.y, u2.x, u1.y, u2.y, u3.x, u2.x, u3.x, u3.y);
+
+    mat3 J = mat3(
+        focal.x / cam.z, 0., -(focal.x * cam.x) / (cam.z * cam.z),
+        0., -focal.y / cam.z, (focal.y * cam.y) / (cam.z * cam.z),
+        0., 0., 0.
+    );
+
+    mat3 T = transpose(mat3(view)) * J;
+    mat3 cov2d = transpose(T) * Vrk * T;
+
+    float mid = (cov2d[0][0] + cov2d[1][1]) / 2.0;
+    float radius = length(vec2((cov2d[0][0] - cov2d[1][1]) / 2.0, cov2d[0][1]));
+    float lambda1 = mid + radius, lambda2 = mid - radius;
+
+    if(lambda2 < 0.0) return;
+    vec2 diagonalVector = normalize(vec2(cov2d[0][1], lambda1 - cov2d[0][0]));
+    vec2 majorAxis = min(sqrt(2.0 * lambda1), 1024.0) * diagonalVector;
+    vec2 minorAxis = min(sqrt(2.0 * lambda2), 1024.0) * vec2(diagonalVector.y, -diagonalVector.x);
+
+    vColor = clamp(pos2d.z/pos2d.w+1.0, 0.0, 1.0) * vec4((cov.w) & 0xffu, (cov.w >> 8) & 0xffu, (cov.w >> 16) & 0xffu, (cov.w >> 24) & 0xffu) / 255.0;
+    vPosition = position;
+
+    vec2 vCenter = vec2(pos2d) / pos2d.w;
+    gl_Position = vec4(
+        vCenter
+        + position.x * majorAxis / viewport
+        + position.y * minorAxis / viewport, 0.0, 1.0);
+
+}
+`.trim();
+
+const fragmentShaderSource = `
+#version 300 es
+precision highp float;
+
+in vec4 vColor;
+in vec2 vPosition;
+
+out vec4 fragColor;
+
+void main () {
+    float A = -dot(vPosition, vPosition);
+    if (A < -4.0) discard;
+    float B = exp(A) * vColor.a;
+    fragColor = vec4(B * vColor.rgb, B);
+}
+
+`.trim();
+
+// SITE BUILD: same framing direction as the desktop build, but the
+// camera sits ~1.2 units out instead of 6.55 - Richie Road Park spans
+// about half a unit, and the wide framing left it a speck behind its
+// own stray floaters. The carousel orbit runs at this radius.
+let defaultViewMatrix = [
+    0.47, 0.04, 0.88, 0, -0.11, 0.99, 0.02, 0, -0.88, -0.11, 0.47, 0, 0.013,
+    0.006, 1.2, 1,
+];
+let viewMatrix = defaultViewMatrix;
+async function main() {
+    let carousel = true;
+    const params = new URLSearchParams(location.search);
+    try {
+        viewMatrix = JSON.parse(decodeURIComponent(location.hash.slice(1)));
+        carousel = false;
+    } catch (err) {}
+    // STOIC OPPOSITION SITE BUILD (Vesper, Nov 27, 2026): the default
+    // scene is Richie Road Park, Cabot, Arkansas - Corey's own drone
+    // capture, 530,648 gaussians - not the renderer author's demo scene.
+    // The 17 MB splat is hosted in this repo as base64 chunks and is
+    // fetched and reassembled further down (after the load-state
+    // declarations, next to the streaming loop); the buffer is pre-sized
+    // here so the pixel-ratio downsample decision below sees the real
+    // scene size. A ?url= parameter still loads another scene, resolved
+    // against this page. A failed default-scene load must never kill
+    // the viewer - File > Open and drag & drop stay live.
+    const rowLength = 3 * 4 + 3 * 4 + 4 + 4;
+    let reader = null;
+    let splatData = new Uint8Array(0);
+    const DEFAULT_TOTAL_BYTES = 16902528; // 528,204 gaussians x 32 bytes
+    const urlParam = params.get("url");
+    if (urlParam) {
+        try {
+            const url = new URL(urlParam, location.href);
+            const req = await fetch(url, {
+                mode: "cors",
+                credentials: "omit",
+            });
+            if (req.status != 200)
+                throw new Error(req.status + " Unable to load " + req.url);
+            reader = req.body.getReader();
+            splatData = new Uint8Array(req.headers.get("content-length"));
+        } catch (e) {
+            console.warn("No scene at startup; drag & drop a .splat or .ply file.", e);
+        }
+    } else {
+        splatData = new Uint8Array(DEFAULT_TOTAL_BYTES);
+        document.getElementById("message").innerText =
+            "Loading Richie Road Park - a real place in Cabot, Arkansas, " +
+            "captured by drone and rebuilt as 528,204 points of light (17 MB)...";
+    }
+
+    const downsample =
+        splatData.length / rowLength > 500000 ? 1 : 1 / devicePixelRatio;
+    console.log(splatData.length / rowLength, downsample);
+
+    const worker = new Worker(
+        URL.createObjectURL(
+            new Blob(["(", createWorker.toString(), ")(self)"], {
+                type: "application/javascript",
+            }),
+        ),
+    );
+
+    const canvas = document.getElementById("canvas");
+    const fps = document.getElementById("fps");
+    const camid = document.getElementById("camid");
+
+    let projectionMatrix;
+
+    const gl = canvas.getContext("webgl2", {
+        antialias: false,
+        preserveDrawingBuffer: true,
+    });
+
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vertexShader, vertexShaderSource);
+    gl.compileShader(vertexShader);
+    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS))
+        console.error(gl.getShaderInfoLog(vertexShader));
+
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fragmentShader, fragmentShaderSource);
+    gl.compileShader(fragmentShader);
+    if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS))
+        console.error(gl.getShaderInfoLog(fragmentShader));
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+        console.error(gl.getProgramInfoLog(program));
+
+    gl.disable(gl.DEPTH_TEST); // Disable depth testing
+
+    // Enable blending
+    gl.enable(gl.BLEND);
+    gl.blendFuncSeparate(
+        gl.ONE_MINUS_DST_ALPHA,
+        gl.ONE,
+        gl.ONE_MINUS_DST_ALPHA,
+        gl.ONE,
+    );
+    gl.blendEquationSeparate(gl.FUNC_ADD, gl.FUNC_ADD);
+
+    const u_projection = gl.getUniformLocation(program, "projection");
+    const u_viewport = gl.getUniformLocation(program, "viewport");
+    const u_focal = gl.getUniformLocation(program, "focal");
+    const u_view = gl.getUniformLocation(program, "view");
+
+    // OWLSIGHT SKY (Vesper, Nov 24 2026): standing rule - a splat scene is
+    // never shown against a black void. The sky is filled AFTER the splats
+    // with a (1 - dstAlpha) blend, so it only lands where no gaussian wrote,
+    // and it bakes into PNG exports. Gradient by world view direction:
+    // zenith blue -> pale horizon -> soft ground haze below.
+    const skyVs = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(skyVs, `#version 300 es
+        out vec2 vNdc;
+        void main(){ vec2 q = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2));
+            vNdc = q * 2.0 - 1.0; gl_Position = vec4(vNdc, 1.0, 1.0); }`);
+    gl.compileShader(skyVs);
+    const skyFs = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(skyFs, `#version 300 es
+        precision highp float;
+        uniform mat4 u_invViewProj;
+        uniform vec3 u_camPos;
+        in vec2 vNdc;
+        out vec4 oColor;
+        void main(){
+            vec4 wp = u_invViewProj * vec4(vNdc, 1.0, 1.0);
+            vec3 dir = normalize(wp.xyz / wp.w - u_camPos);
+            float h = dir.y;
+            vec3 zen = vec3(0.145, 0.373, 0.780);
+            vec3 hor = vec3(0.780, 0.875, 0.965);
+            vec3 gnd = vec3(0.520, 0.600, 0.660);
+            vec3 col = h > 0.0 ? mix(hor, zen, pow(smoothstep(0.0, 0.55, h), 0.75))
+                               : mix(hor, gnd, smoothstep(0.0, -0.35, h));
+            oColor = vec4(col, 1.0);
+        }`);
+    gl.compileShader(skyFs);
+    if (!gl.getShaderParameter(skyFs, gl.COMPILE_STATUS))
+        console.error(gl.getShaderInfoLog(skyFs));
+    const skyProgram = gl.createProgram();
+    gl.attachShader(skyProgram, skyVs);
+    gl.attachShader(skyProgram, skyFs);
+    gl.linkProgram(skyProgram);
+    const u_skyInvVP = gl.getUniformLocation(skyProgram, "u_invViewProj");
+    const u_skyCam = gl.getUniformLocation(skyProgram, "u_camPos");
+    function drawSky(viewProj, camWorld) {
+        gl.useProgram(skyProgram);
+        gl.uniformMatrix4fv(u_skyInvVP, false, invert4(viewProj));
+        gl.uniform3f(u_skyCam, camWorld[12], camWorld[13], camWorld[14]);
+        gl.blendFuncSeparate(gl.ONE_MINUS_DST_ALPHA, gl.ONE, gl.ONE_MINUS_DST_ALPHA, gl.ONE);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        gl.blendFuncSeparate(gl.ONE_MINUS_DST_ALPHA, gl.ONE, gl.ONE_MINUS_DST_ALPHA, gl.ONE);
+        gl.useProgram(program);
+    }
+
+    // positions
+    const triangleVertices = new Float32Array([-2, -2, 2, -2, 2, 2, -2, 2]);
+    const vertexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, triangleVertices, gl.STATIC_DRAW);
+    const a_position = gl.getAttribLocation(program, "position");
+    gl.enableVertexAttribArray(a_position);
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.vertexAttribPointer(a_position, 2, gl.FLOAT, false, 0, 0);
+
+    var texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+
+    var u_textureLocation = gl.getUniformLocation(program, "u_texture");
+    gl.uniform1i(u_textureLocation, 0);
+
+    const indexBuffer = gl.createBuffer();
+    const a_index = gl.getAttribLocation(program, "index");
+    gl.enableVertexAttribArray(a_index);
+    gl.bindBuffer(gl.ARRAY_BUFFER, indexBuffer);
+    gl.vertexAttribIPointer(a_index, 1, gl.INT, false, 0, 0);
+    gl.vertexAttribDivisor(a_index, 1);
+
+    const resize = () => {
+        gl.uniform2fv(u_focal, new Float32Array([camera.fx, camera.fy]));
+
+        projectionMatrix = getProjectionMatrix(
+            camera.fx,
+            camera.fy,
+            innerWidth,
+            innerHeight,
+        );
+
+        gl.uniform2fv(u_viewport, new Float32Array([innerWidth, innerHeight]));
+
+        gl.canvas.width = Math.round(innerWidth / downsample);
+        gl.canvas.height = Math.round(innerHeight / downsample);
+        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+        gl.uniformMatrix4fv(u_projection, false, projectionMatrix);
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    worker.onmessage = (e) => {
+        if (e.data.buffer) {
+            splatData = new Uint8Array(e.data.buffer);
+            if (e.data.save) {
+                const blob = new Blob([splatData.buffer], {
+                    type: "application/octet-stream",
+                });
+                const link = document.createElement("a");
+                link.download = "model.splat";
+                link.href = URL.createObjectURL(blob);
+                document.body.appendChild(link);
+                link.click();
+            }
+        } else if (e.data.texdata) {
+            const { texdata, texwidth, texheight } = e.data;
+            // console.log(texdata)
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            gl.texParameteri(
+                gl.TEXTURE_2D,
+                gl.TEXTURE_WRAP_S,
+                gl.CLAMP_TO_EDGE,
+            );
+            gl.texParameteri(
+                gl.TEXTURE_2D,
+                gl.TEXTURE_WRAP_T,
+                gl.CLAMP_TO_EDGE,
+            );
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+
+            gl.texImage2D(
+                gl.TEXTURE_2D,
+                0,
+                gl.RGBA32UI,
+                texwidth,
+                texheight,
+                0,
+                gl.RGBA_INTEGER,
+                gl.UNSIGNED_INT,
+                texdata,
+            );
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+        } else if (e.data.depthIndex) {
+            const { depthIndex, viewProj } = e.data;
+            gl.bindBuffer(gl.ARRAY_BUFFER, indexBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, depthIndex, gl.DYNAMIC_DRAW);
+            vertexCount = e.data.vertexCount;
+        }
+    };
+
+    let activeKeys = [];
+    let currentCameraIndex = 0;
+
+    window.addEventListener("keydown", (e) => {
+        // if (document.activeElement != document.body) return;
+        carousel = false;
+        if (!activeKeys.includes(e.code)) activeKeys.push(e.code);
+        if (/\d/.test(e.key)) {
+            currentCameraIndex = parseInt(e.key);
+            camera = cameras[currentCameraIndex];
+            viewMatrix = getViewMatrix(camera);
+        }
+        if (["-", "_"].includes(e.key)) {
+            currentCameraIndex =
+                (currentCameraIndex + cameras.length - 1) % cameras.length;
+            viewMatrix = getViewMatrix(cameras[currentCameraIndex]);
+        }
+        if (["+", "="].includes(e.key)) {
+            currentCameraIndex = (currentCameraIndex + 1) % cameras.length;
+            viewMatrix = getViewMatrix(cameras[currentCameraIndex]);
+        }
+        camid.innerText = "cam  " + currentCameraIndex;
+        if (e.code == "KeyV") {
+            location.hash =
+                "#" +
+                JSON.stringify(
+                    viewMatrix.map((k) => Math.round(k * 100) / 100),
+                );
+            camid.innerText = "";
+        } else if (e.code === "KeyP") {
+            carousel = true;
+            camid.innerText = "";
+        }
+    });
+    window.addEventListener("keyup", (e) => {
+        activeKeys = activeKeys.filter((k) => k !== e.code);
+    });
+    window.addEventListener("blur", () => {
+        activeKeys = [];
+    });
+
+    window.addEventListener(
+        "wheel",
+        (e) => {
+            carousel = false;
+            e.preventDefault();
+            const lineHeight = 10;
+            const scale =
+                e.deltaMode == 1
+                    ? lineHeight
+                    : e.deltaMode == 2
+                      ? innerHeight
+                      : 1;
+            let inv = invert4(viewMatrix);
+            if (e.shiftKey) {
+                inv = translate4(
+                    inv,
+                    (e.deltaX * scale) / innerWidth,
+                    (e.deltaY * scale) / innerHeight,
+                    0,
+                );
+            } else if (e.ctrlKey || e.metaKey) {
+                // inv = rotate4(inv,  (e.deltaX * scale) / innerWidth,  0, 0, 1);
+                // inv = translate4(inv,  0, (e.deltaY * scale) / innerHeight, 0);
+                // let preY = inv[13];
+                inv = translate4(
+                    inv,
+                    0,
+                    0,
+                    (-10 * (e.deltaY * scale)) / innerHeight,
+                );
+                // inv[13] = preY;
+            } else {
+                let d = 4;
+                inv = translate4(inv, 0, 0, d);
+                inv = rotate4(inv, -(e.deltaX * scale) / innerWidth, 0, 1, 0);
+                inv = rotate4(inv, (e.deltaY * scale) / innerHeight, 1, 0, 0);
+                inv = translate4(inv, 0, 0, -d);
+            }
+
+            viewMatrix = invert4(inv);
+        },
+        { passive: false },
+    );
+
+    let startX, startY, down;
+    canvas.addEventListener("mousedown", (e) => {
+        carousel = false;
+        e.preventDefault();
+        startX = e.clientX;
+        startY = e.clientY;
+        down = e.ctrlKey || e.metaKey ? 2 : 1;
+    });
+    canvas.addEventListener("contextmenu", (e) => {
+        carousel = false;
+        e.preventDefault();
+        startX = e.clientX;
+        startY = e.clientY;
+        down = 2;
+    });
+
+    canvas.addEventListener("mousemove", (e) => {
+        e.preventDefault();
+        if (down == 1) {
+            let inv = invert4(viewMatrix);
+            let dx = (5 * (e.clientX - startX)) / innerWidth;
+            let dy = (5 * (e.clientY - startY)) / innerHeight;
+            let d = 4;
+
+            inv = translate4(inv, 0, 0, d);
+            inv = rotate4(inv, dx, 0, 1, 0);
+            inv = rotate4(inv, -dy, 1, 0, 0);
+            inv = translate4(inv, 0, 0, -d);
+            // let postAngle = Math.atan2(inv[0], inv[10])
+            // inv = rotate4(inv, postAngle - preAngle, 0, 0, 1)
+            // console.log(postAngle)
+            viewMatrix = invert4(inv);
+
+            startX = e.clientX;
+            startY = e.clientY;
+        } else if (down == 2) {
+            let inv = invert4(viewMatrix);
+            // inv = rotateY(inv, );
+            // let preY = inv[13];
+            inv = translate4(
+                inv,
+                (-10 * (e.clientX - startX)) / innerWidth,
+                0,
+                (10 * (e.clientY - startY)) / innerHeight,
+            );
+            // inv[13] = preY;
+            viewMatrix = invert4(inv);
+
+            startX = e.clientX;
+            startY = e.clientY;
+        }
+    });
+    canvas.addEventListener("mouseup", (e) => {
+        e.preventDefault();
+        down = false;
+        startX = 0;
+        startY = 0;
+    });
+
+    let altX = 0,
+        altY = 0;
+    canvas.addEventListener(
+        "touchstart",
+        (e) => {
+            e.preventDefault();
+            if (e.touches.length === 1) {
+                carousel = false;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                down = 1;
+            } else if (e.touches.length === 2) {
+                // console.log('beep')
+                carousel = false;
+                startX = e.touches[0].clientX;
+                altX = e.touches[1].clientX;
+                startY = e.touches[0].clientY;
+                altY = e.touches[1].clientY;
+                down = 1;
+            }
+        },
+        { passive: false },
+    );
+    canvas.addEventListener(
+        "touchmove",
+        (e) => {
+            e.preventDefault();
+            if (e.touches.length === 1 && down) {
+                let inv = invert4(viewMatrix);
+                let dx = (4 * (e.touches[0].clientX - startX)) / innerWidth;
+                let dy = (4 * (e.touches[0].clientY - startY)) / innerHeight;
+
+                let d = 4;
+                inv = translate4(inv, 0, 0, d);
+                // inv = translate4(inv,  -x, -y, -z);
+                // inv = translate4(inv,  x, y, z);
+                inv = rotate4(inv, dx, 0, 1, 0);
+                inv = rotate4(inv, -dy, 1, 0, 0);
+                inv = translate4(inv, 0, 0, -d);
+
+                viewMatrix = invert4(inv);
+
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            } else if (e.touches.length === 2) {
+                // alert('beep')
+                const dtheta =
+                    Math.atan2(startY - altY, startX - altX) -
+                    Math.atan2(
+                        e.touches[0].clientY - e.touches[1].clientY,
+                        e.touches[0].clientX - e.touches[1].clientX,
+                    );
+                const dscale =
+                    Math.hypot(startX - altX, startY - altY) /
+                    Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY,
+                    );
+                const dx =
+                    (e.touches[0].clientX +
+                        e.touches[1].clientX -
+                        (startX + altX)) /
+                    2;
+                const dy =
+                    (e.touches[0].clientY +
+                        e.touches[1].clientY -
+                        (startY + altY)) /
+                    2;
+                let inv = invert4(viewMatrix);
+                // inv = translate4(inv,  0, 0, d);
+                inv = rotate4(inv, dtheta, 0, 0, 1);
+
+                inv = translate4(inv, -dx / innerWidth, -dy / innerHeight, 0);
+
+                // let preY = inv[13];
+                inv = translate4(inv, 0, 0, 3 * (1 - dscale));
+                // inv[13] = preY;
+
+                viewMatrix = invert4(inv);
+
+                startX = e.touches[0].clientX;
+                altX = e.touches[1].clientX;
+                startY = e.touches[0].clientY;
+                altY = e.touches[1].clientY;
+            }
+        },
+        { passive: false },
+    );
+    canvas.addEventListener(
+        "touchend",
+        (e) => {
+            e.preventDefault();
+            down = false;
+            startX = 0;
+            startY = 0;
+        },
+        { passive: false },
+    );
+
+    let jumpDelta = 0;
+    let vertexCount = 0;
+
+    let lastFrame = 0;
+    let avgFps = 0;
+    let start = 0;
+
+    window.addEventListener("gamepadconnected", (e) => {
+        const gp = navigator.getGamepads()[e.gamepad.index];
+        console.log(
+            `Gamepad connected at index ${gp.index}: ${gp.id}. It has ${gp.buttons.length} buttons and ${gp.axes.length} axes.`,
+        );
+    });
+    window.addEventListener("gamepaddisconnected", (e) => {
+        console.log("Gamepad disconnected");
+    });
+
+    let leftGamepadTrigger, rightGamepadTrigger;
+
+    const frame = (now) => {
+        let inv = invert4(viewMatrix);
+        let shiftKey =
+            activeKeys.includes("Shift") ||
+            activeKeys.includes("ShiftLeft") ||
+            activeKeys.includes("ShiftRight");
+
+        if (activeKeys.includes("ArrowUp")) {
+            if (shiftKey) {
+                inv = translate4(inv, 0, -0.03, 0);
+            } else {
+                inv = translate4(inv, 0, 0, 0.1);
+            }
+        }
+        if (activeKeys.includes("ArrowDown")) {
+            if (shiftKey) {
+                inv = translate4(inv, 0, 0.03, 0);
+            } else {
+                inv = translate4(inv, 0, 0, -0.1);
+            }
+        }
+        if (activeKeys.includes("ArrowLeft"))
+            inv = translate4(inv, -0.03, 0, 0);
+        //
+        if (activeKeys.includes("ArrowRight"))
+            inv = translate4(inv, 0.03, 0, 0);
+        // inv = rotate4(inv, 0.01, 0, 1, 0);
+        if (activeKeys.includes("KeyA")) inv = rotate4(inv, -0.01, 0, 1, 0);
+        if (activeKeys.includes("KeyD")) inv = rotate4(inv, 0.01, 0, 1, 0);
+        if (activeKeys.includes("KeyQ")) inv = rotate4(inv, 0.01, 0, 0, 1);
+        if (activeKeys.includes("KeyE")) inv = rotate4(inv, -0.01, 0, 0, 1);
+        if (activeKeys.includes("KeyW")) inv = rotate4(inv, 0.005, 1, 0, 0);
+        if (activeKeys.includes("KeyS")) inv = rotate4(inv, -0.005, 1, 0, 0);
+
+        const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+        let isJumping = activeKeys.includes("Space");
+        for (let gamepad of gamepads) {
+            if (!gamepad) continue;
+
+            const axisThreshold = 0.1; // Threshold to detect when the axis is intentionally moved
+            const moveSpeed = 0.06;
+            const rotateSpeed = 0.02;
+
+            // Assuming the left stick controls translation (axes 0 and 1)
+            if (Math.abs(gamepad.axes[0]) > axisThreshold) {
+                inv = translate4(inv, moveSpeed * gamepad.axes[0], 0, 0);
+                carousel = false;
+            }
+            if (Math.abs(gamepad.axes[1]) > axisThreshold) {
+                inv = translate4(inv, 0, 0, -moveSpeed * gamepad.axes[1]);
+                carousel = false;
+            }
+            if (gamepad.buttons[12].pressed || gamepad.buttons[13].pressed) {
+                inv = translate4(
+                    inv,
+                    0,
+                    -moveSpeed *
+                        (gamepad.buttons[12].pressed -
+                            gamepad.buttons[13].pressed),
+                    0,
+                );
+                carousel = false;
+            }
+
+            if (gamepad.buttons[14].pressed || gamepad.buttons[15].pressed) {
+                inv = translate4(
+                    inv,
+                    -moveSpeed *
+                        (gamepad.buttons[14].pressed -
+                            gamepad.buttons[15].pressed),
+                    0,
+                    0,
+                );
+                carousel = false;
+            }
+
+            // Assuming the right stick controls rotation (axes 2 and 3)
+            if (Math.abs(gamepad.axes[2]) > axisThreshold) {
+                inv = rotate4(inv, rotateSpeed * gamepad.axes[2], 0, 1, 0);
+                carousel = false;
+            }
+            if (Math.abs(gamepad.axes[3]) > axisThreshold) {
+                inv = rotate4(inv, -rotateSpeed * gamepad.axes[3], 1, 0, 0);
+                carousel = false;
+            }
+
+            let tiltAxis = gamepad.buttons[6].value - gamepad.buttons[7].value;
+            if (Math.abs(tiltAxis) > axisThreshold) {
+                inv = rotate4(inv, rotateSpeed * tiltAxis, 0, 0, 1);
+                carousel = false;
+            }
+            if (gamepad.buttons[4].pressed && !leftGamepadTrigger) {
+                camera =
+                    cameras[(cameras.indexOf(camera) + 1) % cameras.length];
+                inv = invert4(getViewMatrix(camera));
+                carousel = false;
+            }
+            if (gamepad.buttons[5].pressed && !rightGamepadTrigger) {
+                camera =
+                    cameras[
+                        (cameras.indexOf(camera) + cameras.length - 1) %
+                            cameras.length
+                    ];
+                inv = invert4(getViewMatrix(camera));
+                carousel = false;
+            }
+            leftGamepadTrigger = gamepad.buttons[4].pressed;
+            rightGamepadTrigger = gamepad.buttons[5].pressed;
+            if (gamepad.buttons[0].pressed) {
+                isJumping = true;
+                carousel = false;
+            }
+            if (gamepad.buttons[3].pressed) {
+                carousel = true;
+            }
+        }
+
+        if (
+            ["KeyJ", "KeyK", "KeyL", "KeyI"].some((k) => activeKeys.includes(k))
+        ) {
+            let d = 4;
+            inv = translate4(inv, 0, 0, d);
+            inv = rotate4(
+                inv,
+                activeKeys.includes("KeyJ")
+                    ? -0.05
+                    : activeKeys.includes("KeyL")
+                      ? 0.05
+                      : 0,
+                0,
+                1,
+                0,
+            );
+            inv = rotate4(
+                inv,
+                activeKeys.includes("KeyI")
+                    ? 0.05
+                    : activeKeys.includes("KeyK")
+                      ? -0.05
+                      : 0,
+                1,
+                0,
+                0,
+            );
+            inv = translate4(inv, 0, 0, -d);
+        }
+
+        viewMatrix = invert4(inv);
+
+        if (carousel) {
+            let inv = invert4(defaultViewMatrix);
+
+            const t = Math.sin((Date.now() - start) / 5000);
+            // SITE BUILD: the desktop sway (2.5 units sideways, 6 in
+            // depth) is tuned to a scene ~6 units wide and throws the
+            // half-unit park clean out of frame. Scaled to the park:
+            // a gentle drift that keeps Richie Road on stage.
+            inv = translate4(inv, 0.25 * t, 0, 0.5 * (1 - Math.cos(t)));
+            inv = rotate4(inv, -0.35 * t, 0, 1, 0);
+
+            viewMatrix = invert4(inv);
+        }
+
+        if (isJumping) {
+            jumpDelta = Math.min(1, jumpDelta + 0.05);
+        } else {
+            jumpDelta = Math.max(0, jumpDelta - 0.05);
+        }
+
+        let inv2 = invert4(viewMatrix);
+        inv2 = translate4(inv2, 0, -jumpDelta, 0);
+        inv2 = rotate4(inv2, -0.1 * jumpDelta, 1, 0, 0);
+        let actualViewMatrix = invert4(inv2);
+
+        const viewProj = multiply4(projectionMatrix, actualViewMatrix);
+        worker.postMessage({ view: viewProj });
+
+        const currentFps = 1000 / (now - lastFrame) || 0;
+        avgFps = avgFps * 0.9 + currentFps * 0.1;
+
+        if (vertexCount > 0) {
+            document.getElementById("spinner").style.display = "none";
+            gl.uniformMatrix4fv(u_view, false, actualViewMatrix);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.drawArraysInstanced(gl.TRIANGLE_FAN, 0, 4, vertexCount);
+            drawSky(viewProj, inv2);
+        } else {
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            drawSky(viewProj, inv2);
+            document.getElementById("spinner").style.display = "";
+            start = Date.now() + 2000;
+        }
+        const progress = (100 * vertexCount) / (splatData.length / rowLength);
+        if (progress < 100) {
+            document.getElementById("progress").style.width = progress + "%";
+        } else {
+            document.getElementById("progress").style.display = "none";
+        }
+        fps.innerText = Math.round(avgFps) + " fps";
+        if (isNaN(currentCameraIndex)) {
+            camid.innerText = "";
+        }
+        lastFrame = now;
+        requestAnimationFrame(frame);
+    };
+
+    frame();
+
+    const isPly = (splatData) =>
+        splatData[0] == 112 &&
+        splatData[1] == 108 &&
+        splatData[2] == 121 &&
+        splatData[3] == 10;
+
+    const selectFile = (file) => {
+        const fr = new FileReader();
+        if (/\.json$/i.test(file.name)) {
+            fr.onload = () => {
+                cameras = JSON.parse(fr.result);
+                viewMatrix = getViewMatrix(cameras[0]);
+                projectionMatrix = getProjectionMatrix(
+                    camera.fx / downsample,
+                    camera.fy / downsample,
+                    canvas.width,
+                    canvas.height,
+                );
+                gl.uniformMatrix4fv(u_projection, false, projectionMatrix);
+
+                console.log("Loaded Cameras");
+            };
+            fr.readAsText(file);
+        } else {
+            stopLoading = true;
+            fr.onload = () => {
+                splatData = new Uint8Array(fr.result);
+                console.log("Loaded", Math.floor(splatData.length / rowLength));
+
+                if (isPly(splatData)) {
+                    // ply file magic header means it should be handled differently
+                    worker.postMessage({ ply: splatData.buffer, save: true });
+                } else {
+                    worker.postMessage({
+                        buffer: splatData.buffer,
+                        vertexCount: Math.floor(splatData.length / rowLength),
+                    });
+                }
+            };
+            fr.readAsArrayBuffer(file);
+        }
+    };
+
+    window.addEventListener("hashchange", (e) => {
+        try {
+            viewMatrix = JSON.parse(decodeURIComponent(location.hash.slice(1)));
+            carousel = false;
+        } catch (err) {}
+    });
+
+    const preventDefault = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+    document.addEventListener("dragenter", preventDefault);
+    document.addEventListener("dragover", preventDefault);
+    document.addEventListener("dragleave", preventDefault);
+    document.addEventListener("drop", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        selectFile(e.dataTransfer.files[0]);
+    });
+
+    // VESPER: File menu wiring - Open uses the exact same load path as
+    // drag & drop (selectFile); Save View snapshots the canvas.
+    const fileBtn = document.getElementById("fileBtn");
+    const fileMenu = document.getElementById("fileMenu");
+    const fileIn = document.getElementById("fileIn");
+    fileBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        fileMenu.classList.toggle("open");
+    });
+    document.addEventListener("click", () => fileMenu.classList.remove("open"));
+    document.getElementById("openItem").addEventListener("click", () => {
+        fileMenu.classList.remove("open");
+        fileIn.click();
+    });
+    fileIn.addEventListener("change", () => {
+        if (fileIn.files.length) selectFile(fileIn.files[0]);
+        fileIn.value = "";
+    });
+    document.getElementById("saveItem").addEventListener("click", () => {
+        fileMenu.classList.remove("open");
+        canvas.toBlob((blob) => {
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "owlsight-view.png";
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+        });
+    });
+
+    let bytesRead = 0;
+    let lastVertexCount = -1;
+    let stopLoading = false;
+
+    // STOIC OPPOSITION SITE BUILD: fetch and reassemble the default
+    // scene from its base64 chunks (richie-road-park/part-00.b64 through
+    // part-08.b64, served next to this file; 2,000,000 raw bytes per
+    // part, 16,980,736 total). Same delivery pattern as the Nov 22, 2026
+    // Richie Road publish: every part is size-checked before it is
+    // trusted, and one bad part fails the whole scene rather than
+    // rendering a torn one. GitHub's file pushes cap out well below
+    // 17 MB, which is why the scene travels in pieces.
+    if (!urlParam) {
+        const PART_COUNT = 9;
+        const PART_BYTES = 2000000;
+        try {
+            const assembled = new Uint8Array(DEFAULT_TOTAL_BYTES);
+            let offset = 0;
+            for (let n = 0; n < PART_COUNT && !stopLoading; n++) {
+                const name =
+                    "richie-road-park/part-" +
+                    String(n).padStart(2, "0") +
+                    ".b64";
+                const res = await fetch(name, { credentials: "omit" });
+                if (res.status != 200)
+                    throw new Error(res.status + " Unable to load " + res.url);
+                const bin = atob((await res.text()).replace(/\s+/g, ""));
+                const want =
+                    n < PART_COUNT - 1
+                        ? PART_BYTES
+                        : DEFAULT_TOTAL_BYTES - PART_BYTES * (PART_COUNT - 1);
+                if (bin.length !== want)
+                    throw new Error(name + " has wrong size");
+                for (let k = 0; k < bin.length; k++)
+                    assembled[offset + k] = bin.charCodeAt(k);
+                offset += bin.length;
+            }
+            if (!stopLoading) {
+                if (offset !== DEFAULT_TOTAL_BYTES)
+                    throw new Error("Richie Road Park scene incomplete");
+                splatData = assembled;
+                bytesRead = DEFAULT_TOTAL_BYTES;
+                document.getElementById("message").style.display = "none";
+            }
+        } catch (e) {
+            console.warn(
+                "Default scene failed to load; drag & drop a .splat or .ply file.",
+                e,
+            );
+            splatData = new Uint8Array(0);
+            const messageEl = document.getElementById("message");
+            messageEl.style.display = "";
+            messageEl.innerText =
+                "Open a .splat or .ply file (File menu, top left) or drop it here.";
+        }
+    }
+
+    while (reader) {
+        const { done, value } = await reader.read();
+        if (done || stopLoading) break;
+
+        splatData.set(value, bytesRead);
+        bytesRead += value.length;
+
+        if (vertexCount > lastVertexCount) {
+            if (!isPly(splatData)) {
+                worker.postMessage({
+                    buffer: splatData.buffer,
+                    vertexCount: Math.floor(bytesRead / rowLength),
+                });
+            }
+            lastVertexCount = vertexCount;
+        }
+    }
+    if (!stopLoading) {
+        if (isPly(splatData)) {
+            // ply file magic header means it should be handled differently
+            worker.postMessage({ ply: splatData.buffer, save: false });
+        } else {
+            worker.postMessage({
+                buffer: splatData.buffer,
+                vertexCount: Math.floor(bytesRead / rowLength),
+            });
+        }
+    }
+}
+
+main().catch((err) => {
+    document.getElementById("spinner").style.display = "none";
+    document.getElementById("message").innerText = err.toString();
+});
+
+</script>
+</body>
+</html>
